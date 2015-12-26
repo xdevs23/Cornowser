@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/zero_padding"
+    android:paddingLeft="@dimen/zero_padding"
+    android:paddingRight="@dimen/zero_padding"
+    android:paddingTop="@dimen/zero_padding"
+    tools:context="io.xdevs23.cornowser.browser.CornBrowser">
+
+
+</RelativeLayout>
