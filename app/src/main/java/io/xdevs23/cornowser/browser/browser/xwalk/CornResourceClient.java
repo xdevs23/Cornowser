@@ -7,6 +7,8 @@ import org.xwalk.core.XWalkView;
 import org.xwalk.core.XWalkWebResourceRequest;
 import org.xwalk.core.XWalkWebResourceResponse;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
+
 public class CornResourceClient extends XWalkResourceClient {
 
     public CornResourceClient(XWalkView view) {
@@ -21,11 +23,13 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         super.onLoadStarted(view, url);
+        CornBrowser.browserInputBar.setText(url);
     }
 
     @Override
     public void onLoadFinished(XWalkView view, String url) {
         super.onLoadFinished(view, url);
+        CornBrowser.browserInputBar.setText(url);
     }
 
     @Override

@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.config.ConfigUtils;
+import org.xdevs23.debugUtils.Logging;
 import org.xdevs23.debugUtils.StackTraceParser;
 import org.xdevs23.ui.utils.BarColors;
 import org.xwalk.core.XWalkView;
@@ -26,6 +30,8 @@ public class CornBrowser extends XquidCompatActivity {
             omnibox                 = null,
             publicWebRenderLayout   = null
             ;
+
+    public static EditText browserInputBar = null;
 
     private static View staticView;
     private static Context staticContext;
@@ -55,11 +61,32 @@ public class CornBrowser extends XquidCompatActivity {
 
         publicWebRenderLayout.addView(publicWebRender);
 
+        initAll();
+
         publicWebRender.load(BrowserDefaults.HOME_URL, null);
     }
 
-    public void initOmnibox() {
+    public void initAll() {
+        initOmnibox();
+    }
 
+    public void initOmnibox() {
+        browserInputBar         = (EditText) findViewById(R.id.omnibox_input_bar);
+
+
+        browserInputBar.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT) {
+                    InputMethodManager imm =
+                            (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    publicWebRender.load(((EditText)v).getText().toString(), null);
+                } else Logging.logd(KeyEvent.keyCodeToString(keyCode));
+                return false;
+            }
+        });
     }
 
     public static View getView() {

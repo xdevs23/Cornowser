@@ -3,13 +3,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width ="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/corn_root_view"
-    android:paddingBottom   ="@dimen/zero_padding"
-    android:paddingLeft     ="@dimen/zero_padding"
-    android:paddingRight    ="@dimen/zero_padding"
-    android:paddingTop      ="@dimen/zero_padding"
+    android:paddingBottom="@dimen/zero_padding"
+    android:paddingLeft="@dimen/zero_padding"
+    android:paddingRight="@dimen/zero_padding"
+    android:paddingTop="@dimen/zero_padding"
     android:background="@color/white"
     tools:context="io.xdevs23.cornowser.browser.CornBrowser">
 
@@ -74,8 +75,15 @@
             android:layout_alignParentStart ="true"
             android:layout_alignParentRight ="true"
             android:layout_alignParentEnd   ="true"
-            android:background="@color/separator_semi_transparent">
-        </RelativeLayout>
+            android:background="@color/separator_semi_transparent" />
+
+        <com.rey.material.widget.ProgressView
+            android:id="@+id/omnibox_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blue_600_t"
+            app:theme="@style/Crunchy.ProgressView.Linear.Determinate.Main"/>
 
     </RelativeLayout>
 

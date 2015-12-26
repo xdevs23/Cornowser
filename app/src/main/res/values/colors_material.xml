@@ -8,6 +8,10 @@
     Harshad Kale
     https://github.com/kalehv
     harshad.kale@gmail.com
+
+    ###
+
+    Modified by xdevs23
 -->
 
 
@@ -27,6 +31,9 @@
     <color name="red_A200">#FF5252</color>
     <color name="red_A400">#FF1744</color>
     <color name="red_A700">#D50000</color>
+
+    <color name="red_500_st">#A0F44336</color>
+    <color name="red_500_t">#56F44336</color>
 
     <color name="deep_purple_50">#EDE7F6</color>
     <color name="deep_purple_100">#D1C4E9</color>
@@ -57,6 +64,8 @@
     <color name="light_blue_A200">#40C4FF</color>
     <color name="light_blue_A400">#00B0FF</color>
     <color name="light_blue_A700">#0091EA</color>
+
+    <color name="light_blue_500_st">#A003A9F4</color>
 
     <color name="green_50">#E8F5E9</color>
     <color name="green_100">#C8E6C9</color>
@@ -229,6 +238,9 @@
     <color name="blue_A200">#448AFF</color>
     <color name="blue_A400">#2979FF</color>
     <color name="blue_A700">#2962FF</color>
+
+    <color name="blue_500_st">#A02196F3</color>
+    <color name="blue_600_t">#561E88E5</color>
 
     <color name="teal_50">#E0F2F1</color>
     <color name="teal_100">#B2DFDB</color>

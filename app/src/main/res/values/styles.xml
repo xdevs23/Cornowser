@@ -1,4 +1,5 @@
 <resources>
+    <style name="Crunchy" />
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -15,6 +16,25 @@
     <style name="CoreMTRLTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style
+        name="Crunchy.ProgressView"
+        parent="Material.Widget.ProgressView" />
+
+    <style
+        name="Crunchy.ProgressView.Linear"
+        parent="Material.Widget.ProgressView.Linear" />
+
+    <style
+        name="Crunchy.ProgressView.Linear.Determinate"
+        parent="Material.Widget.ProgressView.Linear"/>
+
+    <style
+        name="Crunchy.ProgressView.Linear.Determinate.Main"
+        parent="Crunchy.ProgressView.Linear.Determinate">
+        <item name="cpd_strokeColor">@color/blue_600</item>
     </style>
 
 </resources>
