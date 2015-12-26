@@ -8,4 +8,4 @@ The modern premium web browser for Android
 This browser is intended to be **fast**, **modern** and **inituitive**.
 Powered by the Crosswalk Apache Cordova render engine, basing on Chromium, this browser is as powerful and modern, as you get it from modern Chromium releases.
 
-**Warning: **This project is still in development phase.
+**Warning:** This project is still in development phase.
