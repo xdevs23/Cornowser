@@ -58,6 +58,10 @@ public class CornBrowser extends XquidCompatActivity {
         publicWebRender.load(BrowserDefaults.HOME_URL, null);
     }
 
+    public void initOmnibox() {
+
+    }
+
     public static View getView() {
         return staticView;
     }

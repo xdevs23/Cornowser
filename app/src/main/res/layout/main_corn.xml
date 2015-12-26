@@ -39,7 +39,7 @@
             android:layout_alignParentLeft  ="true"
             android:layout_alignParentBottom="true"
             android:background="@color/white_semi_less_transparent">
-            <android.support.v7.widget.AppCompatEditText
+            <EditText
                 android:id="@+id/omnibox_input_bar"
                 android:layout_width ="match_parent"
                 android:layout_height="match_parent"
@@ -49,6 +49,7 @@
                 android:inputType="textUri"
                 android:textCursorDrawable="@drawable/main_textcursordrawable"
                 android:background="@null"
+                android:theme="@style/Crunchy.BrowserInputBar"
                 android:textColorHint="@color/dark_semi_transparent"
                 android:hint="@string/omnibox_inputbar_hint" />
         </RelativeLayout>
