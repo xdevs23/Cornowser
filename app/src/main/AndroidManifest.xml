@@ -21,7 +21,7 @@
         android:uiOptions="none"
         android:extractNativeLibs="false"
         android:multiArch="true"
-        android:theme="@style/Xquid_NoActionBar">
+        android:theme="@style/CoreMTRLTheme">
         <activity android:name=".CornBrowser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

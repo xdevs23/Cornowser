@@ -3,13 +3,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width ="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/corn_root_view"
-    android:paddingBottom="@dimen/zero_padding"
-    android:paddingLeft="@dimen/zero_padding"
-    android:paddingRight="@dimen/zero_padding"
-    android:paddingTop="@dimen/zero_padding"
+    android:paddingBottom   ="@dimen/zero_padding"
+    android:paddingLeft     ="@dimen/zero_padding"
+    android:paddingRight    ="@dimen/zero_padding"
+    android:paddingTop      ="@dimen/zero_padding"
     android:background="@color/white"
     tools:context="io.xdevs23.cornowser.browser.CornBrowser">
 
@@ -23,21 +23,58 @@
         android:layout_alignParentLeft  ="true"
         android:layout_alignParentRight ="true"
         android:layout_alignParentBottom="false"
+        android:paddingTop   ="8dp"
+        android:paddingLeft  ="8dp"
+        android:paddingStart ="8dp"
+        android:paddingRight ="8dp"
+        android:paddingBottom="8dp"
         android:background="@color/colorPrimary">
 
-        <RelativeLayout
-            android:id="@+id/omnibox_seperator"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/omnibox_input_bar"
+            android:layout_width ="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop   ="true"
+            android:layout_alignParentStart ="true"
+            android:layout_alignParentLeft  ="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/grey_600">
+            android:typeface="sans"
+            android:singleLine="true"
+            android:imeOptions="actionGo"
+            android:inputType="textUri"
+            android:textCursorDrawable="@color/blue_600"
+            android:background="@color/white_semi_transparent"
+            android:textColorHint="@color/dark_semi_transparent"
+            android:hint="@string/omnibox_inputbar_hint" />
+
+        <RelativeLayout
+            android:id="@+id/omnibox_controls"
+            android:layout_height="wrap_content"
+            android:layout_width ="wrap_content"
+            android:layout_toRightOf="@id/omnibox_input_bar"
+            android:layout_toEndOf="@id/omnibox_input_bar"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/omnibox_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft  ="true"
+            android:layout_alignParentStart ="true"
+            android:layout_alignParentRight ="true"
+            android:layout_alignParentEnd   ="true"
+            android:background="@color/separator_semi_transparent">
         </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/webrender_layout"
-        android:layout_width="match_parent"
+        android:layout_width ="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart ="true"
@@ -46,12 +83,6 @@
         android:layout_alignParentRight ="true"
         android:layout_alignParentTop   ="false"
         android:layout_below="@id/omnibox_layout">
-
-        <org.xwalk.core.XWalkView
-            android:id="@+id/webrender_xwalkview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </org.xwalk.core.XWalkView>
 
     </RelativeLayout>
 

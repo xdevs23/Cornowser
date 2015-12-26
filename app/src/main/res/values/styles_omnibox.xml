@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Crunchy" />
+
+    <style name="Crunchy.BrowserInputBar" parent="Base.Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:background">@color/full_transparent</item>
+    </style>
+
+</resources>
