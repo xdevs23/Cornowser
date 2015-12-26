@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import org.xdevs23.config.ConfigUtils;
+import org.xdevs23.debugUtils.StackTraceParser;
 import org.xwalk.core.XWalkView;
 
 public class CornBrowser extends AppCompatActivity {
@@ -27,6 +29,17 @@ public class CornBrowser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_corn);
+
+        if(ConfigUtils.isDebuggable())
+            Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(Thread thread, Throwable ex) {
+                    StackTraceParser.logStackTrace(ex);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(0);
+                    finish();
+                }
+            });
 
         staticActivity = this;
         staticContext  = this.getApplicationContext();
