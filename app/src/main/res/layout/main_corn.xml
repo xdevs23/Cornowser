@@ -30,29 +30,35 @@
         android:paddingBottom="8dp"
         android:background="@color/colorPrimary">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/omnibox_input_bar"
-            android:layout_width ="wrap_content"
+        <RelativeLayout
+            android:id="@+id/omnibox_input_bar_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop   ="true"
             android:layout_alignParentStart ="true"
             android:layout_alignParentLeft  ="true"
             android:layout_alignParentBottom="true"
-            android:typeface="sans"
-            android:singleLine="true"
-            android:imeOptions="actionGo"
-            android:inputType="textUri"
-            android:textCursorDrawable="@color/blue_600"
-            android:background="@color/white_semi_transparent"
-            android:textColorHint="@color/dark_semi_transparent"
-            android:hint="@string/omnibox_inputbar_hint" />
+            android:background="@color/white_semi_less_transparent">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/omnibox_input_bar"
+                android:layout_width ="match_parent"
+                android:layout_height="match_parent"
+                android:typeface="sans"
+                android:singleLine="true"
+                android:imeOptions="actionGo"
+                android:inputType="textUri"
+                android:textCursorDrawable="@drawable/main_textcursordrawable"
+                android:background="@null"
+                android:textColorHint="@color/dark_semi_transparent"
+                android:hint="@string/omnibox_inputbar_hint" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/omnibox_controls"
             android:layout_height="wrap_content"
             android:layout_width ="wrap_content"
-            android:layout_toRightOf="@id/omnibox_input_bar"
-            android:layout_toEndOf="@id/omnibox_input_bar"
+            android:layout_toRightOf="@id/omnibox_input_bar_layout"
+            android:layout_toEndOf="@id/omnibox_input_bar_layout"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true">
 
