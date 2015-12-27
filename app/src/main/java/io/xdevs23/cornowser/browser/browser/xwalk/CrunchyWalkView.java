@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import org.xdevs23.debugUtils.Logging;
 import org.xwalk.core.XWalkView;
+
+import java.util.regex.Matcher;
 
 public class CrunchyWalkView extends XWalkView {
 
@@ -13,6 +16,7 @@ public class CrunchyWalkView extends XWalkView {
     private CornUIClient       uiClient;
 
     private void init() {
+        Logging.logd("Initializing our crunchy XWalkView :P");
         resourceClient  = new CornResourceClient(this);
         uiClient        = new CornUIClient      (this);
         setResourceClient(getResourceClient());
@@ -36,5 +40,16 @@ public class CrunchyWalkView extends XWalkView {
 
     public CornUIClient getUIClient() {
         return uiClient;
+    }
+
+    @Override
+    public void load(String url, String content) {
+        Matcher urlRegExMatcher     = CornResourceClient.urlRegEx   .matcher(url);
+        Matcher urlSecRegExMatcher  = CornResourceClient.urlSecRegEx.matcher(url);
+        String nUrl = url;
+        if(urlRegExMatcher.matches()) nUrl = url;
+        else if(urlSecRegExMatcher.matches()) nUrl = "http://" + url;
+        else nUrl = "https://google.com/search?q=" + url.replace(" ", "+");
+        super.load(nUrl, content);
     }
 }

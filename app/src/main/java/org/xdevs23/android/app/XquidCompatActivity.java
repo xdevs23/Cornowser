@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import org.xdevs23.config.ConfigUtils;
+import org.xdevs23.debugUtils.Logging;
 import org.xdevs23.debugUtils.StackTraceParser;
 
 public class XquidCompatActivity extends AppCompatActivity {
@@ -14,6 +15,8 @@ public class XquidCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Logging.logd("DEBUG ENABLED");
 
         if(ConfigUtils.isDebuggable())
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {

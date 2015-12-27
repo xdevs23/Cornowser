@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.rey.material.widget.ProgressView;
+
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugUtils.Logging;
@@ -45,12 +47,16 @@ public class CornBrowser extends XquidCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_corn);
 
+        Logging.logd("Initializing static fields");
+
         staticActivity  = this;
         staticContext   = this.getApplicationContext();
         staticView      = findViewById(R.id.corn_root_view);
         staticWindow    = this.getWindow();
 
         browserStorage = new BrowserStorage();
+
+        Logging.logd("Initializing views");
 
         publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
         publicWebRenderLayout   = (RelativeLayout)  findViewById(R.id.webrender_layout);
@@ -67,10 +73,12 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     public void initAll() {
+        Logging.logd("Initializing...");
         initOmnibox();
     }
 
     public void initOmnibox() {
+        Logging.logd("  ... Omnibox");
         browserInputBar         = (EditText) findViewById(R.id.omnibox_input_bar);
 
 
@@ -78,11 +86,11 @@ public class CornBrowser extends XquidCompatActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT) {
                     InputMethodManager imm =
-                            (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    publicWebRender.load(((EditText)v).getText().toString(), null);
+                    publicWebRender.load(((EditText) v).getText().toString(), null);
                 } else Logging.logd(KeyEvent.keyCodeToString(keyCode));
                 return false;
             }
@@ -109,8 +117,17 @@ public class CornBrowser extends XquidCompatActivity {
         return browserStorage;
     }
 
+    public static CrunchyWalkView getWebEngine() {
+        return publicWebRender;
+    }
+
+    public static ProgressView getWebProgressBar() {
+        return ((ProgressView) staticView.findViewById(R.id.omnibox_progressbar));
+    }
+
     @Override
     protected void onPause() {
+        Logging.logd("Activity paused.");
         super.onPause();
         if (publicWebRender != null) {
             publicWebRender.pauseTimers();
@@ -120,6 +137,7 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     protected void onResume() {
+        Logging.logd("Activity resumed.");
         super.onResume();
         if (publicWebRender != null) {
             publicWebRender.resumeTimers();
@@ -129,6 +147,7 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Logging.logd("Activity destroyed.");
         super.onDestroy();
         if (publicWebRender != null)
             publicWebRender.onDestroy();
@@ -136,6 +155,7 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Logging.logd("Activity result received.");
         if (publicWebRender != null)
             publicWebRender.onActivityResult(requestCode, resultCode, data);
 
@@ -143,6 +163,7 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        Logging.logd("New intent!");
         if (publicWebRender != null)
             publicWebRender.onNewIntent(intent);
 

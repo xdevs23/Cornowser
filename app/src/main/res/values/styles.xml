@@ -35,6 +35,9 @@
         name="Crunchy.ProgressView.Linear.Determinate.Main"
         parent="Crunchy.ProgressView.Linear.Determinate">
         <item name="cpd_strokeColor">@color/blue_600</item>
+        <item name="cpd_strokeSecondaryColor">@color/blue_500_st</item>
+        <item name="android:background">@color/blue_600_t</item>
+        <item name="pv_progress">0</item>
     </style>
 
 </resources>

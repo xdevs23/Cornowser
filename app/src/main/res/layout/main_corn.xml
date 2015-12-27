@@ -52,7 +52,9 @@
                 android:background="@null"
                 android:theme="@style/Crunchy.BrowserInputBar"
                 android:textColorHint="@color/dark_semi_transparent"
-                android:hint="@string/omnibox_inputbar_hint" />
+                android:hint="@string/omnibox_inputbar_hint"
+                android:selectAllOnFocus="true"
+                android:textStyle="normal" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -77,15 +79,17 @@
             android:layout_alignParentEnd   ="true"
             android:background="@color/separator_semi_transparent" />
 
-        <com.rey.material.widget.ProgressView
-            android:id="@+id/omnibox_progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/blue_600_t"
-            app:theme="@style/Crunchy.ProgressView.Linear.Determinate.Main"/>
-
     </RelativeLayout>
+
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/omnibox_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignBottom="@id/omnibox_layout"
+        android:theme="@style/Crunchy.ProgressView.Linear.Determinate.Main"
+        app:pv_autostart="false"
+        app:pv_progressStyle="@style/Crunchy.ProgressView.Linear.Determinate.Main"
+        app:pv_progressMode="determinate" />
 
     <RelativeLayout
         android:id="@+id/webrender_layout"
