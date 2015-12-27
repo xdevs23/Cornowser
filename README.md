@@ -15,3 +15,9 @@ This browser achieves **517** out of **555** points in the [HTML5Test](http://ht
 Google Chrome Dev for Android achieves **519** (for Linux achieves **522**) points and the WebView on KitKat achieves **404**.
 
 According to these results **this browser is ready for HTML5**.
+
+Chrome Dev score:
+![cds](http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png)
+
+Cornowser score:
+![cbs](http://xdevs23.bplaced.com/upload/img/Cornowser_htscore.png)
