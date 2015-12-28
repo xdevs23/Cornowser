@@ -1,14 +1,12 @@
 # Cornowser
-The modern premium web browser for Android
+The modern premium web browser for Android. This project is still in development phase.
 
-<sub>If you are looking for a **lightweight and fast** web browser, take a look at [UltimateBrowserProject](http://github.com/Thunderbottom/UltimateBrowserProject)</sub>
 
 <hr />
 
-This browser is intended to be **fast**, **modern** and **inituitive**.
+Cornowser is intended to be **fast**, **modern** and **inituitive**.
 Powered by the Crosswalk Apache Cordova render engine, basing on Chromium, this browser is as powerful and modern, as you get it from latest Chromium releases.
 
-**Warning:** This project is still in development phase.
 
 <hr />
 This browser achieves **517** out of **555** points in the [HTML5Test](http://html5test.com).
@@ -16,8 +14,8 @@ Google Chrome Dev for Android achieves **519** (for Linux achieves **522**) poin
 
 According to these results **this browser is ready for HTML5**.
 
-Chrome Dev score:
+### Chrome Dev score:
 ![cds](http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png)
 
-Cornowser score:
+### Cornowser score:
 ![cbs](http://xdevs23.bplaced.com/upload/img/Cornowser_htscore.png)
