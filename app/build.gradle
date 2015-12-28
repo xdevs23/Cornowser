@@ -17,19 +17,27 @@ android {
         applicationId "io.xdevs23.cornowser.browser"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1000000001
-        versionName "1.0.0.0"
-        multiDexEnabled true
+        versionCode 1000000001      // Use YYYYMMDDNN, year month day rev,
+                                    // rev: 0X-2X release, 3X-5X beta, 6X-8X alpha, 9X nightly
+                                    // Example: 2016010101 is first release on January 1, 2016
+                                    //          2016010235 is fifth beta release on January 2, 2016
+                                    //          2016010476 is 16th alpha release on January 4, 2016
+                                    //          2016020199 is ninth nightly on February 1, 2016
+                                    //          I think not that you can release 16 alphas on one day,
+                                    //          but we need to keep this format for the (coming) updater to
+                                    //          work correctly. :D
+        versionName "1.0.0.0"       // Version name
+        multiDexEnabled true        // For the libs to work correctly
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false     // Is it necessary? I think not.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     dexOptions {
-        preDexLibraries false
+        preDexLibraries false       // For the libs to work better
     }
 }
 
