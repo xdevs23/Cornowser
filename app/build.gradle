@@ -31,6 +31,7 @@ android {
         versionName "1.0.0.0"       // Version name
         multiDexEnabled true        // For the libs to work correctly
     }
+
     buildTypes {
         release {
             minifyEnabled false     // Is it necessary? I think not.
