@@ -15,7 +15,7 @@ Google Chrome Dev for Android achieves **519** (for Linux achieves **522**) poin
 According to these results **this browser is ready for HTML5**.
 
 ### Chrome Dev score:
-![cds](http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png)
+<img src="http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png" width="320" />
 
 ### Cornowser score:
-![cbs](http://xdevs23.bplaced.com/upload/img/Cornowser_htscore.png)
+<img src="http://xdevs23.bplaced.com/upload/img/Cornowser_htscore.png" width="320" />
