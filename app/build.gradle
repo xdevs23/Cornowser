@@ -42,6 +42,8 @@ android {
     dexOptions {
         preDexLibraries false       // For the libs to work better
     }
+
+
 }
 
 dependencies {
@@ -49,18 +51,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Apache Commons
-    compile 'org.apache.commons:commons-collections4:+'
     compile 'org.apache.commons:commons-io:+'
-    compile 'org.apache.commons:commons-lang3:+'
 
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
-
-    // Okio
-    compile 'com.squareup.okio:okio:+'
-
-    // OkHttp
-    compile 'com.squareup.okhttp:okhttp:+'
 
     // Apache Cordova Crosswalk
     compile 'org.xwalk:xwalk_core_library_beta:+'

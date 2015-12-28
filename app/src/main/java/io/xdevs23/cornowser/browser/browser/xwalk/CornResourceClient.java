@@ -6,7 +6,6 @@ import android.webkit.ValueCallback;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugUtils.Logging;
-import org.xdevs23.io.stream.InputStreamUtils;
 import org.xdevs23.net.http.HttpStatusCodeHelper;
 import org.xwalk.core.ClientCertRequest;
 import org.xwalk.core.XWalkHttpAuthHandler;
@@ -17,8 +16,6 @@ import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
-
-import okhttp3.OkHttpClient;
 
 /**
  * A cool "resource client" for our crunchy view
