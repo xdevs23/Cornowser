@@ -3,7 +3,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import org.xdevs23.debugUtils.Logging;
 import org.xwalk.core.XWalkView;
@@ -19,8 +18,8 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("Initializing our crunchy XWalkView :P");
         resourceClient  = new CornResourceClient(this);
         uiClient        = new CornUIClient      (this);
-        setResourceClient(getResourceClient());
-        setUIClient(getUIClient());
+        setResourceClient(getResourceClient ());
+        setUIClient      (getUIClient       ());
     }
 
     /** Don't use this! **/
@@ -49,7 +48,8 @@ public class CrunchyWalkView extends XWalkView {
         String nUrl = url;
         if(urlRegExMatcher.matches()) nUrl = url;
         else if(urlSecRegExMatcher.matches()) nUrl = "http://" + url;
-        else nUrl = "https://google.com/search?q=" + url.replace(" ", "+");
+        else nUrl = "https://google.com/search?q=" + url
+                    .replace("+", "%2B").replace(" ", "+"); // What is C++ -> What+is+C%2B%2B
         super.load(nUrl, content);
     }
 }

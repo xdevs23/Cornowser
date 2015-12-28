@@ -5,11 +5,7 @@ import org.xdevs23.debugUtils.Logging;
 import org.xwalk.core.XWalkHttpAuthHandler;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
-import org.xwalk.core.XWalkWebResourceRequest;
-import org.xwalk.core.XWalkWebResourceResponse;
-import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -22,7 +18,8 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlRegEx = Pattern.compile(
             "(" +
-                    "(^(https|http|ftp|file|rtmp)://.*[.].*)|" +    // Protocols for adresses
+                    "(^(https|http|ftp|rtmp)://.*[.].*)|" +         // Protocols for adresses
+                    "^(file:///).*|" +                              // Local files
                     "(javascript:).*" +                             // Javascript
 
                     ")"

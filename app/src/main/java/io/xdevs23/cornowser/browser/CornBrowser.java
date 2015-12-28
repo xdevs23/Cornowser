@@ -14,11 +14,8 @@ import android.widget.RelativeLayout;
 import com.rey.material.widget.ProgressView;
 
 import org.xdevs23.android.app.XquidCompatActivity;
-import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugUtils.Logging;
-import org.xdevs23.debugUtils.StackTraceParser;
 import org.xdevs23.ui.utils.BarColors;
-import org.xwalk.core.XWalkView;
 
 import io.xdevs23.cornowser.browser.browser.BrowserDefaults;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
