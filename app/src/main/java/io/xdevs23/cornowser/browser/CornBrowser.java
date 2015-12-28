@@ -17,7 +17,6 @@ import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugUtils.Logging;
 import org.xdevs23.ui.utils.BarColors;
 
-import io.xdevs23.cornowser.browser.browser.BrowserDefaults;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
@@ -44,8 +43,41 @@ public class CornBrowser extends XquidCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_corn);
 
-        Logging.logd("Initializing static fields");
+        initAll();
 
+        publicWebRender.load(browserStorage.getUserHomePage(), null);
+    }
+
+    /**
+     * Initialize everything
+     */
+    public void initAll() {
+        Logging.logd("Initializing...");
+        preInit();
+        init();
+    }
+
+    /**
+     * Initialize some stuff before getting started
+     */
+    public void preInit() {
+        initStaticFields();
+        BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
+    }
+
+    /**
+     * Main initialization
+     */
+    public void init() {
+        initOmnibox();
+        initWebXWalkEngine();
+    }
+
+    /**
+     * Initialize static fields
+     */
+    public void initStaticFields() {
+        Logging.logd("Initializing static fields");
         staticActivity  = this;
         staticContext   = this.getApplicationContext();
         staticView      = findViewById(R.id.corn_root_view);
@@ -53,29 +85,24 @@ public class CornBrowser extends XquidCompatActivity {
 
         browserStorage = new BrowserStorage();
 
-        Logging.logd("Initializing views");
+    }
 
-        publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
+    /**
+     * Initialize the XWalkView and its parent layout,
+     * then add the crunchy web engine to the layout :D
+     */
+    public void initWebXWalkEngine() {
         publicWebRenderLayout   = (RelativeLayout)  findViewById(R.id.webrender_layout);
-
-        omnibox                 = (RelativeLayout)  findViewById(R.id.omnibox_layout);
-
-        BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
-
+        publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
         publicWebRenderLayout.addView(publicWebRender);
-
-        initAll();
-
-        publicWebRender.load(BrowserDefaults.HOME_URL, null);
     }
 
-    public void initAll() {
-        Logging.logd("Initializing...");
-        initOmnibox();
-    }
-
+    /**
+     * Initialize the omnibox
+     */
     public void initOmnibox() {
         Logging.logd("  ... Omnibox");
+        omnibox                 = (RelativeLayout)  findViewById(R.id.omnibox_layout);
         browserInputBar         = (EditText) findViewById(R.id.omnibox_input_bar);
 
 
@@ -94,30 +121,59 @@ public class CornBrowser extends XquidCompatActivity {
         });
     }
 
+    /**
+     * @return Static root view
+     */
     public static View getView() {
         return staticView;
     }
 
+    /**
+     * @return Static context
+     */
     public static Context getContext() {
         return staticContext;
     }
 
+    /**
+     * @return Static activity
+     */
     public static Activity getActivity() {
         return staticActivity;
     }
 
+    /**
+     * @return Static window
+     */
     public static Window getStaticWindow() {
         return staticWindow;
     }
 
+    /**
+     * @return The actual browser storage
+     */
     public static BrowserStorage getBrowserStorage() {
         return browserStorage;
     }
 
+    /**
+     * @return Our delicious and crunchy web engine :D
+     */
     public static CrunchyWalkView getWebEngine() {
         return publicWebRender;
     }
 
+
+    /**
+     * @return The requested string
+     */
+    public static String getRStr(int resId) {
+        return staticContext.getString(resId);
+    }
+
+    /**
+     * @return Progress bar (shows actual loading progress)
+     */
     public static ProgressView getWebProgressBar() {
         return ((ProgressView) staticView.findViewById(R.id.omnibox_progressbar));
     }

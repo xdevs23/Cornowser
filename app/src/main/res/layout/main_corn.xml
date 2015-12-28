@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- This is the root layout -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,6 +15,7 @@
     android:background="@color/white"
     tools:context="io.xdevs23.cornowser.browser.CornBrowser">
 
+    <!-- Omnibox -->
     <RelativeLayout
         android:id="@+id/omnibox_layout"
         android:layout_width="match_parent"
@@ -81,6 +83,7 @@
 
     </RelativeLayout>
 
+    <!-- Don't forget our progress bar -->
     <com.rey.material.widget.ProgressView
         android:id="@+id/omnibox_progressbar"
         android:layout_width="match_parent"
@@ -89,8 +92,10 @@
         android:theme="@style/Crunchy.ProgressView.Linear.Determinate.Main"
         app:pv_autostart="false"
         app:pv_progressStyle="@style/Crunchy.ProgressView.Linear.Determinate.Main"
-        app:pv_progressMode="determinate" />
+        app:pv_progressMode="determinate"
+        app:pv_progress="0" />
 
+    <!-- And the layout for our crunchy XWalkView -->
     <RelativeLayout
         android:id="@+id/webrender_layout"
         android:layout_width ="match_parent"
@@ -102,6 +107,8 @@
         android:layout_alignParentRight ="true"
         android:layout_alignParentTop   ="false"
         android:layout_below="@id/omnibox_layout">
+
+        <!-- The view will be added here while init -->
 
     </RelativeLayout>
 

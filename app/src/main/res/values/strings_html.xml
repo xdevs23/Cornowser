@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
+
+    <!-- Error page -->
+    <string name="html_error_title">Error </string>
+    <string name="html_error_body_info">
+        An error occurred while loading the web page: %s\n
+        \n
+        Please make sure that you are connected to the internet.\n
+        \n
+        If the problem persists and you can access the web page you want to load
+        on other browsers, submit an issue on GitHub.
+    </string>
+
+
+    <!-- General -->
+    <string name="html_reload_btn_value">Reload</string>
+
 </resources>

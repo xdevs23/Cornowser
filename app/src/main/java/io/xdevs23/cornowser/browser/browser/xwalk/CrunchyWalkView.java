@@ -9,6 +9,9 @@ import org.xwalk.core.XWalkView;
 
 import java.util.regex.Matcher;
 
+/**
+ * A delicious and crunchy XWalkView with awesome features
+ */
 public class CrunchyWalkView extends XWalkView {
 
     private CornResourceClient resourceClient;
@@ -22,7 +25,7 @@ public class CrunchyWalkView extends XWalkView {
         setUIClient      (getUIClient       ());
     }
 
-    /** Don't use this! **/
+    /* Don't use this! */
     public CrunchyWalkView(Context context) {
         super(context);
         init();
@@ -43,6 +46,7 @@ public class CrunchyWalkView extends XWalkView {
 
     @Override
     public void load(String url, String content) {
+        if(url == null) { super.load(null, content); return; }
         Matcher urlRegExMatcher     = CornResourceClient.urlRegEx   .matcher(url);
         Matcher urlSecRegExMatcher  = CornResourceClient.urlSecRegEx.matcher(url);
         String nUrl = url;
