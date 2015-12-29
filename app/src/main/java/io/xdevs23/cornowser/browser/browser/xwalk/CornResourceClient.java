@@ -62,15 +62,16 @@ public class CornResourceClient extends XWalkResourceClient {
             return true;
         }
         Logging.logd("Starting url loading");
+        CornBrowser.getWebProgressBar().setProgress(0);
         return super.shouldOverrideUrlLoading(view, url);
     }
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         Logging.logd("Web load started");
-        CornBrowser.getWebProgressBar().setProgress(0);
         super.onLoadStarted(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
+        CornBrowser.getWebProgressBar().makeVisible();
     }
 
     @Override
