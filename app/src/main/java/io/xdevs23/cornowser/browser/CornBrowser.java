@@ -11,11 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import com.rey.material.widget.ProgressView;
-
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.utils.BarColors;
+import org.xdevs23.ui.widget.ProgressBarView;
 
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
@@ -36,7 +35,7 @@ public class CornBrowser extends XquidCompatActivity {
     private static Activity staticActivity;
     private static Window staticWindow;
 
-    private static ProgressView webProgressBar;
+    private static ProgressBarView webProgressBar;
 
     private static BrowserStorage browserStorage;
 
@@ -54,7 +53,7 @@ public class CornBrowser extends XquidCompatActivity {
      * Initialize everything
      */
     public void initAll() {
-        Logging.logd("Initializing...");
+        Logging.logd("Initialization started.");
         preInit();
         init();
     }
@@ -71,6 +70,7 @@ public class CornBrowser extends XquidCompatActivity {
      * Main initialization
      */
     public void init() {
+        Logging.logd("Initializing...");
         initOmnibox();
         initWebXWalkEngine();
     }
@@ -94,6 +94,7 @@ public class CornBrowser extends XquidCompatActivity {
      * then add the crunchy web engine to the layout :D
      */
     public void initWebXWalkEngine() {
+        Logging.logd("    Our crunchy web engine");
         publicWebRenderLayout   = (RelativeLayout)  findViewById(R.id.webrender_layout);
         publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
         publicWebRenderLayout.addView(publicWebRender);
@@ -106,7 +107,7 @@ public class CornBrowser extends XquidCompatActivity {
         Logging.logd("    Omnibox");
         omnibox                 = (RelativeLayout)      findViewById(R.id.omnibox_layout);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
-        webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
+        webProgressBar          = (ProgressBarView)     findViewById(R.id.omnibox_progressbar);
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
 
@@ -176,7 +177,7 @@ public class CornBrowser extends XquidCompatActivity {
     /**
      * @return Progress bar (shows actual loading progress)
      */
-    public static ProgressView getWebProgressBar() {
+    public static ProgressBarView getWebProgressBar() {
         return webProgressBar;
     }
 

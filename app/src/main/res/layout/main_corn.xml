@@ -83,19 +83,14 @@
 
     </RelativeLayout>
 
-    <!-- Don't forget our progress bar -->
-    <com.rey.material.widget.ProgressView
+    <!-- Don't forget our wonderful progress bar -->
+    <org.xdevs23.ui.widget.ProgressBarView
         android:id="@+id/omnibox_progressbar"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="3dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/omnibox_height"
-        android:translationY="-2dp"
-        android:theme="@style/Crunchy.ProgressView.Linear.Determinate.Main"
-        app:pv_autostart="false"
-        app:pv_progressStyle="@style/Crunchy.ProgressView.Linear.Determinate.Main"
-        app:pv_progressMode="determinate"
-        app:pv_progress="0" />
+        android:translationY="-3dp" />
 
     <!-- And the layout for our crunchy XWalkView -->
     <RelativeLayout
