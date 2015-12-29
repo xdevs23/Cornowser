@@ -16,6 +16,7 @@ import com.rey.material.widget.ProgressView;
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugUtils.Logging;
 import org.xdevs23.ui.utils.BarColors;
+import org.xwalk.core.XWalkSettings;
 
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;

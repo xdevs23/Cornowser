@@ -23,6 +23,8 @@ import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
  */
 public class CornResourceClient extends XWalkResourceClient {
 
+    public String currentWorkingUrl = "about:blank";
+
     public CornResourceClient(XWalkView view) {
         super(view);
     }
@@ -56,7 +58,8 @@ public class CornResourceClient extends XWalkResourceClient {
                     url,
                     CornBrowser.getActivity(),
                     CrunchyWalkView.fromXWalkView(view),
-                    view.getUrl());
+                    view.getUrl(),
+                    this);
             return true;
         }
         Logging.logd("Starting url loading");
@@ -77,6 +80,7 @@ public class CornResourceClient extends XWalkResourceClient {
         Logging.logd("Web load finished");
         super.onLoadFinished(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
+        currentWorkingUrl = view.getUrl();
     }
 
     @Override
