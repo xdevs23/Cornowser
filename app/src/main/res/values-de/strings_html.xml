@@ -5,12 +5,14 @@
     <!-- Error page -->
     <string name="html_error_title">Fehler </string>
     <string name="html_error_body_info">
-        Ein Fehler ist während des Ladens der angeforderten Webseite aufgetreten: %s\n
-        \n
-        Bitte stelle sicher, dass du mit dem Internet verbunden bist und versuche es erneut.\n
-        \n
+        <![CDATA[
+        Ein Fehler ist während des Ladens der angeforderten Webseite aufgetreten: %s<br />
+        <br />
+        Bitte stelle sicher, dass du mit dem Internet verbunden bist und versuche es erneut.<br />
+        <br />
         Falls das Problem besteht und andere Browser die angeforderte Webseite problemlos
         laden können, erstelle auf GitHub einen Fehlerbericht.
+        ]]>
     </string>
 
 

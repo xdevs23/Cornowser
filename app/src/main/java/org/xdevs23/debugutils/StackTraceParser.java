@@ -1,4 +1,4 @@
-package org.xdevs23.debugUtils;
+package org.xdevs23.debugutils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

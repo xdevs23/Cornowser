@@ -5,4 +5,10 @@
 
     <!-- No margins / paddings -->
     <dimen name="zero_padding">0dp</dimen>
+
+
+
+    <dimen name="omnibox_height">56dp</dimen>
+
+
 </resources>

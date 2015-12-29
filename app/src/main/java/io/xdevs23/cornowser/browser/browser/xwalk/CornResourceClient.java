@@ -5,7 +5,7 @@ import android.net.http.SslError;
 import android.webkit.ValueCallback;
 
 import org.xdevs23.android.content.res.AssetHelper;
-import org.xdevs23.debugUtils.Logging;
+import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.http.HttpStatusCodeHelper;
 import org.xwalk.core.ClientCertRequest;
 import org.xwalk.core.XWalkHttpAuthHandler;
@@ -24,10 +24,6 @@ import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 public class CornResourceClient extends XWalkResourceClient {
 
     public String currentWorkingUrl = "about:blank";
-
-    public CornResourceClient(XWalkView view) {
-        super(view);
-    }
 
     public static Pattern urlRegEx = Pattern.compile(
             "(" +
@@ -49,6 +45,10 @@ public class CornResourceClient extends XWalkResourceClient {
 
                     ")"
     );
+
+    public CornResourceClient(XWalkView view) {
+        super(view);
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(XWalkView view, String url) {
@@ -86,8 +86,9 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
-        Logging.logd("\033[1A\033[K\rActual loading progress: " + percentage);
+        Logging.logd("Actual loading progress: " + percentage);
         CornBrowser.getWebProgressBar().setProgress(percentage / 100);
+        CornBrowser.getWebProgressBar().refreshDrawableState();
     }
 
     @Override

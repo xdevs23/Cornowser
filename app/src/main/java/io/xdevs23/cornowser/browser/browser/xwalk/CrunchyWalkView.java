@@ -5,7 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 
-import org.xdevs23.debugUtils.Logging;
+import org.xdevs23.config.AppConfig;
+import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
 
@@ -20,21 +21,23 @@ public class CrunchyWalkView extends XWalkView {
     private CornUIClient       uiClient;
 
     public static String userAgent =
-            "Mozilla/5.0 (" + Build.DEVICE + "; Android " + Build.VERSION.RELEASE + ") " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/1.0.0.0 Crosswalk/17 Chrome/49.0.2593.0 Safari/537.36";
+            "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
+                    "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/" +
+                    AppConfig.versionName + " Chrome/49.0.2593.0 Mobile Safari/601.1";
 
     private void init() {
         Logging.logd("Initializing our crunchy XWalkView :P");
         resourceClient  = new CornResourceClient(this);
         uiClient        = new CornUIClient      (this);
         setResourceClient(getResourceClient());
-        setUIClient      (getUIClient());
+        setUIClient(getUIClient());
 
         XWalkSettings crispySettings = this.getSettings();
 
-        crispySettings.setInitialPageScale(1);
-        crispySettings.setTextZoom(0);
+        String oldUA = crispySettings.getUserAgentString();
+        Logging.logd("Predefined user agent: " + oldUA);
         crispySettings.setUserAgentString(userAgent);
+        Logging.logd("New user agent: " + userAgent);
     }
 
     /* Don't use this! */

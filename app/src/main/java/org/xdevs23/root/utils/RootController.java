@@ -1,6 +1,6 @@
 package org.xdevs23.root.utils;
 
-import org.xdevs23.debugUtils.Logging;
+import org.xdevs23.debugutils.Logging;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

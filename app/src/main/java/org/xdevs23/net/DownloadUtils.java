@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import org.xdevs23.config.AppConfig;
-import org.xdevs23.debugUtils.StackTraceParser;
+import org.xdevs23.debugutils.StackTraceParser;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -58,6 +58,12 @@ public class DownloadUtils {
 		customLength = length;
 	}
 
+    public  static final int defaultBuf
+            =    octaKilo;
+
+    private static final int oneKiloByte
+            = singleKilo;
+
 	/**
 	 * @deprecated <p style="text-decoration:none;font-weight:500;color:#FFAAAA;">Use <code>setProgressBar</code> instead.</p>
 	 * @param pb
@@ -78,12 +84,8 @@ public class DownloadUtils {
 		progressUpdateBar = (ProgressBar) view.findViewById(id);
 	}
 	
-	public  static final int defaultBuf 
-						=    octaKilo;
-	
-	private static final int oneKiloByte
-					    = singleKilo;
-	
+
+
 	public  static class ContextManagement {
 		
 		private static Context activeContext = null;
@@ -112,7 +114,7 @@ public class DownloadUtils {
 	}
 	
 	public static String downloadString(String url) {
-		String dS = new String();
+		String dS = "";
 		try {
 			DownloadStringAsync asyncSDownloader = new DownloadStringAsync();
 			dS = asyncSDownloader.execute(new String[] {url}).get();
@@ -161,13 +163,12 @@ public class DownloadUtils {
 	//////////////////////////////////////////////
 
 	static class DownloadAsync extends AsyncTask < String, String, String > {
+
+        private long lengthOfFile = 1;
 		
 		private void logt(String loginfo) {
 			Log.d(AppConfig.appName, "(DownloadAsync) " + loginfo);
 		}
-		
-		long lengthOfFile = 1;
-	
 		
 		@Override
 		protected String doInBackground(String... fDUrl) {

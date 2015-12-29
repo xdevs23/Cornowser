@@ -2,10 +2,6 @@ package io.xdevs23.cornowser.browser.browser;
 
 public class BrowserStorage {
 
-    public BrowserStorage() {
-
-    }
-
     private String
             userHomePage = BrowserDefaults.HOME_URL
             ;

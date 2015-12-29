@@ -1,7 +1,7 @@
 package org.xdevs23.io.stream;
 
 import org.apache.commons.io.IOUtils;
-import org.xdevs23.debugUtils.StackTraceParser;
+import org.xdevs23.debugutils.StackTraceParser;
 
 import java.io.InputStream;
 

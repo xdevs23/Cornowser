@@ -1,4 +1,4 @@
-package org.xdevs23.debugUtils;
+package org.xdevs23.debugutils;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import org.xdevs23.config.ConfigUtils;
 
 public class Logging {
 
-    static String TAG = AppConfig.debugTag;
+    private static String TAG = AppConfig.debugTag;
 
     /**
      * Deprecated. Use <code>ConfigUtils.isDebuggable()</code> instead.

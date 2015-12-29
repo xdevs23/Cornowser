@@ -2,7 +2,7 @@ package io.xdevs23.cornowser.browser.browser.modules;
 
 import android.app.Activity;
 
-import org.xdevs23.debugUtils.StackTraceParser;
+import org.xdevs23.debugutils.StackTraceParser;
 
 import io.xdevs23.cornowser.browser.browser.xwalk.CornResourceClient;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
@@ -10,7 +10,8 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 public class CornHandler {
 
     public enum CornRequests {
-        loadWorkingUrl
+        loadWorkingUrl,
+        setWebThemeColor
     }
 
     public static void handleRequest(String req, Activity activity,
@@ -30,6 +31,9 @@ public class CornHandler {
         try {
             switch(CornRequests.valueOf(mainReq)) {
                 case loadWorkingUrl: view.load(resClient.currentWorkingUrl, null); break;
+                case setWebThemeColor:
+
+                    break;
                 default: break;
             }
         } catch(Exception ex) {

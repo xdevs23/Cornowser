@@ -1,9 +1,7 @@
-package org.xdevs23.debugUtils;
+package org.xdevs23.debugutils;
 
 
 public class DebugTestException extends Exception {
-
-    public DebugTestException() { super(); }
 
     public static void printActualStack() {
         try { throw new DebugTestException(); }
