@@ -32,3 +32,6 @@ proguard/
 
 # PRIVATE keystore
 privatekey.jks
+
+# Codacy Coverage Reporter directory
+codacy/
