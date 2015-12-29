@@ -1,4 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
     maven {
@@ -7,6 +19,7 @@ repositories {
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -55,6 +68,11 @@ dependencies {
 
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
+
+    // Crashlytics
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
 
     // Apache Cordova Crosswalk
     compile 'org.xwalk:xwalk_core_library_beta:+'

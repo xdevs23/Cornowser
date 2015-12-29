@@ -74,7 +74,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onReceivedLoadError(XWalkView view, int errorCode, String description, String failingUrl) {
-        Logging.logd("Web load error on url: " + failingUrl + ", description: " + description);
+        Logging.logd("Web load error on url: " + failingUrl + ", description: " + description + ", err " + errorCode);
         String errHtmlContent =
                 String.format(
 
