@@ -95,7 +95,6 @@ public class ProgressBarView extends RelativeLayout {
         innerProgressBar.animate()
                 .setDuration(120)
                 .translationX(0)
-                .alpha(0)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -104,7 +103,28 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        thisView.setVisibility(INVISIBLE);
+                        thisView.animate().setDuration(80).alpha(0)
+                                .setListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animation) {
+                                        // Not needed
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        thisView.setVisibility(INVISIBLE);
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animation) {
+                                        // Not needed
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animation) {
+                                        // Not needed
+                                    }
+                                });
                     }
 
                     @Override
