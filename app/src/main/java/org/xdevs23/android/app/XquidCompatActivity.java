@@ -1,13 +1,15 @@
 package org.xdevs23.android.app;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugUtils.Logging;
 import org.xdevs23.debugUtils.StackTraceParser;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+import org.xdevs23.ui.utils.BarColors;
+
+import io.xdevs23.cornowser.browser.R;
 
 public class XquidCompatActivity extends AppCompatActivity {
 
@@ -27,5 +29,8 @@ public class XquidCompatActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
+        BarColors.enableBarColoring(this.getWindow(),
+                ContextCompat.getColor(this.getApplicationContext(), R.color.colorPrimaryDark));
     }
 }
