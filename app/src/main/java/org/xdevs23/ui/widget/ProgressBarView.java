@@ -63,14 +63,14 @@ public class ProgressBarView extends RelativeLayout {
         if(progress > 1) progress /= 100;
         final float fProgress = progress;
         final RelativeLayout thisView = this;
-        Logging.logd(fProgress);
         innerProgressBar.animate()
                 .setDuration(80)
-                .translationX(this.getWidth() - (this.getWidth() * progress))
+                .translationX(-(this.getWidth() - (this.getWidth() * progress)))
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         if (thisView.getVisibility() == INVISIBLE) {
+                            Logging.logd("Progress will be visible now");
                             thisView.setVisibility(VISIBLE);
                             thisView.animate().setDuration(80).alpha(1);
                         }
@@ -88,6 +88,7 @@ public class ProgressBarView extends RelativeLayout {
                                     @Override
                                     public void onAnimationEnd(Animator animation) {
                                         thisView.setVisibility(INVISIBLE);
+                                        Logging.logd("progress invisible now");
                                     }
 
                                     @Override
