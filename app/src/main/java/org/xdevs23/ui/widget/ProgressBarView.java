@@ -62,7 +62,7 @@ public class ProgressBarView extends RelativeLayout {
     public void setProgress(float progress) {
         if(progress > 1) progress /= 100;
         final float fProgress = progress;
-        final RelativeLayout thisView = this;
+        final ProgressBarView thisView = this;
         innerProgressBar.animate()
                 .setDuration(80)
                 .translationX(-(this.getWidth() - (this.getWidth() * progress)))
@@ -70,7 +70,6 @@ public class ProgressBarView extends RelativeLayout {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         if (thisView.getVisibility() == INVISIBLE) {
-                            Logging.logd("Progress will be visible now");
                             thisView.setVisibility(VISIBLE);
                             thisView.animate().setDuration(80).alpha(1);
                         }
@@ -78,29 +77,36 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (fProgress == 1.0) thisView.animate().setDuration(240).alpha(0)
-                                .setListener(new Animator.AnimatorListener() {
-                                    @Override
-                                    public void onAnimationStart(Animator animation) {
 
-                                    }
+                    }
 
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        thisView.setVisibility(INVISIBLE);
-                                        Logging.logd("progress invisible now");
-                                    }
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
 
-                                    @Override
-                                    public void onAnimationCancel(Animator animation) {
+                    }
 
-                                    }
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
 
-                                    @Override
-                                    public void onAnimationRepeat(Animator animation) {
+                    }
+                }).start();
+    }
 
-                                    }
-                                }).start();
+    public void endProgress() {
+        final ProgressBarView thisView = this;
+        innerProgressBar.animate()
+                .setDuration(120)
+                .translationX(0)
+                .alpha(0)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        thisView.setVisibility(INVISIBLE);
                     }
 
                     @Override

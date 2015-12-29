@@ -52,7 +52,6 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(XWalkView view, String url) {
-        Logging.logd("");
         if(url.startsWith("CornHandler://")) {
             CornHandler.handleRequest(
                     url,
@@ -68,19 +67,19 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
-        Logging.logd("");
         Logging.logd("Web load started");
+        CornBrowser.getWebProgressBar().setProgress(0);
         super.onLoadStarted(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
     }
 
     @Override
     public void onLoadFinished(XWalkView view, String url) {
-        Logging.logd("");
         Logging.logd("Web load finished");
         super.onLoadFinished(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
         currentWorkingUrl = view.getUrl();
+        CornBrowser.getWebProgressBar().endProgress();
     }
 
     @Override
