@@ -30,7 +30,6 @@ public class XquidCompatActivity extends AppCompatActivity {
                 }
             });
 
-        BarColors.enableBarColoring(this.getWindow(),
-                ContextCompat.getColor(this.getApplicationContext(), R.color.colorPrimaryDark));
+        BarColors.enableBarColoring(this.getWindow(), R.color.colorPrimaryDark);
     }
 }
