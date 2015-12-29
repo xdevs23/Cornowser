@@ -153,7 +153,7 @@ public class DownloadUtils {
 			    br.close();
 			    is.close();
 			} catch (IOException e) {
-
+                StackTraceParser.logStackTrace(e);
 			}
 		
 		return result;
