@@ -36,6 +36,8 @@ public class CornBrowser extends XquidCompatActivity {
     private static Activity staticActivity;
     private static Window staticWindow;
 
+    private static ProgressView webProgressBar;
+
     private static BrowserStorage browserStorage;
 
     @Override
@@ -101,10 +103,10 @@ public class CornBrowser extends XquidCompatActivity {
      * Initialize the omnibox
      */
     public void initOmnibox() {
-        Logging.logd("  ... Omnibox");
-        omnibox                 = (RelativeLayout)  findViewById(R.id.omnibox_layout);
-        browserInputBar         = (EditText) findViewById(R.id.omnibox_input_bar);
-
+        Logging.logd("    Omnibox");
+        omnibox                 = (RelativeLayout)      findViewById(R.id.omnibox_layout);
+        browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
+        webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
 

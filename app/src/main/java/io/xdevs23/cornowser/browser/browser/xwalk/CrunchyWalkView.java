@@ -44,6 +44,10 @@ public class CrunchyWalkView extends XWalkView {
         return uiClient;
     }
 
+    public static CrunchyWalkView fromXWalkView(XWalkView view) {
+        return (CrunchyWalkView)view;
+    }
+
     @Override
     public void load(String url, String content) {
         if(url == null) { super.load(null, content); return; }

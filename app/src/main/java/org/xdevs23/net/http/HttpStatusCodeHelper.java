@@ -86,8 +86,24 @@ public class HttpStatusCodeHelper {
         SERVER_BANDWIDTH_LIMIT_EXCEEDED         (509),
         SERVER_NOT_EXTENDED                     (510),
 
+        // Other (these are not HTTP status codes)
+        ERR_NAME_NOT_RESOLVED                   (100800),
+        DNS_PROBE_FINISHED_NO_INTERNET          (100850),
+        DNS_NOT_REACHABLE                       (100851),
+        ERR_NO_INTERNET                         (100900),
+        ERR_BAD_URL                             (100960),
+        ERR_AUTHENTICATION                      (100980),
+        ERR_CONNECT                             (100984),
+        ERR_UNSUPPORTED_AUTH_SCHEME             (120100),
+        ERR_UNSUPPORTED_SCHEME                  (120101),
+        ERR_FAILED_SSL_HANDSHAKE                (500551),
+        ERR_FILE                                (685113),
+        IO_ERROR                                (101013),
+        TOO_MANY_REDIRECTS                      (990099),
+
         UNKNOWN(0),
-        NONE(Integer.MAX_VALUE)
+        OTHER(Integer.MIN_VALUE),
+        NONE (Integer.MAX_VALUE)
 
         ;
 

@@ -17,8 +17,6 @@ public class XquidCompatActivity extends AppCompatActivity {
 
         Logging.logd("DEBUG ENABLED");
 
-        Fabric.with(this, new Crashlytics());
-
         if(ConfigUtils.isDebuggable())
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                 @Override

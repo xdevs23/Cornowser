@@ -5,10 +5,10 @@
     <!-- Error page -->
     <string name="html_error_title">Error </string>
     <string name="html_error_body_info">
-        An error occurred while loading the web page: %s\n
-        \n
-        Please make sure that you are connected to the internet.\n
-        \n
+        An error occurred while loading the web page: %s<br />
+        <br />
+        Please make sure that you are connected to the internet.<br />
+        <br />
         If the problem persists and you can access the web page you want to load
         on other browsers, submit an issue on GitHub.
     </string>

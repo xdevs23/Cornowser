@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -30,7 +31,8 @@ public class CornResourceClient extends XWalkResourceClient {
             "(" +
                     "(^(https|http|ftp|rtmp)://.*[.].*)|" +         // Protocols for adresses
                     "^(file:///).*|" +                              // Local files
-                    "(javascript:).*" +                             // Javascript
+                    "^(CornHandler://).*|" +                        // Handler
+                    "^(javascript:).*" +                            // Javascript
 
                     ")"
     );
@@ -38,7 +40,7 @@ public class CornResourceClient extends XWalkResourceClient {
     public static Pattern urlSecRegEx = Pattern.compile(
             "(" +
                     "(.*[.].*)|" +                                  // Adresses without protocol
-                    "(localhost).*|" +                              // localhost
+                    "^(localhost).*|" +                             // localhost
                     "(.*[.].*[.].*[.].*)|" +                        // IPv4 adresses
                     "(.*(::|:).*)|" +                               // IPv6 adresses
                     "(.*@.*[.].*)" +                                // user@host.domain
@@ -48,12 +50,22 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(XWalkView view, String url) {
+        Logging.logd("");
+        if(url.startsWith("CornHandler://")) {
+            CornHandler.handleRequest(
+                    url,
+                    CornBrowser.getActivity(),
+                    CrunchyWalkView.fromXWalkView(view),
+                    view.getUrl());
+            return true;
+        }
         Logging.logd("Starting url loading");
         return super.shouldOverrideUrlLoading(view, url);
     }
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
+        Logging.logd("");
         Logging.logd("Web load started");
         super.onLoadStarted(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
@@ -61,6 +73,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onLoadFinished(XWalkView view, String url) {
+        Logging.logd("");
         Logging.logd("Web load finished");
         super.onLoadFinished(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
@@ -69,12 +82,68 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
-        CornBrowser.getWebProgressBar().setProgress((float) percentage / 100);
+        Logging.logd("\033[1A\033[K\rActual loading progress: " + percentage);
+        CornBrowser.getWebProgressBar().setProgress(percentage / 100);
     }
 
     @Override
     public void onReceivedLoadError(XWalkView view, int errorCode, String description, String failingUrl) {
         Logging.logd("Web load error on url: " + failingUrl + ", description: " + description + ", err " + errorCode);
+        HttpStatusCodeHelper.HttpStatusCode statusCode = HttpStatusCodeHelper.HttpStatusCode.NONE;
+        switch(errorCode) {
+            case -1:
+                if(description.contains("network change")) { view.load(failingUrl, null); return; }
+                else statusCode = HttpStatusCodeHelper.HttpStatusCode.UNKNOWN;
+                break;
+            case ERROR_BAD_URL:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_BAD_URL;
+                break;
+            case ERROR_AUTHENTICATION:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_AUTHENTICATION;
+                break;
+            case ERROR_CONNECT:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_CONNECT;
+                break;
+            case ERROR_FAILED_SSL_HANDSHAKE:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_FAILED_SSL_HANDSHAKE;
+                break;
+            case ERROR_FILE:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_FILE;
+                break;
+            case ERROR_FILE_NOT_FOUND:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERROR_NOT_FOUND;
+                break;
+            case ERROR_HOST_LOOKUP:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_NAME_NOT_RESOLVED;
+                break;
+            case ERROR_IO:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.IO_ERROR;
+                break;
+            case ERROR_PROXY_AUTHENTICATION:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERROR_PROXY_AUTHENTICATION_REQUIRED;
+                break;
+            case ERROR_REDIRECT_LOOP:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.TOO_MANY_REDIRECTS;
+                break;
+            case ERROR_TIMEOUT:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERROR_REQUEST_TIME_OUT;
+                break;
+            case ERROR_TOO_MANY_REQUESTS:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERROR_TOO_MANY_REQUESTS;
+                break;
+            case ERROR_UNSUPPORTED_AUTH_SCHEME:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_UNSUPPORTED_AUTH_SCHEME;
+                break;
+            case ERROR_UNSUPPORTED_SCHEME:
+                statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_UNSUPPORTED_SCHEME;
+                break;
+            case 0:  break;
+            default: statusCode = HttpStatusCodeHelper.HttpStatusCode.UNKNOWN;
+        }
+        handleHtError(statusCode, (CrunchyWalkView)view, description, failingUrl);
+    }
+
+    public void handleHtError(int errorCode, CrunchyWalkView view, String description, String failingUrl) {
         String errHtmlContent =
                 String.format(
 
@@ -89,9 +158,13 @@ public class CornResourceClient extends XWalkResourceClient {
                         CornBrowser.getRStr(R.string.html_reload_btn_value) // Reload button
 
                 );
-        CornBrowser.getWebEngine().load(null,
+        view.load(null,
                 AssetHelper.getAssetString("5.html", CornBrowser.getContext())
-                .replace("<!-- BODY -->", errHtmlContent));
+                        .replace("<!-- BODY -->", errHtmlContent));
+    }
+
+    public void handleHtError(HttpStatusCodeHelper.HttpStatusCode ec, CrunchyWalkView v, String d, String f) {
+        handleHtError(ec.getNumVal(), v, d, f);
     }
 
     @Override
