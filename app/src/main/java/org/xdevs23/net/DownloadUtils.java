@@ -53,16 +53,18 @@ public class DownloadUtils {
 	public  static ProgressBar progressUpdateBar    = null;
 	
 	private static long customLength = 4 * 1024 * 1024;
-	
-	public static void setCustomFileLength(long length) {
-		customLength = length;
-	}
 
     public  static final int defaultBuf
             =    octaKilo;
 
     private static final int oneKiloByte
             = singleKilo;
+
+
+    public static void setCustomFileLength(long length) {
+		customLength = length;
+	}
+
 
 	/**
 	 * @deprecated <p style="text-decoration:none;font-weight:500;color:#FFAAAA;">Use <code>setProgressBar</code> instead.</p>
