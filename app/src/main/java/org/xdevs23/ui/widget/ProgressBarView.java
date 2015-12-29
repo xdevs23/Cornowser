@@ -6,10 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
-import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.R;
 
@@ -60,12 +57,13 @@ public class ProgressBarView extends RelativeLayout {
     }
 
     public void setProgress(float progress) {
-        if(progress > 1) progress /= 100;
-        final float fProgress = progress;
+        float nProgress = progress;
+        if(progress > 1) nProgress /= 100;
+        final float fProgress = nProgress;
         final ProgressBarView thisView = this;
         innerProgressBar.animate()
                 .setDuration(80)
-                .translationX(-(this.getWidth() - (this.getWidth() * progress)))
+                .translationX(-(this.getWidth() - (this.getWidth() * nProgress)))
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -77,17 +75,17 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-
+                        // Not needed
                     }
 
                     @Override
                     public void onAnimationCancel(Animator animation) {
-
+                        // Not needed
                     }
 
                     @Override
                     public void onAnimationRepeat(Animator animation) {
-
+                        // Not needed
                     }
                 }).start();
     }
@@ -101,7 +99,7 @@ public class ProgressBarView extends RelativeLayout {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
+                        // Not needed
                     }
 
                     @Override
@@ -111,12 +109,12 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationCancel(Animator animation) {
-
+                        // Not needed
                     }
 
                     @Override
                     public void onAnimationRepeat(Animator animation) {
-
+                        // Not needed
                     }
                 }).start();
     }
