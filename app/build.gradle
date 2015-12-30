@@ -1,16 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:+'
-    }
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
 
 repositories {
     maven {
@@ -19,7 +8,6 @@ repositories {
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
-    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -50,6 +38,10 @@ android {
             minifyEnabled false     // Is it necessary? I think not.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+        }
     }
 
     dexOptions {
@@ -69,14 +61,12 @@ dependencies {
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
 
-    // Crashlytics
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
-    }
-
     // Apache Cordova Crosswalk
     compile 'org.xwalk:xwalk_core_library_beta:+'
 
     // Material library
     compile 'com.github.rey5137:material:1.2.2.1-SNAPSHOT'
+
+    // Google Analytics
+    compile 'com.google.android.gms:play-services-analytics:+'
 }
