@@ -9,6 +9,7 @@
     android:paddingBottom = "16dp"
     android:layout_marginLeft    = "12dp"
     android:layout_marginRight   = "12dp"
-    android:textSize      = "18sp">
+    android:textSize      = "18sp"
+    android:textColor     = "@color/black">
     
 </TextView>

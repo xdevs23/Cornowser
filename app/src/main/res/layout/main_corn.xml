@@ -34,12 +34,16 @@
 
         <RelativeLayout
             android:id="@+id/omnibox_input_bar_layout"
-            android:layout_width="wrap_content"
+            android:layout_width ="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop   ="true"
             android:layout_alignParentStart ="true"
             android:layout_alignParentLeft  ="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight ="false"
+            android:layout_alignParentEnd   ="false"
+            android:layout_toLeftOf="@+id/omnibox_controls"
+            android:layout_toStartOf="@+id/omnibox_controls"
             android:background="@color/white_semi_less_transparent">
             <EditText
                 android:id="@+id/omnibox_input_bar"
@@ -62,25 +66,15 @@
             android:id="@+id/omnibox_controls"
             android:layout_height="wrap_content"
             android:layout_width ="wrap_content"
-            android:layout_toRightOf="@id/omnibox_input_bar_layout"
-            android:layout_toEndOf="@id/omnibox_input_bar_layout"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentEnd  ="true"
             android:layout_alignParentRight="true">
 
-
+            <org.xdevs23.ui.widget.TastyOverflowMenu
+                android:id="@+id/omnibox_control_overflowmenu"
+                android:layout_width="@dimen/omnibox_items_dimen"
+                android:layout_height="@dimen/omnibox_items_dimen" />
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/omnibox_separator"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft  ="true"
-            android:layout_alignParentStart ="true"
-            android:layout_alignParentRight ="true"
-            android:layout_alignParentEnd   ="true"
-            android:background="@color/separator_semi_transparent" />
 
     </RelativeLayout>
 
@@ -92,6 +86,18 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/omnibox_height"
         android:translationY="-3dp" />
+
+    <RelativeLayout
+        android:id="@+id/omnibox_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft  ="true"
+        android:layout_alignParentStart ="true"
+        android:layout_alignParentRight ="true"
+        android:layout_alignParentEnd   ="true"
+        android:layout_marginTop="@dimen/omnibox_height"
+        android:translationY="-1dp"
+        android:background="@color/dark_semi_more_transparent" />
 
     <!-- And the layout for our crunchy XWalkView -->
     <RelativeLayout

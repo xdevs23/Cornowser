@@ -33,7 +33,6 @@ import org.xdevs23.ui.utils.BarColors;
 import java.io.File;
 
 import io.xdevs23.cornowser.browser.R;
-import io.xdevs23.cornowser.browser.R;
 
 @SuppressWarnings("unused")
 public class UpdateActivity extends AppCompatActivity {
@@ -41,27 +40,13 @@ public class UpdateActivity extends AppCompatActivity {
 	private static String appversion = AppConfig.versionName;
 
 	private Activity thisActivity = this;
-	boolean mgo = false;
+	private boolean mgo = false;
 	
 	
 	private static Context staticContext = null;
 	private        Context     myContext = this;
 	
 	private static boolean enableRoot = false;
-	
-	private static void setStaticContext(Context context) {
-		staticContext = context;
-	}
-	
-	public static void startUpdateImmediately(Activity activity, String url) {
-		activity.startActivity(new Intent(activity.getApplicationContext(), UpdateActivity.class));
-		readyToInstallUrl = url;
-	}
-
-    protected static void logt(String msg) {
-        Logging.logd("[Updater] " + msg);
-    }
-	
 	
 	private static       String updateRoot = AppConfig.updateRoot;
 	private static 		 String updaterDir = updateRoot;
@@ -79,13 +64,26 @@ public class UpdateActivity extends AppCompatActivity {
 	public static ProgressView updateBar;
 	public static TextView     updateStatus;
 
-    WebView myWebView;
-    static boolean isDownloadingUpdate = false;
+    private WebView myWebView;
+    private static boolean isDownloadingUpdate = false;
 
     private boolean webloaded = false;
 
     private static UpdateType updateType;
 
+
+    private static void setStaticContext(Context context) {
+        staticContext = context;
+    }
+
+    public static void startUpdateImmediately(Activity activity, String url) {
+        activity.startActivity(new Intent(activity.getApplicationContext(), UpdateActivity.class));
+        readyToInstallUrl = url;
+    }
+
+    protected static void logt(String msg) {
+        Logging.logd("[Updater] " + msg);
+    }
 
     private static class UpdateStatus {
 		

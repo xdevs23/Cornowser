@@ -2,6 +2,8 @@
 
 <resources>
 
-    <string name="app_name">Cornowser</string>
+    <string name="app_name" translatable="false">Cornowser</string>
+
+    <string name="options_menu_title">Options</string>
 
 </resources>

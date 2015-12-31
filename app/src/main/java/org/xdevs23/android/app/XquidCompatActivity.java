@@ -1,7 +1,10 @@
 package org.xdevs23.android.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
@@ -30,5 +33,10 @@ public class XquidCompatActivity extends AppCompatActivity {
             });
 
         BarColors.enableBarColoring(this.getWindow(), R.color.colorPrimaryDark);
+    }
+
+    public static float dp2px(Context context, float dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
     }
 }

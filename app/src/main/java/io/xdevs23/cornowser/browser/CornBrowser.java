@@ -1,9 +1,12 @@
 package io.xdevs23.cornowser.browser;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -13,11 +16,16 @@ import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.utils.BarColors;
+import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.ProgressBarView;
+import org.xdevs23.ui.widget.TastyOverflowMenu;
 
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
+import io.xdevs23.cornowser.browser.updater.UpdateActivity;
+import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
 
 public class CornBrowser extends XquidCompatActivity {
 
@@ -25,7 +33,9 @@ public class CornBrowser extends XquidCompatActivity {
 
     public static RelativeLayout
             omnibox                 = null,
-            publicWebRenderLayout   = null
+            publicWebRenderLayout   = null,
+            omniboxControls         = null,
+            browserInputBarLayout   = null
             ;
 
     public static EditText browserInputBar = null;
@@ -38,6 +48,12 @@ public class CornBrowser extends XquidCompatActivity {
     private static ProgressBarView webProgressBar;
 
     private static BrowserStorage browserStorage;
+
+    private static TastyOverflowMenu overflowMenuLayout;
+
+    private static Handler mHandler;
+
+    private static String newVersionAv = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +78,7 @@ public class CornBrowser extends XquidCompatActivity {
      * Initialize some stuff before getting started
      */
     public void preInit() {
+        mHandler = new Handler();
         initStaticFields();
         BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
     }
@@ -106,8 +123,17 @@ public class CornBrowser extends XquidCompatActivity {
     public void initOmnibox() {
         Logging.logd("    Omnibox");
         omnibox                 = (RelativeLayout)      findViewById(R.id.omnibox_layout);
+        browserInputBarLayout   = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_layout);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
+        omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
         webProgressBar          = (ProgressBarView)     findViewById(R.id.omnibox_progressbar);
+        overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) browserInputBarLayout.getLayoutParams();
+
+        params.width = browserInputBarLayout.getWidth() - omniboxControls.getWidth();
+
+        browserInputBarLayout.setLayoutParams(params);
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
 
@@ -122,6 +148,29 @@ public class CornBrowser extends XquidCompatActivity {
                 return false;
             }
         });
+
+        overflowMenuLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOptionsMenu();
+            }
+        });
+    }
+
+    @Override
+    public void openOptionsMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setAdapter(XDListView.create(getContext(), new String[]{getString(R.string.updater_title)}),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(which) {
+                            case 0: startActivity(new Intent(getContext(), UpdateActivity.class)); break;
+                            default: break;
+                        }
+                    }
+                });
+        builder.create().show();
     }
 
     /**
@@ -166,6 +215,12 @@ public class CornBrowser extends XquidCompatActivity {
         return publicWebRender;
     }
 
+    /**
+     * @return The tasty overflow menu
+     */
+    public static TastyOverflowMenu getOverflowMenu() {
+        return overflowMenuLayout;
+    }
 
     /**
      * @return The requested string
@@ -224,4 +279,44 @@ public class CornBrowser extends XquidCompatActivity {
             publicWebRender.onNewIntent(intent);
 
     }
+
+
+    /* Updater section */
+
+
+    /* This Thread checks for Updates in the Background */
+    private Thread checkUpdate = new Thread() {
+        public void run() {
+            try {
+                String newVer = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE);
+                newVersionAv  = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
+                if(Integer.parseInt(newVer) > getContext().getPackageManager().getPackageInfo(
+                        getApplicationContext().getPackageName(), 0
+                ).versionCode)
+                    mHandler.post(showUpdate);
+
+            } catch (Exception e) { /* Do nothing */ }
+        }
+
+    };
+
+    private Runnable showUpdate = new Runnable() {
+        public void run() {
+            new AlertDialog.Builder(CornBrowser.this)
+                    .setTitle(getContext().getString(R.string.update_available_title))
+                    .setMessage(String.format(getContext().getString(R.string.update_available_message), newVersionAv))
+                    .setPositiveButton(getContext().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            UpdateActivity.startUpdateImmediately(staticActivity, UpdaterStorage.URL_APK);
+                        }
+                    })
+                    .setNegativeButton(getContext().getString(R.string.answer_no), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+    };
+
 }

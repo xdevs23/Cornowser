@@ -71,6 +71,10 @@
         <item name="rd_rippleColor">@color/dark_semi_transparent</item>
     </style>
 
+    <style name="AlertDialog_AppCompat_MainStyle" parent="Base.AlertDialog.AppCompat.Light">
+
+    </style>
+
     <color name="transBlue">#481652FF</color>
 
 </resources>

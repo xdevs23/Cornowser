@@ -17,7 +17,7 @@ android {
         applicationId "io.xdevs23.cornowser.browser"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2015123180      // Use YYYYMMDDNN, year month day rev,
+        versionCode 2015123181      // Use YYYYMMDDNN, year month day rev,
                                     // rev: 0X-2X,9X release, 3X-5X beta, 6X-7X alpha, 8X nightly
                                     // 1000000001 is development phase version code, don't modify it
                                     //          until the updater is implemented
@@ -49,7 +49,9 @@ android {
         preDexLibraries false       // For the libs to work better
     }
 
-
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -61,6 +63,7 @@ dependencies {
 
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
 
     // TODO: Add fabric.io
 
