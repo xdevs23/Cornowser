@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- General -->
+    <string name="answer_yes">Sim</string>
+    <string name="answer_no">Não</string>
+
+    <!-- Root -->
+    <!-- No translations available -->
+
+    <!-- Updater -->
+    <string name="updater_downloading">
+        Descargando
+    </string>
+    <string name="updater_loading">
+        Carregando
+    </string>
+    <string name="updater_updating">
+        Iniciar atualização
+    </string>
+    <string name="updater_button_update_now">
+        Atualizar
+    </string>
+    <string name="updater_awaiting_loading">
+        A carregar...
+    </string>
+    <string name="updater_prefix_actual_version">
+        Versão atual: %s
+    </string>
+    <string name="updater_prefix_latest_version">
+        Versão mais recente: %s
+    </string>
+    <string name="updater_msg_latest_installed">
+        A versão mais recente esta instalada.
+    </string>
+    <string name="updater_msg_new_version">
+        Uma atualização esta dísponivel.
+        A atualização é uma %s.
+    </string>
+    <string name="updater_prefix_changelog_for">
+        Changelog para %s
+    </string>
+    <string name="updater_title">
+        Atualização
+    </string>
+
+</resources>
