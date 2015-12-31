@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 repositories {
     maven {
@@ -61,12 +60,11 @@ dependencies {
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
 
+    // TODO: Add fabric.io
+
     // Apache Cordova Crosswalk
     compile 'org.xwalk:xwalk_core_library_beta:+'
 
     // Material library
     compile 'com.github.rey5137:material:1.2.2.1-SNAPSHOT'
-
-    // Google Analytics
-    compile 'com.google.android.gms:play-services-analytics:8.3.0'
 }
