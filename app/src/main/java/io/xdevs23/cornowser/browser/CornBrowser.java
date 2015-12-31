@@ -62,6 +62,8 @@ public class CornBrowser extends XquidCompatActivity {
 
         initAll();
 
+        checkUpdate.start();
+
         publicWebRender.load(browserStorage.getUserHomePage(), null);
     }
 
