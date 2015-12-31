@@ -32,6 +32,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".updater.UpdateActivity">
+
+        </activity>
     </application>
 
 </manifest>
