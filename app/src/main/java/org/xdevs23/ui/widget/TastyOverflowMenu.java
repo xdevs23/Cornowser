@@ -2,18 +2,23 @@ package org.xdevs23.ui.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 
 import io.xdevs23.cornowser.browser.R;
 
-public class TastyOverflowMenu extends LinearLayout {
+public class TastyOverflowMenu extends ImageButton {
 
     public TastyOverflowMenu(Context context) {
         super(context);
@@ -36,18 +41,23 @@ public class TastyOverflowMenu extends LinearLayout {
     }
 
     public void init(Context context) {
-        this.setGravity(Gravity.CENTER_HORIZONTAL);
-        LayoutParams params = new LayoutParams((int)XquidCompatActivity.dp2px(context, 40),
-                (int)XquidCompatActivity.dp2px(context, 40));
+        int ah = (int)XquidCompatActivity.dp2px(context, 32);
+        RelativeLayout.LayoutParams params =
+                new RelativeLayout.LayoutParams(
+                        ah,
+                        ah);
 
         this.setLayoutParams(params);
 
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_overflow_default);
+
         // Taken from UBP
-        this.setBackgroundResource(R.drawable.ic_action_overflow_default);
+        this.setImageBitmap(Bitmap.createScaledBitmap(bitmap, ah, ah, false));
 
-        this.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.black),
+        this.setColorFilter(ContextCompat.getColor(context, R.color.black),
                 PorterDuff.Mode.MULTIPLY);
-
-
+        this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.full_transparent));
+        this.setMaxHeight(ah);
+        this.setMaxWidth (ah);
     }
 }

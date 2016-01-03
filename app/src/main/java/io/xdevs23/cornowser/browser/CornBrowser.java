@@ -157,6 +157,8 @@ public class CornBrowser extends XquidCompatActivity {
                 openOptionsMenu();
             }
         });
+
+        webProgressBar.setOnCompletedAutoProgressFinish(true);
     }
 
     @Override

@@ -68,7 +68,6 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
-        Logging.logd("Web load started");
         super.onLoadStarted(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
         CornBrowser.getWebProgressBar().makeVisible();
@@ -80,7 +79,6 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onLoadFinished(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
         currentWorkingUrl = view.getUrl();
-        CornBrowser.getWebProgressBar().endProgress();
     }
 
     @Override

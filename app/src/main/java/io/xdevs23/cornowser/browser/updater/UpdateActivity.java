@@ -54,8 +54,6 @@ public class UpdateActivity extends AppCompatActivity {
 	private static       String readyToInstallUrl = "";
 	
 	private static       String updatedApk;
-	private static		 String updApkData = Environment.getDataDirectory() 
-										+ "/data/io.xdevs23.cornowser.browser/files/update/CB.apk";
 
     private static       int    latestVersionCode = 0;
 
@@ -148,15 +146,6 @@ public class UpdateActivity extends AppCompatActivity {
 		updateBar.applyStyle(R.style.ProgressView_MainStyle_Horiz_Determinate);
 		updateBar.setVisibility(View.VISIBLE);
         updateBar.start();
-
-		
-        try {
-            
-            DownloadUtils.setCustomFileLength((long) 2000);
-             
-        } catch (Exception e) {
-            // Ignore
-        } 
 	    
 	    DownloadUtils.downloadFile(url, updatedApk);
 	   
@@ -207,7 +196,7 @@ public class UpdateActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     protected void initThisActivity() {
         if(!webloaded) {
-            updatedApk = (getApplicationContext().getExternalCacheDir() + "/spa-update.apk")
+            updatedApk = (getApplicationContext().getExternalCacheDir() + "/CBUpdate.apk")
                     .replace("//", "/");
 
             updateBar = (ProgressView) findViewById(R.id.updateProgressBar);
@@ -317,8 +306,7 @@ public class UpdateActivity extends AppCompatActivity {
         UpdateStatus.applyLanguages();
 		
 		
-		if(RootController.isSuInstalled())
-			if(RootController.isBusyboxInstalled()) {
+		if(RootController.isSuInstalled() && RootController.isBusyboxInstalled()) {
 				AlertDialog.Builder adB = new AlertDialog.Builder(staticContext);
 				adB.setTitle(getString(R.string.rootutils_root_detect_title))
 				   .setMessage(getString(R.string.rootutils_root_detect_message))
@@ -332,6 +320,7 @@ public class UpdateActivity extends AppCompatActivity {
 								MessageDialog.showDialog(
                                         getString(R.string.rootutils_root_access_failed_title),
                                         getString(R.string.rootutils_root_access_failed), staticContext);
+                                d.dismiss();
 							}
 					   }
 				   })

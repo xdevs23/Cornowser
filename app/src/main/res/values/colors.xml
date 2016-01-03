@@ -23,4 +23,6 @@
     <color name="dark_unnoticeable_transparent">#01000000</color>
 
     <color name="full_transparent">@android:color/transparent</color>
+    
+    <color name="transBlue">#481652FF</color>
 </resources>

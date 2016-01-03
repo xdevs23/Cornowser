@@ -6,11 +6,20 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
+
+import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.R;
 
 public class ProgressBarView extends RelativeLayout {
+
+    private boolean hideOnFinish = false;
+
+    private int lastProgress = 0;
 
     private RelativeLayout innerProgressBar;
 
@@ -53,21 +62,22 @@ public class ProgressBarView extends RelativeLayout {
     }
 
     public void setProgress(int progress) {
-        setProgress((float) progress / 100);
+
+        if (this.getVisibility() == INVISIBLE)
+            this.setVisibility(VISIBLE);
+
+        if (hideOnFinish && progress == 100) { endProgress(); return; }
+
+        if(progress != lastProgress) {
+            innerProgressBar.animate()
+                    .setDuration(80)
+                    .translationX(-(this.getWidth() - (this.getWidth() * progress/100)));
+            lastProgress = progress;
+        }
     }
 
     public void setProgress(float progress) {
-        float nProgress = progress;
-        if(progress > 1) nProgress /= 100;
-
-        if (this.getVisibility() == INVISIBLE) {
-            this.setVisibility(VISIBLE);
-            this.animate().setDuration(80).alpha(1);
-        }
-
-        innerProgressBar.animate()
-                .setDuration(80)
-                .translationX(-(this.getWidth() - (this.getWidth() * nProgress)));
+        setProgress((int)progress*100);
     }
 
     public void endProgress() {
@@ -83,28 +93,7 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        thisView.animate().setDuration(100).alpha(0)
-                                .setListener(new Animator.AnimatorListener() {
-                                    @Override
-                                    public void onAnimationStart(Animator animation) {
-                                        // Not needed
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        thisView.setVisibility(INVISIBLE);
-                                    }
-
-                                    @Override
-                                    public void onAnimationCancel(Animator animation) {
-                                        // Not needed
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animator animation) {
-                                        // Not needed
-                                    }
-                                });
+                        makeInvisible();
                     }
 
                     @Override
@@ -121,5 +110,13 @@ public class ProgressBarView extends RelativeLayout {
 
     public void makeVisible() {
         this.setVisibility(VISIBLE);
+    }
+
+    public void makeInvisible() {
+        this.setVisibility(INVISIBLE);
+    }
+
+    public void setOnCompletedAutoProgressFinish(boolean enable) {
+        hideOnFinish = enable;
     }
 }

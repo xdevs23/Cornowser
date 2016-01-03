@@ -67,12 +67,15 @@
             android:layout_height="wrap_content"
             android:layout_width ="wrap_content"
             android:layout_alignParentEnd  ="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical">
 
             <org.xdevs23.ui.widget.TastyOverflowMenu
                 android:id="@+id/omnibox_control_overflowmenu"
-                android:layout_width="@dimen/omnibox_items_dimen"
-                android:layout_height="@dimen/omnibox_items_dimen" />
+                android:layout_height="wrap_content"
+                android:layout_width ="wrap_content" />
 
         </RelativeLayout>
 
