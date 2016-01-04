@@ -1,9 +1,7 @@
 apply plugin: 'com.android.application'
 
 repositories {
-    maven {
-        url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2/'
-    }
+    mavenLocal()
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
@@ -67,8 +65,9 @@ dependencies {
 
     // TODO: Add fabric.io
 
-    // Apache Cordova Crosswalk
-    compile 'org.xwalk:xwalk_core_library_beta:+'
+    // Apache Cordova Crosswalk (Canary)
+    // See https://goo.gl/xRSxNW for instructions
+    compile 'org.xwalk:xwalk_core_library_canary:18.46.460.0'
 
     // Material library
     compile 'com.github.rey5137:material:1.2.2.1-SNAPSHOT'

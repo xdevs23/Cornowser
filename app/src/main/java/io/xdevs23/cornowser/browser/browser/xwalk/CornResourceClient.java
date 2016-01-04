@@ -85,7 +85,8 @@ public class CornResourceClient extends XWalkResourceClient {
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
-        CornBrowser.getWebProgressBar().setProgress(percentage);
+        if(percentage < 100)CornBrowser.getWebProgressBar().setProgress(percentage);
+        else                CornBrowser.getWebProgressBar().endProgress();
     }
 
     @Override

@@ -39,3 +39,6 @@ codacy/
 # Fabric API keys
 app/fabric.properties
 app/src/main/res/values/fabric_api_settings.xml
+
+# Crosswalk directory with canaries
+crosswalk/
