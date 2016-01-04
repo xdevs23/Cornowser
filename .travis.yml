@@ -29,4 +29,4 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-23
-install: ant deps
+install: gradle clean build connectedCheck
