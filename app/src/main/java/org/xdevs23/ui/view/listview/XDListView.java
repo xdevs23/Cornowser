@@ -19,7 +19,7 @@ public class XDListView {
 	}
 
     public static ArrayAdapter<String> createLittle(Context context, String[] content) {
-        int resource = R.layout.listview_little;
+        int resource = R.layout.listview_little_n;
 
         return new ArrayAdapter<String>(context, resource, content);
     }
