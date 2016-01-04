@@ -1,3 +1,6 @@
+ - Next try to fix root issues in updater
+
+In version 1.0.0.2
  - Fixed cropped changelog (DownloadUtils fix)
  - Trying to fix root issues in updater
 
