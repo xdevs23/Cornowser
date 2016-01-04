@@ -1,5 +1,6 @@
 # Cornowser
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/e26b6905697d4fdfb2a00d6db25decd3)](https://www.codacy.com/app/00simy/Cornowser)<br />
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/e26b6905697d4fdfb2a00d6db25decd3)](https://www.codacy.com/app/00simy/Cornowser)
+![Travis CI Badge](https://travis-ci.org/xdevs23/Cornowser.svg)<br />
 The modern premium web browser for Android. This project is still in development phase.
 
 
