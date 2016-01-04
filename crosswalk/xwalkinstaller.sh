@@ -25,8 +25,8 @@ mvn install:install-file -DgroupId=org.xwalk -DartifactId=xwalk_core_library_can
 
 echo -e "\n\e[7mInstallation finished! You can now use it in gradle.\e[0m\n"
 echo -e "\n\nTo use it in gradle insert following code into your repositories section:"
-echo -e "\n\nrepositories { \n    mavenLocal()\n    // Your other repos\n}"
+echo -e "\n\nrepositories { \n    mavenLocal()\n    \e[92m// Your other repos\e[0m\n}"
 echo -e "\n\nAnd following code in your dependencies:"
-echo -e "\n\ndependencies { \n    compile 'org.xwalk:xwalk_core_library_canary:$1'\n    compile 'org.xwalk:xwalk_core_library_canary_sixtyfour:$1'\n    // Your other dependencies can go here\n}"
+echo -e "\n\ndependencies { \n    compile \e[36m'org.xwalk:xwalk_core_library_canary:$1'\e[0m \e[92m// Remove 64bit line below to use this\e[0m\n    compile \e[36m'org.xwalk:xwalk_core_library_canary_sixtyfour:$1'\e[0m \e[92m// 64-bit only. Remove other line to apply.\e[0m\n    \e[92m// Your other dependencies can go here\e[0m\n}"
 echo -e "\n\n\n\e[1mThank you for using this script.\e[0m\n"
 exit
