@@ -11,12 +11,15 @@ import org.xwalk.core.ClientCertRequest;
 import org.xwalk.core.XWalkHttpAuthHandler;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.XWalkWebResourceRequest;
+import org.xwalk.core.XWalkWebResourceResponse;
 
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
+import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -46,13 +49,15 @@ public class CornResourceClient extends XWalkResourceClient {
                     ")"
     );
 
+    private boolean allowTinting = true;
+
     public CornResourceClient(XWalkView view) {
         super(view);
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(XWalkView view, String url) {
-        if(url.startsWith("CornHandler://")) {
+        if(url.toLowerCase().startsWith("cornhandler://")) {
             CornHandler.handleRequest(
                     url,
                     CornBrowser.getActivity(),
@@ -61,7 +66,7 @@ public class CornResourceClient extends XWalkResourceClient {
                     this);
             return true;
         }
-        Logging.logd("Starting url loading");
+        Logging.logd("Starting url loading '" + url + "'");
         CornBrowser.getWebProgressBar().setProgress(0);
         return super.shouldOverrideUrlLoading(view, url);
     }
@@ -69,16 +74,30 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         super.onLoadStarted(view, url);
+        allowTinting = true;
         CornBrowser.browserInputBar.setText(view.getUrl());
         CornBrowser.getWebProgressBar().makeVisible();
     }
 
     @Override
     public void onLoadFinished(XWalkView view, String url) {
-        Logging.logd("Web load finished");
+        Logging.logd("Web load finished " + url + " " + view.getUrl());
+        if(allowTinting)
+            WebThemeHelper.tintNow((CrunchyWalkView)view);
+        allowTinting = false;
         super.onLoadFinished(view, url);
         CornBrowser.browserInputBar.setText(view.getUrl());
         currentWorkingUrl = view.getUrl();
+    }
+
+    @Override
+    public void onReceivedResponseHeaders(XWalkView view, XWalkWebResourceRequest request, XWalkWebResourceResponse response) {
+        super.onReceivedResponseHeaders(view, request, response);
+    }
+
+    @Override
+    public void onDocumentLoadedInFrame(XWalkView view, long frameId) {
+        super.onDocumentLoadedInFrame(view, frameId);
     }
 
     @Override
@@ -156,7 +175,7 @@ public class CornResourceClient extends XWalkResourceClient {
                         errorCode,
 
                         String.format(CornBrowser.getRStr(R.string.html_error_body_info),
-                                HttpStatusCodeHelper.getStatusCodeString(errorCode)), // Desc
+                                HttpStatusCodeHelper.getStatusCodeString(errorCode)), // Description
 
                         CornBrowser.getRStr(R.string.html_reload_btn_value) // Reload button
 

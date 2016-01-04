@@ -32,6 +32,7 @@
         android:paddingBottom="8dp"
         android:background="@color/colorPrimary">
 
+        <!-- Address bar -->
         <RelativeLayout
             android:id="@+id/omnibox_input_bar_layout"
             android:layout_width ="wrap_content"
@@ -44,7 +45,7 @@
             android:layout_alignParentEnd   ="false"
             android:layout_toLeftOf="@+id/omnibox_controls"
             android:layout_toStartOf="@+id/omnibox_controls"
-            android:background="@color/white_semi_less_transparent">
+            android:background="@color/white_semi_more_transparent">
             <EditText
                 android:id="@+id/omnibox_input_bar"
                 android:layout_width ="match_parent"
@@ -62,6 +63,7 @@
                 android:textStyle="normal" />
         </RelativeLayout>
 
+        <!-- Options -->
         <RelativeLayout
             android:id="@+id/omnibox_controls"
             android:layout_height="wrap_content"
@@ -90,6 +92,7 @@
         android:layout_marginTop="@dimen/omnibox_height"
         android:translationY="-3dp" />
 
+    <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
     <RelativeLayout
         android:id="@+id/omnibox_separator"
         android:layout_width="match_parent"

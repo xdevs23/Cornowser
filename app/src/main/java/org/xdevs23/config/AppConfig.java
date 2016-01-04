@@ -35,11 +35,11 @@ public final class AppConfig {
 				major     =  1   ,
 				minor     =  0   ,
 				build     =  0   ,
-		    	revision  =  0
+		    	revision  =  1
 		;
 		
 		public static boolean
-				useRev = false;
+				useRev = true;
 		
 	}
 

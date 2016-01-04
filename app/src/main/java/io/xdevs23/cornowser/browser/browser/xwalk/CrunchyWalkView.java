@@ -4,6 +4,8 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.view.MotionEvent;
+import android.view.View;
 
 import org.xdevs23.config.AppConfig;
 import org.xdevs23.debugutils.Logging;
@@ -20,6 +22,19 @@ public class CrunchyWalkView extends XWalkView {
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
+    private OnTouchListener onTouchListener = new OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_DOWN: break;
+                case MotionEvent.ACTION_UP:   break;
+                case MotionEvent.ACTION_MOVE: break;
+                default: break;
+            }
+            return false;
+        }
+    };
+
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
                     "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/" +
@@ -27,17 +42,23 @@ public class CrunchyWalkView extends XWalkView {
 
     private void init() {
         Logging.logd("Initializing our crunchy XWalkView :P");
+
+        Logging.logd("    Resource Client");
         resourceClient  = new CornResourceClient(this);
+        Logging.logd("    UI Client");
         uiClient        = new CornUIClient      (this);
+        Logging.logd("    Applying clients");
         setResourceClient(getResourceClient());
         setUIClient(getUIClient());
 
-        XWalkSettings crispySettings = this.getSettings();
+        Logging.logd("    Touch listener");
+        setOnTouchListener(onTouchListener);
 
-        String oldUA = crispySettings.getUserAgentString();
-        Logging.logd("Predefined user agent: " + oldUA);
+        Logging.logd("    Configuring settings");
+        XWalkSettings crispySettings = this.getSettings();
         crispySettings.setUserAgentString(userAgent);
-        Logging.logd("New user agent: " + userAgent);
+
+        Logging.logd("    Done!");
     }
 
     /* Don't use this! */

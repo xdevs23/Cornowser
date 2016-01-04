@@ -164,13 +164,16 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     public void openOptionsMenu() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setAdapter(XDListView.create(getContext(), new String[]{getString(R.string.updater_title)}),
+        builder.setAdapter(XDListView.createLittle(getContext(), new String[]{getString(R.string.updater_title)}),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch(which) {
-                            case 0: startActivity(new Intent(getContext(), UpdateActivity.class)); break;
-                            default: break;
+                        switch (which) {
+                            case 0:
+                                startActivity(new Intent(getContext(), UpdateActivity.class));
+                                break;
+                            default:
+                                break;
                         }
                     }
                 });
@@ -238,6 +241,13 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public static ProgressBarView getWebProgressBar() {
         return webProgressBar;
+    }
+
+    /**
+     * Reset the color of status bar
+     */
+    public static void resetBarColor() {
+        BarColors.updateBarsColor(getStaticWindow(), R.color.colorPrimaryDark, false);
     }
 
     @Override

@@ -5,13 +5,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
@@ -41,6 +40,8 @@ public class TastyOverflowMenu extends ImageButton {
     }
 
     public void init(Context context) {
+        final Context fContext = context;
+
         int ah = (int)XquidCompatActivity.dp2px(context, 32);
         RelativeLayout.LayoutParams params =
                 new RelativeLayout.LayoutParams(
@@ -58,6 +59,20 @@ public class TastyOverflowMenu extends ImageButton {
                 PorterDuff.Mode.MULTIPLY);
         this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.full_transparent));
         this.setMaxHeight(ah);
-        this.setMaxWidth (ah);
+        this.setMaxWidth(ah);
+
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                    ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.dark_semi_more_transparent),
+                            PorterDuff.Mode.MULTIPLY);
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                    ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.black),
+                            PorterDuff.Mode.MULTIPLY);
+
+                return false;
+            }
+        });
     }
 }

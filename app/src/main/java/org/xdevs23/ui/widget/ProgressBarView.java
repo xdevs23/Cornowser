@@ -6,12 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
-
-import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.R;
 
