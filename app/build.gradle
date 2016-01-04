@@ -66,7 +66,7 @@ dependencies {
     // TODO: Add fabric.io
 
     // Apache Cordova Crosswalk (Canary)
-    // See https://goo.gl/xRSxNW for instructions
+    // See https://goo.gl/xRSxNW for instructions or use the installer script in crosswalk/xwalkinstaller.sh
     compile 'org.xwalk:xwalk_core_library_canary:18.46.460.0'
 
     // Material library
