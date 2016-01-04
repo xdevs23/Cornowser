@@ -14,7 +14,7 @@ public final class AppConfig {
 						  String.valueOf(Version.minor)    + dot +
 						  String.valueOf(Version.build)    + dot +
 						  String.valueOf(Version.revision),
-			 mainDevUrl = "http://xdevs23.bplaced.com",
+			 mainDevUrl = "http://xdevs23.bplaced.com/",
 			 updateRoot = mainDevUrl   + "update/",
 			 myDataRoot = Environment.getDataDirectory() + "data/io.xdevs23.cornowser.browser/",
 			 debugTag   = appName,
@@ -35,7 +35,7 @@ public final class AppConfig {
 				major     =  1   ,
 				minor     =  0   ,
 				build     =  0   ,
-		    	revision  =  1
+		    	revision  =  2
 		;
 		
 		public static boolean

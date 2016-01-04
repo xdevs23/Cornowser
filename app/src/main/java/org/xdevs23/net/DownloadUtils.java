@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import org.xdevs23.config.AppConfig;
+import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
+import org.xdevs23.io.stream.InputStreamUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -20,6 +22,8 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 
@@ -79,7 +83,7 @@ public class DownloadUtils {
 	
 
 
-	public  static class ContextManagement {
+	public static class ContextManagement {
 		
 		private static Context activeContext = null;
 		
@@ -121,37 +125,59 @@ public class DownloadUtils {
 	//////////////////////////////////////////////
 	
 	static class DownloadStringAsync extends AsyncTask < String, Integer, String > {
-		
-		@SuppressWarnings("unused")
-		private void logt(String li) {
-			Log.d(AppConfig.appName, "(DownloadSAsync) " + li);
-		}
-		
-		@Override
-		protected String doInBackground(String... dUrl) {
-		    URL uro = null;
-			String result  = null;
-			try {
-				uro = new URL(dUrl[0]);
-			} catch (MalformedURLException e) {
-			    /* */
-            }
 
-			try {
-			    InputStream is = null;
-				is = uro.openStream();
-			    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-				result = br.readLine();
-				
-			    br.close();
-			    is.close();
-			} catch (IOException e) {
-                StackTraceParser.logStackTrace(e);
-			}
-		
-		return result;
-		}
-	}
+        private long lengthOfFile = 1L;
+
+        private void logt(String loginfo) {
+            Logging.logd("(DownloadAsync) " + loginfo);
+        }
+
+        @Override
+        protected String doInBackground(String... fDUrl) {
+            int count;
+            String doUrl = "[NOTHING]";
+            String resultString = "";
+            try {
+                if (fDUrl == null)
+                    logt("fDUrl is null");
+
+
+                logt("Converting url...");
+
+                doUrl = fDUrl[0];
+
+                logt("Connecting...");
+
+                URL url = new URL(doUrl);
+                URLConnection connection = url.openConnection();
+
+                connection.connect();
+
+
+                logt("Total bytes to download: " + String.valueOf(lengthOfFile));
+
+                logt("Preparing download for " + doUrl);
+                InputStream input = new BufferedInputStream(url.openStream(),
+                        defaultBuf);
+
+                logt("Downloading...");
+
+
+                resultString = InputStreamUtils.readToString(input);
+
+                if(resultString.lastIndexOf("\n") == resultString.length() - 1 ||
+                        resultString.lastIndexOf("\r") == resultString.length() - 1)
+                    resultString = resultString.substring(0, resultString.length() - 1);
+
+                input.close();
+
+                logt("Download finished");
+            } catch (Exception e) {
+                logt("Error: " + e.getMessage());
+            }
+            return resultString;
+        }
+    }
 	
 	//////////////////////////////////////////////
 
@@ -160,7 +186,7 @@ public class DownloadUtils {
         private long lengthOfFile = 1L;
 		
 		private void logt(String loginfo) {
-			Log.d(AppConfig.appName, "(DownloadAsync) " + loginfo);
+			Logging.logd("(DownloadAsync) " + loginfo);
 		}
 		
 		@Override

@@ -1,5 +1,8 @@
+ - Fixed cropped changelog (DownloadUtils fix)
+ - Trying to fix root issues in updater
+
+In version 1.0.0.1
  - Fixed updater
- - Automatic tinting
  - Latest Crosswalk Canary version
  - Improvements
  - Bugfixes
