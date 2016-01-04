@@ -1,1 +1,8 @@
-First release
+ - Fixed updater
+ - Automatic tinting
+ - Latest Crosswalk Canary version
+ - Improvements
+ - Bugfixes
+
+Settings are coming! You will be able to set custom preferences and see proper credits to dependency authors and contributors as well as their licenses.
+
