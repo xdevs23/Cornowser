@@ -39,4 +39,5 @@ public class XquidCompatActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
     }
+
 }

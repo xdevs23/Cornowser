@@ -49,6 +49,7 @@ public class CornUIClient extends XWalkUIClient {
     public boolean onJavascriptModalDialog(XWalkView view, XWalkUIClient.JavascriptMessageType type, String url, String message, String defaultValue, XWalkJavascriptResult result) {
         return super.onJavascriptModalDialog(view, type, url, message, defaultValue, result);
     }
+
     public boolean onJsAlert(XWalkView view, String url, String message, XWalkJavascriptResult result) {
         // TODO: handle this thing
         return true;
@@ -63,6 +64,5 @@ public class CornUIClient extends XWalkUIClient {
         // TODO: handle this thing
         return super.onJsPrompt(view, url, message, defaultValue, result);
     }
-
 
 }

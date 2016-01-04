@@ -13,9 +13,10 @@ public class MessageDialog {
 	
 	public static void showDialog(String title, String message, Context context, DialogInterface.OnClickListener onClickListener) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder.setTitle   (title  )
-						  .setMessage (message)
-						  .setPositiveButton(PositiveButtonOK.buttonText, onClickListener);
+		alertDialogBuilder
+                .setTitle   (title  )
+				.setMessage (message)
+				.setPositiveButton(PositiveButtonOK.buttonText, onClickListener);
 		
 		AppCompatDialog alertDialog = alertDialogBuilder.create();
 		

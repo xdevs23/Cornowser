@@ -17,7 +17,7 @@ public class RootController {
 	
 	public static final int RUN_COMMANDS_SAFE_MODE = 0;
 	
-	public static final String EXEC_DONE_RETURN =   "_::[EXEC_DONE]::";
+	public static final String EXEC_DONE_RETURN    = "_::[EXEC_DONE]::";
 	
 	private static void d(String l) {
 		Logging.logd("[RootController] " + l);
@@ -99,8 +99,6 @@ public class RootController {
 	    return baos.toString("UTF-8");
 	}
 
-	
-	
 	/**
 	 * 
 	 * @param cmd Command to execute
@@ -109,7 +107,6 @@ public class RootController {
 	 * @return Result of command execution
 	 * @throws IOException If an error occurs while execution.
 	 */
-	
 	public static String runCommand(String cmd, int customBufSize, boolean readResult) throws IOException {
 			d("(runCommand) Getting root permission...");
 			Process p = Runtime.getRuntime().exec("su");
@@ -147,14 +144,12 @@ public class RootController {
 
 	}
 
-	
 	/**
 	 * 
 	 * @param cmd Command to execute
 	 * @return Result of command execution
 	 * @throws IOException If an error occurs while execution.
 	 */
-	
 	public static String runCommand(String cmd) throws IOException {
 		d("(runCommand*) Overload method runCommand");
 		return runCommand(cmd, 512, true);
@@ -165,7 +160,6 @@ public class RootController {
 	 * @param cmds Commands to execute
 	 * @return Result of commands executions
 	 */
-	
 	public static String[] runCommands(String[] cmds, int safeMode) {
 		int cmdcount = cmds.length;
 		

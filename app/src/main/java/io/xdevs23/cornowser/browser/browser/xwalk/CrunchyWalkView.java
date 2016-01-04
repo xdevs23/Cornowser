@@ -96,4 +96,5 @@ public class CrunchyWalkView extends XWalkView {
                     .replace("+", "%2B").replace(" ", "+"); // What is C++ -> What+is+C%2B%2B
         super.load(nUrl, content);
     }
+
 }

@@ -23,20 +23,16 @@ public class CornHandler {
         Logging.logd("Handling request " + req);
 
         String internalReq = req.split("://")[1];
-        Logging.logd("  Req: " + internalReq);
 
         String reqParts[] = internalReq.split(":");
 
         String mainReq = reqParts[0];
-        Logging.logd("  mainReq: " + mainReq);
 
         String reqParams[] = new String[reqParts.length - 1];
 
         System.arraycopy(reqParts, 1, reqParams, 0, reqParams.length);
-        Logging.logd("  reqParams.length: " + reqParams.length);
 
         try {
-            Logging.logd("  Handling...");
             boolean isFound = false;
             for( CornRequests r : CornRequests.values())
                 if(r.name().toLowerCase().equals(mainReq.toLowerCase()))

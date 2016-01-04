@@ -76,7 +76,6 @@ public class ProgressBarView extends RelativeLayout {
     }
 
     public void endProgress() {
-        final ProgressBarView thisView = this;
         innerProgressBar.animate()
                 .setDuration(480)
                 .translationX(0)

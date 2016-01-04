@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
-
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
 

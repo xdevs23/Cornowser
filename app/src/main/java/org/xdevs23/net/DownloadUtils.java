@@ -21,12 +21,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import io.xdevs23.cornowser.browser.updater.UpdateActivity;
+
 
 public class DownloadUtils {
 	
 	@SuppressWarnings("unused")
-	private static 
-	  final short
+	private static final short
 	    byteIdentifier =  8,   // 0x08
 	    halfByte       =  4,   // 0x04
 	    hexdeCount     =  2,   // 0x02
@@ -38,8 +39,7 @@ public class DownloadUtils {
 	    ;
 	
 	@SuppressWarnings("unused")
-	private static
-	  final int     
+	private static final int
 		singleKilo	= 0x0400, //  1024
 		  dualKilo  = 0x0800, //  2048
 		   triKilo 	= 0x0c00, //  3072
@@ -51,19 +51,10 @@ public class DownloadUtils {
 		 ;
 	
 	public  static ProgressBar progressUpdateBar    = null;
-	
-	private static long customLength = 4 * 1024 * 1024;
 
-    public  static final int defaultBuf
-            =    octaKilo;
-
-    private static final int oneKiloByte
-            = singleKilo;
-
-
-    public static void setCustomFileLength(long length) {
-		customLength = length;
-	}
+    public  static final int
+            defaultBuf  =   octaKilo,
+            oneKiloByte = singleKilo;
 
 
 	/**
@@ -166,7 +157,7 @@ public class DownloadUtils {
 
 	static class DownloadAsync extends AsyncTask < String, String, String > {
 
-        private long lengthOfFile = 1;
+        private long lengthOfFile = 1L;
 		
 		private void logt(String loginfo) {
 			Log.d(AppConfig.appName, "(DownloadAsync) " + loginfo);
@@ -196,7 +187,7 @@ public class DownloadUtils {
 	            	lengthOfFile = Long.parseLong(connection.getHeaderField("Content-Length"));
 	            } catch(Exception ex) {
 	            	logt("Error getting content-length, using custom length");
-	            	lengthOfFile = customLength;
+	            	lengthOfFile = Long.MAX_VALUE;
 	            }
 	            
 	            
@@ -250,16 +241,15 @@ public class DownloadUtils {
 			
 			logt(String.valueOf((int)pd));
 			
-		//	UpdateActivity.updateProgress((int) pd);
+			UpdateActivity.updateProgress((int) pd);
 	    }
 		
 	    @Override
 	    protected void onPostExecute(String result) {
-	    	customLength = 4 * 1024 * 1024;
 	    	logt("Result: " + result);
-	    //	UpdateActivity.endProgress();
+	    	UpdateActivity.endProgress();
 	    	logt("Starting installation...");
-	    //	UpdateActivity.startUpdateInstallation();
+	    	UpdateActivity.startUpdateInstallation();
 	    	progressUpdateBar = null;
 	
 	    }

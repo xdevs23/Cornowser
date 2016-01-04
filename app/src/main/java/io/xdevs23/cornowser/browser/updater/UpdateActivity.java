@@ -47,16 +47,19 @@ public class UpdateActivity extends AppCompatActivity {
 	
 	private static boolean enableRoot = false;
 	
-	private static       String updateRoot = AppConfig.updateRoot;
-	private static 		 String updaterDir = updateRoot;
-	
-	private static       String readyToInstallUrl = "";
-	
-	private static       String updatedApk;
+	private static       String
+            updateRoot = AppConfig.updateRoot,
+	        updaterDir = updateRoot,
 
-    private static       int    latestVersionCode = 0;
+            readyToInstallUrl = "",
 
-    private static       String latestVersionName = "";
+            updatedApk,
+
+            latestVersionName
+
+                    ;
+
+    private static int    latestVersionCode = 0;
 	
 	public static ProgressView updateBar;
 	public static TextView     updateStatus;
@@ -84,8 +87,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     private static class UpdateStatus {
 		
-		public
-		  static String
+		public static String
 		    downloading = "Downloading"			    ,
 		        loading = "Loading"			        ,
 		      launching = "Starting update"			,
@@ -114,7 +116,7 @@ public class UpdateActivity extends AppCompatActivity {
     private static void startNRUpdateInstallation() {
 		File newUpdate   = new File(updatedApk);
 		
-		File newUpdDir   = new File(updatedApk.replace("ubp-update.apk", ""));
+		File newUpdDir   = new File(updatedApk.replace("CBUpdate.apk", ""));
 		
 		boolean successCRND = newUpdDir.mkdirs();
 
@@ -159,10 +161,10 @@ public class UpdateActivity extends AppCompatActivity {
 		try {
             String endR = "";
 			if(enableRoot) endR = RootController.runCommand(
-                    "am force-stop io.github.UltimateBrowserProject && " +
+                    "am force-stop io.xdevs23.cornowser.browser && " +
                             "pm install -r " + updatedApk + " && " +
-                            "am start -n io.github.UltimateBrowserProject/.Activity.BrowserActivity && " +
-                            "am start -n io.github.UltimateBrowserProject/.Activity.UpdateActivity && exit");
+                            "am start -n io.xdevs23.cornowser.browser/.CornBrowser && " +
+                            "am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity && exit");
 			else startNRUpdateInstallation();
 
             if(endR.length() > 0 && endR.toLowerCase().contains("failed")) {

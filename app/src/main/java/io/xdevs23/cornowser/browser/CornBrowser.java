@@ -38,7 +38,7 @@ public class CornBrowser extends XquidCompatActivity {
             browserInputBarLayout   = null
             ;
 
-    public static EditText browserInputBar = null;
+    public  static EditText browserInputBar = null;
 
     private static View staticView;
     private static Context staticContext;
