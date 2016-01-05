@@ -1,4 +1,4 @@
-function() {
+function dc() {
     var webCol;
     try {
         webCol = document.querySelector("meta[name='theme-color']").getAttribute("content").toString();
@@ -20,4 +20,6 @@ function() {
 
     document.location.href = "CornHandler://setWebThemeColor:" + webCol;
     return true;
-}();
+}
+
+dc();
