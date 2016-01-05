@@ -35,14 +35,14 @@ public class CornHandler {
         try {
             boolean isFound = false;
             for( CornRequests r : CornRequests.values())
-                if(r.name().toLowerCase().equals(mainReq.toLowerCase()))
+                if(r.name().equalsIgnoreCase(mainReq))
                     isFound = true;
             if(!isFound) return;
 
             switch(CornRequests.valueOf(mainReq)) {
                 case loadWorkingUrl: view.load(resClient.currentWorkingUrl, null); break;
                 case setWebThemeColor:
-                    if(reqParams[0].toLowerCase().equals("default"))
+                    if(reqParams[0].equalsIgnoreCase("default"))
                         WebThemeHelper.resetWebThemeColor(CornBrowser.omnibox);
                     WebThemeHelper.setWebThemeColor(reqParams[0],
                             CornBrowser.omnibox, CornBrowser.getStaticWindow());
