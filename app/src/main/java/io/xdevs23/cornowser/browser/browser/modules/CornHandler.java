@@ -5,15 +5,23 @@ import android.app.Activity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 
+import java.util.logging.Handler;
+
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.xwalk.CornResourceClient;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class CornHandler {
 
+    public static class HandlerStorage {
+        public static String
+                currentTemplateContent = "";
+    }
+
     public enum CornRequests {
         loadWorkingUrl,
-        setWebThemeColor
+        setWebThemeColor,
+        startTemplateFilling
     }
 
     public static void handleRequest(String req, Activity activity,
@@ -40,12 +48,16 @@ public class CornHandler {
             if(!isFound) return;
 
             switch(CornRequests.valueOf(mainReq)) {
-                case loadWorkingUrl: view.load(resClient.currentWorkingUrl, null); break;
+                case loadWorkingUrl: view.load(resClient.currentWorkingUrl); break;
                 case setWebThemeColor:
                     if(reqParams[0].equalsIgnoreCase("default"))
                         WebThemeHelper.resetWebThemeColor(CornBrowser.omnibox);
                     WebThemeHelper.setWebThemeColor(reqParams[0],
                             CornBrowser.omnibox, CornBrowser.getStaticWindow());
+                    break;
+                case startTemplateFilling:
+                    view.evaluateJavascript(HandlerStorage.currentTemplateContent, null);
+                    HandlerStorage.currentTemplateContent = "";
                     break;
                 default: break;
             }
@@ -65,6 +77,10 @@ public class CornHandler {
 
     public static void sendRawJSRequest(CrunchyWalkView view, String req) {
         view.evaluateJavascript(req, null);
+    }
+
+    public static void evalJSAlt(CrunchyWalkView view, String req) {
+        view.load("javascript:" + req);
     }
 
 }

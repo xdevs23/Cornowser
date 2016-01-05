@@ -97,4 +97,16 @@ public class CrunchyWalkView extends XWalkView {
         super.load(nUrl, content);
     }
 
+    public void load(String url) {
+        load(url, null);
+    }
+
+    public void evaluateJavascript(String script) {
+        evaluateJavascript(script, null);
+    }
+
+    public void loadContent(String content) {
+        load(null, content);
+    }
+
 }
