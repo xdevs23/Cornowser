@@ -17,6 +17,6 @@
 
 
     <!-- General -->
-    <strjing name="html_reload_btn_value">Reload</strjing>
+    <string name="html_reload_btn_value">Reload</string>
 
 </resources>
