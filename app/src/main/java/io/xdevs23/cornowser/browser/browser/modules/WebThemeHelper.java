@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
+import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.ui.utils.BarColors;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -32,8 +33,8 @@ public class WebThemeHelper {
 
     public static void tintNow(CrunchyWalkView view) {
         if(!view.getUrl().toLowerCase().contains("cornhandler://"))
-            CornHandler.sendJSRequestWithCallback(view, CornHandler.CornRequests.setWebThemeColor.name(),
-                "setWebThemeColor:\" + document.querySelector(\"meta[name='theme-color']\").getAttribute(\"content\").toString() + \"");
+            CornHandler.sendRawJSRequest(view, AssetHelper.getAssetString("appScripts/webThemeColorUtility.js",
+                    view.getContext()));
     }
 
 }

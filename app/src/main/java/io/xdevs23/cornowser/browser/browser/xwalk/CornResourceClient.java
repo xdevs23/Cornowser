@@ -168,7 +168,7 @@ public class CornResourceClient extends XWalkResourceClient {
         String errHtmlContent =
                 String.format(
 
-                        AssetHelper.getAssetString("error.html", CornBrowser.getContext()), // Error file
+                        AssetHelper.getAssetString("htdocs/error.html", CornBrowser.getContext()), // Error file
 
                         CornBrowser.getRStr(R.string.html_error_title),                     // Title 'Error'
                         errorCode,
@@ -180,7 +180,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
                 );
         view.load(null,
-                AssetHelper.getAssetString("5.html", CornBrowser.getContext())
+                AssetHelper.getAssetString("htdocs/5.html", CornBrowser.getContext())
                         .replace("<!-- BODY -->", errHtmlContent));
     }
 

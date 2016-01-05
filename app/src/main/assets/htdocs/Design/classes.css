@@ -1,0 +1,142 @@
+/* Classes */
+/* No files to import found in hydrogen/**\/* */
+/* No files to import found in hydrogen/**\/* */
+.normalText, .secText {
+  font-family: "Roboto", "open-sans", "Open Sans", "Helvetica Neue", "Segoe UI", Helvetica, Verdana, Arial, Geneva, sans-serif;
+  font-size: 16px;
+  color: black;
+  font-weight: 400; }
+
+.secText {
+  color: #9E9E9E; }
+
+.lightText {
+  color: rgba(0, 0, 0, 0.56);
+  font-size: 14px;
+  font-weight: 400; }
+
+.normalLink {
+  color: #2196f3;
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; }
+
+.normalLink:active {
+  color: #00c0ff; }
+
+.normalLink:hover {
+  color: #0272e0; }
+
+/* An image, aligned on the right */
+.leftyImage,
+.rightAlignedImage,
+.rightImage,
+.goRightImage {
+  text-align: right;
+  float: right;
+  width: 24%; }
+
+.smallTitle {
+  font-size: 20px;
+  font-weight: 400;
+  color: #2196F3; }
+
+.boldTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: black; }
+
+.biggerTitle {
+  font-size: 28px;
+  font-weight: 400;
+  color: #2196F3;
+  margin-left: 4px;
+  margin-right: 4px; }
+
+.appBarTitle {
+  position: absolute;
+  top: 16px;
+  left: 56px;
+  font-family: 'Roboto', 'open-sans', 'Helvetica Neue', 'Segoe UI', Verdana, sans-serif;
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+  font-weight: 400;
+  z-index: 8; }
+
+.fixed {
+  position: fixed; }
+
+.absolute {
+  position: absolute; }
+
+.alignBottom,
+.alignBottomRight,
+.alignBottomLeft,
+.alignBottomCenter {
+  bottom: 24px; }
+
+.alignBottomRight {
+  right: 24px; }
+
+.alignBottomCenter {
+  margin-left: auto;
+  margin-right: auto; }
+
+.alignBottomLeft {
+  left: 24px; }
+
+.alignTop {
+  top: 2px; }
+
+.alignRight {
+  right: 2px; }
+
+.insideContainer {
+  position: absolute;
+  top: 24%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0); }
+
+.vertcentered {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.lightCenteredTitle {
+  position: absolute;
+  top: 12%;
+  align-self: center;
+  text-align: center;
+  left: 0;
+  right: 0;
+  font-size: 24.75px;
+  font-weight: 300;
+  color: white; }
+
+.bottomDockContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8em; }
+
+.appSlider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 16px;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 14; }
+
+/*# sourceMappingURL=classes.css.map */

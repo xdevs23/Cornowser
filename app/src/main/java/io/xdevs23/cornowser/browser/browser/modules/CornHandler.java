@@ -63,4 +63,8 @@ public class CornHandler {
                 "document.location.href=\"CornHandler://" + req + ":default\";}", null);
     }
 
+    public static void sendRawJSRequest(CrunchyWalkView view, String req) {
+        view.evaluateJavascript(req, null);
+    }
+
 }

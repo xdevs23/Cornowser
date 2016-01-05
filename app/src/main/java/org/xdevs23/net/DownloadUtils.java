@@ -2,6 +2,7 @@ package org.xdevs23.net;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,71 +13,30 @@ import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.io.stream.InputStreamUtils;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 
 
 public class DownloadUtils {
 	
-	@SuppressWarnings("unused")
-	private static final short
-	    byteIdentifier =  8,   // 0x08
-	    halfByte       =  4,   // 0x04
-	    hexdeCount     =  2,   // 0x02
-	    shortId        = 16,   // 0x10
-	    intId          = 32,   // 0x20
-	    longId		   = 64,   // 0x40
-	    longerLong     = 0x80, //  128
-	    longest        = 0xff  //  255
-	    ;
-	
-	@SuppressWarnings("unused")
-	private static final int
-		singleKilo	= 0x0400, //  1024
-		  dualKilo  = 0x0800, //  2048
-		   triKilo 	= 0x0c00, //  3072
-		  quadKilo 	= 0x1000, //  4096
-		  octaKilo 	= 0x2000, //  8192
-		 shortKilo  = 0x4000, // 16384
-		   intKilo  = 0x8000, // 32768
-		 bLongKilo  = 0xffff  // 65535
-		 ;
-	
-	public  static ProgressBar progressUpdateBar    = null;
+	public  static ProgressBar progressUpdateBar = null;
 
     public  static final int
-            defaultBuf  =   octaKilo,
-            oneKiloByte = singleKilo;
-
-
-	/**
-	 * @deprecated <p style="text-decoration:none;font-weight:500;color:#FFAAAA;">Use <code>setProgressBar</code> instead.</p>
-	 * @param pb
-	 * @param setIt
-	 */
-	public  static void setProgressUpdateObject( ProgressBar pb, boolean setIt ) {
-		progressUpdateBar = setIt ?  pb
-								  :  null;
-	}
+            defaultBuf  =   8192,
+            oneKiloByte =   1024;
 
     /**
      * Set the progress bar to control
      * @param id Id of the progressbar
      * @param context Actual context
      */
-	public  static void setProgressBar( int id, Context context ) {
+	public  static void setProgressBar( @IdRes int id, Context context ) {
 		View view = new View(context);
 		progressUpdateBar = (ProgressBar) view.findViewById(id);
 	}
@@ -110,8 +70,8 @@ public class DownloadUtils {
         }
 	}
 	
-	public static String downloadString(String url) {
-		String dS = "";
+	public static String downloadString(String url, String defaultValue) {
+		String dS = defaultValue;
 		try {
 			DownloadStringAsync asyncSDownloader = new DownloadStringAsync();
 			dS = asyncSDownloader.execute(new String[] {url}).get();
@@ -121,12 +81,14 @@ public class DownloadUtils {
 		
 		return dS;
 	}
-	
+
+    public static String downloadString(String url) {
+        return downloadString(url, "");
+    }
+
 	//////////////////////////////////////////////
 	
 	static class DownloadStringAsync extends AsyncTask < String, Integer, String > {
-
-        private long lengthOfFile = 1L;
 
         private void logt(String loginfo) {
             Logging.logd("(DownloadAsync) " + loginfo);
@@ -134,7 +96,6 @@ public class DownloadUtils {
 
         @Override
         protected String doInBackground(String... fDUrl) {
-            int count;
             String doUrl = "[NOTHING]";
             String resultString = "";
             try {
@@ -153,12 +114,9 @@ public class DownloadUtils {
 
                 connection.connect();
 
-
-                logt("Total bytes to download: " + String.valueOf(lengthOfFile));
-
                 logt("Preparing download for " + doUrl);
                 InputStream input = new BufferedInputStream(url.openStream(),
-                        defaultBuf);
+                        512);
 
                 logt("Downloading...");
 
@@ -261,7 +219,6 @@ public class DownloadUtils {
 		
 		@Override
 	    protected void onProgressUpdate(String... progress) {
-	
 			long pr = Long.parseLong(progress[0]);
 			long pd = (long) (Math.round((double)( (   pr * 100  ) / lengthOfFile)));
 			
