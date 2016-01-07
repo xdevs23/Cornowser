@@ -1,4 +1,4 @@
-function dc() {
+function doColoring() {
     var webCol;
     try {
         webCol = document.querySelector("meta[name='theme-color']").getAttribute("content").toString();
@@ -22,4 +22,4 @@ function dc() {
     return true;
 }
 
-dc();
+doColoring();

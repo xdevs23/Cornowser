@@ -5,8 +5,6 @@ import android.app.Activity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 
-import java.util.logging.Handler;
-
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.xwalk.CornResourceClient;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
