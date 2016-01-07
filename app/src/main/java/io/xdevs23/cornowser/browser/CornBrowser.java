@@ -22,6 +22,7 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.ProgressBarView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 
+import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
@@ -40,6 +41,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     public  static EditText browserInputBar = null;
 
+    public  static String readyToLoadUrl = "";
+
     private static View staticView;
     private static Context staticContext;
     private static Activity staticActivity;
@@ -55,6 +58,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     private static String newVersionAv = "";
 
+    private static String[] optionsMenuItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +69,12 @@ public class CornBrowser extends XquidCompatActivity {
 
         checkUpdate.start();
 
-        publicWebRender.load(browserStorage.getUserHomePage(), null);
+        if(readyToLoadUrl.length() == 0)
+            publicWebRender.load(browserStorage.getUserHomePage(), null);
+        else if(readyToLoadUrl.length() > 0) {
+            publicWebRender.load(readyToLoadUrl, null);
+            readyToLoadUrl = "";
+        }
     }
 
     /**
@@ -161,16 +171,39 @@ public class CornBrowser extends XquidCompatActivity {
         webProgressBar.setOnCompletedAutoProgressFinish(true);
     }
 
+    /**
+     * Initialize the options menu
+     */
+    public void initOptionsMenu() {
+        optionsMenuItems = new String[] {
+                getString(R.string.cornmenu_item_updater),
+                getString(R.string.cornmenu_item_settings)
+        };
+    }
+
+    private static class optMenuItems {
+        public static final int
+            UPDATER         = 0,
+            SETTINGS        = 1,
+
+            NONE            = Integer.MIN_VALUE
+
+                    ;
+    }
+
     @Override
     public void openOptionsMenu() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setAdapter(XDListView.createLittle(getContext(), new String[]{getString(R.string.updater_title)}),
+        builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
-                            case 0:
+                            case optMenuItems.UPDATER:
                                 startActivity(new Intent(getContext(), UpdateActivity.class));
+                                break;
+                            case optMenuItems.SETTINGS:
+                                startActivity(new Intent(getContext(), SettingsActivity.class));
                                 break;
                             default:
                                 break;
@@ -257,6 +290,8 @@ public class CornBrowser extends XquidCompatActivity {
         if (publicWebRender != null) {
             publicWebRender.pauseTimers();
             publicWebRender.onHide();
+
+            readyToLoadUrl = "";
         }
     }
 
@@ -267,6 +302,11 @@ public class CornBrowser extends XquidCompatActivity {
         if (publicWebRender != null) {
             publicWebRender.resumeTimers();
             publicWebRender.onShow();
+
+            if(readyToLoadUrl.length() > 0) {
+                publicWebRender.load(readyToLoadUrl, null);
+                readyToLoadUrl = "";
+            }
         }
     }
 

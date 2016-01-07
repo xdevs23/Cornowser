@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="cornmenu_item_updater">@string/updater_title</string>
+    <string name="cornmenu_item_settings">Einstellungen</string>
+
+</resources>
