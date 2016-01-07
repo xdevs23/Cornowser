@@ -13,7 +13,7 @@ public class JSweetNSour {
         CornHandler.HandlerStorage.currentTemplateContent =
                 String.format(
                         AssetHelper.getAssetString("appScripts/templateFiller.js", view.getContext()),
-                        content.replace("\n", "' + \n'")
+                        content.replace("\"", "\\").replace("\n", "\" + \"")
                 );
         view.load("file:///android_asset/" + templateRes);
     }

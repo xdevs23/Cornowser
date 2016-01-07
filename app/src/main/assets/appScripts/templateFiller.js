@@ -1,1 +1,1 @@
-document.getElementById("main").innerHtml = '%s';
+document.getElementById("main").innerHtml = "%s";
