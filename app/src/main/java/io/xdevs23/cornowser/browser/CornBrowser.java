@@ -203,7 +203,7 @@ public class CornBrowser extends XquidCompatActivity {
                                 startActivity(new Intent(getContext(), UpdateActivity.class));
                                 break;
                             case optMenuItems.SETTINGS:
-                                startActivity(new Intent(getContext(), SettingsActivity.class));
+                               // startActivity(new Intent(getContext(), SettingsActivity.class));
                                 break;
                             default:
                                 break;
