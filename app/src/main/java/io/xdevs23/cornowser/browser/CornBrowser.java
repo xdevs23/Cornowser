@@ -22,7 +22,6 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.ProgressBarView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 
-import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;

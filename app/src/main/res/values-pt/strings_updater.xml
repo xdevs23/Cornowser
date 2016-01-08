@@ -62,4 +62,17 @@
         Atualização
     </string>
 
+    <string name="update_available_title">
+        Update disponível
+    </string>
+    <string name="update_available_message" formatted="false">
+        Versão %s esta disponível!
+        Atualizar agora?
+    </string>
+
+    <string name="updater_root_install_error">
+        Erro encontrado na instalação automatica.\n
+        Instalação manual esta a ser iniciada.
+    </string>
+
 </resources>
