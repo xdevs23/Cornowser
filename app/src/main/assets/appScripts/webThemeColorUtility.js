@@ -1,25 +1,20 @@
-function doColoring() {
-    var webCol;
+var webCol;
+try {
+    webCol = document.querySelector("meta[name='theme-color']").getAttribute("content").toString();
+} catch(a) {
     try {
-        webCol = document.querySelector("meta[name='theme-color']").getAttribute("content").toString();
-    } catch(a) {
+        webCol = document.querySelector("meta[name='apple-mobile-web-app-status-bar-style']").getAttribute("content").toString();
+    } catch(b) {
         try {
-            webCol = document.querySelector("meta[name='apple-mobile-web-app-status-bar-style']").getAttribute("content").toString();
-        } catch(b) {
+            webCol = document.querySelector("meta[name='msapplication-navbutton-color']").getAttribute("content").toString();
+        } catch(c) {
             try {
-                webCol = document.querySelector("meta[name='msapplication-navbutton-color']").getAttribute("content").toString();
-            } catch(c) {
-                try {
-                    webCol = document.querySelector("meta[name='web-color']").getAttribute("content").toString();
-                } catch(d) {
-                    webCol = "default";
-                }
+                webCol = document.querySelector("meta[name='web-color']").getAttribute("content").toString();
+            } catch(d) {
+                webCol = "default";
             }
         }
     }
-
-    document.location.href = "CornHandler://setWebThemeColor:" + webCol;
-    return true;
 }
 
-doColoring();
+document.location.href = "CornHandler://setWebThemeColor:" + webCol;
