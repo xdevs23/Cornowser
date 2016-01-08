@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="app_license_list">
+    <string-array name="app_license_list" translatable="false">
         <item>Cornowser</item>
         <item>xdevs23 (Simao)</item>
         <item>MIT License</item>

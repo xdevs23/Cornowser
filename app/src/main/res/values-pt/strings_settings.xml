@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_list_licenses_title">Licenças de Open Source</string>
+    <string name="settings_list_licenses_summary">Bibliotecas úteis que são utilizadas por esta applicação.</string>
+
+</resources>
