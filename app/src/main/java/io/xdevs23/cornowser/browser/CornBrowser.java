@@ -100,6 +100,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void init() {
         Logging.logd("Initializing...");
+        initOptionsMenu();
         initOmnibox();
         initWebXWalkEngine();
     }

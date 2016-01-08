@@ -2,6 +2,23 @@
 
 <resources>
 
+    <!-- Root -->
+    <string name="rootutils_root_detect_title">
+        Sistema com root detectado
+    </string>
+    <string name="rootutils_root_detect_message">
+        No sistema foi encontrado root.\n
+        Ativar o uso de root para, por exemplo, fazer atualizações mais rapido e mais fácil?\n
+        O uso de root é opcional.
+    </string>
+    <string name="rootutils_root_access_failed_title">
+        Acesso á root falhou
+    </string>
+    <string name="rootutils_root_access_failed">
+        Não foi possibel accessar root.\n
+        Por favor certifica que o acesso á root esta installado correctamente.
+    </string>
+
     <!-- General -->
     <string name="answer_yes">Sim</string>
     <string name="answer_no">Não</string>
