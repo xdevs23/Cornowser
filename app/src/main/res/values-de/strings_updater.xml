@@ -59,18 +59,18 @@
         Ein Update ist verfügbar.
         Das Update ist eine %s.
     </string>
-    <string name="updater_prefix_changelog_for" formatted="false">
+    <string name="updater_prefix_changelog_for">
         Neues in der Version %s
     </string>
-    <string name="updater_mask_changelog_inner" formatted="false">
+    <string name="updater_mask_changelog_inner">
         Version-Code %s, veröffentlicht am %s.%s.%s\n\n%s
     </string>
 
     <string name="update_available_title">
         Update verfügbar
     </string>
-    <string name="update_available_message" formatted="false">
-        Version %s ist verfügbar!
+    <string name="update_available_message">
+        Version %s ist verfügbar!\n
         Jetzt updaten?
     </string>
 
