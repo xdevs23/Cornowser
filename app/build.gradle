@@ -44,11 +44,11 @@ android {
     }
 
     dexOptions {
-        preDexLibraries false       // For the libs to work better
+        preDexLibraries true        // For the libs to work better
     }
 
     lintOptions {
-        abortOnError true
+        abortOnError false
     }
 }
 
