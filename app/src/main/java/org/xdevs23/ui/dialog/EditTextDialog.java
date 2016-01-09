@@ -7,19 +7,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
-import android.util.AttributeSet;
-import android.util.SizeF;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import org.xdevs23.android.app.XquidCompatActivity;
-import org.xdevs23.android.widget.XquidLinearLayout;
-import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.general.ExtendedAndroidClass;
 import org.xdevs23.ui.dialog.templates.NegativeButtonCancel;
-import org.xdevs23.ui.widget.SimpleSeparator;
 
 import io.xdevs23.cornowser.browser.R;
 

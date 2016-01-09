@@ -5,9 +5,16 @@ import android.content.SharedPreferences;
 
 public class BrowserStorage {
 
+    // Variable storage section
     private String
-            userHomePage
+                userHomePage
             ;
+
+    private boolean
+                omniboxIsBottom
+            ;
+
+    // Class section
 
     private Context myContext;
 
@@ -17,6 +24,14 @@ public class BrowserStorage {
         myContext = context;
         init();
     }
+
+    public void init() {
+        mSharedPreferences = getContext().getSharedPreferences("userprefs", 0);
+        setUserHomePage(getPref(BPrefKeys.userHomePage, BrowserDefaults.HOME_URL));
+        setOmniboxPosition(getPref(BPrefKeys.omniboxPos, false));
+    }
+
+    // Variable storage related methods
 
     public void setUserHomePage(String url) {
         this.userHomePage = url;
@@ -31,10 +46,21 @@ public class BrowserStorage {
         return userHomePage;
     }
 
-    public void init() {
-        mSharedPreferences = getContext().getSharedPreferences("userprefs", 0);
-        setUserHomePage(getPref(BPrefKeys.userHomePage, BrowserDefaults.HOME_URL));
+
+    public void setOmniboxPosition(boolean isBottom) {
+        this.omniboxIsBottom = isBottom;
     }
+
+    public void saveOmniboxPosition(boolean isBottom) {
+        setOmniboxPosition(isBottom);
+        setPref(BPrefKeys.omniboxPos, isBottom);
+    }
+
+    public boolean getOmniboxPosition() {
+        return this.omniboxIsBottom;
+    }
+
+    // General methods
 
     private Context getContext() {
         return myContext;
@@ -76,10 +102,13 @@ public class BrowserStorage {
         editor.apply();
     }
 
-
+    /**
+     * Keys for shared preferences
+     */
     public static final class BPrefKeys {
         public static final String
-                userHomePage = "pref_user_homepage"
+                userHomePage    = "pref_user_homepage",
+                omniboxPos      = "pref_omni_pos"
         ;
     }
 

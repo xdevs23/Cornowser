@@ -24,6 +24,7 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
@@ -36,7 +37,8 @@ public class CornBrowser extends XquidCompatActivity {
             omnibox                 = null,
             publicWebRenderLayout   = null,
             omniboxControls         = null,
-            browserInputBarLayout   = null
+            browserInputBarLayout   = null,
+            omniboxTinyItemsLayout  = null
             ;
 
     public  static EditText browserInputBar = null;
@@ -95,15 +97,7 @@ public class CornBrowser extends XquidCompatActivity {
         BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
     }
 
-    /**
-     * Main initialization
-     */
-    public void init() {
-        Logging.logd("Initializing...");
-        initOptionsMenu();
-        initOmnibox();
-        initWebXWalkEngine();
-    }
+    // Pre init start
 
     /**
      * Initialize static fields
@@ -118,6 +112,21 @@ public class CornBrowser extends XquidCompatActivity {
         browserStorage = new BrowserStorage(getContext());
     }
 
+    // Pre init end
+
+
+    /**
+     * Main initialization
+     */
+    public void init() {
+        Logging.logd("Initializing...");
+        initOptionsMenu();
+        initOmnibox();
+        initWebXWalkEngine();
+    }
+
+    // Init start
+
     /**
      * Initialize the XWalkView and its parent layout,
      * then add the crunchy web engine to the layout :D
@@ -127,6 +136,10 @@ public class CornBrowser extends XquidCompatActivity {
         publicWebRenderLayout   = (RelativeLayout)  findViewById(R.id.webrender_layout);
         publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
         publicWebRenderLayout.addView(publicWebRender);
+
+        initOmniboxPosition();
+
+        publicWebRender.setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
     }
 
     /**
@@ -138,6 +151,7 @@ public class CornBrowser extends XquidCompatActivity {
         browserInputBarLayout   = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_layout);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
         omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
+        omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
         webProgressBar          = (ProgressBarView)     findViewById(R.id.omnibox_progressbar);
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
 
@@ -146,6 +160,7 @@ public class CornBrowser extends XquidCompatActivity {
         params.width = browserInputBarLayout.getWidth() - omniboxControls.getWidth();
 
         browserInputBarLayout.setLayoutParams(params);
+
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
 
@@ -156,7 +171,7 @@ public class CornBrowser extends XquidCompatActivity {
                             (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     publicWebRender.load(((EditText) v).getText().toString(), null);
-                } else Logging.logd(KeyEvent.keyCodeToString(keyCode));
+                }
                 return false;
             }
         });
@@ -171,6 +186,37 @@ public class CornBrowser extends XquidCompatActivity {
         webProgressBar.setOnCompletedAutoProgressFinish(false);
     }
 
+    public void initOmniboxPosition() {
+        Logging.logd("    Omnibox position");
+        RelativeLayout.LayoutParams omniparams =
+                (RelativeLayout.LayoutParams) omnibox.getLayoutParams();
+        RelativeLayout.LayoutParams webrparams =
+                (RelativeLayout.LayoutParams) publicWebRenderLayout.getLayoutParams();
+        RelativeLayout.LayoutParams otilparams =
+                (RelativeLayout.LayoutParams) omniboxTinyItemsLayout.getLayoutParams();
+
+        omniparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        omniparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        webrparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        webrparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        otilparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        otilparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        if(browserStorage.getOmniboxPosition()) {
+            omniparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            webrparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            otilparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        } else {
+            omniparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            webrparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            otilparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        }
+
+        omnibox.setLayoutParams(omniparams);
+        publicWebRenderLayout.setLayoutParams(webrparams);
+        omniboxTinyItemsLayout.setLayoutParams(otilparams);
+    }
+
     /**
      * Initialize the options menu
      */
@@ -180,6 +226,8 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_settings)
         };
     }
+
+    // Init end
 
     private static class optMenuItems {
         public static final int
@@ -307,6 +355,9 @@ public class CornBrowser extends XquidCompatActivity {
                 publicWebRender.load(readyToLoadUrl, null);
                 readyToLoadUrl = "";
             }
+
+            if(publicWebRender.getTitle().isEmpty() || publicWebRender.getUrl().isEmpty())
+                publicWebRender.loadWorkingUrl();
         }
     }
 

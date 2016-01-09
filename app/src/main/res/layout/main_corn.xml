@@ -19,104 +19,94 @@
         android:id="@+id/omnibox_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/omnibox_height"
-        android:layout_alignParentTop   ="true"
-        android:layout_alignParentStart ="true"
-        android:layout_alignParentEnd   ="true"
-        android:layout_alignParentLeft  ="true"
-        android:layout_alignParentRight ="true"
-        android:layout_alignParentBottom="false"
-        android:paddingTop   ="8dp"
-        android:paddingLeft  ="8dp"
-        android:paddingStart ="8dp"
-        android:paddingRight ="8dp"
-        android:paddingBottom="8dp"
         android:background="@color/colorPrimary">
 
-        <!-- Address bar -->
         <RelativeLayout
-            android:id="@+id/omnibox_input_bar_layout"
-            android:layout_width ="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop   ="true"
-            android:layout_alignParentStart ="true"
-            android:layout_alignParentLeft  ="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight ="false"
-            android:layout_alignParentEnd   ="false"
-            android:layout_toLeftOf="@+id/omnibox_controls"
-            android:layout_toStartOf="@+id/omnibox_controls"
-            android:background="@color/white_semi_more_transparent">
-            <EditText
-                android:id="@+id/omnibox_input_bar"
-                android:layout_width ="match_parent"
-                android:layout_height="match_parent"
-                android:typeface="sans"
-                android:singleLine="true"
-                android:imeOptions="actionGo"
-                android:inputType="textUri"
-                android:textCursorDrawable="@drawable/main_textcursordrawable"
-                android:background="@null"
-                android:theme="@style/Crunchy.BrowserInputBar"
-                android:textColorHint="@color/dark_semi_transparent"
-                android:hint="@string/omnibox_inputbar_hint"
-                android:selectAllOnFocus="true"
-                android:textStyle="normal" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop   ="8dp"
+            android:paddingLeft  ="8dp"
+            android:paddingStart ="8dp"
+            android:paddingRight ="8dp"
+            android:paddingBottom="8dp">
+
+            <!-- Address bar -->
+            <RelativeLayout
+                android:id="@+id/omnibox_input_bar_layout"
+                android:layout_width ="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop   ="true"
+                android:layout_alignParentStart ="true"
+                android:layout_alignParentLeft  ="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight ="false"
+                android:layout_alignParentEnd   ="false"
+                android:layout_toLeftOf="@+id/omnibox_controls"
+                android:layout_toStartOf="@+id/omnibox_controls"
+                android:background="@color/white_semi_more_transparent">
+                <EditText
+                    android:id="@+id/omnibox_input_bar"
+                    android:layout_width ="match_parent"
+                    android:layout_height="match_parent"
+                    android:typeface="sans"
+                    android:singleLine="true"
+                    android:imeOptions="actionGo"
+                    android:inputType="textUri"
+                    android:textCursorDrawable="@drawable/main_textcursordrawable"
+                    android:background="@null"
+                    android:theme="@style/Crunchy.BrowserInputBar"
+                    android:textColorHint="@color/dark_semi_transparent"
+                    android:hint="@string/omnibox_inputbar_hint"
+                    android:selectAllOnFocus="true"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+            <!-- Options -->
+            <RelativeLayout
+                android:id="@+id/omnibox_controls"
+                android:layout_height="wrap_content"
+                android:layout_width ="wrap_content"
+                android:layout_alignParentEnd  ="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical">
+
+                <org.xdevs23.ui.widget.TastyOverflowMenu
+                    android:id="@+id/omnibox_control_overflowmenu"
+                    android:layout_height="wrap_content"
+                    android:layout_width ="wrap_content" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
-        <!-- Options -->
         <RelativeLayout
-            android:id="@+id/omnibox_controls"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width ="wrap_content"
-            android:layout_alignParentEnd  ="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical">
+            android:id="@+id/omnibox_tiny_items_layout">
 
-            <org.xdevs23.ui.widget.TastyOverflowMenu
-                android:id="@+id/omnibox_control_overflowmenu"
-                android:layout_height="wrap_content"
-                android:layout_width ="wrap_content" />
+            <!-- Don't forget our wonderful progress bar -->
+            <org.xdevs23.ui.widget.ProgressBarView
+                android:id="@+id/omnibox_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp" />
+
+            <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
+            <org.xdevs23.ui.widget.SimpleSeparator
+                android:id="@+id/omnibox_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <!-- Don't forget our wonderful progress bar -->
-    <org.xdevs23.ui.widget.ProgressBarView
-        android:id="@+id/omnibox_progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/omnibox_height"
-        android:translationY="-3dp" />
-
-    <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
-    <RelativeLayout
-        android:id="@+id/omnibox_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft  ="true"
-        android:layout_alignParentStart ="true"
-        android:layout_alignParentRight ="true"
-        android:layout_alignParentEnd   ="true"
-        android:layout_marginTop="@dimen/omnibox_height"
-        android:translationY="-1dp"
-        android:background="@color/dark_semi_more_transparent" />
-
     <!-- And the layout for our crunchy XWalkView -->
     <RelativeLayout
         android:id="@+id/webrender_layout"
         android:layout_width ="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart ="true"
-        android:layout_alignParentEnd   ="true"
-        android:layout_alignParentLeft  ="true"
-        android:layout_alignParentRight ="true"
-        android:layout_alignParentTop   ="false"
-        android:layout_below="@id/omnibox_layout">
+        android:layout_height="wrap_content">
 
         <!-- The view will be added here while init -->
 

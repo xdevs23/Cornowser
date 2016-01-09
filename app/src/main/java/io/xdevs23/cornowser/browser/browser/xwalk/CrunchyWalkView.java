@@ -41,24 +41,24 @@ public class CrunchyWalkView extends XWalkView {
                     AppConfig.versionName + " Chrome/49.0.2593.0 Mobile Safari/601.1";
 
     private void init() {
-        Logging.logd("Initializing our crunchy XWalkView :P");
+        Logging.logd("    Initializing our crunchy XWalkView :P");
 
-        Logging.logd("    Resource Client");
+        Logging.logd("      Resource Client");
         resourceClient  = new CornResourceClient(this);
-        Logging.logd("    UI Client");
+        Logging.logd("      UI Client");
         uiClient        = new CornUIClient      (this);
-        Logging.logd("    Applying clients");
+        Logging.logd("      Applying clients");
         setResourceClient(getResourceClient());
         setUIClient(getUIClient());
 
-        Logging.logd("    Touch listener");
+        Logging.logd("      Touch listener");
         setOnTouchListener(onTouchListener);
 
-        Logging.logd("    Configuring settings");
+        Logging.logd("      Configuring settings");
         XWalkSettings crispySettings = this.getSettings();
         crispySettings.setUserAgentString(userAgent);
 
-        Logging.logd("    Done!");
+        Logging.logd("      Done!");
     }
 
     /* Don't use this! */
@@ -99,6 +99,10 @@ public class CrunchyWalkView extends XWalkView {
 
     public void load(String url) {
         load(url, null);
+    }
+
+    public void loadWorkingUrl() {
+        load(getResourceClient().currentWorkingUrl);
     }
 
     public void evaluateJavascript(String script) {
