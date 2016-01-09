@@ -62,7 +62,7 @@
     <string name="updater_prefix_changelog_for">
         Neues in der Version %s
     </string>
-    <string name="updater_mask_changelog_inner">
+    <string name="updater_mask_changelog_inner" formatted="false">
         Version-Code %s, veröffentlicht am %s.%s.%s\n\n%s
     </string>
 

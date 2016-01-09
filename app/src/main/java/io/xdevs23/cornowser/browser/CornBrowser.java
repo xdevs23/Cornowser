@@ -22,6 +22,7 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.ProgressBarView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 
+import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
@@ -203,7 +204,7 @@ public class CornBrowser extends XquidCompatActivity {
                                 startActivity(new Intent(getContext(), UpdateActivity.class));
                                 break;
                             case optMenuItems.SETTINGS:
-                               // startActivity(new Intent(getContext(), SettingsActivity.class));
+                                startActivity(new Intent(getContext(), SettingsActivity.class));
                                 break;
                             default:
                                 break;

@@ -2,6 +2,7 @@ package org.xdevs23.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.ArrayRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,7 +10,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.xdevs23.android.widget.XquidRelativeLayout;
-import org.xdevs23.annotation.DontUse;
 import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -17,14 +17,12 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 public class EasyListView4 extends XquidRelativeLayout {
 
     private String[]
-        row1,
-        row2,
-        row3,
-        row4;
+            wholeArray,
+            row1,
+            row2,
+            row3,
+            row4;
 
-    /** Don't use this! **/
-    @DontUse
-    @Deprecated
     public EasyListView4(Context context) {
         super(context);
         init();
@@ -45,11 +43,18 @@ public class EasyListView4 extends XquidRelativeLayout {
         init();
     }
 
-    private void filterRows() {
-        String[] wholeArray = getContext().getResources().getStringArray(
-                getAttributeSet().getAttributeResourceValue("app", "stringArray", 0)
-        );
+    public EasyListView4 setListArray(String[] array) {
+        this.wholeArray = array;
+        init();
+        return this;
+    }
 
+    public EasyListView4 setListArray(@ArrayRes int res) {
+        setListArray(getContext().getResources().getStringArray(res));
+        return this;
+    }
+
+    private void filterRows() {
         int wal = wholeArray.length / 4;
 
         row1 = new String[wal];
@@ -58,7 +63,7 @@ public class EasyListView4 extends XquidRelativeLayout {
         row4 = new String[wal];
 
         int index = 0;
-        for ( int i = 0; i < wholeArray.length; i += wal ) {
+        for ( int i = 0; i < wholeArray.length; i += 4 ) {
             row1[index]     = wholeArray[i];
             row2[index]     = wholeArray[i+1];
             row3[index]     = wholeArray[i+2];
@@ -69,6 +74,8 @@ public class EasyListView4 extends XquidRelativeLayout {
 
     private LinearLayout createNewLinearLayout() {
         LinearLayout layout = new LinearLayout(getContext());
+
+        layout.setOrientation(LinearLayout.VERTICAL);
 
         LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
@@ -90,11 +97,19 @@ public class EasyListView4 extends XquidRelativeLayout {
     private LinearLayout createNewItem() {
         LinearLayout layout = new LinearLayout(getContext());
 
+        layout.setOrientation(LinearLayout.VERTICAL);
+
         LinearLayout.LayoutParams p =
                 new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-        layout.setLayoutParams(p);
+        p.setMargins(
+                DpUtil.dp2px(getContext(), 2),
+                DpUtil.dp2px(getContext(), 2),
+                DpUtil.dp2px(getContext(), 4),
+                DpUtil.dp2px(getContext(), 2)
+        );
 
+        layout.setLayoutParams(p);
         return layout;
     }
 
@@ -106,9 +121,9 @@ public class EasyListView4 extends XquidRelativeLayout {
 
         p.setMargins(
                 DpUtil.dp2px(getContext(), 2),
-                DpUtil.dp2px(getContext(), 4),
                 DpUtil.dp2px(getContext(), 2),
-                DpUtil.dp2px(getContext(), 8)
+                DpUtil.dp2px(getContext(), 2),
+                DpUtil.dp2px(getContext(), 2)
         );
 
         textView.setLayoutParams(p);
@@ -117,7 +132,7 @@ public class EasyListView4 extends XquidRelativeLayout {
     }
 
     private void init() {
-        if(getAttributeSet() == null) return;
+        if(wholeArray == null) return;
         filterRows();
 
         ScrollView parentLayout = createNewScrollView();
@@ -156,10 +171,15 @@ public class EasyListView4 extends XquidRelativeLayout {
             itemLayout.addView(itemRow4);
 
             mainLinearLayout.addView(itemLayout);
+            mainLinearLayout.addView(new SimpleSeparator(getContext()));
         }
 
         parentLayout.addView(mainLinearLayout);
 
         addView(parentLayout);
+    }
+
+    public void show() {
+
     }
 }
