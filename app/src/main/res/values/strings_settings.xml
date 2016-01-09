@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="settings_category_browsing_title">Browsing</string>
+
+    <string name="settings_browsing_homepage_title">Home page</string>
+    <string name="settings_browsing_homepage_summary">Set your preferred home page</string>
+
+
+    <string name="settings_category_misc_title">Miscellaneous</string>
+
     <string name="settings_list_licenses_title">Open Source Licenses</string>
     <string name="settings_list_licenses_summary">Useful libraries used by this application</string>
 

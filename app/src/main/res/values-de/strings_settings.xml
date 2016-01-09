@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="settings_category_browsing_title">Browsing</string>
+
+    <string name="settings_browsing_homepage_title">Startseite</string>
+    <string name="settings_browsing_homepage_summary">Lege deine bevorzugte Startseite fest.</string>
+
+
+    <string name="settings_category_misc_title">Sonstiges</string>
+
     <string name="settings_list_licenses_title">Open-Source-Lizenzen</string>
     <string name="settings_list_licenses_summary">Nützliche Bibliotheken, die von dieser App verwendet werden.</string>
 

@@ -5,10 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Preference
-        android:id="@+id/settings_preference_licenses"
-        android:title="@string/settings_list_licenses_title"
-        android:summary="@string/settings_list_licenses_summary"
-        android:key="settings_licenses" />
+    <PreferenceCategory
+        android:id="@+id/settings_category_browsing"
+        android:title="@string/settings_category_browsing_title"
+        android:key="settings_category_browsing">
+
+        <Preference
+            android:id="@+id/settings_preference_homepage"
+            android:title="@string/settings_browsing_homepage_title"
+            android:summary="@string/settings_browsing_homepage_summary"
+            android:key="settings_userhomepage" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:id="@+id/settings_category_misc"
+        android:title="@string/settings_category_misc_title"
+        android:key="settings_category_misc">
+
+        <Preference
+            android:id="@+id/settings_preference_licenses"
+            android:title="@string/settings_list_licenses_title"
+            android:summary="@string/settings_list_licenses_summary"
+            android:key="settings_licenses" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -4,4 +4,7 @@
 
     <string name="app_name" translatable="false">Cornowser</string>
 
+    <string name="answer_cancel">Cancel</string>
+    <string name="answer_ok">OK</string>
+
 </resources>

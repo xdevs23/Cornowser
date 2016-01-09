@@ -8,10 +8,15 @@ import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
+
 /**
  * A custom UIClient for our crunchy view
  */
 public class CornUIClient extends XWalkUIClient {
+
+    // This is for controlling errors on start-up loading
+    private boolean readyForBugfreeBrowsing = false;
 
     public CornUIClient(XWalkView view) {
         super(view);
@@ -50,19 +55,34 @@ public class CornUIClient extends XWalkUIClient {
         return super.onJavascriptModalDialog(view, type, url, message, defaultValue, result);
     }
 
+    @Override
     public boolean onJsAlert(XWalkView view, String url, String message, XWalkJavascriptResult result) {
         // TODO: handle this thing
         return true;
     }
 
+    @Override
     public boolean onJsConfirm(XWalkView view, String url, String message, XWalkJavascriptResult result) {
         // TODO: handle this thing
         return super.onJsConfirm(view, url, message, result);
     }
 
+    @Override
     public boolean onJsPrompt(XWalkView view, String url, String message, String defaultValue, XWalkJavascriptResult result) {
         // TODO: handle this thing
         return super.onJsPrompt(view, url, message, defaultValue, result);
     }
 
+    @Override
+    public void onPageLoadStopped(XWalkView view, String url, LoadStatus status) {
+        if( (status == LoadStatus.CANCELLED || status == LoadStatus.FAILED)
+                && (!readyForBugfreeBrowsing) )
+            view.load(url, null);
+        else if(status == LoadStatus.FINISHED) readyForBugfreeBrowsing = true;
+
+        Logging.logd("Page load stopped");
+        super.onPageLoadStopped(view, url, status);
+
+        CornBrowser.getWebProgressBar().endProgress();
+    }
 }

@@ -66,7 +66,6 @@ public class CornResourceClient extends XWalkResourceClient {
             return true;
         }
         Logging.logd("Starting url loading '" + url + "'");
-        CornBrowser.getWebProgressBar().setProgress(0);
         return super.shouldOverrideUrlLoading(view, url);
     }
 
@@ -103,8 +102,7 @@ public class CornResourceClient extends XWalkResourceClient {
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
-        if(percentage < 100)CornBrowser.getWebProgressBar().setProgress(percentage);
-        else                CornBrowser.getWebProgressBar().endProgress();
+        CornBrowser.getWebProgressBar().setProgress(percentage);
     }
 
     @Override
@@ -194,16 +192,21 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onReceivedHttpAuthRequest(view, handler, host, realm);
     }
 
+    @Override
     public void onReceivedSslError(XWalkView view, ValueCallback<Boolean> callback, SslError error) {
         super.onReceivedSslError(view, callback, error);
     }
 
+    @Override
     public void onReceivedClientCertRequest(XWalkView view, ClientCertRequest handler) {
         super.onReceivedClientCertRequest(view, handler);
     }
 
+    @Override
     public void doUpdateVisitedHistory(XWalkView view, String url, boolean isReload) {
         super.doUpdateVisitedHistory(view, url, isReload);
     }
+
+
 
 }

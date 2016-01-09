@@ -25,6 +25,12 @@
         android:title="@string/updater_title"
         app:title="@string/cornmenu_item_updater" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/toolbar_dropshadow"
+        android:layout_below="@id/updaterToolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -2,15 +2,18 @@ package io.xdevs23.cornowser.browser.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.widget.Toolbar;
 
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.widget.EasyListView4;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 
 public class SettingsActivity extends XquidCompatActivity {
@@ -35,15 +38,17 @@ public class SettingsActivity extends XquidCompatActivity {
         thisActivity = this;
 
         getFragmentManager().beginTransaction().replace(R.id.settings_pref_content_frame,
-                new SettingsPreferenceFragment().setContext(getApplicationContext())).commit();
+                new SettingsPreferenceFragment().setContext(getApplicationContext(), this)).commit();
     }
 
     public static class SettingsPreferenceFragment extends PreferenceFragment {
 
         private Context pContext;
+        private XquidCompatActivity activity;
 
-        public SettingsPreferenceFragment setContext(Context context) {
+        public SettingsPreferenceFragment setContext(Context context, XquidCompatActivity activity) {
             this.pContext = context;
+            this.activity = activity;
             return this;
         }
 
@@ -67,6 +72,32 @@ public class SettingsActivity extends XquidCompatActivity {
                     return false;
                 }
             });
+
+            Preference homePagePref =
+                    (Preference) findPreference("settings_userhomepage");
+            homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    EditTextDialog dialog = new EditTextDialog(
+                            getpContext(),
+                            activity,
+                            getString(R.string.settings_browsing_homepage_title),
+                            CornBrowser.getBrowserStorage().getUserHomePage()
+                    );
+                    final EditTextDialog fDialog = dialog;
+                    dialog.setOnClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            CornBrowser.getBrowserStorage().saveUserHomePage(
+                                    fDialog.getEnteredText()
+                            );
+                            dialog.dismiss();
+                        }
+                    }).showDialog();
+                    return false;
+                }
+            });
+
         }
     }
 }

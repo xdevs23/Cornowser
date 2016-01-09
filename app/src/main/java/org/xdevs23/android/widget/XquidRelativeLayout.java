@@ -4,7 +4,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
+import org.xdevs23.ui.utils.DpUtil;
 
 public class XquidRelativeLayout extends RelativeLayout {
 
@@ -46,4 +49,38 @@ public class XquidRelativeLayout extends RelativeLayout {
     public int getDefStyleResource() {
         return defStyleRes;
     }
+
+    public static class LayoutParams extends RelativeLayout.LayoutParams {
+
+        public LayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+        }
+
+        public LayoutParams(int w, int h) {
+            super(w, h);
+        }
+
+        public LayoutParams(MarginLayoutParams source) {
+            super(source);
+        }
+
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+        public LayoutParams(RelativeLayout.LayoutParams source) {
+            super(source);
+        }
+
+        public LayoutParams(ViewGroup.LayoutParams source) {
+            super(source);
+        }
+
+        public void setMarginsDp(int left, int top, int right, int bottom, Context context) {
+            this.setMargins(
+                    DpUtil.dp2px(context, left),
+                    DpUtil.dp2px(context, top),
+                    DpUtil.dp2px(context, right),
+                    DpUtil.dp2px(context, bottom)
+            );
+        }
+    }
+
 }

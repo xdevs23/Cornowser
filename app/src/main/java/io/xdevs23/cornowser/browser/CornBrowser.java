@@ -67,14 +67,14 @@ public class CornBrowser extends XquidCompatActivity {
 
         initAll();
 
-        checkUpdate.start();
-
         if(readyToLoadUrl.length() == 0)
             publicWebRender.load(browserStorage.getUserHomePage(), null);
         else if(readyToLoadUrl.length() > 0) {
             publicWebRender.load(readyToLoadUrl, null);
             readyToLoadUrl = "";
         }
+
+        checkUpdate.start();
     }
 
     /**
@@ -115,8 +115,7 @@ public class CornBrowser extends XquidCompatActivity {
         staticView      = findViewById(R.id.corn_root_view);
         staticWindow    = this.getWindow();
 
-        browserStorage = new BrowserStorage();
-
+        browserStorage = new BrowserStorage(getContext());
     }
 
     /**
@@ -169,7 +168,7 @@ public class CornBrowser extends XquidCompatActivity {
             }
         });
 
-        webProgressBar.setOnCompletedAutoProgressFinish(true);
+        webProgressBar.setOnCompletedAutoProgressFinish(false);
     }
 
     /**
