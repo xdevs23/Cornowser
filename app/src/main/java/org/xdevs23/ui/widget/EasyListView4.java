@@ -179,7 +179,4 @@ public class EasyListView4 extends XquidRelativeLayout {
         addView(parentLayout);
     }
 
-    public void show() {
-
-    }
 }

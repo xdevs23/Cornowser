@@ -17,8 +17,6 @@ public class SimpleSeparator extends View {
 
     private Context myContext;
 
-    private SeparatorTheme theme = SeparatorTheme.DARK;
-
     public enum SeparatorTheme {
         LIGHT,
         DARK,
@@ -79,8 +77,6 @@ public class SimpleSeparator extends View {
     }
 
     public SimpleSeparator setSeparatorTheme(SeparatorTheme theme) {
-        this.theme = theme;
-
         switch(theme) {
             case DARK : setSeparatorColorRes(R.color. dark_semi_more_transparent);  break;
             case LIGHT: setSeparatorColorRes(R.color.white_semi_more_transparent);  break;
