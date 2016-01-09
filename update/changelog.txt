@@ -1,3 +1,5 @@
+Please wait a minute after the application closed itself and start the app manually if it doesn't automatically.
+
  - Fixed Marshmallow installation issue
  - Added Settings
  - Added license dialog to Settings
