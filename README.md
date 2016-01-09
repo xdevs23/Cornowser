@@ -9,7 +9,7 @@ The modern premium web browser for Android. This project is still in development
 Cornowser is intended to be **fast**, **modern** and **inituitive**.
 Powered by the Crosswalk Apache Cordova render engine, basing on Chromium, this browser is as powerful and modern, as you get it from latest Chromium releases.
 
-Also visit our [XDA thread](!
+Also visit our [XDA thread](http://forum.xda-developers.com/android/apps-games/app-cornowser-t3287890)!
 
 
 <hr />
