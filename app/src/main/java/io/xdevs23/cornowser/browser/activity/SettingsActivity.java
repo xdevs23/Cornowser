@@ -27,6 +27,11 @@ public class SettingsActivity extends XquidCompatActivity {
 
         BarColors.enableBarColoring(getWindow(), R.color.light_blue_800);
 
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        } catch(Exception ex) { /* */ }
+
         thisActivity = this;
 
         getFragmentManager().beginTransaction().replace(R.id.settings_pref_content_frame,
