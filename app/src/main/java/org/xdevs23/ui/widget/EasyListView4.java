@@ -152,10 +152,15 @@ public class EasyListView4 extends XquidRelativeLayout {
             itemRow3.setText(row3[i]);
             itemRow4.setText(row4[i]);
 
+            itemLayout.addView(itemRow1);
+            itemLayout.addView(itemRow2);
+            itemLayout.addView(itemRow3);
+            itemLayout.addView(itemRow4);
+
             if(row4[i].contains("://")) {
                 final int fi = i;
                 final Context fContext = getContext();
-                itemRow4.setOnClickListener(new OnClickListener() {
+                itemLayout.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         CornBrowser.readyToLoadUrl = row4[fi];
@@ -164,11 +169,6 @@ public class EasyListView4 extends XquidRelativeLayout {
                     }
                 });
             }
-
-            itemLayout.addView(itemRow1);
-            itemLayout.addView(itemRow2);
-            itemLayout.addView(itemRow3);
-            itemLayout.addView(itemRow4);
 
             mainLinearLayout.addView(itemLayout);
             mainLinearLayout.addView(new SimpleSeparator(getContext()));

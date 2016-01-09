@@ -25,7 +25,7 @@ public class SettingsActivity extends XquidCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        BarColors.enableBarColoring(getWindow(), R.color.light_blue_900);
+        BarColors.enableBarColoring(getWindow(), R.color.light_blue_800);
 
         thisActivity = this;
 
