@@ -1,14 +1,6 @@
- - Next try to fix root issues in updater
-
-In version 1.0.0.2
- - Fixed cropped changelog (DownloadUtils fix)
- - Trying to fix root issues in updater
-
-In version 1.0.0.1
- - Fixed updater
- - Latest Crosswalk Canary version
- - Improvements
+ - Fixed Marshmallow installation issue
+ - Added Settings
+ - Added license dialog to Settings
+ - Improved Updater
  - Bugfixes
-
-Settings are coming! You will be able to set custom preferences and see proper credits to dependency authors and contributors as well as their licenses.
-
+ - Other minor improvements

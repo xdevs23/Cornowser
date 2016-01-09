@@ -18,7 +18,7 @@ public final class AppConfig {
 			 updateRoot = mainDevUrl   + "update/",
 			 myDataRoot = Environment.getDataDirectory() + "data/io.xdevs23.cornowser.browser/",
 			 debugTag   = appName,
-			 dbgVer     = "debug"
+			 dbgVer     = "nightly"
 	;
 	
 	public static class Version {
@@ -34,8 +34,8 @@ public final class AppConfig {
 		public static int
 				major     =  1   ,
 				minor     =  0   ,
-				build     =  0   ,
-		    	revision  =  4
+				build     =  1   ,
+		    	revision  =  0
 		;
 		
 		public static boolean
