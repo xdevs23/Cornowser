@@ -11,7 +11,11 @@ try {
             try {
                 webCol = document.querySelector("meta[name='web-color']").getAttribute("content").toString();
             } catch(d) {
-                webCol = "default";
+                try {
+                    webCol = document.querySelector("meta[name='msapplication-TileColor']").getAttribute("content").toString();
+                } catch(e) {
+                    webCol = "default";
+                }
             }
         }
     }

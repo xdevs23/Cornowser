@@ -1,26 +1,34 @@
 package io.xdevs23.cornowser.browser;
 
+import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.utils.BarColors;
+import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.ProgressBarView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
+import org.xwalk.core.XWalkNavigationHistory;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
@@ -38,10 +46,13 @@ public class CornBrowser extends XquidCompatActivity {
             publicWebRenderLayout   = null,
             omniboxControls         = null,
             browserInputBarLayout   = null,
-            omniboxTinyItemsLayout  = null
+            omniboxTinyItemsLayout  = null,
+            browserInputBarControls = null
             ;
 
     public  static EditText browserInputBar = null;
+
+    public  static ImageButton goForwardImgBtn = null;
 
     public  static String readyToLoadUrl = "";
 
@@ -151,6 +162,7 @@ public class CornBrowser extends XquidCompatActivity {
         browserInputBarLayout   = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_layout);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
         omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
+        browserInputBarControls = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_controls);
         omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
         webProgressBar          = (ProgressBarView)     findViewById(R.id.omnibox_progressbar);
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
@@ -184,6 +196,16 @@ public class CornBrowser extends XquidCompatActivity {
         });
 
         webProgressBar.setOnCompletedAutoProgressFinish(false);
+
+
+        goForwardImgBtn = (ImageButton) findViewById(R.id.omnibox_control_forward);
+        goForwardImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getWebEngine().goForward();
+            }
+        });
+        goForwardImgBtn.setVisibility(View.INVISIBLE);
     }
 
     public void initOmniboxPosition() {
@@ -232,8 +254,13 @@ public class CornBrowser extends XquidCompatActivity {
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
 
+        resetOmniPositionState();
+    }
+
+    public static void resetOmniPositionState() {
         if(!OmniboxAnimations.isBottom())
             publicWebRenderLayout.setTranslationY(omnibox.getHeight());
+        else publicWebRenderLayout.setTranslationY(0);
         omnibox.setTranslationY(0);
     }
 
@@ -279,6 +306,19 @@ public class CornBrowser extends XquidCompatActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    public static void toggleGoForwardControlVisibility(boolean visible) {
+        if(visible) {
+            if(goForwardImgBtn.getVisibility() == View.INVISIBLE)
+                browserInputBarLayout.getLayoutParams().width -= goForwardImgBtn.getWidth();
+            goForwardImgBtn.setVisibility(View.VISIBLE);
+
+        } else {
+            if(goForwardImgBtn.getVisibility() == View.VISIBLE)
+                browserInputBarLayout.getLayoutParams().width += goForwardImgBtn.getWidth();
+            goForwardImgBtn.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
@@ -407,6 +447,12 @@ public class CornBrowser extends XquidCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getWebEngine().getNavigationHistory().canGoBack())
+            getWebEngine().getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, 1);
+        else endApplication();
+    }
 
     /* Updater section */
 

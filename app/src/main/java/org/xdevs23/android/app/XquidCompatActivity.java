@@ -40,4 +40,9 @@ public class XquidCompatActivity extends AppCompatActivity {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
     }
 
+    protected void endApplication() {
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
 }

@@ -51,12 +51,15 @@ public class OmniboxAnimations {
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     oh = CornBrowser.omnibox.getHeight();
-                    if(opos > -oh)cy = (int)motionEvent.getRawY();
+                    if(-opos <= oh / 2) cy = (int)motionEvent.getRawY();
                     else cy = (int)motionEvent.getRawY() - opos;
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(-opos > oh / 2) animateOmni(0);
-                    else animateOmni(-oh);
+                    if(-opos > oh / 2) {
+                        animateOmni( (isBottom() ? 0 : -oh) );
+                        opos =       (isBottom() ? 0 : -oh)  ;
+                    }
+                    else animateOmni( (isBottom() ? -oh : 0) );
                     break;
                 case MotionEvent.ACTION_MOVE:
                     ny = ((int)motionEvent.getRawY()) - cy;

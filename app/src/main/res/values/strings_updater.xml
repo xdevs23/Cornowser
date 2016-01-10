@@ -75,4 +75,8 @@
         Updater
     </string>
 
+    <string name="root_enable_root_access">
+        Use root access
+    </string>
+
 </resources>

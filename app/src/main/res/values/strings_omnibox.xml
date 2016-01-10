@@ -7,4 +7,8 @@
         Search or type in URL
     </string>
 
+    <string name="omnibox_forward_btn_acsb_desc">
+        Forward
+    </string>
+
 </resources>

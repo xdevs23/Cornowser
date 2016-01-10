@@ -1,7 +1,9 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.net.http.SslError;
+import android.view.View;
 import android.webkit.ValueCallback;
+import android.widget.RelativeLayout;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
@@ -19,6 +21,7 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -65,6 +68,7 @@ public class CornResourceClient extends XWalkResourceClient {
                     this);
             return true;
         }
+        CornBrowser.resetOmniPositionState();
         Logging.logd("Starting url loading '" + url + "'");
         return super.shouldOverrideUrlLoading(view, url);
     }
@@ -75,6 +79,7 @@ public class CornResourceClient extends XWalkResourceClient {
         allowTinting = true;
         CornBrowser.browserInputBar.setText(view.getUrl());
         CornBrowser.getWebProgressBar().makeVisible();
+        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
     }
 
     @Override

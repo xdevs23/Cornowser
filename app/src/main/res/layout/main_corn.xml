@@ -59,9 +59,23 @@
                     android:hint="@string/omnibox_inputbar_hint"
                     android:selectAllOnFocus="true"
                     android:textStyle="normal" />
+
+                <RelativeLayout
+                    android:id="@+id/omnibox_input_bar_controls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="1dp">
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
-            <!-- Options -->
+            <!-- Omnibox controls -->
             <RelativeLayout
                 android:id="@+id/omnibox_controls"
                 android:layout_height="wrap_content"
@@ -70,12 +84,23 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:gravity="center_vertical">
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/omnibox_control_forward"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_forward_black_48dp"
+                    android:contentDescription="@string/omnibox_forward_btn_acsb_desc" />
 
                 <org.xdevs23.ui.widget.TastyOverflowMenu
                     android:id="@+id/omnibox_control_overflowmenu"
                     android:layout_height="wrap_content"
-                    android:layout_width ="wrap_content" />
+                    android:layout_width ="wrap_content"
+                    android:layout_toRightOf="@id/omnibox_control_forward"
+                    android:layout_toEndOf="@id/omnibox_control_forward"
+                    android:layout_centerVertical="true" />
 
             </RelativeLayout>
 
@@ -83,20 +108,22 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="3dp"
             android:id="@+id/omnibox_tiny_items_layout">
 
             <!-- Don't forget our wonderful progress bar -->
             <org.xdevs23.ui.widget.ProgressBarView
                 android:id="@+id/omnibox_progressbar"
                 android:layout_width="match_parent"
-                android:layout_height="3dp" />
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true" />
 
             <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
             <org.xdevs23.ui.widget.SimpleSeparator
                 android:id="@+id/omnibox_separator"
                 android:layout_width="match_parent"
-                android:layout_height="1dp" />
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true" />
 
         </RelativeLayout>
 

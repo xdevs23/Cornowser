@@ -79,4 +79,9 @@
         Instalação manual esta a ser iniciada.
     </string>
 
+
+    <string name="root_enable_root_access">
+        Uso de acesso á root
+    </string>
+
 </resources>

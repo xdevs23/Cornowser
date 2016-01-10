@@ -10,6 +10,7 @@ import android.view.View;
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.AppConfig;
 import org.xdevs23.debugutils.Logging;
+import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
 
@@ -113,6 +114,32 @@ public class CrunchyWalkView extends XWalkView {
 
     public void loadContent(String content) {
         load(null, content);
+    }
+
+    public boolean canGoForward() {
+        return getNavigationHistory().canGoForward();
+    }
+
+    public boolean canGoBack() {
+        return getNavigationHistory().canGoBack();
+    }
+
+    public void goForward(int steps) {
+        if(canGoForward())
+            getNavigationHistory().navigate(XWalkNavigationHistory.Direction.FORWARD, steps);
+    }
+
+    public void goForward() {
+        goForward(1);
+    }
+
+    public void goBack(int steps) {
+        if(canGoBack())
+            getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, steps);
+    }
+
+    public void goBack() {
+        goBack(1);
     }
 
 }

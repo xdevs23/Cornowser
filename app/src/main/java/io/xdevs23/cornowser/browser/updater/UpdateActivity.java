@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -214,6 +216,17 @@ public class UpdateActivity extends AppCompatActivity {
                     (com.rey.material.widget.Button) findViewById(R.id.updaterUpdateAppButton);
 
             updaterButton.setVisibility(View.INVISIBLE);
+
+            AppCompatCheckBox rootCheckBox = (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+
+            rootCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    enableRoot = isChecked;
+                }
+            });
+
+            rootCheckBox.setChecked(enableRoot);
 
             try {
                 currentVersionTv.setText(String.format(getString(R.string.updater_prefix_actual_version),

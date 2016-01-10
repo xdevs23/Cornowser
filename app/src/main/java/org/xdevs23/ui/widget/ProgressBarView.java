@@ -33,7 +33,7 @@ public class ProgressBarView extends RelativeLayout {
 
         this.addView(innerProgressBar);
 
-        this.setVisibility(INVISIBLE);
+        if(this.getChildCount() < 1)this.setVisibility(INVISIBLE);
     }
 
     public ProgressBarView(Context context) {
@@ -59,10 +59,7 @@ public class ProgressBarView extends RelativeLayout {
     public void setProgress(int progress) {
 
         if (this.getVisibility() == INVISIBLE) {
-            this.setVisibility(VISIBLE);
-            this.animate()
-                    .setDuration(80)
-                    .scaleY(1);
+            makeVisible();
         }
 
         if (hideOnFinish && progress == 100) { endProgress(); return; }
@@ -71,6 +68,8 @@ public class ProgressBarView extends RelativeLayout {
             innerProgressBar.animate()
                     .setDuration(100)
                     .translationX(-(this.getWidth() - (this.getWidth() * progress / 100)));
+            innerProgressBar.bringToFront();
+            this.bringToFront();
             lastProgress = progress;
         }
     }
@@ -83,7 +82,20 @@ public class ProgressBarView extends RelativeLayout {
         innerProgressBar.animate()
                 .setDuration(480)
                 .translationX(0);
+        makeInvisible();
+    }
+
+    public void makeVisible() {
+        this.setVisibility(VISIBLE);
         this.animate()
+                .setDuration(120)
+                .scaleY(1);
+    }
+
+    public void makeInvisible() {
+        final ProgressBarView fView = this;
+        this.animate()
+                .setDuration(180)
                 .scaleY(0)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -93,7 +105,7 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        makeInvisible();
+                        fView.setVisibility(INVISIBLE);
                     }
 
                     @Override
@@ -106,14 +118,7 @@ public class ProgressBarView extends RelativeLayout {
                         // Not needed
                     }
                 });
-    }
 
-    public void makeVisible() {
-        this.setVisibility(VISIBLE);
-    }
-
-    public void makeInvisible() {
-        this.setVisibility(INVISIBLE);
     }
 
     public void setOnCompletedAutoProgressFinish(boolean enable) {
