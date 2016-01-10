@@ -410,7 +410,6 @@ public class CornBrowser extends XquidCompatActivity {
 
     /* Updater section */
 
-
     /* This Thread checks for Updates in the Background */
     private Thread checkUpdate = new Thread() {
         public void run() {
@@ -423,10 +422,7 @@ public class CornBrowser extends XquidCompatActivity {
                     mHandler.post(showUpdate);
 
             } catch (Exception e) { /* Do nothing */ }
-            if( (!getWebEngine().getResourceClient().currentWorkingUrl.isEmpty()) &&
-                    (getWebEngine().getTitle().isEmpty() ||
-                        getWebEngine().getUrl().isEmpty()))
-                getWebEngine().loadWorkingUrl();
+            mHandler.post(fixStopLoadByUpdater);
         }
 
     };
@@ -447,6 +443,16 @@ public class CornBrowser extends XquidCompatActivity {
                         }
                     })
                     .show();
+        }
+    };
+
+    private Runnable fixStopLoadByUpdater = new Runnable() {
+        @Override
+        public void run() {
+            if( (!getWebEngine().getResourceClient().currentWorkingUrl.isEmpty()) &&
+                    (getWebEngine().getTitle().isEmpty() ||
+                            getWebEngine().getUrl().isEmpty()))
+                getWebEngine().loadWorkingUrl();
         }
     };
 
