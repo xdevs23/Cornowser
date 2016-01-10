@@ -19,10 +19,14 @@ Google Chrome Dev for Android achieves **519** points and the System WebView on 
 According to these results **this browser is ready for HTML5**.
 
 ### Chrome Dev score:
-<img src="http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png" width="320" />
+<img src="http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png" width="240" />
 
 ### Cornowser score:
-<img src="http://xdevs23.bplaced.com/upload/img/Cornowser_htscore.png" width="320" />
+<img src="http://forum.xda-developers.com/attachment.php?attachmentid=3605386&stc=1&d=1452441158" width="240" />
+
+## Screenhots
+
+See [our XDA thread with screenshots](http://forum.xda-developers.com/devdb/project/?id=13347#screenshots).
 
 <hr />
 
