@@ -7,6 +7,12 @@
     <string name="settings_browsing_homepage_summary">Lege deine bevorzugte Startseite fest.</string>
 
 
+    <string name="settings_category_layout_title">Layout</string>
+
+    <string name="settings_layout_omni_pos_title">Adressleistenposition</string>
+    <string name="settings_layout_omni_pos_sumary">Setze deine bevorzugte Position der Adressleiste</string>
+
+
     <string name="settings_category_misc_title">Sonstiges</string>
 
     <string name="settings_list_licenses_title">Open-Source-Lizenzen</string>

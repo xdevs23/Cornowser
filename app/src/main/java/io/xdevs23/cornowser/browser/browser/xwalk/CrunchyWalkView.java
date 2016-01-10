@@ -7,6 +7,7 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.AppConfig;
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkSettings;
@@ -62,6 +63,7 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     /* Don't use this! */
+    @DontUse
     public CrunchyWalkView(Context context) {
         super(context);
         init();

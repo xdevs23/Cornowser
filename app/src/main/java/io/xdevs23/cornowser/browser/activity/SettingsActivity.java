@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.widget.Toolbar;
@@ -62,6 +63,8 @@ public class SettingsActivity extends XquidCompatActivity {
 
             addPreferencesFromResource(R.xml.settings_preferences);
 
+
+            // License dialog
             Preference licensesPref = (Preference) findPreference("settings_licenses");
             licensesPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -73,6 +76,7 @@ public class SettingsActivity extends XquidCompatActivity {
                 }
             });
 
+            // Home page
             Preference homePagePref =
                     (Preference) findPreference("settings_userhomepage");
             homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -94,6 +98,19 @@ public class SettingsActivity extends XquidCompatActivity {
                             dialog.dismiss();
                         }
                     }).showDialog();
+                    return false;
+                }
+            });
+
+            // Omnibox position
+
+            ListPreference omniPosPref =
+                    (ListPreference) findPreference("settings_omnibox_pos");
+
+            omniPosPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveOmniboxPosition( Integer.parseInt((String)newValue) != 0 );
                     return false;
                 }
             });

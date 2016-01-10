@@ -7,6 +7,12 @@
     <string name="settings_browsing_homepage_summary">Set your preferred home page</string>
 
 
+    <string name="settings_category_layout_title">Layout</string>
+
+    <string name="settings_layout_omni_pos_title">Omnibox position</string>
+    <string name="settings_layout_omni_pos_sumary">Set your preferred address bar position</string>
+
+
     <string name="settings_category_misc_title">Miscellaneous</string>
 
     <string name="settings_list_licenses_title">Open Source Licenses</string>

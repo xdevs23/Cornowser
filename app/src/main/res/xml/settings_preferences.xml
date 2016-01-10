@@ -19,6 +19,23 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:id="@+id/settings_category_layout"
+        android:title="@string/settings_category_layout_title"
+        android:key="settings_category_layout">
+
+        <ListPreference
+            android:id="@+id/settings_preference_omnibox_pos"
+            android:title="@string/settings_layout_omni_pos_title"
+            android:summary="@string/settings_layout_omni_pos_sumary"
+            android:key="settings_omnibox_pos"
+            android:dialogTitle="@string/settings_layout_omni_pos_title"
+            android:entries="@array/settings_layout_omni_pos_entries"
+            android:entryValues="@array/settings_layout_omni_pos_entryvalues"
+            android:defaultValue="0" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:id="@+id/settings_category_misc"
         android:title="@string/settings_category_misc_title"
         android:key="settings_category_misc">

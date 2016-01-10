@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -188,33 +189,50 @@ public class CornBrowser extends XquidCompatActivity {
 
     public void initOmniboxPosition() {
         Logging.logd("    Omnibox position");
-        RelativeLayout.LayoutParams omniparams =
-                (RelativeLayout.LayoutParams) omnibox.getLayoutParams();
-        RelativeLayout.LayoutParams webrparams =
-                (RelativeLayout.LayoutParams) publicWebRenderLayout.getLayoutParams();
-        RelativeLayout.LayoutParams otilparams =
-                (RelativeLayout.LayoutParams) omniboxTinyItemsLayout.getLayoutParams();
 
-        omniparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        omniparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        webrparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        webrparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        otilparams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        otilparams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        int
+                aLeft   = RelativeLayout.ALIGN_PARENT_LEFT,
+                aTop    = RelativeLayout.ALIGN_PARENT_TOP,
+                aRight  = RelativeLayout.ALIGN_PARENT_RIGHT,
+                aBottom = RelativeLayout.ALIGN_PARENT_BOTTOM;
+
+        RelativeLayout.LayoutParams omniparams = new RelativeLayout.LayoutParams(
+                omnibox.getLayoutParams().width,
+                omnibox.getLayoutParams().height
+        );
+        RelativeLayout.LayoutParams webrparams = new RelativeLayout.LayoutParams(
+                publicWebRenderLayout.getLayoutParams().width,
+                publicWebRenderLayout.getLayoutParams().height
+        );
+        RelativeLayout.LayoutParams otilparams = new RelativeLayout.LayoutParams(
+                omniboxTinyItemsLayout.getLayoutParams().width,
+                omniboxTinyItemsLayout.getLayoutParams().height
+        );
+
+        omniparams.addRule(aLeft);
+        omniparams.addRule(aRight);
+        webrparams.addRule(aLeft);
+        webrparams.addRule(aRight);
+        otilparams.addRule(aLeft);
+        otilparams.addRule(aRight);
 
         if(browserStorage.getOmniboxPosition()) {
-            omniparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            webrparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            otilparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            omniparams.addRule(aBottom);
+            webrparams.addRule(aTop);
+            otilparams.addRule(aTop);
         } else {
-            omniparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            webrparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            otilparams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            omniparams.addRule(aTop);
+            webrparams.addRule(aBottom);
+            otilparams.addRule(aBottom);
         }
 
         omnibox.setLayoutParams(omniparams);
         publicWebRenderLayout.setLayoutParams(webrparams);
         omniboxTinyItemsLayout.setLayoutParams(otilparams);
+
+        publicWebRenderLayout.setTranslationY(omnibox.getHeight() *
+                (browserStorage.getOmniboxPosition() ? -1 : 1));
+        omnibox.setTranslationY(0);
     }
 
     /**
@@ -348,6 +366,8 @@ public class CornBrowser extends XquidCompatActivity {
         Logging.logd("Activity resumed.");
         super.onResume();
         if (publicWebRender != null) {
+            initOmniboxPosition();
+
             publicWebRender.resumeTimers();
             publicWebRender.onShow();
 

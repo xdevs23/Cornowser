@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="settings_category_browsing_title">Browsing</string>
+
+    <string name="settings_browsing_homepage_title">Página inicial</string>
+    <string name="settings_browsing_homepage_summary">A tua página inicial preferida</string>
+
+
+    <string name="settings_category_layout_title">Layout</string>
+
+    <string name="settings_layout_omni_pos_title">Posição da omnibox</string>
+    <string name="settings_layout_omni_pos_sumary">A tua posição preferida da omnibox</string>
+
     <string name="settings_category_misc_title">Outros</string>
 
     <string name="settings_list_licenses_title">Licenças de Open Source</string>

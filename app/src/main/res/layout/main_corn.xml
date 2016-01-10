@@ -106,7 +106,7 @@
     <RelativeLayout
         android:id="@+id/webrender_layout"
         android:layout_width ="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <!-- The view will be added here while init -->
 

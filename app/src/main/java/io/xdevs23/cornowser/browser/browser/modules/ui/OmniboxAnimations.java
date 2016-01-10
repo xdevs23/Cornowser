@@ -2,41 +2,36 @@ package io.xdevs23.cornowser.browser.browser.modules.ui;
 
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
-
-import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 
 public class OmniboxAnimations {
 
-    public static boolean isBottom = false;
-
     public static final int
             DEFAULT_ANIMATION_DURATION = 420
             ;
 
+    private static boolean isBottom() {
+        return CornBrowser.getBrowserStorage().getOmniboxPosition();
+    }
+
     public static void moveOmni(int posY) {
-        float mov = (float) (isBottom ? CornBrowser.omnibox.getHeight() - posY : posY);
+        if(isBottom()) return;
+        float mov = (float) (posY);
         CornBrowser.omnibox.setTranslationY(mov);
-        CornBrowser.publicWebRenderLayout.setTranslationY(mov);
-        ((RelativeLayout.LayoutParams) CornBrowser.publicWebRenderLayout.getLayoutParams())
-                .setMargins(0, (isBottom ? posY : 0), 0, (isBottom ? 0 : posY));
-        ((RelativeLayout.LayoutParams) CornBrowser.publicWebRenderLayout.getLayoutParams())
-                .height = CornBrowser.publicWebRenderLayout.getHeight() + posY;
+        CornBrowser.publicWebRenderLayout
+                .setTranslationY(mov + CornBrowser.omnibox.getHeight());
     }
 
     public static void animateOmni(int posY) {
-        float mov = (float) (isBottom ? CornBrowser.omnibox.getHeight() - posY : posY);
-        CornBrowser.omnibox.animate().translationY(mov);
+        float mov = (float) posY;
+        CornBrowser.omnibox.animate().translationY(mov - (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
         CornBrowser.publicWebRenderLayout.animate()
                 .setDuration(DEFAULT_ANIMATION_DURATION)
-                .translationY(mov);
-        ((RelativeLayout.LayoutParams) CornBrowser.publicWebRenderLayout.getLayoutParams())
-                .setMargins(0, (isBottom ? posY : 0), 0, (isBottom ? 0 : posY));
-        ((RelativeLayout.LayoutParams) CornBrowser.publicWebRenderLayout.getLayoutParams())
-                .height = CornBrowser.publicWebRenderLayout.getHeight() + posY;
+                .translationY( (mov + (isBottom() ? 0 : CornBrowser.omnibox.getHeight())) );
     }
+
+    // Main listener for controlling omnibox show/hide animations
 
     public static final View.OnTouchListener
             mainOnTouchListener = new View.OnTouchListener() {
@@ -51,11 +46,12 @@ public class OmniboxAnimations {
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     oh = CornBrowser.omnibox.getHeight();
-                    cy = (int)motionEvent.getRawY();
+                    if(opos > -oh)cy = (int)motionEvent.getRawY();
+                    else cy = (int)motionEvent.getRawY() - opos;
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(-opos > oh / 2) animateOmni(-oh);
-                    else animateOmni(0);
+                    if(-opos > oh / 2) animateOmni(isBottom() ? -oh : 0);
+                    else animateOmni(isBottom() ? 0 : -oh);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     ny = ((int)motionEvent.getRawY()) - cy;
