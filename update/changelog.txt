@@ -1,8 +1,7 @@
-Please wait a minute after the application closed itself and start the app manually if it doesn't automatically.
+If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fixed Marshmallow installation issue
- - Added Settings
- - Added license dialog to Settings
- - Improved Updater
+ - Improved updater
+ - Added omnibox animations
+ - Added omnibox top/bottom preference
+ - Improvements
  - Bugfixes
- - Other minor improvements
