@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -70,9 +69,9 @@ public class CornBrowser extends XquidCompatActivity {
 
         initAll();
 
-        if(readyToLoadUrl.length() == 0)
+        if(readyToLoadUrl.isEmpty())
             publicWebRender.load(browserStorage.getUserHomePage(), null);
-        else if(readyToLoadUrl.length() > 0) {
+        else {
             publicWebRender.load(readyToLoadUrl, null);
             readyToLoadUrl = "";
         }
@@ -230,8 +229,11 @@ public class CornBrowser extends XquidCompatActivity {
         publicWebRenderLayout.setLayoutParams(webrparams);
         omniboxTinyItemsLayout.setLayoutParams(otilparams);
 
-        publicWebRenderLayout.setTranslationY(omnibox.getHeight() *
-                (browserStorage.getOmniboxPosition() ? -1 : 1));
+        omnibox.bringToFront();
+        omniboxTinyItemsLayout.bringToFront();
+
+        if(!OmniboxAnimations.isBottom())
+            publicWebRenderLayout.setTranslationY(omnibox.getHeight());
         omnibox.setTranslationY(0);
     }
 
@@ -421,6 +423,10 @@ public class CornBrowser extends XquidCompatActivity {
                     mHandler.post(showUpdate);
 
             } catch (Exception e) { /* Do nothing */ }
+            if( (!getWebEngine().getResourceClient().currentWorkingUrl.isEmpty()) &&
+                    (getWebEngine().getTitle().isEmpty() ||
+                        getWebEngine().getUrl().isEmpty()))
+                getWebEngine().loadWorkingUrl();
         }
 
     };

@@ -36,7 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/updaterToolbar"
         android:padding="@dimen/zero_padding">
 
@@ -95,14 +97,25 @@
                 style="@style/Button_ColorStyle_Flatted"
                 app:rd_style="@style/Ripple_Light" />
 
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/updaterUpdateAppButton"
+                android:gravity="end" />
+
             <com.rey.material.widget.ProgressView
                 android:id="@+id/updateProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_alignLeft="@id/updaterNewAppVersion"
+                android:layout_alignStart="@id/updaterNewAppVersion"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
                 android:layout_below="@id/updaterUpdateAppButton"
                 app:pv_autostart="false"
                 app:pv_circular="false"
@@ -114,7 +127,8 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/updateProgressBar"
                 android:layout_alignRight="@id/updateProgressBar"
-                android:gravity="right"
+                android:layout_alignEnd="@id/updateProgressBar"
+                android:gravity="end"
                 android:text=""
                 android:textSize="12sp"
                 android:textColor="@color/black" />
@@ -126,6 +140,7 @@
                 android:layout_below="@id/updateProgressBar"
                 android:layout_marginTop="16dp"
                 android:layout_alignLeft="@id/updaterNewAppVersion"
+                android:layout_alignStart="@id/updaterNewAppVersion"
                 android:textColor="@color/blue_600"
                 android:textSize="20sp" />
 
@@ -136,8 +151,11 @@
                 android:layout_below="@id/updaterChangelogTitle"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_alignLeft="@id/updaterChangelogTitle"
+                android:layout_alignStart="@id/updaterChangelogTitle"
                 android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:text="@string/updater_awaiting_loading" />

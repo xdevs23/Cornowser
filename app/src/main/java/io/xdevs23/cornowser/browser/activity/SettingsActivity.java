@@ -16,6 +16,7 @@ import org.xdevs23.ui.widget.EasyListView4;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 
 public class SettingsActivity extends XquidCompatActivity {
 
@@ -106,6 +107,8 @@ public class SettingsActivity extends XquidCompatActivity {
 
             ListPreference omniPosPref =
                     (ListPreference) findPreference("settings_omnibox_pos");
+
+            omniPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
 
             omniPosPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override

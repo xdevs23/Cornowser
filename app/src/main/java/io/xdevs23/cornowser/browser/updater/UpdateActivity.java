@@ -162,10 +162,10 @@ public class UpdateActivity extends AppCompatActivity {
             String endR = "";
             Logging.logd("Update path is " + updatedApk);
 			if(enableRoot) endR = RootController.runCommand(
-                    "am force-stop io.xdevs23.cornowser.browser && " +
-                            "su -c pm install -r " + updatedApk + " && " +
-                            "su -c am start -n io.xdevs23.cornowser.browser/.CornBrowser && " +
-                            "su -c am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity && exit");
+                    "su -c \"am force-stop io.xdevs23.cornowser.browser\" && " +
+                            "su -c \"pm install -rdt " + updatedApk + "\" && " +
+                            "su -c \"am start -n io.xdevs23.cornowser.browser/.CornBrowser\" && " +
+                            "su -c \"am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity\" && exit");
 			else startNRUpdateInstallation();
 
             if(endR.length() > 0 && endR.toLowerCase().contains("failed")) {

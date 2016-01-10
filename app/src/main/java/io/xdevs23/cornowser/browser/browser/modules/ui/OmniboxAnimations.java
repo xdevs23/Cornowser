@@ -11,8 +11,12 @@ public class OmniboxAnimations {
             DEFAULT_ANIMATION_DURATION = 420
             ;
 
-    private static boolean isBottom() {
+    public static boolean isBottom() {
         return CornBrowser.getBrowserStorage().getOmniboxPosition();
+    }
+
+    public static int getOmniboxPositionInt() {
+        return (isBottom() ? 1 : 0);
     }
 
     public static void moveOmni(int posY) {
@@ -25,10 +29,11 @@ public class OmniboxAnimations {
 
     public static void animateOmni(int posY) {
         float mov = (float) posY;
-        CornBrowser.omnibox.animate().translationY(mov - (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
-        CornBrowser.publicWebRenderLayout.animate()
+        CornBrowser.omnibox.animate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
+        if(!isBottom())
+            CornBrowser.publicWebRenderLayout.animate()
                 .setDuration(DEFAULT_ANIMATION_DURATION)
-                .translationY( (mov + (isBottom() ? 0 : CornBrowser.omnibox.getHeight())) );
+                .translationY((mov + CornBrowser.omnibox.getHeight()));
     }
 
     // Main listener for controlling omnibox show/hide animations
@@ -50,8 +55,8 @@ public class OmniboxAnimations {
                     else cy = (int)motionEvent.getRawY() - opos;
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(-opos > oh / 2) animateOmni(isBottom() ? -oh : 0);
-                    else animateOmni(isBottom() ? 0 : -oh);
+                    if(-opos > oh / 2) animateOmni(0);
+                    else animateOmni(-oh);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     ny = ((int)motionEvent.getRawY()) - cy;
