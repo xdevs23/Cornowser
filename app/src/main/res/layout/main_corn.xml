@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/corn_root_view"
     android:paddingBottom="@dimen/zero_padding"
     android:paddingLeft="@dimen/zero_padding"
@@ -88,8 +89,8 @@
 
                 <ImageButton
                     android:id="@+id/omnibox_control_forward"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_arrow_forward_black_48dp"
                     android:contentDescription="@string/omnibox_forward_btn_acsb_desc" />
@@ -111,12 +112,14 @@
             android:layout_height="3dp"
             android:id="@+id/omnibox_tiny_items_layout">
 
-            <!-- Don't forget our wonderful progress bar -->
-            <org.xdevs23.ui.widget.ProgressBarView
+            <!-- Don't forget the progress bar -->
+            <com.rey.material.widget.ProgressView
                 android:id="@+id/omnibox_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                app:pv_circular="false"
+                app:pv_progressStyle="@style/ProgressView_MainStyle_Horiz_Determinate" />
 
             <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
             <org.xdevs23.ui.widget.SimpleSeparator

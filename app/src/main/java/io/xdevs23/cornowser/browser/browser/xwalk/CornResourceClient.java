@@ -3,7 +3,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.net.http.SslError;
 import android.view.View;
 import android.webkit.ValueCallback;
-import android.widget.RelativeLayout;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
@@ -21,7 +20,6 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
-import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -78,7 +76,7 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onLoadStarted(view, url);
         allowTinting = true;
         CornBrowser.browserInputBar.setText(view.getUrl());
-        CornBrowser.getWebProgressBar().makeVisible();
+        CornBrowser.getWebProgressBar().setVisibility(View.VISIBLE);
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
     }
 
@@ -107,7 +105,7 @@ public class CornResourceClient extends XWalkResourceClient {
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
-        CornBrowser.getWebProgressBar().setProgress(percentage);
+        CornBrowser.getWebProgressBar().setProgress(percentage/100);
     }
 
     @Override

@@ -1,32 +1,27 @@
 package io.xdevs23.cornowser.browser;
 
-import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import com.rey.material.widget.ProgressView;
+
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.utils.BarColors;
-import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
-import org.xdevs23.ui.widget.ProgressBarView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 import org.xwalk.core.XWalkNavigationHistory;
 
@@ -61,7 +56,7 @@ public class CornBrowser extends XquidCompatActivity {
     private static Activity staticActivity;
     private static Window staticWindow;
 
-    private static ProgressBarView webProgressBar;
+    private static ProgressView webProgressBar;
 
     private static BrowserStorage browserStorage;
 
@@ -164,7 +159,7 @@ public class CornBrowser extends XquidCompatActivity {
         omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
         browserInputBarControls = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_controls);
         omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
-        webProgressBar          = (ProgressBarView)     findViewById(R.id.omnibox_progressbar);
+        webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) browserInputBarLayout.getLayoutParams();
@@ -194,8 +189,6 @@ public class CornBrowser extends XquidCompatActivity {
                 openOptionsMenu();
             }
         });
-
-        webProgressBar.setOnCompletedAutoProgressFinish(false);
 
 
         goForwardImgBtn = (ImageButton) findViewById(R.id.omnibox_control_forward);
@@ -380,7 +373,7 @@ public class CornBrowser extends XquidCompatActivity {
     /**
      * @return Progress bar (shows actual loading progress)
      */
-    public static ProgressBarView getWebProgressBar() {
+    public static ProgressView getWebProgressBar() {
         return webProgressBar;
     }
 

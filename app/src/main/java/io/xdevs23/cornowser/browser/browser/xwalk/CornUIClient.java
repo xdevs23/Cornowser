@@ -2,6 +2,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.graphics.Bitmap;
 import android.os.Message;
+import android.view.View;
 
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkJavascriptResult;
@@ -83,6 +84,7 @@ public class CornUIClient extends XWalkUIClient {
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
 
-        CornBrowser.getWebProgressBar().endProgress();
+        CornBrowser.getWebProgressBar().setProgress(1.0f);
+        CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
     }
 }

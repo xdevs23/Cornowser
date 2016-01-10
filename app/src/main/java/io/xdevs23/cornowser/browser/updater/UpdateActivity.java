@@ -198,7 +198,7 @@ public class UpdateActivity extends AppCompatActivity {
 	}
 
     @SuppressLint("SetJavaScriptEnabled")
-    protected void initThisActivity() {
+    protected void init() {
         if(!webloaded) {
             updatedApk = (getApplicationContext().getExternalCacheDir() + "/CBUpdate.apk")
                     .replace("//", "/");
@@ -346,7 +346,7 @@ public class UpdateActivity extends AppCompatActivity {
 				aD.show();
 			}
 
-        initThisActivity();
+        init();
 		
 	}
 

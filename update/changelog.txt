@@ -1,10 +1,5 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fixed crash at start-up
-
-In 1.0.2.0
- - Improved updater
- - Added omnibox animations
- - Added omnibox top/bottom preference
- - Improvements
- - Bugfixes
+ - New progress bar
+ - Go back & forward functionality
+ - Improvements and bugfixes
