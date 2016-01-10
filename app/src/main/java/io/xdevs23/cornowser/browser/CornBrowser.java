@@ -422,7 +422,6 @@ public class CornBrowser extends XquidCompatActivity {
                     mHandler.post(showUpdate);
 
             } catch (Exception e) { /* Do nothing */ }
-            mHandler.post(fixStopLoadByUpdater);
         }
 
     };
@@ -443,16 +442,6 @@ public class CornBrowser extends XquidCompatActivity {
                         }
                     })
                     .show();
-        }
-    };
-
-    private Runnable fixStopLoadByUpdater = new Runnable() {
-        @Override
-        public void run() {
-            if( (!getWebEngine().getResourceClient().currentWorkingUrl.isEmpty()) &&
-                    (getWebEngine().getTitle().isEmpty() ||
-                            getWebEngine().getUrl().isEmpty()))
-                getWebEngine().loadWorkingUrl();
         }
     };
 
