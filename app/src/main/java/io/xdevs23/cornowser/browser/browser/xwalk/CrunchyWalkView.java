@@ -24,23 +24,10 @@ public class CrunchyWalkView extends XWalkView {
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
-    private OnTouchListener onTouchListener = new OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch(event.getAction()) {
-                case MotionEvent.ACTION_DOWN: break;
-                case MotionEvent.ACTION_UP:   break;
-                case MotionEvent.ACTION_MOVE: break;
-                default: break;
-            }
-            return false;
-        }
-    };
-
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
                     "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/" +
-                    AppConfig.versionName + " Chrome/49.0.2593.0 Mobile Safari/601.1";
+                    AppConfig.versionName + " Chrome/49.0.2612.0 Mobile Safari/601.1";
 
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
@@ -52,9 +39,6 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("      Applying clients");
         setResourceClient(getResourceClient());
         setUIClient(getUIClient());
-
-        Logging.logd("      Touch listener");
-        setOnTouchListener(onTouchListener);
 
         Logging.logd("      Configuring settings");
         XWalkSettings crispySettings = this.getSettings();

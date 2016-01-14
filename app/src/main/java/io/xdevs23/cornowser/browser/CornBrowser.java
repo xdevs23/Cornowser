@@ -5,24 +5,27 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.rey.material.widget.ProgressView;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.utils.BarColors;
+import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
+import org.xdevs23.rey.material.widget.ProgressView;
 import org.xwalk.core.XWalkNavigationHistory;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
@@ -40,9 +43,7 @@ public class CornBrowser extends XquidCompatActivity {
             omnibox                 = null,
             publicWebRenderLayout   = null,
             omniboxControls         = null,
-            browserInputBarLayout   = null,
-            omniboxTinyItemsLayout  = null,
-            browserInputBarControls = null
+            omniboxTinyItemsLayout  = null
             ;
 
     public  static EditText browserInputBar = null;
@@ -154,19 +155,11 @@ public class CornBrowser extends XquidCompatActivity {
     public void initOmnibox() {
         Logging.logd("    Omnibox");
         omnibox                 = (RelativeLayout)      findViewById(R.id.omnibox_layout);
-        browserInputBarLayout   = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_layout);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
         omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
-        browserInputBarControls = (RelativeLayout)      findViewById(R.id.omnibox_input_bar_controls);
         omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
         webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
-
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) browserInputBarLayout.getLayoutParams();
-
-        params.width = browserInputBarLayout.getWidth() - omniboxControls.getWidth();
-
-        browserInputBarLayout.setLayoutParams(params);
 
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
@@ -199,6 +192,7 @@ public class CornBrowser extends XquidCompatActivity {
             }
         });
         goForwardImgBtn.setVisibility(View.INVISIBLE);
+
     }
 
     public void initOmniboxPosition() {
@@ -222,6 +216,10 @@ public class CornBrowser extends XquidCompatActivity {
                 omniboxTinyItemsLayout.getLayoutParams().width,
                 omniboxTinyItemsLayout.getLayoutParams().height
         );
+        RelativeLayout.LayoutParams inpbparams = new RelativeLayout.LayoutParams(
+                omnibox.getWidth() - omniboxControls.getWidth() - DpUtil.dp2px(getContext(), 12),
+                omnibox.getHeight() - ((RelativeLayout.LayoutParams)omnibox.getLayoutParams()).bottomMargin * 2
+        );
 
         omniparams.addRule(aLeft);
         omniparams.addRule(aRight);
@@ -229,6 +227,9 @@ public class CornBrowser extends XquidCompatActivity {
         webrparams.addRule(aRight);
         otilparams.addRule(aLeft);
         otilparams.addRule(aRight);
+        inpbparams.addRule(aLeft);
+        inpbparams.addRule(aTop);
+        inpbparams.addRule(aBottom);
 
         if(browserStorage.getOmniboxPosition()) {
             omniparams.addRule(aBottom);
@@ -243,6 +244,10 @@ public class CornBrowser extends XquidCompatActivity {
         omnibox.setLayoutParams(omniparams);
         publicWebRenderLayout.setLayoutParams(webrparams);
         omniboxTinyItemsLayout.setLayoutParams(otilparams);
+        browserInputBar.setLayoutParams(inpbparams);
+
+        omniboxTinyItemsLayout.findViewById(R.id.omnibox_separator)
+            .setTranslationY(browserStorage.getOmniboxPosition() ? -3 : 0);
 
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
@@ -255,6 +260,19 @@ public class CornBrowser extends XquidCompatActivity {
             publicWebRenderLayout.setTranslationY(omnibox.getHeight());
         else publicWebRenderLayout.setTranslationY(0);
         omnibox.setTranslationY(0);
+        publicWebRenderLayout.setScrollY(0);
+        publicWebRenderLayout.setScrollX(0);
+    }
+
+    public static void resetOmniPositionState(boolean animate) {
+        if(!animate) { resetOmniPositionState(); return; }
+        OmniboxAnimations.animateOmni(0);
+    }
+
+
+    public static void applyInsideOmniText(String url) {
+        browserInputBar.setText(url
+                .replaceFirst("^(.*)://", ""));
     }
 
     /**
@@ -272,9 +290,7 @@ public class CornBrowser extends XquidCompatActivity {
     private static class optMenuItems {
         public static final int
             UPDATER         = 0,
-            SETTINGS        = 1,
-
-            NONE            = Integer.MIN_VALUE
+            SETTINGS        = 1
 
                     ;
     }
@@ -302,16 +318,8 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     public static void toggleGoForwardControlVisibility(boolean visible) {
-        if(visible) {
-            if(goForwardImgBtn.getVisibility() == View.INVISIBLE)
-                browserInputBarLayout.getLayoutParams().width -= goForwardImgBtn.getWidth();
-            goForwardImgBtn.setVisibility(View.VISIBLE);
-
-        } else {
-            if(goForwardImgBtn.getVisibility() == View.VISIBLE)
-                browserInputBarLayout.getLayoutParams().width += goForwardImgBtn.getWidth();
-            goForwardImgBtn.setVisibility(View.INVISIBLE);
-        }
+        if(visible) goForwardImgBtn.setVisibility(View.VISIBLE);
+        else        goForwardImgBtn.setVisibility(View.INVISIBLE);
     }
 
     /**

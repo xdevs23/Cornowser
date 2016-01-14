@@ -23,25 +23,21 @@
         android:background="@color/colorPrimary">
 
         <RelativeLayout
+            android:id="@+id/omnibox_layout_inner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop   ="8dp"
-            android:paddingLeft  ="8dp"
-            android:paddingStart ="8dp"
-            android:paddingRight ="8dp"
-            android:paddingBottom="8dp">
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
             <!-- Address bar -->
             <RelativeLayout
                 android:id="@+id/omnibox_input_bar_layout"
-                android:layout_width ="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop   ="true"
-                android:layout_alignParentStart ="true"
-                android:layout_alignParentLeft  ="true"
+                android:layout_width ="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight ="false"
-                android:layout_alignParentEnd   ="false"
+                android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/omnibox_controls"
                 android:layout_toStartOf="@+id/omnibox_controls"
                 android:background="@color/white_semi_more_transparent">
@@ -60,37 +56,27 @@
                     android:hint="@string/omnibox_inputbar_hint"
                     android:selectAllOnFocus="true"
                     android:textStyle="normal" />
-
-                <RelativeLayout
-                    android:id="@+id/omnibox_input_bar_controls"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="end"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="1dp">
-
-                </RelativeLayout>
-
             </RelativeLayout>
 
             <!-- Omnibox controls -->
             <RelativeLayout
                 android:id="@+id/omnibox_controls"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_width ="wrap_content"
-                android:layout_alignParentEnd  ="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:gravity="center">
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/omnibox_input_bar_layout"
+                android:layout_toEndOf="@id/omnibox_input_bar_layout"
+                android:gravity="center_vertical">
 
                 <ImageButton
                     android:id="@+id/omnibox_control_forward"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_arrow_forward_black_48dp"
                     android:contentDescription="@string/omnibox_forward_btn_acsb_desc" />
@@ -113,7 +99,7 @@
             android:id="@+id/omnibox_tiny_items_layout">
 
             <!-- Don't forget the progress bar -->
-            <com.rey.material.widget.ProgressView
+            <org.xdevs23.rey.material.widget.ProgressView
                 android:id="@+id/omnibox_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

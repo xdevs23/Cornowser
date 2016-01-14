@@ -1,10 +1,12 @@
 package io.xdevs23.cornowser.browser.browser.modules;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
+import org.michaelevans.colorart.library.ColorArt;
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.ui.utils.BarColors;
 
@@ -29,6 +31,14 @@ public class WebThemeHelper {
     public static void resetWebThemeColor(RelativeLayout omnibox) {
         if(currentColor != 0) omnibox.setBackgroundColor(currentColor);
         CornBrowser.resetBarColor();
+    }
+
+    public static void resetWebThemeColorAlt(RelativeLayout omnibox, Window window) {
+        Bitmap b = CornBrowser.getWebEngine().getUIClient().getCurrentFavicon();
+        if(b != null) {
+            ColorArt c = new ColorArt(b);
+            setWebThemeColor(c.getBackgroundColor(), omnibox, window);
+        } else resetWebThemeColor(omnibox);
     }
 
     public static void tintNow(CrunchyWalkView view) {

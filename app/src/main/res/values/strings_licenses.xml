@@ -9,8 +9,8 @@
 
         <item>AppCompat</item>
         <item>Google Inc.</item>
-        <item> - </item>
-        <item>http://google.com</item>
+        <item>Android Software Development Kit License Agreement</item>
+        <item>http://goo.gl/Y8IMmk</item>
 
         <item>Material Library</item>
         <item>Rey Pham (rey5137)</item>
@@ -26,6 +26,11 @@
         <item>Apache</item>
         <item>Apache License 2.0</item>
         <item>https://goo.gl/lprfHC</item>
+
+        <item>ColorArt</item>
+        <item>MichaelEvans</item>
+        <item>Apache License 2.0</item>
+        <item>https://git.io/vz3re</item>
     </string-array>
 
 </resources>

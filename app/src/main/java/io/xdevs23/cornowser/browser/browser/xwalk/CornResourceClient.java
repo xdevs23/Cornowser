@@ -1,6 +1,7 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.net.http.SslError;
+import android.text.Html;
 import android.view.View;
 import android.webkit.ValueCallback;
 
@@ -66,7 +67,7 @@ public class CornResourceClient extends XWalkResourceClient {
                     this);
             return true;
         }
-        CornBrowser.resetOmniPositionState();
+        CornBrowser.resetOmniPositionState(true);
         Logging.logd("Starting url loading '" + url + "'");
         return super.shouldOverrideUrlLoading(view, url);
     }
@@ -74,9 +75,9 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         super.onLoadStarted(view, url);
+        CornBrowser.resetOmniPositionState(true);
         allowTinting = true;
-        CornBrowser.browserInputBar.setText(view.getUrl());
-        CornBrowser.getWebProgressBar().setVisibility(View.VISIBLE);
+        CornBrowser.applyInsideOmniText(url);
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
     }
 
@@ -87,7 +88,7 @@ public class CornResourceClient extends XWalkResourceClient {
             WebThemeHelper.tintNow((CrunchyWalkView)view);
         allowTinting = false;
         super.onLoadFinished(view, url);
-        CornBrowser.browserInputBar.setText(view.getUrl());
+        CornBrowser.applyInsideOmniText(view.getUrl());
         currentWorkingUrl = view.getUrl();
     }
 
@@ -105,7 +106,7 @@ public class CornResourceClient extends XWalkResourceClient {
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
-        CornBrowser.getWebProgressBar().setProgress(percentage/100);
+        CornBrowser.getWebProgressBar().setProgress((float) percentage * 0.01f);
     }
 
     @Override

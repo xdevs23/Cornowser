@@ -49,7 +49,8 @@ public class CornHandler {
                 case loadWorkingUrl: view.load(resClient.currentWorkingUrl); break;
                 case setWebThemeColor:
                     if(reqParams[0].equalsIgnoreCase("default"))
-                        WebThemeHelper.resetWebThemeColor(CornBrowser.omnibox);
+                        WebThemeHelper.resetWebThemeColorAlt(CornBrowser.omnibox,
+                                CornBrowser.getStaticWindow());
                     WebThemeHelper.setWebThemeColor(reqParams[0],
                             CornBrowser.omnibox, CornBrowser.getStaticWindow());
                     break;

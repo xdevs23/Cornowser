@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.view.View;
+import android.widget.ImageView;
 
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkJavascriptResult;
@@ -18,6 +19,8 @@ public class CornUIClient extends XWalkUIClient {
 
     // This is for controlling errors on start-up loading
     private boolean readyForBugfreeBrowsing = false;
+
+    protected Bitmap currentFavicon = null;
 
     public CornUIClient(XWalkView view) {
         super(view);
@@ -36,7 +39,7 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onReceivedIcon(XWalkView view, String url, Bitmap icon) {
-        // TODO: Put that icon into the omnibox
+        currentFavicon = icon;
         super.onReceivedIcon(view, url, icon);
     }
 
@@ -75,11 +78,17 @@ public class CornUIClient extends XWalkUIClient {
     }
 
     @Override
+    public void onPageLoadStarted(XWalkView view, String url) {
+        currentFavicon = null;
+        super.onPageLoadStarted(view, url);
+    }
+
+    @Override
     public void onPageLoadStopped(XWalkView view, String url, LoadStatus status) {
         if( (status == LoadStatus.CANCELLED || status == LoadStatus.FAILED)
-                && (!readyForBugfreeBrowsing) )
+                && (!readyForBugfreeBrowsing) && (!url.isEmpty()) )
             view.load(url, null);
-        else if(status == LoadStatus.FINISHED) readyForBugfreeBrowsing = true;
+        else readyForBugfreeBrowsing = true;
 
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
@@ -87,4 +96,9 @@ public class CornUIClient extends XWalkUIClient {
         CornBrowser.getWebProgressBar().setProgress(1.0f);
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
     }
+
+    public Bitmap getCurrentFavicon() {
+        return currentFavicon;
+    }
+
 }
