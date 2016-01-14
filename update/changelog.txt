@@ -1,5 +1,7 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - New progress bar
- - Go back & forward functionality
+ - New app icon!
+ - Now you can open links from other apps
+ - Fixed progress bar
+ - Updated Crosswalk version
  - Improvements and bugfixes
