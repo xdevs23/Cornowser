@@ -3,7 +3,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.view.View;
-import android.widget.ImageView;
 
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkJavascriptResult;

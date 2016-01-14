@@ -19,7 +19,7 @@ public final class AppConfig {
 			 updateRoot = UpdaterStorage.URL_RAW_CB_GITHUB_REPO  + "update/",
 			 myDataRoot = Environment.getDataDirectory() + "data/io.xdevs23.cornowser.browser/",
 			 debugTag   = appName,
-			 dbgVer     = "debug"
+			 dbgVer     = "alpharelease"
 	;
 	
 	public static final class Version {

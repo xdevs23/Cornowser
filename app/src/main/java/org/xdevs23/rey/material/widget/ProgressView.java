@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import io.xdevs23.cornowser.browser.CornBrowser;
-
 public class ProgressView extends com.rey.material.widget.ProgressView {
 
 

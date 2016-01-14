@@ -4,8 +4,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.view.MotionEvent;
-import android.view.View;
 
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.AppConfig;

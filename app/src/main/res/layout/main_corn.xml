@@ -4,9 +4,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/corn_root_view"
     android:paddingBottom="@dimen/zero_padding"
     android:paddingLeft="@dimen/zero_padding"
@@ -32,7 +32,7 @@
             <!-- Address bar -->
             <RelativeLayout
                 android:id="@+id/omnibox_input_bar_layout"
-                android:layout_width ="match_parent"
+                android:layout_width ="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -67,8 +67,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/omnibox_input_bar_layout"
-                android:layout_toEndOf="@id/omnibox_input_bar_layout"
                 android:gravity="center_vertical">
 
                 <ImageButton

@@ -5,27 +5,24 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
+import org.xdevs23.rey.material.widget.ProgressView;
+import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.utils.BarColors;
-import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
-import org.xdevs23.rey.material.widget.ProgressView;
 import org.xwalk.core.XWalkNavigationHistory;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
@@ -76,7 +73,9 @@ public class CornBrowser extends XquidCompatActivity {
 
         initAll();
 
-        if(readyToLoadUrl.isEmpty())
+        if(getIntent().getData() != null && (!getIntent().getData().toString().isEmpty()))
+            publicWebRender.load(getIntent().getData().toString());
+        else if(readyToLoadUrl.isEmpty())
             publicWebRender.load(browserStorage.getUserHomePage(), null);
         else {
             publicWebRender.load(readyToLoadUrl, null);
@@ -140,7 +139,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initWebXWalkEngine() {
         Logging.logd("    Our crunchy web engine");
-        publicWebRenderLayout   = (RelativeLayout)  findViewById(R.id.webrender_layout);
+        publicWebRenderLayout   = (RelativeLayout)    findViewById(R.id.webrender_layout);
         publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
         publicWebRenderLayout.addView(publicWebRender);
 
@@ -216,10 +215,6 @@ public class CornBrowser extends XquidCompatActivity {
                 omniboxTinyItemsLayout.getLayoutParams().width,
                 omniboxTinyItemsLayout.getLayoutParams().height
         );
-        RelativeLayout.LayoutParams inpbparams = new RelativeLayout.LayoutParams(
-                omnibox.getWidth() - omniboxControls.getWidth() - DpUtil.dp2px(getContext(), 12),
-                omnibox.getHeight() - ((RelativeLayout.LayoutParams)omnibox.getLayoutParams()).bottomMargin * 2
-        );
 
         omniparams.addRule(aLeft);
         omniparams.addRule(aRight);
@@ -227,9 +222,6 @@ public class CornBrowser extends XquidCompatActivity {
         webrparams.addRule(aRight);
         otilparams.addRule(aLeft);
         otilparams.addRule(aRight);
-        inpbparams.addRule(aLeft);
-        inpbparams.addRule(aTop);
-        inpbparams.addRule(aBottom);
 
         if(browserStorage.getOmniboxPosition()) {
             omniparams.addRule(aBottom);
@@ -244,13 +236,20 @@ public class CornBrowser extends XquidCompatActivity {
         omnibox.setLayoutParams(omniparams);
         publicWebRenderLayout.setLayoutParams(webrparams);
         omniboxTinyItemsLayout.setLayoutParams(otilparams);
-        browserInputBar.setLayoutParams(inpbparams);
+
+        ((RelativeLayout.LayoutParams)browserInputBar.getLayoutParams()).setMargins(
+                0,
+                0,
+                omniboxControls.getWidth(),
+                0
+        );
 
         omniboxTinyItemsLayout.findViewById(R.id.omnibox_separator)
             .setTranslationY(browserStorage.getOmniboxPosition() ? -3 : 0);
 
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
+        omniboxControls.bringToFront();
 
         resetOmniPositionState();
     }
@@ -461,6 +460,7 @@ public class CornBrowser extends XquidCompatActivity {
     private Thread checkUpdate = new Thread() {
         public void run() {
             try {
+                Sleeper.sleep(1000); // Give the browser a second to get air xD
                 String newVer = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE);
                 newVersionAv  = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
                 if(Integer.parseInt(newVer) > getContext().getPackageManager().getPackageInfo(

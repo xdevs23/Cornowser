@@ -1,8 +1,6 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.net.http.SslError;
-import android.text.Html;
-import android.view.View;
 import android.webkit.ValueCallback;
 
 import org.xdevs23.android.content.res.AssetHelper;
@@ -77,7 +75,7 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onLoadStarted(view, url);
         CornBrowser.resetOmniPositionState(true);
         allowTinting = true;
-        CornBrowser.applyInsideOmniText(url);
+        CornBrowser.applyInsideOmniText(view.getUrl());
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
     }
 
