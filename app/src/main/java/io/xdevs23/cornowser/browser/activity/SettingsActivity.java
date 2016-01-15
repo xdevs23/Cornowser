@@ -122,7 +122,7 @@ public class SettingsActivity extends XquidCompatActivity {
 
             // Fullscreen
 
-            SwitchPreference fullscreenPref =
+            final SwitchPreference fullscreenPref =
                     (SwitchPreference) findPreference("settings_fullscreen");
 
             fullscreenPref.setChecked(CornBrowser.getBrowserStorage().getIsFullscreenEnabled());
@@ -131,6 +131,7 @@ public class SettingsActivity extends XquidCompatActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     CornBrowser.getBrowserStorage().saveEnableFullscreen((boolean)newValue);
+                    fullscreenPref.setChecked((boolean)newValue);
                     return false;
                 }
             });
