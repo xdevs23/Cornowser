@@ -12,6 +12,9 @@
     <string name="settings_layout_omni_pos_title">Omnibox position</string>
     <string name="settings_layout_omni_pos_sumary">Set your preferred address bar position</string>
 
+    <string name="settings_layout_fullscreen_title">Fullscreen</string>
+    <string name="settings_layout_fullscreen_summary">Enable fullscreen mode</string>
+
 
     <string name="settings_category_misc_title">Miscellaneous</string>
 

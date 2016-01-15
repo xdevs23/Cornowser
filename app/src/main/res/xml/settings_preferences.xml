@@ -33,6 +33,12 @@
             android:entryValues="@array/settings_layout_omni_pos_entryvalues"
             android:defaultValue="0" />
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_fullscreen"
+            android:title="@string/settings_layout_fullscreen_title"
+            android:summary="@string/settings_layout_fullscreen_summary"
+            android:key="settings_fullscreen" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

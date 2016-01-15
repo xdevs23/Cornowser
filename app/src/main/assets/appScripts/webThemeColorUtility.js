@@ -21,4 +21,4 @@ try {
     }
 }
 
-document.location.href = "CornHandler://setWebThemeColor:" + webCol;
+console.log("CornHandler://setWebThemeColor:" + webCol);

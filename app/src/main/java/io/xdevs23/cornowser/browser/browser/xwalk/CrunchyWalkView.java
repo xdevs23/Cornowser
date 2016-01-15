@@ -115,13 +115,15 @@ public class CrunchyWalkView extends XWalkView {
         goForward(1);
     }
 
-    public void goBack(int steps) {
+    public boolean goBack(int steps) {
         if(canGoBack())
             getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, steps);
+        else return false;
+        return true;
     }
 
-    public void goBack() {
-        goBack(1);
+    public boolean goBack() {
+        return goBack(1);
     }
 
 }

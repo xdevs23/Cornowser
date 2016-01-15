@@ -66,6 +66,7 @@ public class CornResourceClient extends XWalkResourceClient {
             return true;
         }
         CornBrowser.resetOmniPositionState(true);
+        CornBrowser.resetBarColor();
         Logging.logd("Starting url loading '" + url + "'");
         return super.shouldOverrideUrlLoading(view, url);
     }
@@ -77,6 +78,7 @@ public class CornResourceClient extends XWalkResourceClient {
         allowTinting = true;
         CornBrowser.applyInsideOmniText(view.getUrl());
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
+        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override

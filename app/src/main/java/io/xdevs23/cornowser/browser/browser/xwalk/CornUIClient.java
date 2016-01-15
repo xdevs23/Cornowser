@@ -10,6 +10,8 @@ import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
+import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
+import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 
 /**
  * A custom UIClient for our crunchy view
@@ -29,11 +31,13 @@ public class CornUIClient extends XWalkUIClient {
     public void onReceivedTitle(XWalkView view, String title) {
         Logging.logd("Web received title: " + title);
         super.onReceivedTitle(view, title);
+        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override
     public void onIconAvailable(XWalkView view, String url, Message startDownload) {
         super.onIconAvailable(view, url, startDownload);
+        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override
@@ -51,6 +55,17 @@ public class CornUIClient extends XWalkUIClient {
     public void onJavascriptCloseWindow(XWalkView view) {
         // TODO: handle this thing
         super.onJavascriptCloseWindow(view);
+    }
+
+    @Override
+    public boolean onConsoleMessage(XWalkView view, String message, int lineNumber, String sourceId, ConsoleMessageType messageType) {
+        if(message.toLowerCase().contains("cornhandler://"))
+            CornHandler.handleRequest(message,
+                    CornBrowser.getActivity(),
+                    CrunchyWalkView.fromXWalkView(view),
+                    view.getUrl(),
+                    CornBrowser.getWebEngine().getResourceClient());
+        return super.onConsoleMessage(view, message, lineNumber, sourceId, messageType);
     }
 
     @Override
@@ -80,6 +95,7 @@ public class CornUIClient extends XWalkUIClient {
     public void onPageLoadStarted(XWalkView view, String url) {
         currentFavicon = null;
         super.onPageLoadStarted(view, url);
+        CornBrowser.resetBarColor();
     }
 
     @Override

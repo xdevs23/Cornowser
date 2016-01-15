@@ -2,6 +2,7 @@ package io.xdevs23.cornowser.browser.browser.modules.ui;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 
@@ -12,11 +13,27 @@ public class OmniboxAnimations {
             ;
 
     public static boolean isBottom() {
-        return CornBrowser.getBrowserStorage().getOmniboxPosition();
+        return OmniboxControl.isBottom();
+    }
+
+    public static boolean isTop() {
+        return !isBottom();
+    }
+
+    protected static int getOmniHeight() {
+        return OmniboxControl.getOmniboxHeight();
     }
 
     public static int getOmniboxPositionInt() {
-        return (isBottom() ? 1 : 0);
+        return OmniboxControl.getOmniboxPositionInt();
+    }
+
+    protected static ViewPropertyAnimator omniboxAnimate() {
+        return CornBrowser.omnibox.animate().setDuration(DEFAULT_ANIMATION_DURATION);
+    }
+
+    protected static ViewPropertyAnimator webAnimate() {
+        return CornBrowser.publicWebRenderLayout.animate().setDuration(DEFAULT_ANIMATION_DURATION);
     }
 
     public static void moveOmni(int posY) {
@@ -30,10 +47,17 @@ public class OmniboxAnimations {
     public static void animateOmni(int posY) {
         float mov = (float) posY;
         CornBrowser.omnibox.animate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
-        if(!isBottom())
+        if(isTop())
             CornBrowser.publicWebRenderLayout.animate()
                 .setDuration(DEFAULT_ANIMATION_DURATION)
                 .translationY((mov + CornBrowser.omnibox.getHeight()));
+    }
+
+    public static void resetOmni() {
+        omniboxAnimate().translationY(0);
+        if(isTop()) CornBrowser.publicWebRenderLayout.setTranslationY(getOmniHeight());
+        else        CornBrowser.publicWebRenderLayout.setTranslationY(0);
+
     }
 
     // Main listener for controlling omnibox show/hide animations

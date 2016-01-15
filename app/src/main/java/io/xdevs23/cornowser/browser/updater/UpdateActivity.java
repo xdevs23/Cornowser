@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.rey.material.widget.ProgressView;
 
+import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.config.AppConfig;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
@@ -36,7 +38,7 @@ import java.io.File;
 import io.xdevs23.cornowser.browser.R;
 
 @SuppressWarnings("unused")
-public class UpdateActivity extends AppCompatActivity {
+public class UpdateActivity extends XquidCompatActivity {
 	
 	private static String appversion = AppConfig.versionName;
 
@@ -65,6 +67,9 @@ public class UpdateActivity extends AppCompatActivity {
 	
 	public static ProgressView updateBar;
 	public static TextView     updateStatus;
+
+    private static TextView currentVersionTv, newVersionTv, changelogTitle, changelogTv;
+    private static com.rey.material.widget.Button updaterButton;
 
     private WebView myWebView;
     private static boolean isDownloadingUpdate = false;
@@ -187,7 +192,7 @@ public class UpdateActivity extends AppCompatActivity {
 	}
 	
 	public static void updateProgress(int progress) {
-		updateBar.setProgress((float)progress / 100);
+		updateBar.setProgress((float) progress / 100);
         updateBar.refreshDrawableState();
 	}
 	
@@ -197,23 +202,93 @@ public class UpdateActivity extends AppCompatActivity {
         updateBar.stop();
 	}
 
+    protected void initVars() {
+        updatedApk = (getApplicationContext().getExternalCacheDir() + "/CBUpdate.apk")
+                .replace("//", "/");
+
+        updateBar = (ProgressView) findViewById(R.id.updateProgressBar);
+        updateBar.setVisibility(View.VISIBLE);
+
+        updateStatus = (TextView) findViewById(R.id.updateStatus);
+    }
+
+    protected void initViews() {
+        currentVersionTv = (TextView) findViewById(R.id.updaterAppVersion);
+        newVersionTv     = (TextView) findViewById(R.id.updaterNewAppVersion);
+        changelogTitle   = (TextView) findViewById(R.id.updaterChangelogTitle);
+        changelogTv      = (TextView) findViewById(R.id.updaterChangelog);
+        updaterButton =
+                (com.rey.material.widget.Button) findViewById(R.id.updaterUpdateAppButton);
+    }
+
+    protected void downloadStrings() throws PackageManager.NameNotFoundException {
+        currentVersionTv.setText(String.format(getString(R.string.updater_prefix_actual_version),
+                getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
+
+
+        latestVersionCode = Integer.parseInt(
+                DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE)
+        );
+
+        switch( Integer.parseInt(
+                String.valueOf(latestVersionCode)
+                        .substring(8, 9)
+        ) ) {
+            case 0:case 1:case 2: updateType = UpdateType.RELEASE; break;
+            case 3:case 4:case 5: updateType = UpdateType.BETA   ; break;
+            case 6:case 7:        updateType = UpdateType.ALPHA  ; break;
+            case 8:               updateType = UpdateType.NIGHTLY; break;
+            case 9:               updateType = UpdateType.RELEASE; break;
+            default:              updateType = UpdateType.NONE   ; break;
+        }
+
+        latestVersionName = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
+
+        if(latestVersionCode <= getPackageManager().getPackageInfo(getPackageName(), 0)
+                .versionCode) updateType = UpdateType.NONE;
+    }
+
+    protected void initDwnStringsToViews() {
+        newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
+                latestVersionName
+        ) + "\n" + getString(R.string.updater_msg_latest_installed));
+
+        if(updateType != UpdateType.NONE) {
+            updaterButton.setVisibility(View.VISIBLE);
+            newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
+                    latestVersionName
+            ) + "\n" + String.format(getString(R.string.updater_msg_new_version),
+                    updateType.name().toLowerCase()));
+        }
+    }
+
+    protected void initDwnStringsToViewsSec() {
+        changelogTitle.setText(String.format(getString(R.string.updater_prefix_changelog_for),
+                latestVersionName));
+
+        changelogTv.setText(
+
+                String.format(
+
+                        getString(R.string.updater_mask_changelog_inner),
+
+                        latestVersionCode,
+                        String.valueOf(latestVersionCode).substring(6, 8),
+                        String.valueOf(latestVersionCode).substring(4, 6),
+                        String.valueOf(latestVersionCode).substring(0, 4),
+
+                        DownloadUtils.downloadString(UpdaterStorage.URL_CHANGELOG)
+
+                )
+
+        );
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     protected void init() {
         if(!webloaded) {
-            updatedApk = (getApplicationContext().getExternalCacheDir() + "/CBUpdate.apk")
-                    .replace("//", "/");
-
-            updateBar = (ProgressView) findViewById(R.id.updateProgressBar);
-            updateBar.setVisibility(View.VISIBLE);
-
-            updateStatus = (TextView) findViewById(R.id.updateStatus);
-
-            TextView currentVersionTv = (TextView) findViewById(R.id.updaterAppVersion);
-            TextView newVersionTv     = (TextView) findViewById(R.id.updaterNewAppVersion);
-            TextView changelogTitle   = (TextView) findViewById(R.id.updaterChangelogTitle);
-            TextView changelogTv      = (TextView) findViewById(R.id.updaterChangelog);
-            com.rey.material.widget.Button updaterButton =
-                    (com.rey.material.widget.Button) findViewById(R.id.updaterUpdateAppButton);
+            initVars();
+            initViews();
 
             updaterButton.setVisibility(View.INVISIBLE);
 
@@ -226,67 +301,14 @@ public class UpdateActivity extends AppCompatActivity {
                 }
             });
 
-            rootCheckBox.setChecked(enableRoot);
-
             try {
-                currentVersionTv.setText(String.format(getString(R.string.updater_prefix_actual_version),
-                        getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
+                downloadStrings();
 
-
-                latestVersionCode = Integer.parseInt(
-                        DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE)
-                );
-
-                switch( Integer.parseInt(
-                        String.valueOf(latestVersionCode)
-                                .substring(8, 9)
-                ) ) {
-                    case 0:case 1:case 2: updateType = UpdateType.RELEASE; break;
-                    case 3:case 4:case 5: updateType = UpdateType.BETA   ; break;
-                    case 6:case 7:        updateType = UpdateType.ALPHA  ; break;
-                    case 8:               updateType = UpdateType.NIGHTLY; break;
-                    case 9:               updateType = UpdateType.RELEASE; break;
-                    default:              updateType = UpdateType.NONE   ; break;
-                }
-
-                latestVersionName = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
-
-                if(latestVersionCode <= getPackageManager().getPackageInfo(getPackageName(), 0)
-                    .versionCode) updateType = UpdateType.NONE;
-
-                newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
-                        latestVersionName
-                ) + "\n" + getString(R.string.updater_msg_latest_installed));
-
-                if(updateType != UpdateType.NONE) {
-                    updaterButton.setVisibility(View.VISIBLE);
-                    newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
-                            latestVersionName
-                    ) + "\n" + String.format(getString(R.string.updater_msg_new_version),
-                            updateType.name().toLowerCase()));
-                }
+                initDwnStringsToViews();
 
             } catch(PackageManager.NameNotFoundException e) {/* */}
 
-            changelogTitle.setText(String.format(getString(R.string.updater_prefix_changelog_for),
-                    latestVersionName));
-
-            changelogTv.setText(
-
-                    String.format(
-
-                            getString(R.string.updater_mask_changelog_inner),
-
-                            latestVersionCode,
-                            String.valueOf(latestVersionCode).substring(6, 8),
-                            String.valueOf(latestVersionCode).substring(4, 6),
-                            String.valueOf(latestVersionCode).substring(0, 4),
-
-                            DownloadUtils.downloadString(UpdaterStorage.URL_CHANGELOG)
-
-                    )
-
-            );
+            initDwnStringsToViewsSec();
 
             updaterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -322,29 +344,36 @@ public class UpdateActivity extends AppCompatActivity {
 		
 		
 		if(RootController.isSuInstalled() && RootController.isBusyboxInstalled()) {
-				AlertDialog.Builder adB = new AlertDialog.Builder(staticContext);
-				adB.setTitle(getString(R.string.rootutils_root_detect_title))
-				   .setMessage(getString(R.string.rootutils_root_detect_message))
-				   .setPositiveButton(getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
-					   @Override
-					   public void onClick(DialogInterface d, int id) {
-							if(RootController.requestRoot()) {
-								enableRoot = true;
-								d.dismiss();
-							} else {
-								MessageDialog.showDialog(
-                                        getString(R.string.rootutils_root_access_failed_title),
-                                        getString(R.string.rootutils_root_access_failed), staticContext);
-                                d.dismiss();
-							}
-					   }
-				   })
-				  .setNegativeButton(getString(R.string.answer_no), new NegativeButtonCancel())
-				   ;
-				AppCompatDialog aD = adB.create();
-				
-				aD.show();
-			}
+
+            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+                AlertDialog.Builder adB = new AlertDialog.Builder(staticContext);
+                adB.setTitle(getString(R.string.rootutils_root_detect_title))
+                        .setMessage(getString(R.string.rootutils_root_detect_message))
+                        .setPositiveButton(getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface d, int id) {
+                                AppCompatCheckBox rootCheckBox = (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+                                if (RootController.requestRoot()) {
+                                    enableRoot = true;
+                                    rootCheckBox.setChecked(true);
+                                    d.dismiss();
+                                } else {
+                                    MessageDialog.showDialog(
+                                            getString(R.string.rootutils_root_access_failed_title),
+                                            getString(R.string.rootutils_root_access_failed), staticContext);
+                                    rootCheckBox.setChecked(false);
+                                    d.dismiss();
+                                }
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.answer_no), new NegativeButtonCancel());
+                adB.create().show();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.root_toast_info_lollihigh),
+                        Toast.LENGTH_LONG).show();
+            }
+
+        }
 
         init();
 		
@@ -361,11 +390,5 @@ public class UpdateActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		try {
-			if(!mgo)onCreateOptionsMenu(null);
-		} catch(Exception ex) {/* */}
-	}
+
 }

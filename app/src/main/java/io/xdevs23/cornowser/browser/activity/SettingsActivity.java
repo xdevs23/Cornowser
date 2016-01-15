@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 import android.support.v7.widget.Toolbar;
 
 import org.xdevs23.android.app.XquidCompatActivity;
@@ -105,7 +106,7 @@ public class SettingsActivity extends XquidCompatActivity {
 
             // Omnibox position
 
-            ListPreference omniPosPref =
+            final ListPreference omniPosPref =
                     (ListPreference) findPreference("settings_omnibox_pos");
 
             omniPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
@@ -114,10 +115,25 @@ public class SettingsActivity extends XquidCompatActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     CornBrowser.getBrowserStorage().saveOmniboxPosition( Integer.parseInt((String)newValue) != 0 );
+                    omniPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
                     return false;
                 }
             });
 
+            // Fullscreen
+
+            SwitchPreference fullscreenPref =
+                    (SwitchPreference) findPreference("settings_fullscreen");
+
+            fullscreenPref.setChecked(CornBrowser.getBrowserStorage().getIsFullscreenEnabled());
+
+            fullscreenPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveEnableFullscreen((boolean)newValue);
+                    return false;
+                }
+            });
         }
     }
 }

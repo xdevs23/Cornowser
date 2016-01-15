@@ -20,7 +20,12 @@ public class XquidCompatActivity extends AppCompatActivity {
         Logging.logd("INIT START");
         super.onCreate(savedInstanceState);
 
+        // Logging.logd only logs to logcat if debug mode is enabled
+        // Disable debug mode in any type of releases in the AppConfig class
         Logging.logd("DEBUG ENABLED");
+        Logging.logd("Using debug mode could (maybe) have impact on performance. " +
+                "Please make sure that you use release mode when releasing a new " +
+                "version to get the best performance and avoid logcat spamming.");
 
         if(ConfigUtils.isDebuggable())
             Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {

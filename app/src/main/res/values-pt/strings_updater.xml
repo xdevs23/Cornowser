@@ -52,8 +52,7 @@
         A versão mais recente esta instalada.
     </string>
     <string name="updater_msg_new_version">
-        Uma atualização esta dísponivel.
-        A atualização é uma %s.
+        Uma atualização esta dísponivel.\nAtualizalção é: %s.
     </string>
     <string name="updater_prefix_changelog_for">
         Changelog para %s
@@ -83,5 +82,11 @@
     <string name="root_enable_root_access">
         Uso de acesso á root
     </string>
+
+    <string name="root_toast_info_lollihigh">
+        Lollipop ou mais alto detectado. Instalação de atualizações não deve de funcionar.
+        Por favor não usas root para atualizações se encontrares algums problemas.
+    </string>
+
 
 </resources>

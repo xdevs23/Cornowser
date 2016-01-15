@@ -11,7 +11,8 @@ public class BrowserStorage {
             ;
 
     private boolean
-                omniboxIsBottom
+                omniboxIsBottom,
+                enableFullscreen
             ;
 
     // Class section
@@ -29,6 +30,7 @@ public class BrowserStorage {
         mSharedPreferences = getContext().getSharedPreferences("userprefs", 0);
         setUserHomePage(getPref(BPrefKeys.userHomePage, BrowserDefaults.HOME_URL));
         setOmniboxPosition(getPref(BPrefKeys.omniboxPos, false));
+        setEnableFullscreen(getPref(BPrefKeys.fullscreenPref, false));
     }
 
     // Variable storage related methods
@@ -58,6 +60,20 @@ public class BrowserStorage {
 
     public boolean getOmniboxPosition() {
         return this.omniboxIsBottom;
+    }
+
+
+    public void setEnableFullscreen(boolean enable) {
+        enableFullscreen = enable;
+    }
+
+    public void saveEnableFullscreen(boolean enable) {
+        setEnableFullscreen(enable);
+        setPref(BPrefKeys.fullscreenPref, enable);
+    }
+
+    public boolean getIsFullscreenEnabled() {
+        return enableFullscreen;
     }
 
     // General methods
@@ -108,7 +124,8 @@ public class BrowserStorage {
     public static final class BPrefKeys {
         public static final String
                 userHomePage    = "pref_user_homepage",
-                omniboxPos      = "pref_omni_pos"
+                omniboxPos      = "pref_omni_pos",
+                fullscreenPref  = "pref_enable_fullscreen"
         ;
     }
 

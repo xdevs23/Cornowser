@@ -12,6 +12,8 @@
     <application
         android:name=".Core"
         android:allowBackup="true"
+        android:allowClearUserData="true"
+        android:restoreAnyVersion="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/m_app_icon"
         android:label="@string/app_name"
@@ -34,6 +36,7 @@
 
                 <category android:name="android.intent.category.APP_BROWSER" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.APP_BROWSER" />
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />

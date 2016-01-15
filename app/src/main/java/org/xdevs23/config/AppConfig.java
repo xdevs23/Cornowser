@@ -17,9 +17,8 @@ public final class AppConfig {
 						  String.valueOf(Version.revision),
 			 mainDevUrl = "http://xdevs23.bplaced.com/",
 			 updateRoot = UpdaterStorage.URL_RAW_CB_GITHUB_REPO  + "update/",
-			 myDataRoot = Environment.getDataDirectory() + "data/io.xdevs23.cornowser.browser/",
-			 debugTag   = appName,
-			 dbgVer     = "alpharelease"
+			 debugTag   = appName,        // Tag used in logcat
+			 dbgVer     = "alpharelease"  // Set this to 'debug' to enable debug mode
 	;
 	
 	public static final class Version {
@@ -36,7 +35,7 @@ public final class AppConfig {
 				major     =  1   ,
 				minor     =  0   ,
 				build     =  3   ,
-		    	revision  =  0
+		    	revision  =  1
 		;
 		
 		public static final boolean

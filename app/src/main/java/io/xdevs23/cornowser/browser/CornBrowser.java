@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -21,13 +22,16 @@ import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
 import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.utils.BarColors;
+import org.xdevs23.ui.utils.DpUtil;
+import org.xdevs23.ui.utils.LayoutPUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
-import org.xwalk.core.XWalkNavigationHistory;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
+import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
@@ -57,8 +61,6 @@ public class CornBrowser extends XquidCompatActivity {
     private static ProgressView webProgressBar;
 
     private static BrowserStorage browserStorage;
-
-    private static TastyOverflowMenu overflowMenuLayout;
 
     private static Handler mHandler;
 
@@ -158,6 +160,7 @@ public class CornBrowser extends XquidCompatActivity {
         omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
         omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
         webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
+        TastyOverflowMenu overflowMenuLayout;
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
 
 
@@ -240,12 +243,14 @@ public class CornBrowser extends XquidCompatActivity {
         ((RelativeLayout.LayoutParams)browserInputBar.getLayoutParams()).setMargins(
                 0,
                 0,
-                omniboxControls.getWidth(),
+                DpUtil.dp2px(getContext(), 56),
                 0
         );
 
+        Logging.logd(omniboxControls.getWidth());
+
         omniboxTinyItemsLayout.findViewById(R.id.omnibox_separator)
-            .setTranslationY(browserStorage.getOmniboxPosition() ? -3 : 0);
+            .setTranslationY(browserStorage.getOmniboxPosition() ? -DpUtil.dp2px(getContext(), 3) : 0);
 
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
@@ -265,13 +270,17 @@ public class CornBrowser extends XquidCompatActivity {
 
     public static void resetOmniPositionState(boolean animate) {
         if(!animate) { resetOmniPositionState(); return; }
-        OmniboxAnimations.animateOmni(0);
+        OmniboxAnimations.resetOmni();
     }
 
 
     public static void applyInsideOmniText(String url) {
-        browserInputBar.setText(url
-                .replaceFirst("^(.*)://", ""));
+        try {
+            browserInputBar.setText(url
+                    .replaceFirst("^(.*)://", ""));
+        } catch(Exception ex) {
+            Logging.logd("Warning: Didn't succeed while applying inside omni text");
+        }
     }
 
     /**
@@ -317,8 +326,10 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     public static void toggleGoForwardControlVisibility(boolean visible) {
-        if(visible) goForwardImgBtn.setVisibility(View.VISIBLE);
-        else        goForwardImgBtn.setVisibility(View.INVISIBLE);
+        if(visible && goForwardImgBtn.getVisibility() == View.INVISIBLE)
+            goForwardImgBtn.setVisibility(View.VISIBLE);
+        else if(goForwardImgBtn.getVisibility() == View.VISIBLE)
+            goForwardImgBtn.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -364,13 +375,6 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
-     * @return The tasty overflow menu
-     */
-    public static TastyOverflowMenu getOverflowMenu() {
-        return overflowMenuLayout;
-    }
-
-    /**
      * @return The requested string
      */
     public static String getRStr(int resId) {
@@ -388,7 +392,13 @@ public class CornBrowser extends XquidCompatActivity {
      * Reset the color of status bar
      */
     public static void resetBarColor() {
-        BarColors.updateBarsColor(getStaticWindow(), R.color.colorPrimaryDark, false);
+        if (OmniboxControl.isTop()) {
+            BarColors.updateBarsColor(getStaticWindow(), R.color.colorPrimaryDark, false, false, true);
+            BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, true, false);
+        } else {
+            BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, true, false);
+            BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, false, true);
+        }
     }
 
     @Override
@@ -412,6 +422,9 @@ public class CornBrowser extends XquidCompatActivity {
 
             publicWebRender.resumeTimers();
             publicWebRender.onShow();
+
+            resetBarColor();
+            WebThemeHelper.tintNow(publicWebRender);
 
             if(readyToLoadUrl.length() > 0) {
                 publicWebRender.load(readyToLoadUrl, null);
@@ -449,9 +462,40 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getWebEngine().getNavigationHistory().canGoBack())
-            getWebEngine().getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, 1);
-        else endApplication();
+        if(!publicWebRender.goBack()) endApplication();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && browserStorage.getIsFullscreenEnabled()) {
+            if(Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                getWindow().getDecorView()
+                        .setSystemUiVisibility(
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        );
+            } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getWindow().getDecorView()
+                        .setSystemUiVisibility(
+                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            } else if(Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+                getWindow().getDecorView()
+                        .setSystemUiVisibility(
+                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+            }
+        } else if(browserStorage.getIsFullscreenEnabled()) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
     }
 
     /* Updater section */

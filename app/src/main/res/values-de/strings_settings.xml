@@ -12,6 +12,9 @@
     <string name="settings_layout_omni_pos_title">Adressleistenposition</string>
     <string name="settings_layout_omni_pos_sumary">Setze deine bevorzugte Position der Adressleiste</string>
 
+    <string name="settings_layout_fullscreen_title">Vollbild</string>
+    <string name="settings_layout_fullscreen_summary">Aktiviert den Vollbildmodus</string>
+
 
     <string name="settings_category_misc_title">Sonstiges</string>
 

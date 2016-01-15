@@ -44,7 +44,7 @@
     </string>
     <string name="updater_awaiting_loading"><![CDATA[Loading...]]></string>
     <string name="updater_prefix_actual_version">
-        Actual version: %s
+        Current version: %s
     </string>
     <string name="updater_prefix_latest_version">
         Latest version: %s
@@ -53,8 +53,7 @@
         You already have the latest version installed.
     </string>
     <string name="updater_msg_new_version">
-        An update is available.\n
-        This update is a %s
+        An update is available.\nRelease type: %s
     </string>
     <string name="updater_prefix_changelog_for">
         Changelog for %s
@@ -77,6 +76,11 @@
 
     <string name="root_enable_root_access">
         Use root access
+    </string>
+
+    <string name="root_toast_info_lollihigh">
+        You are using Lollipop or higher. Installation procedure of updates might not work correctly.
+        Please don\'t use root if you experience any issues or problems.
     </string>
 
 </resources>

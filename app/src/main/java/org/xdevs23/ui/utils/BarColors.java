@@ -132,6 +132,20 @@ public class BarColors {
     }
 
     /**
+     * Set status bar color using color resource
+     * @param window Window
+     * @param colorID Color resource
+     * @param applyDarken Use darker color
+     * @param navbar Tint navigation bar
+     * @param statusbar Tint status bar
+     */
+    public static void updateBarsColor(Window window, @ColorRes int colorID, boolean applyDarken,
+                                       boolean navbar, boolean statusbar) {
+        updateBarsColor(ContextCompat.getColor(window.getContext(), colorID), window, applyDarken,
+                navbar, statusbar);
+    }
+
+    /**
      * Set status bar color
      * @param window Window
      * @param colorID Color resource
@@ -179,8 +193,10 @@ public class BarColors {
      * @param window Window
      */
     public static void resetBarsColor(Window window) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.black));
+            window.setNavigationBarColor(ContextCompat.getColor(window.getContext(), R.color.black));
+        }
     }
 
 }
