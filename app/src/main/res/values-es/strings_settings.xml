@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Navegador</string>
+
+    <string name="settings_browsing_homepage_title">Página de inicio</string>
+    <string name="settings_browsing_homepage_summary">Introduce tu página de inicio preferida</string>
+
+
+    <string name="settings_category_layout_title">Diseño</string>
+
+    <string name="settings_layout_omni_pos_title">Posición del Omnibox </string>
+    <string name="settings_layout_omni_pos_sumary">Escoje la mejor posición para poner la barra de navegación</string>
+
+    <string name="settings_layout_fullscreen_title">Pantalla completa</string>
+    <string name="settings_layout_fullscreen_summary">Habilitar el modo de pantalla completa</string>
+
+
+    <string name="settings_category_misc_title">Otros</string>
+
+    <string name="settings_list_licenses_title">Ver las licencias Open Source del código fuente</string>
+    <string name="settings_list_licenses_summary">Librerias útiles utilizadas en esta aplicación</string>
+
+</resources>
