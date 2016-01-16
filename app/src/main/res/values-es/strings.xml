@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name" translatable="false">Cornowser</string>
+
+    <string name="answer_cancel">Cancelar</string>
+    <string name="answer_ok">OK</string>
+
+</resources>
