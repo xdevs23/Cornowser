@@ -6,6 +6,8 @@ import org.xdevs23.android.app.XquidCompatActivity;
 
 public class DpUtil {
 
+    private DpUtil() {}
+
     public static float dp2pxf(Context context, int dp) {
         return XquidCompatActivity.dp2px(context, dp);
     }

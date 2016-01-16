@@ -12,6 +12,8 @@ import io.xdevs23.cornowser.browser.R;
 
 public class BarColors {
 
+    private BarColors() {}
+
     /**
      * Enable system bars coloring
      * @param window Window

@@ -29,6 +29,10 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.TabStorage;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
@@ -57,9 +61,13 @@ public class CornBrowser extends XquidCompatActivity {
     private static Activity staticActivity;
     private static Window staticWindow;
 
+    private static RelativeLayout staticRootView;
+
     private static ProgressView webProgressBar;
 
     private static BrowserStorage browserStorage;
+
+    private static TabSwitcherWrapper tabSwitcher;
 
     private static Handler mHandler;
 
@@ -115,6 +123,7 @@ public class CornBrowser extends XquidCompatActivity {
         staticContext   = this.getApplicationContext();
         staticView      = findViewById(R.id.corn_root_view);
         staticWindow    = this.getWindow();
+        staticRootView  = (RelativeLayout) findViewById(R.id.corn_root_view);
 
         browserStorage = new BrowserStorage(getContext());
     }
@@ -140,13 +149,22 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initWebXWalkEngine() {
         Logging.logd("    Our crunchy web engine");
-        publicWebRenderLayout   = (RelativeLayout)    findViewById(R.id.webrender_layout);
-        publicWebRender         = new CrunchyWalkView(getContext(), getActivity());
-        publicWebRenderLayout.addView(publicWebRender);
+        try {
+            publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
+            publicWebRender = new CrunchyWalkView(getContext(), getActivity());
+            publicWebRenderLayout.addView(publicWebRender);
+        } catch(Exception ex) {
+            Logging.logd("Warning: Initialization FAILED! Are you using x86? Continuing.");
+        }
 
         initOmniboxPosition();
 
         publicWebRender.setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
+
+        tabSwitcher = new TabSwitcherWrapper(
+                new BlueListedTabSwitcher(getContext(), staticRootView, publicWebRender)
+                    .setTabStorage(new TabStorage())
+        );
     }
 
     /**
@@ -388,6 +406,13 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
+     * @return Tab switcher
+     */
+    public static BasicTabSwitcher getTabSwitcher() {
+        return tabSwitcher.getTabSwitcher();
+    }
+
+    /**
      * Reset the color of status bar
      */
     public static void resetBarColor() {
@@ -404,11 +429,15 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onPause() {
         Logging.logd("Activity paused.");
         super.onPause();
-        if (publicWebRender != null) {
-            publicWebRender.pauseTimers();
-            publicWebRender.onHide();
+        try {
+            if (publicWebRender != null) {
+                publicWebRender.pauseTimers();
+                publicWebRender.onHide();
 
-            readyToLoadUrl = "";
+                readyToLoadUrl = "";
+            }
+        } catch(Exception doex) {
+            Logging.logd("Warning: onPause() was not successful. Dead object :S ? Continuing.");
         }
     }
 

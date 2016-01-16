@@ -1,7 +1,198 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
-/**
- * Created by simao on 16.01.16.
- */
-public class BlueListedTabSwitcher {
+import android.animation.Animator;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import org.xdevs23.android.widget.XquidLinearLayout;
+import org.xdevs23.ui.utils.DpUtil;
+
+import io.xdevs23.cornowser.browser.CornBrowser;
+import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
+
+public class BlueListedTabSwitcher extends BasicTabSwitcher {
+
+    private ScrollView mainView;
+    private XquidLinearLayout tabsLayout;
+
+    private TabStorage tabStorage;
+
+    private final int mainColor = ContextCompat.getColor(getContext(), R.color.blue_800);
+
+    private int yPos;
+
+    public BlueListedTabSwitcher(Context context, RelativeLayout rootView, CrunchyWalkView webRender) {
+        super(context, rootView, webRender);
+    }
+
+    public BlueListedTabSwitcher(RelativeLayout rootView, CrunchyWalkView webRender) {
+        super(rootView, webRender);
+    }
+
+    public BlueListedTabSwitcher setTabStorage(TabStorage storage) {
+        tabStorage = storage;
+        return this;
+    }
+
+    private XquidLinearLayout getNewChildLayout(int l, int t, int r, int b, boolean v) {
+        XquidLinearLayout layout = new XquidLinearLayout(getContext());
+        XquidLinearLayout.LayoutParams params = new XquidLinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        params.setMarginsDp(l, t, r, b, getContext());
+
+        layout.setLayoutParams(params);
+        layout.setVerticalOrientation(v);
+
+        return layout;
+    }
+
+    private XquidLinearLayout getNewChildLayout(int l, int t, int r, int b) {
+        return getNewChildLayout(l, t, r, b, true);
+    }
+
+    private XquidLinearLayout getNewChildLayout(boolean v) {
+        return getNewChildLayout(0, 0, 0, 0, v);
+    }
+
+    private TextView getNewItemText() {
+        TextView t = new TextView(getContext());
+        t.setTextColor(mainColor);
+        XquidLinearLayout.LayoutParams p = new XquidLinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        p.setMarginsDp(1, 1, 1, 2, getContext());
+
+        t.setLayoutParams(p);
+
+        return t;
+    }
+
+    @Override
+    public void init() {
+        yPos = getRootView().getHeight();
+
+        mainView = new ScrollView(getContext());
+
+        mainView.getLayoutParams().height = DpUtil.dp2px(getContext(), 160);
+
+        XquidLinearLayout mainLayout = new XquidLinearLayout(getContext());
+
+        XquidLinearLayout switcherLayout = getNewChildLayout(4, 8, 4, 8);
+
+        tabsLayout = getNewChildLayout(1, 1, 1, 2);
+
+        XquidLinearLayout footerLayout = getNewChildLayout(false);
+        footerLayout.setGravity(Gravity.RIGHT);
+
+
+        switcherLayout.addView(tabsLayout);
+        switcherLayout.addView(footerLayout);
+
+        mainLayout.addView(switcherLayout);
+
+        mainView.addView(mainLayout);
+
+        mainView.setVisibility(View.INVISIBLE);
+
+        getRootView().addView(mainView);
+
+        yPos += mainView.getHeight();
+
+        mainView.setTranslationY(yPos);
+        mainView.bringToFront();
+    }
+
+    @Override
+    public void switchTab(int tab) {
+        int tabIndex = tab;
+        if(tab < 0) tabIndex += 2;
+        showTab(tabStorage.getTab(tabIndex));
+    }
+
+    @Override
+    public void showTab(Tab tab) {
+        CornBrowser.publicWebRenderLayout.removeViewAt(0);
+        CornBrowser.publicWebRenderLayout.addView(
+                tab.webView
+        );
+        currentTab = tabStorage.getTabIndex(tab);
+        CornBrowser.applyInsideOmniText(tab.webView.getUrl());
+    }
+
+    @Override
+    public void addTab(Tab tab) {
+        super.addTab(tab);
+        XquidLinearLayout l = new XquidLinearLayout(getContext());
+        l.setVerticalOrientation(true);
+
+        TextView titleView = getNewItemText();
+        titleView.setText(tab.getTitle());
+
+        TextView urlView = getNewItemText();
+        urlView.setText(tab.getUrl());
+
+        TabCounterView counterView = new TabCounterView(getContext());
+        counterView.setTabIndex(tabStorage.getTabCountIndex());
+
+        l.addView(titleView);
+        l.addView(urlView);
+        l.addView(counterView);
+
+        tabsLayout.addView(l);
+    }
+
+    @Override
+    public void removeTab(Tab tab) {
+        tabsLayout.removeViewAt(tabStorage.getTabIndex(tab));
+        switchTab(tabStorage.getTabIndex(tab) - 1);
+        tabStorage.removeTab(tab);
+    }
+
+    @Override
+    public void showSwitcher() {
+        mainView.setVisibility(View.VISIBLE);
+
+        mainView.animate().setDuration(320)
+                .translationY(yPos - mainView.getHeight());
+        mainView.bringToFront();
+    }
+
+    @Override
+    public void hideSwitcher() {
+        mainView.animate().setDuration(320)
+                .translationY(yPos)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        // Not needed
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mainView.setVisibility(View.INVISIBLE);
+                        mainView.clearFocus();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        // Not needed
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                        // Not needed
+                    }
+                });
+    }
 }
