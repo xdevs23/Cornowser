@@ -12,17 +12,17 @@
     </string>
     <string name="rootutils_root_detect_message">
         Abbiamo rilevato che il tuo dispositivo dispone di accesso ROOT.\n
-        Vuoi permettere a questa app l'uso dei permessi ROOT?
+        Vuoi permettere a questa app l\'uso dei permessi ROOT?
         Se lo permetti avrai il beneficio di un aggiornamento più semplice e rapido.\n
-        E' opzionale.
+        E\' opzionale.
     </string>
     <string name="rootutils_root_access_failed_title">
         Accesso ROOT fallito
     </string>
     <string name="rootutils_root_access_failed">
-        L'app non riesce ad ottenere l'accesso ROOT.\n
+        L\'app non riesce ad ottenere l\'accesso ROOT.\n
 		Per favore verificate che il ROOT sia stato eseguito correttamente e che abbiate autorizzato
-		l'accesso a questa app.
+		l\'accesso a questa app.
     </string>
 
     <!-- Updater -->
@@ -36,8 +36,8 @@
         Sto aggiornando...
     </string>
     <string name="updater_root_install_error">
-        E' avvenuto un errore durante l'aggiornamento automatico.\n
-        Verrà eseguita l'installazione manuale.
+        E\' avvenuto un errore durante l\'aggiornamento automatico.\n
+        Verrà eseguita l\'installazione manuale.
     </string>
     <string name="updater_button_update_now">
         Aggiorna
@@ -53,7 +53,7 @@
         Disponi già della versione più recente.
     </string>
     <string name="updater_msg_new_version">
-        E' disponibile un aggiornamento.\nTpo di release: %s
+        E\' disponibile un aggiornamento.\nTpo di release: %s
     </string>
     <string name="updater_prefix_changelog_for">
         Changelog per %s
@@ -79,7 +79,7 @@
     </string>
 
     <string name="root_toast_info_lollihigh">
-        Stai usando Lollipop o superiore. La procedura per l'installazione degli aggiornamenti potrebbe non funzionare correttamente.
+        Stai usando Lollipop o superiore. La procedura per l\'installazione degli aggiornamenti potrebbe non funzionare correttamente.
         Per favore non usate il ROOT se riscontrate problemi.
     </string>
 
