@@ -23,7 +23,6 @@ import org.xdevs23.rey.material.widget.ProgressView;
 import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.utils.DpUtil;
-import org.xdevs23.ui.utils.LayoutPUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 

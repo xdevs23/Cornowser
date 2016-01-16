@@ -1,7 +1,5 @@
 package org.xdevs23.config;
 
-import android.os.Environment;
-
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
 
 @SuppressWarnings("unused")
