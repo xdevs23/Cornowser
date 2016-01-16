@@ -13,7 +13,7 @@ Also visit our [XDA thread](http://forum.xda-developers.com/android/apps-games/a
 
 
 <hr />
-This browser achieves **517** out of **555** points in the [HTML5Test](http://html5test.com).
+This browser achieves **522** out of **555** points in the [Beta HTML5Test](http://beta.html5test.com) and **517** in the [HTML5Test](http://html5test.com).
 Google Chrome Dev for Android achieves **519** points and the System WebView on KitKat achieves **404**.
 
 According to these results **this browser is ready for HTML5**.
