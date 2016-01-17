@@ -33,10 +33,11 @@
         <activity android:name=".browser.IntentLinkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.WEB_SEARCH" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.APP_BROWSER" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.APP_BROWSER" />
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
