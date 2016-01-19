@@ -12,10 +12,16 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     protected int currentTab;
     protected TabStorage tabStorage = new TabStorage();
+    protected SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
 
     private RelativeLayout rootView;
 
     private CrunchyWalkView webRender;
+
+    public enum SwitcherStatus {
+        VISIBLE,
+        HIDDEN
+    }
 
     public BasicTabSwitcher(Context context, RelativeLayout rootView, CrunchyWalkView webRender) {
         super(context);
@@ -70,6 +76,21 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
         tabStorage.removeTab(tabIndex);
     }
 
+    @Override
+    public void hideSwitcher() {
+        switcherStatus = SwitcherStatus.HIDDEN;
+    }
+
+    @Override
+    public void showSwitcher() {
+        switcherStatus = SwitcherStatus.VISIBLE;
+    }
+
+    public void switchSwitcher() {
+        if(switcherStatus == SwitcherStatus.HIDDEN) showSwitcher();
+        else hideSwitcher();
+    }
+
     protected void setSwitcherView(View view) {
         rootView.addView(view);
     }
@@ -80,6 +101,14 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     protected RelativeLayout getRootView() {
         return rootView;
+    }
+
+    public SwitcherStatus getSwitcherStatus() {
+        return switcherStatus;
+    }
+
+    public void setSwitcherStatus(SwitcherStatus status) {
+        switcherStatus = status;
     }
 
 }

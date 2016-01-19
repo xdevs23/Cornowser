@@ -5,16 +5,20 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.xdevs23.android.widget.XquidLinearLayout;
+import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
@@ -80,9 +84,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void init() {
-        yPos = getRootView().getHeight();
+        yPos = CornBrowser.getStaticWindow().getDecorView().getHeight();
 
         mainView = new ScrollView(getContext());
+
+        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white));
+
+        mainView.setLayoutParams(new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
 
         mainView.getLayoutParams().height = DpUtil.dp2px(getContext(), 160);
 
@@ -95,6 +106,17 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         XquidLinearLayout footerLayout = getNewChildLayout(false);
         footerLayout.setGravity(Gravity.RIGHT);
 
+        Button button = new Button(getContext());
+        button.setText("new");
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTab(new Tab(CornBrowser.getBrowserStorage().getUserHomePage()));
+            }
+        });
+
+        footerLayout.addView(button);
 
         switcherLayout.addView(tabsLayout);
         switcherLayout.addView(footerLayout);
@@ -161,15 +183,19 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void showSwitcher() {
+        super.showSwitcher();
+        Logging.logd("Showing tab switcher");
         mainView.setVisibility(View.VISIBLE);
+        mainView.bringToFront();
 
         mainView.animate().setDuration(320)
                 .translationY(yPos - mainView.getHeight());
-        mainView.bringToFront();
     }
 
     @Override
     public void hideSwitcher() {
+        super.hideSwitcher();
+        Logging.logd("Hiding tab switcher");
         mainView.animate().setDuration(320)
                 .translationY(yPos)
                 .setListener(new Animator.AnimatorListener() {

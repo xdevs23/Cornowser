@@ -90,6 +90,10 @@ public class CrunchyWalkView extends XWalkView {
         load(getResourceClient().currentWorkingUrl);
     }
 
+    public void reload(boolean ignoreCache) {
+        reload(ignoreCache ? RELOAD_IGNORE_CACHE : RELOAD_NORMAL);
+    }
+
     public void evaluateJavascript(String script) {
         evaluateJavascript(script, null);
     }

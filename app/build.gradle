@@ -76,4 +76,7 @@ dependencies {
 
     // ColorArt
     compile 'org.michaelevans.colorart:library:0.0.3'
+
+    // PullToRefresh layout
+    compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
 }

@@ -49,6 +49,7 @@ public class CornResourceClient extends XWalkResourceClient {
     );
 
     private boolean allowTinting = true;
+    private boolean loadingLessThanMin = true;
 
     public CornResourceClient(XWalkView view) {
         super(view);
@@ -74,10 +75,8 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         super.onLoadStarted(view, url);
-        CornBrowser.resetOmniPositionState(true);
         allowTinting = true;
         CornBrowser.applyInsideOmniText(view.getUrl());
-        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
         WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
@@ -107,6 +106,10 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
         CornBrowser.getWebProgressBar().setProgress((float) percentage * 0.01f);
+        if(loadingLessThanMin && percentage > 40) {
+            CornBrowser.getOmniPtrLayout().setRefreshing(false);
+            loadingLessThanMin = false;
+        }
     }
 
     @Override

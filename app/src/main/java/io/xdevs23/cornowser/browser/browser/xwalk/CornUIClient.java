@@ -2,14 +2,18 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.graphics.Bitmap;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.ui.dialog.templates.PositiveButtonOK;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
+import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 
@@ -75,7 +79,16 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public boolean onJsAlert(XWalkView view, String url, String message, XWalkJavascriptResult result) {
-        // TODO: handle this thing
+        AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getContext());
+        b
+                .setCancelable(true)
+                .setTitle("")
+                .setMessage(message)
+                .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_ok), new PositiveButtonOK())
+                .create()
+                .show()
+        ;
+
         return true;
     }
 
@@ -94,7 +107,9 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
         currentFavicon = null;
+        CornBrowser.resetOmniPositionState(true);
         super.onPageLoadStarted(view, url);
+        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
         CornBrowser.resetBarColor();
     }
 
@@ -107,6 +122,8 @@ public class CornUIClient extends XWalkUIClient {
 
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
+
+        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
 
         CornBrowser.getWebProgressBar().setProgress(1.0f);
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);

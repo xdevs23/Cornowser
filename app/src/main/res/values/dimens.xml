@@ -8,4 +8,6 @@
 
     <dimen name="omnibox_items_dimen">40dp</dimen>
 
+    <dimen name="omnibox_items_def">24dp</dimen>
+
 </resources>

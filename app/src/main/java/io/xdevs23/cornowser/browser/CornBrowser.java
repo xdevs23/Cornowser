@@ -12,9 +12,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.baoyz.widget.PullRefreshLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
@@ -28,6 +32,7 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
+import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
@@ -44,17 +49,22 @@ public class CornBrowser extends XquidCompatActivity {
     public static CrunchyWalkView publicWebRender = null;
 
     public static RelativeLayout
-            omnibox                 = null,
-            publicWebRenderLayout   = null,
-            omniboxControls         = null,
-            omniboxTinyItemsLayout  = null
+            omnibox,
+            publicWebRenderLayout,
+            omniboxControls,
+            omniboxTinyItemsLayout
             ;
 
-    public  static EditText browserInputBar = null;
+    public  static EditText browserInputBar;
 
-    public  static ImageButton goForwardImgBtn = null;
+    public  static ImageButton
+            goForwardImgBtn,
+            openTabswitcherImgBtn
+            ;
 
     public  static String readyToLoadUrl = "";
+
+    private static PullRefreshLayout omniPtrLayout;
 
     private static View staticView;
     private static Context staticContext;
@@ -123,7 +133,7 @@ public class CornBrowser extends XquidCompatActivity {
         staticContext   = this.getApplicationContext();
         staticView      = findViewById(R.id.corn_root_view);
         staticWindow    = this.getWindow();
-        staticRootView  = (RelativeLayout) findViewById(R.id.corn_root_view);
+        staticRootView  = (RelativeLayout)staticView;
 
         browserStorage = new BrowserStorage(getContext());
     }
@@ -173,10 +183,31 @@ public class CornBrowser extends XquidCompatActivity {
     public void initOmnibox() {
         Logging.logd("    Omnibox");
         omnibox                 = (RelativeLayout)      findViewById(R.id.omnibox_layout);
+        omniPtrLayout           = (PullRefreshLayout)   findViewById(R.id.omnibox_refresh_ptr);
         browserInputBar         = (EditText)            findViewById(R.id.omnibox_input_bar);
-        omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
         omniboxTinyItemsLayout  = (RelativeLayout)      findViewById(R.id.omnibox_tiny_items_layout);
         webProgressBar          = (ProgressView)        findViewById(R.id.omnibox_progressbar);
+
+        omniPtrLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        omniPtrLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getWebEngine().reload(true);
+            }
+        });
+
+        initOmniboxControls();
+    }
+
+    /**
+     * Initialize omnibox controls
+     */
+    public void initOmniboxControls() {
+        Logging.logd("      Controls");
+        omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
+        openTabswitcherImgBtn   = (ImageButton)         findViewById(R.id.omnibox_control_open_tabswitcher);
+        goForwardImgBtn         = (ImageButton) findViewById(R.id.omnibox_control_forward);
+
         TastyOverflowMenu overflowMenuLayout;
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
 
@@ -202,8 +233,13 @@ public class CornBrowser extends XquidCompatActivity {
             }
         });
 
+        openTabswitcherImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTabSwitcher().switchSwitcher();
+            }
+        });
 
-        goForwardImgBtn = (ImageButton) findViewById(R.id.omnibox_control_forward);
         goForwardImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,11 +296,10 @@ public class CornBrowser extends XquidCompatActivity {
         ((RelativeLayout.LayoutParams)browserInputBar.getLayoutParams()).setMargins(
                 0,
                 0,
-                DpUtil.dp2px(getContext(), 56),
+                DpUtil.dp2px(getContext(),
+                        3 * 24  + 2),
                 0
         );
-
-        Logging.logd(omniboxControls.getWidth());
 
         omniboxTinyItemsLayout.findViewById(R.id.omnibox_separator)
             .setTranslationY(browserStorage.getOmniboxPosition() ? -DpUtil.dp2px(getContext(), 3) : 0);
@@ -323,22 +358,25 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     public void openOptionsMenu() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case optMenuItems.UPDATER:
-                                startActivity(new Intent(getContext(), UpdateActivity.class));
-                                break;
-                            case optMenuItems.SETTINGS:
-                                startActivity(new Intent(getContext(), SettingsActivity.class));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
+        ListView lv = new ListView(getContext());
+        lv.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int which, long id) {
+                switch (which) {
+                    case optMenuItems.UPDATER:
+                        startActivity(new Intent(getContext(), UpdateActivity.class));
+                        break;
+                    case optMenuItems.SETTINGS:
+                        startActivity(new Intent(getContext(), SettingsActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        lv.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_transparent));
+        builder.setView(lv);
         builder.create().show();
     }
 
@@ -410,6 +448,13 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public static BasicTabSwitcher getTabSwitcher() {
         return tabSwitcher.getTabSwitcher();
+    }
+
+    /**
+     * @return Pull to refresh layout
+     */
+    public static PullRefreshLayout getOmniPtrLayout() {
+        return omniPtrLayout;
     }
 
     /**
