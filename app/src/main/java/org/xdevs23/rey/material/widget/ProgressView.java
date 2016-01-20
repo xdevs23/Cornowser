@@ -6,7 +6,6 @@ import android.view.View;
 
 public class ProgressView extends com.rey.material.widget.ProgressView {
 
-
     public ProgressView(Context context) {
         super(context);
     }
@@ -29,4 +28,5 @@ public class ProgressView extends com.rey.material.widget.ProgressView {
             this.setVisibility(View.VISIBLE);
         super.setProgress(percentage);
     }
+
 }

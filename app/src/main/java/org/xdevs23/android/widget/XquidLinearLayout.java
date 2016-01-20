@@ -90,4 +90,5 @@ public class XquidLinearLayout extends LinearLayout {
             );
         }
     }
+
 }

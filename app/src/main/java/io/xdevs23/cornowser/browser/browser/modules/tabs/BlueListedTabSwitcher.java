@@ -185,11 +185,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     public void showSwitcher() {
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
+        yPos = CornBrowser.getStaticWindow().getDecorView().getHeight();
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();
 
         mainView.animate().setDuration(320)
-                .translationY(yPos - mainView.getHeight());
+                .translationY(yPos - mainView.getHeight()).start();
     }
 
     @Override
@@ -219,6 +220,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     public void onAnimationRepeat(Animator animation) {
                         // Not needed
                     }
-                });
+                }).start();
     }
+
 }

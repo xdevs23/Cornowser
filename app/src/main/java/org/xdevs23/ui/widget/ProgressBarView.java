@@ -124,4 +124,5 @@ public class ProgressBarView extends RelativeLayout {
     public void setOnCompletedAutoProgressFinish(boolean enable) {
         hideOnFinish = enable;
     }
+
 }

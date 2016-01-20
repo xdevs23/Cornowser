@@ -21,5 +21,4 @@ public interface TabSwitcherBase {
     public abstract void showSwitcher();
     public abstract void hideSwitcher();
 
-
 }

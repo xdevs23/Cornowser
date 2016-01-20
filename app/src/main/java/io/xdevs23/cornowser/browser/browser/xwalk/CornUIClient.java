@@ -3,7 +3,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 
 import org.xdevs23.debugutils.Logging;

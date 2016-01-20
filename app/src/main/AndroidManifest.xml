@@ -28,9 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".browser.IntentLinkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.WEB_SEARCH" />

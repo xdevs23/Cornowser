@@ -94,6 +94,8 @@ public class CornBrowser extends XquidCompatActivity {
 
         if(getIntent().getStringExtra("intent_link_uri_load") != null && (!getIntent().getStringExtra("intent_link_uri_load").isEmpty()))
             publicWebRender.load(getIntent().getStringExtra("intent_link_uri_load"));
+        else if(getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
+            getTabSwitcher().addTab(getIntent().getDataString());
         else if(readyToLoadUrl.isEmpty())
             publicWebRender.load(browserStorage.getUserHomePage(), null);
         else {

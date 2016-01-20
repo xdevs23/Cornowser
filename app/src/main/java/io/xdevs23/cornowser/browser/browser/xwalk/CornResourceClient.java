@@ -214,6 +214,4 @@ public class CornResourceClient extends XWalkResourceClient {
         super.doUpdateVisitedHistory(view, url, isReload);
     }
 
-
-
 }

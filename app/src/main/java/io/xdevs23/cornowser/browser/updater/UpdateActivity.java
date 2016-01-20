@@ -377,8 +377,6 @@ public class UpdateActivity extends XquidCompatActivity {
 		
 	}
 
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;

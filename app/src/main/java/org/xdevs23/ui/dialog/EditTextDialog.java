@@ -44,7 +44,6 @@ public class EditTextDialog extends ExtendedAndroidClass {
     }
 
     private void init() {
-
         mEditText = (AppCompatEditText)
                 LayoutInflater.from(getContext()).inflate(R.layout.widget_ac_edittext_xquid, null);
         mEditText.setSingleLine();
@@ -90,6 +89,7 @@ public class EditTextDialog extends ExtendedAndroidClass {
                 .setCancelable(true)
                 .setNegativeButton(R.string.answer_cancel, new NegativeButtonCancel())
                 .setPositiveButton(R.string.answer_ok, onClickListener)
+                .setTitle(mTitle)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {

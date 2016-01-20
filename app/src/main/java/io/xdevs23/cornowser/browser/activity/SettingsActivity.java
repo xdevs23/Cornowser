@@ -137,4 +137,5 @@ public class SettingsActivity extends XquidCompatActivity {
             });
         }
     }
+
 }

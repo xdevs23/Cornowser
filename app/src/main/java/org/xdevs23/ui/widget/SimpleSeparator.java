@@ -131,4 +131,5 @@ public class SimpleSeparator extends View {
 
         return this;
     }
+
 }

@@ -96,4 +96,5 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
                 return i;
         throw new IllegalStateException();
     }
+
 }

@@ -10,9 +10,10 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements TabSwitcherBase {
 
+    public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
+
     protected int currentTab;
     protected TabStorage tabStorage = new TabStorage();
-    protected SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
 
     private RelativeLayout rootView;
 
@@ -101,14 +102,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     protected RelativeLayout getRootView() {
         return rootView;
-    }
-
-    public SwitcherStatus getSwitcherStatus() {
-        return switcherStatus;
-    }
-
-    public void setSwitcherStatus(SwitcherStatus status) {
-        switcherStatus = status;
     }
 
 }

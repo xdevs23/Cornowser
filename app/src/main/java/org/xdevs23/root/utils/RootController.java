@@ -55,7 +55,12 @@ public class RootController {
 				suxbin.exists()	||
 				susbin.exists();
 	}
-	
+
+    /**
+     * Checks if BusyBox is installed - internal method
+     *
+     * @return True if is installed. False if not.
+     */
 	private static boolean checkBusyboxInstalled() {
 		try {
 			File bsbin  = new File("/system/bin/busybox" );
@@ -203,6 +208,5 @@ public class RootController {
 		try { return runCommand(cmd); }
 		catch (IOException ex) { return ""; }
 	}
-
 	
 }
