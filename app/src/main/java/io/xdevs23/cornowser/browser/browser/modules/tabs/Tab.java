@@ -1,5 +1,8 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
+import android.app.Activity;
+import android.content.Context;
+
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class Tab {
@@ -32,6 +35,10 @@ public class Tab {
         this(tabStorage.getTab(tab).tabUrl, tabStorage.getTab(tab).tabTitle);
     }
 
+    public Tab initWithWebRender(Context context, Activity activity) {
+        return setWebRender(new CrunchyWalkView(context, activity));
+    }
+
     public Tab setWebRender(CrunchyWalkView view) {
         webView = view;
         return this;
@@ -43,6 +50,14 @@ public class Tab {
 
     public String getTitle() {
         return tabTitle;
+    }
+
+    public void setUrl(String url) {
+        tabUrl = url;
+    }
+
+    public void setTitle(String title) {
+        tabTitle = title;
     }
 
     public Tab setId(int id) {

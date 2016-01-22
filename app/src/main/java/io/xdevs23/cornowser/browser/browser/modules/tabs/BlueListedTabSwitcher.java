@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.ui.touch.BluePressOnTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
+import org.xdevs23.ui.widget.SimpleSeparator;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
@@ -106,7 +108,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         footerLayout.setGravity(Gravity.RIGHT);
 
         Button button = new Button(getContext());
-        button.setText("new");
+        button.setBackgroundResource(R.drawable.main_cross_plus_icon);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +129,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainView.setVisibility(View.INVISIBLE);
 
         getRootView().addView(mainView);
-
-        yPos += mainView.getHeight();
 
         mainView.setTranslationY(yPos);
         mainView.bringToFront();
@@ -153,7 +153,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void addTab(Tab tab) {
-        super.addTab(tab);
+        super.addTab(tab.initWithWebRender(getContext(), CornBrowser.getActivity()));
         XquidLinearLayout l = new XquidLinearLayout(getContext());
         l.setVerticalOrientation(true);
 
@@ -169,6 +169,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         l.addView(titleView);
         l.addView(urlView);
         l.addView(counterView);
+        l.addView(new SimpleSeparator(getContext()).setSeparatorColor(mainColor));
+
+        final XquidLinearLayout fl = l;
+        l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(tabStorage.getTab(((TabCounterView)fl.getChildAt(2)).getTabIndex()));
+            }
+        });
+        l.setOnTouchListener(new BluePressOnTouchListener(R.color.grey_50, true));
 
         tabsLayout.addView(l);
     }

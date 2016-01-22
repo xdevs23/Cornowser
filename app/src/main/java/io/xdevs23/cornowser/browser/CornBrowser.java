@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -102,7 +101,7 @@ public class CornBrowser extends XquidCompatActivity {
         else if(getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
             getTabSwitcher().addTab(getIntent().getDataString());
         else if(readyToLoadUrl.isEmpty())
-            publicWebRender.load(browserStorage.getUserHomePage(), null);
+            getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
         else {
             getTabSwitcher().addTab(readyToLoadUrl, null);
             readyToLoadUrl = "";
@@ -173,11 +172,8 @@ public class CornBrowser extends XquidCompatActivity {
     public void initWebXWalkEngine() {
         Logging.logd("    Our crunchy web engine");
         // web render layout is initialized while initializing static fields
-        getTabSwitcher().addTab(getBrowserStorage().getUserHomePage());
 
         initOmniboxPosition();
-
-        publicWebRender.setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
     }
 
     /**
@@ -339,10 +335,12 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
-     * Set the text of the address bar
+     * Set the text of the address bar (and apply it in tab switcher)
      * @param url URL to set as text
      */
     public static void applyInsideOmniText(String url) {
+        getTabSwitcher().getCurrentTab().setUrl(url);
+        getTabSwitcher().getCurrentTab().setTitle(getWebEngine().getTitle());
         if(browserInputBar.hasFocus()) return;
         try {
             browserInputBar.setText(url
@@ -397,22 +395,7 @@ public class CornBrowser extends XquidCompatActivity {
                 }
             }
         });
-        lv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setBackgroundColor(ColorUtil.getColor(R.color.blue_300));
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        v.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_transparent));
-                        break;
-                    default: break;
-                }
-                return false;
-            }
-        });
-        lv.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_transparent));
+        lv.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
         builder.setView(lv);
         builder.create().show();
     }

@@ -1,18 +1,25 @@
 package org.xdevs23.ui.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.Preference;
 import android.support.annotation.ArrayRes;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.xdevs23.android.widget.XquidRelativeLayout;
+import org.xdevs23.ui.dialog.templates.PositiveButtonOK;
 import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
+import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 
 public class EasyListView4 extends XquidRelativeLayout {
 
@@ -170,6 +177,23 @@ public class EasyListView4 extends XquidRelativeLayout {
                 });
             }
 
+            itemLayout.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
+            itemLayout.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch(event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.setBackgroundColor(ColorUtil.getColor(R.color.grey_300));
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            v.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
+                            break;
+                        default: break;
+                    }
+                    return false;
+                }
+            });
+
             mainLinearLayout.addView(itemLayout);
             mainLinearLayout.addView(new SimpleSeparator(getContext()));
         }
@@ -177,6 +201,20 @@ public class EasyListView4 extends XquidRelativeLayout {
         parentLayout.addView(mainLinearLayout);
 
         addView(parentLayout);
+    }
+
+    public static void showDialogUsingPreference(Preference preference, @ArrayRes final int res, final Activity activity) {
+        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder
+                        .setView((new EasyListView4(activity).setListArray(res)))
+                        .setPositiveButton(R.string.answer_ok, new PositiveButtonOK())
+                        .create().show();
+                return false;
+            }
+        });
     }
 
 }

@@ -6,6 +6,8 @@ import android.widget.RelativeLayout;
 
 import org.xdevs23.general.ExtendedAndroidClass;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
+
 public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements TabSwitcherBase {
 
     public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
@@ -45,6 +47,7 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     @Override
     public void addTab(Tab tab) {
         tabStorage.addTab(tab);
+        CornBrowser.publicWebRender = tab.webView;
     }
 
     @Override

@@ -114,30 +114,30 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:id="@+id/omnibox_tiny_items_layout">
-
-                        <!-- Don't forget the progress bar -->
-                        <org.xdevs23.rey.material.widget.ProgressView
-                            android:id="@+id/omnibox_progressbar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentTop="true"
-                            app:pv_circular="false"
-                            app:pv_progressStyle="@style/ProgressView_MainStyle_Horiz_Determinate" />
-
-                        <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
-                        <org.xdevs23.ui.widget.SimpleSeparator
-                            android:id="@+id/omnibox_separator"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentBottom="true" />
-
-                    </RelativeLayout>
-
                 </com.baoyz.widget.PullRefreshLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:id="@+id/omnibox_tiny_items_layout">
+
+                    <!-- Don't forget the progress bar -->
+                    <org.xdevs23.rey.material.widget.ProgressView
+                        android:id="@+id/omnibox_progressbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        app:pv_circular="false"
+                        app:pv_progressStyle="@style/ProgressView_MainStyle_Horiz_Determinate" />
+
+                    <!-- Tiny line at the bottom of the omnibox to separate web content from omnibox clearly -->
+                    <org.xdevs23.ui.widget.SimpleSeparator
+                        android:id="@+id/omnibox_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

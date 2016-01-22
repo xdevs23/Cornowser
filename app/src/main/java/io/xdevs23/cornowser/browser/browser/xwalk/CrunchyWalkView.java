@@ -14,6 +14,8 @@ import org.xwalk.core.XWalkView;
 
 import java.util.regex.Matcher;
 
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
+
 /**
  * A delicious and crunchy XWalkView with awesome features
  */
@@ -41,6 +43,8 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("      Configuring settings");
         XWalkSettings crispySettings = this.getSettings();
         crispySettings.setUserAgentString(userAgent);
+
+        setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
 
         Logging.logd("      Done!");
     }

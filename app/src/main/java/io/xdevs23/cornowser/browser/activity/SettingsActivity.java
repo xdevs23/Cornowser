@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -67,16 +66,24 @@ public class SettingsActivity extends XquidCompatActivity {
 
 
             // License dialog
-            Preference licensesPref = (Preference) findPreference("settings_licenses");
-            licensesPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.thisActivity);
-                    builder.setView((new EasyListView4(SettingsActivity.thisActivity).setListArray(R.array.app_license_list)));
-                    builder.create().show();
-                    return false;
-                }
-            });
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_licenses"),
+                    R.array.app_license_list,
+                    thisActivity);
+
+            // Translation credits dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_translation"),
+                    R.array.credits_translation_list,
+                    thisActivity
+            );
+
+            // Special thanks dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_special"),
+                    R.array.credits_special_list,
+                    thisActivity
+            );
 
             // Home page
             Preference homePagePref =
