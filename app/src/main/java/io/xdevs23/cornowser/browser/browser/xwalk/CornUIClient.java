@@ -124,6 +124,8 @@ public class CornUIClient extends XWalkUIClient {
 
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
 
+        CornBrowser.getOmniPtrLayout().setRefreshing(false);
+
         CornBrowser.getWebProgressBar().setProgress(1.0f);
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
     }

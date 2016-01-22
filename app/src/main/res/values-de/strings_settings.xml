@@ -21,4 +21,10 @@
     <string name="settings_list_licenses_title">Open-Source-Lizenzen</string>
     <string name="settings_list_licenses_summary">Nützliche Bibliotheken, die von dieser App verwendet werden.</string>
 
+    <string name="settings_list_credits_tl_title">Übersetzungen</string>
+    <string name="settings_list_credits_tl_summary">Danke an die Übersetzer/Innen</string>
+
+    <string name="settings_list_credits_spc_title">Spezielle Danksagungen</string>
+    <string name="settings_list_credits_spc_summary">Ein großes Dankeschön an genannte Leute</string>
+
 </resources>

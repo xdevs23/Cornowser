@@ -7,6 +7,8 @@ public class Tab {
     protected String tabUrl, tabTitle;
     protected CrunchyWalkView webView;
 
+    public int tabId = 0;
+
     public Tab() {
         tabUrl      = "";
         tabTitle    = "";
@@ -20,6 +22,10 @@ public class Tab {
     public Tab(String url, String title) {
         this(url);
         tabTitle = title;
+    }
+
+    public Tab(int tabId) {
+        this.tabId = tabId;
     }
 
     public Tab(TabStorage tabStorage, int tab) {
@@ -37,6 +43,11 @@ public class Tab {
 
     public String getTitle() {
         return tabTitle;
+    }
+
+    public Tab setId(int id) {
+        tabId = id;
+        return this;
     }
 
     public static String getTabUrl(Tab tab) {

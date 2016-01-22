@@ -6,8 +6,6 @@ import android.widget.RelativeLayout;
 
 import org.xdevs23.general.ExtendedAndroidClass;
 
-import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
-
 public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements TabSwitcherBase {
 
     public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
@@ -17,22 +15,19 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     private RelativeLayout rootView;
 
-    private CrunchyWalkView webRender;
-
     public enum SwitcherStatus {
         VISIBLE,
         HIDDEN
     }
 
-    public BasicTabSwitcher(Context context, RelativeLayout rootView, CrunchyWalkView webRender) {
+    public BasicTabSwitcher(Context context, RelativeLayout rootView) {
         super(context);
         this.rootView = rootView;
-        this.webRender = webRender;
         init();
     }
 
-    public BasicTabSwitcher(RelativeLayout rootView, CrunchyWalkView webRender) {
-        this(webRender.getContext(), rootView, webRender);
+    public BasicTabSwitcher(RelativeLayout rootView) {
+        this(rootView.getContext(), rootView);
     }
 
     public abstract void init();
@@ -94,10 +89,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     protected void setSwitcherView(View view) {
         rootView.addView(view);
-    }
-
-    protected CrunchyWalkView getWebRender() {
-        return webRender;
     }
 
     protected RelativeLayout getRootView() {

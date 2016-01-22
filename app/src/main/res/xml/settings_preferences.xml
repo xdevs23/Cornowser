@@ -52,6 +52,18 @@
             android:summary="@string/settings_list_licenses_summary"
             android:key="settings_licenses" />
 
+        <Preference
+            android:id="@+id/settings_preference_credits_tl"
+            android:title=""
+            android:summary=""
+            android:key="settings_credits_translation" />
+
+        <Preference
+            android:id="@+id/settings_preference_credits_special"
+            android:title=""
+            android:summary=""
+            android:key="settings_credits_special" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

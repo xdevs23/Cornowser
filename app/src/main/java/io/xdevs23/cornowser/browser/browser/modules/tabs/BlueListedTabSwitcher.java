@@ -19,7 +19,6 @@ import org.xdevs23.ui.utils.DpUtil;
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
-import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
@@ -32,12 +31,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private int yPos;
 
-    public BlueListedTabSwitcher(Context context, RelativeLayout rootView, CrunchyWalkView webRender) {
-        super(context, rootView, webRender);
+    public BlueListedTabSwitcher(Context context, RelativeLayout rootView) {
+        super(context, rootView);
     }
 
-    public BlueListedTabSwitcher(RelativeLayout rootView, CrunchyWalkView webRender) {
-        super(rootView, webRender);
+    public BlueListedTabSwitcher(RelativeLayout rootView) {
+        super(rootView);
     }
 
     public BlueListedTabSwitcher setTabStorage(TabStorage storage) {

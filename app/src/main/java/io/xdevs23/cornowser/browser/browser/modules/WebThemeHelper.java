@@ -39,6 +39,7 @@ public class WebThemeHelper {
     public static void resetWebThemeColorAlt(RelativeLayout omnibox, Window window) {
         Bitmap b = CornBrowser.getWebEngine().getUIClient().getCurrentFavicon();
         if(b != null) {
+            Logging.logd("[WebThemeHelper] Using favicon for background color");
             ColorArt c = new ColorArt(b);
             setWebThemeColor(c.getBackgroundColor(), omnibox, window);
         } else resetWebThemeColor(omnibox);
