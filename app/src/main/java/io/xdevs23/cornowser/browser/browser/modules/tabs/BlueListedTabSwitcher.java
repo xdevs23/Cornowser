@@ -34,6 +34,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             WebThemeHelper.tintNow(CornBrowser.getWebEngine());
             CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
             CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
+            if(CornBrowser.publicWebRender != null || CornBrowser.publicWebRender.getUrl().isEmpty())
+                CornBrowser.publicWebRender.load(getCurrentTab().getUrl());
         }
 
         @Override
