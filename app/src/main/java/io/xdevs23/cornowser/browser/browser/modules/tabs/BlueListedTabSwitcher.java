@@ -34,13 +34,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             WebThemeHelper.tintNow(CornBrowser.getWebEngine());
             CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
             CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
-            if(CornBrowser.publicWebRender != null || CornBrowser.publicWebRender.getUrl().isEmpty())
-                CornBrowser.publicWebRender.load(getCurrentTab().getUrl());
         }
 
         @Override
         public void onTabAdded(Tab tab) {
-            onTabSwitched(tab);
             CornBrowser.publicWebRender.load(tab.getUrl());
         }
 
@@ -60,7 +57,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     .getChildAt(0)).setText(tab.getTitle());
             ((TextView)((XquidLinearLayout)tabsLayout.getChildAt(tab.tabId))
                     .getChildAt(1)).setText(tab.getUrl());
-            updateStuff();
         }
     };
 
@@ -242,14 +238,14 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         tabsLayout.addView(l);
         showTab(getCurrentTab());
-        getCurrentTab().webView.load(getCurrentTab().getUrl());
         tabSwitchListener.onTabAdded(tab);
     }
 
     @Override
     public void removeTab(Tab tab) {
+        CornBrowser.publicWebRenderLayout.removeAllViews();
         tabsLayout.removeViewAt(tabStorage.getTabIndex(tab));
-        switchTab(tabStorage.getTabIndex(tab) - 1);
+        switchTab(0);
         tabStorage.removeTab(tab);
         tabSwitchListener.onTabRemoved(tab);
     }
