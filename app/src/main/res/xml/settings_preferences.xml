@@ -54,14 +54,14 @@
 
         <Preference
             android:id="@+id/settings_preference_credits_tl"
-            android:title=""
-            android:summary=""
+            android:title="@string/settings_list_credits_tl_title"
+            android:summary="@string/settings_list_credits_tl_summary"
             android:key="settings_credits_translation" />
 
         <Preference
             android:id="@+id/settings_preference_credits_special"
-            android:title=""
-            android:summary=""
+            android:title="@string/settings_list_credits_spc_title"
+            android:summary="@string/settings_list_credits_spc_summary"
             android:key="settings_credits_special" />
 
     </PreferenceCategory>

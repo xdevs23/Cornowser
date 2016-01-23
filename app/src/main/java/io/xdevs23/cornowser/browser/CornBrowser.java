@@ -37,6 +37,7 @@ import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabStorage;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
@@ -58,9 +59,10 @@ public class CornBrowser extends XquidCompatActivity {
     public static EditText browserInputBar;
 
     public static ImageButton
-            goForwardImgBtn,
-            openTabswitcherImgBtn
+            goForwardImgBtn
             ;
+
+    public static TabSwitcherOpenButton openTabswitcherImgBtn;
 
     public static String readyToLoadUrl = "";
 
@@ -90,6 +92,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     private AlertDialog optionsMenuDialog;
 
+    private boolean isBootstrapped = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +114,8 @@ public class CornBrowser extends XquidCompatActivity {
         }
 
         checkUpdate.start();
+
+        fastReloadComponents();
     }
 
     /**
@@ -205,9 +211,9 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initOmniboxControls() {
         Logging.logd("      Controls");
-        omniboxControls         = (RelativeLayout)      findViewById(R.id.omnibox_controls);
-        openTabswitcherImgBtn   = (ImageButton)         findViewById(R.id.omnibox_control_open_tabswitcher);
-        goForwardImgBtn         = (ImageButton) findViewById(R.id.omnibox_control_forward);
+        omniboxControls         = (RelativeLayout)        findViewById(R.id.omnibox_controls);
+        openTabswitcherImgBtn   = (TabSwitcherOpenButton) findViewById(R.id.omnibox_control_open_tabswitcher);
+        goForwardImgBtn         = (ImageButton)           findViewById(R.id.omnibox_control_forward);
 
         TastyOverflowMenu overflowMenuLayout;
         overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
@@ -234,6 +240,7 @@ public class CornBrowser extends XquidCompatActivity {
             }
         });
 
+        openTabswitcherImgBtn.init(getContext());
         openTabswitcherImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -336,12 +343,7 @@ public class CornBrowser extends XquidCompatActivity {
         OmniboxAnimations.resetOmni();
     }
 
-    /**
-     * Set the text of the address bar (and apply it in tab switcher)
-     * @param url URL to set as text
-     */
-    public static void applyInsideOmniText(String url) {
-        getTabSwitcher().changeCurrentTab(url, publicWebRender.getTitle());
+    public static void applyOnlyInsideOmniText(String url) {
         if(browserInputBar.hasFocus()) return;
         try {
             browserInputBar.setText(url
@@ -349,6 +351,15 @@ public class CornBrowser extends XquidCompatActivity {
         } catch(Exception ex) {
             Logging.logd("Warning: Didn't succeed while applying inside omni text.");
         }
+    }
+
+    /**
+     * Set the text of the address bar (and apply it in tab switcher)
+     * @param url URL to set as text
+     */
+    public static void applyInsideOmniText(String url) {
+        getTabSwitcher().changeCurrentTab(url, publicWebRender.getTitle());
+        applyOnlyInsideOmniText(url);
     }
 
     /**
@@ -497,26 +508,25 @@ public class CornBrowser extends XquidCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        Logging.logd("Activity paused.");
-        super.onPause();
-        try {
-            if (publicWebRender != null) {
-                publicWebRender.pauseTimers();
-                publicWebRender.onHide();
+    private void fastReloadComponents() {
+        onPauseWebRender(true);
+        onResumeWebRender();
+    }
 
-                readyToLoadUrl = "";
-            }
-        } catch(Exception doex) {
-            Logging.logd("Warning: onPause() was not successful. Dead object :S ? Continuing.");
+    protected void onPauseWebRender() {
+        onPauseWebRender(false);
+    }
+
+    protected void onPauseWebRender(boolean fastPause) {
+        if (publicWebRender != null) {
+            publicWebRender.pauseTimers();
+            publicWebRender.onHide();
+
+            if(!fastPause) readyToLoadUrl = "";
         }
     }
 
-    @Override
-    protected void onResume() {
-        Logging.logd("Activity resumed.");
-        super.onResume();
+    protected void onResumeWebRender() {
         if (publicWebRender != null) {
             initOmniboxPosition();
 
@@ -534,6 +544,20 @@ public class CornBrowser extends XquidCompatActivity {
             if(publicWebRender.getTitle().isEmpty() || publicWebRender.getUrl().isEmpty())
                 publicWebRender.loadWorkingUrl();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        Logging.logd("Activity paused.");
+        super.onPause();
+        onPauseWebRender();
+    }
+
+    @Override
+    protected void onResume() {
+        Logging.logd("Activity resumed.");
+        super.onResume();
+        onResumeWebRender();
     }
 
     @Override

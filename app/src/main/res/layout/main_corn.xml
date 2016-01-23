@@ -22,12 +22,6 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <RelativeLayout
-            android:id="@+id/omnibox_parent_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/omnibox_height"
-            android:background="@color/white">
-
             <!-- Omnibox -->
             <RelativeLayout
                 android:id="@+id/omnibox_layout"
@@ -87,28 +81,32 @@
                             android:layout_alignParentBottom="true"
                             android:gravity="center_vertical">
 
+                            <org.xdevs23.ui.widget.TastyOverflowMenu
+                                android:id="@+id/omnibox_control_overflowmenu"
+                                android:layout_height="wrap_content"
+                                android:layout_width ="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true" />
+
+                            <io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton
+                                android:id="@+id/omnibox_control_open_tabswitcher"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="8dp"
+                                android:layout_toLeftOf="@id/omnibox_control_overflowmenu" />
+
                             <ImageButton
                                 android:id="@+id/omnibox_control_forward"
                                 android:layout_width="@dimen/omnibox_items_def"
                                 android:layout_height="@dimen/omnibox_items_def"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/ic_arrow_forward_black_48dp"
-                                android:contentDescription="@string/omnibox_forward_btn_acsb_desc" />
+                                android:contentDescription="@string/omnibox_forward_btn_acsb_desc"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@id/omnibox_control_open_tabswitcher" />
 
-                            <ImageButton
-                                android:id="@+id/omnibox_control_open_tabswitcher"
-                                android:layout_width="@dimen/omnibox_items_def"
-                                android:layout_height="@dimen/omnibox_items_def"
-                                android:layout_centerVertical="true"
-                                android:background="@drawable/omnibox_tabswitch_icon" />
 
-                            <org.xdevs23.ui.widget.TastyOverflowMenu
-                                android:id="@+id/omnibox_control_overflowmenu"
-                                android:layout_height="wrap_content"
-                                android:layout_width ="wrap_content"
-                                android:layout_toRightOf="@id/omnibox_control_forward"
-                                android:layout_toEndOf="@id/omnibox_control_forward"
-                                android:layout_centerVertical="true" />
 
                         </RelativeLayout>
 
@@ -141,13 +139,12 @@
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
         <!-- And the layout for our crunchy XWalkView -->
         <RelativeLayout
             android:id="@+id/webrender_layout"
             android:layout_width ="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <!-- The view will be added here while init -->
 

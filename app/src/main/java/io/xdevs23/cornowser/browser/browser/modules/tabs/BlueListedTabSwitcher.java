@@ -1,47 +1,55 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
-import android.animation.Animator;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
+import org.xdevs23.ui.touch.PressHoverTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.widget.SimpleSeparator;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
+import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
 
-    private TabStorage tabStorage;
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
+        private void updateStuff() {
+            WebThemeHelper.tintNow(CornBrowser.getWebEngine());
+            CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
+            CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
+        }
+
         @Override
         public void onTabAdded(Tab tab) {
-            // Not needed
+            onTabSwitched(tab);
+            CornBrowser.publicWebRender.load(tab.getUrl());
         }
 
         @Override
         public void onTabRemoved(Tab tab) {
-            // Not needed
+            updateStuff();
         }
 
         @Override
         public void onTabSwitched(Tab tab) {
-            // Not needed
+            onTabChanged(tab);
         }
 
         @Override
@@ -50,10 +58,11 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     .getChildAt(0)).setText(tab.getTitle());
             ((TextView)((XquidLinearLayout)tabsLayout.getChildAt(tab.tabId))
                     .getChildAt(1)).setText(tab.getUrl());
+            updateStuff();
         }
     };
 
-    private final int mainColor = ContextCompat.getColor(getContext(), R.color.blue_800);
+    private int mainColor;
 
     private int yPos;
 
@@ -111,6 +120,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     public void init() {
         yPos = CornBrowser.getStaticWindow().getDecorView().getHeight();
 
+        mainColor = ColorUtil.getColor(R.color.blue_800);
+
         mainView = new ScrollView(getContext());
 
         mainView.setBackgroundColor(ColorUtil.getColor(R.color.white));
@@ -129,10 +140,22 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         tabsLayout = getNewChildLayout(1, 1, 1, 2);
 
         XquidLinearLayout footerLayout = getNewChildLayout(false);
-        footerLayout.setGravity(Gravity.RIGHT);
+        footerLayout.setGravity(Gravity.RIGHT | Gravity.TOP);
 
-        Button button = new Button(getContext());
-        button.setBackgroundResource(R.drawable.main_cross_plus_icon);
+        final int minWh = DpUtil.dp2px(getContext(), 40);
+        RelativeLayout button = new RelativeLayout(getContext());
+        button.setBackgroundColor(mainColor);
+        button.setMinimumWidth(minWh);
+        button.setMinimumHeight(minWh);
+
+        ImageView img = new ImageView(getContext());
+        img.setImageResource(R.drawable.main_cross_plus_icon);
+        img.setMinimumWidth(minWh);
+        img.setMinimumHeight(minWh);
+
+        button.addView(img);
+
+        button.setOnTouchListener(new PressHoverTouchListener(mainColor, ColorUtil.getColor(R.color.blue_500)));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,8 +166,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         footerLayout.addView(button);
 
-        switcherLayout.addView(tabsLayout);
         switcherLayout.addView(footerLayout);
+        switcherLayout.addView(tabsLayout);
 
         mainLayout.addView(switcherLayout);
 
@@ -172,7 +195,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 tab.webView
         );
         currentTab = tab.tabId;
+        setLayoutTabId(currentTab, tab.tabId);
         CornBrowser.applyInsideOmniText(tab.webView.getUrl());
+        tabSwitchListener.onTabSwitched(tab);
     }
 
     @Override
@@ -196,21 +221,27 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         l.addView(counterView);
         l.addView(new SimpleSeparator(getContext()).setSeparatorColor(mainColor));
 
-
         l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTab(tabStorage.getTab(
-                                ((TabCounterView) ((XquidLinearLayout) v).getChildAt(2))
-                                        .getTabIndex())
-                );
+                Logging.logd(tabStorage.getTabList().size());
+                showTab(tabStorage.getTab(tabsLayout.indexOfChild(v)));
             }
         });
         l.setOnTouchListener(new BluePressOnTouchListener(R.color.grey_50, true));
+        l.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (tabsLayout.getChildCount() > 1) removeTab(tabsLayout.indexOfChild(v));
+                else Toast.makeText(getContext(), "(°o°)", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         tabsLayout.addView(l);
         showTab(getCurrentTab());
         getCurrentTab().webView.load(getCurrentTab().getUrl());
+        tabSwitchListener.onTabAdded(tab);
     }
 
     @Override
@@ -218,13 +249,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         tabsLayout.removeViewAt(tabStorage.getTabIndex(tab));
         switchTab(tabStorage.getTabIndex(tab) - 1);
         tabStorage.removeTab(tab);
+        tabSwitchListener.onTabRemoved(tab);
     }
 
     @Override
     public void showSwitcher() {
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
-        yPos = CornBrowser.getStaticWindow().getDecorView().getHeight();
+        yPos =
+                CornBrowser.getView().getHeight() -
+                        (OmniboxControl.isBottom() ? CornBrowser.omnibox.getHeight() : 0);
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();
 
@@ -269,6 +303,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     public void changeCurrentTab(String url, String title) {
         super.changeCurrentTab(url, title);
         tabSwitchListener.onTabChanged(getCurrentTab());
+    }
+
+    private int getLayoutTabId(int index) {
+        return ((TabCounterView)((XquidLinearLayout) tabsLayout.getChildAt(index))
+                .getChildAt(2)).getTabIndex();
+    }
+
+    private void setLayoutTabId(int index, int id) {
+        ((TabCounterView)((XquidLinearLayout) tabsLayout.getChildAt(index))
+                .getChildAt(2)).setTabIndex(id);
     }
 
 }
