@@ -12,7 +12,7 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
 
-    protected int currentTab;
+    protected int currentTab = -1;
     protected TabStorage tabStorage = new TabStorage();
 
     private RelativeLayout rootView;
@@ -46,8 +46,11 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     @Override
     public void addTab(Tab tab) {
-        tabStorage.addTab(tab);
+        Tab t = tab;
+        tab.setId(tabStorage.getTabCount());
+        tabStorage.addTab(t);
         CornBrowser.publicWebRender = tab.webView;
+        currentTab = t.tabId;
     }
 
     @Override
@@ -63,16 +66,19 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     @Override
     public void removeTab(Tab tab) {
         tabStorage.removeTab(tab);
+        currentTab--;
     }
 
     @Override
     public void removeTab(String url) {
         tabStorage.removeTab(url);
+        currentTab--;
     }
 
     @Override
     public void removeTab(int tabIndex) {
         tabStorage.removeTab(tabIndex);
+        currentTab--;
     }
 
     @Override
@@ -96,6 +102,11 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     protected RelativeLayout getRootView() {
         return rootView;
+    }
+
+    public void changeCurrentTab(String url, String title) {
+        getCurrentTab().setUrl(url);
+        getCurrentTab().setTitle(title);
     }
 
 }

@@ -182,9 +182,13 @@ public class EasyListView4 extends XquidRelativeLayout {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch(event.getAction()) {
+                        case MotionEvent.ACTION_HOVER_ENTER:
                         case MotionEvent.ACTION_DOWN:
                             v.setBackgroundColor(ColorUtil.getColor(R.color.grey_300));
                             break;
+                        case MotionEvent.ACTION_HOVER_EXIT:
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_OUTSIDE:
                         case MotionEvent.ACTION_UP:
                             v.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
                             break;

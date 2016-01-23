@@ -88,6 +88,8 @@ public class CornBrowser extends XquidCompatActivity {
     private static String[] optionsMenuItems;
 
 
+    private AlertDialog optionsMenuDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +172,7 @@ public class CornBrowser extends XquidCompatActivity {
      * Initialize web rendering stuff
      */
     public void initWebXWalkEngine() {
-        Logging.logd("    Our crunchy web engine");
+        Logging.logd("    Web engine and necessary components");
         // web render layout is initialized while initializing static fields
 
         initOmniboxPosition();
@@ -339,8 +341,7 @@ public class CornBrowser extends XquidCompatActivity {
      * @param url URL to set as text
      */
     public static void applyInsideOmniText(String url) {
-        getTabSwitcher().getCurrentTab().setUrl(url);
-        getTabSwitcher().getCurrentTab().setTitle(getWebEngine().getTitle());
+        getTabSwitcher().changeCurrentTab(url, publicWebRender.getTitle());
         if(browserInputBar.hasFocus()) return;
         try {
             browserInputBar.setText(url
@@ -358,6 +359,28 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_updater),
                 getString(R.string.cornmenu_item_settings)
         };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ListView lv = new ListView(getContext());
+        lv.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int which, long id) {
+                switch (which) {
+                    case optMenuItems.UPDATER:
+                        startActivity(new Intent(getContext(), UpdateActivity.class));
+                        break;
+                    case optMenuItems.SETTINGS:
+                        startActivity(new Intent(getContext(), SettingsActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                optionsMenuDialog.hide();
+            }
+        });
+        lv.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
+        builder.setView(lv);
+        optionsMenuDialog = builder.create();
     }
 
     // Init end
@@ -377,27 +400,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     @Override
     public void openOptionsMenu() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        ListView lv = new ListView(getContext());
-        lv.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int which, long id) {
-                switch (which) {
-                    case optMenuItems.UPDATER:
-                        startActivity(new Intent(getContext(), UpdateActivity.class));
-                        break;
-                    case optMenuItems.SETTINGS:
-                        startActivity(new Intent(getContext(), SettingsActivity.class));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-        lv.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
-        builder.setView(lv);
-        builder.create().show();
+        optionsMenuDialog.show();
     }
 
     /**
