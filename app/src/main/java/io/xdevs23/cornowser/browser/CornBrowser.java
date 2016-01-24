@@ -98,24 +98,27 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_corn);
+        if(!isBootstrapped) {
+            setContentView(R.layout.main_corn);
 
-        initAll();
+            initAll();
 
-        if(getIntent().getStringExtra("intent_link_uri_load") != null && (!getIntent().getStringExtra("intent_link_uri_load").isEmpty()))
-            getTabSwitcher().addTab(getIntent().getStringExtra("intent_link_uri_load"));
-        else if(getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
-            getTabSwitcher().addTab(getIntent().getDataString());
-        else if(readyToLoadUrl.isEmpty())
-            getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
-        else {
-            getTabSwitcher().addTab(readyToLoadUrl, null);
-            readyToLoadUrl = "";
+            if (getIntent().getStringExtra("intent_link_uri_load") != null && (!getIntent().getStringExtra("intent_link_uri_load").isEmpty()))
+                getTabSwitcher().addTab(getIntent().getStringExtra("intent_link_uri_load"));
+            else if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
+                getTabSwitcher().addTab(getIntent().getDataString());
+            else if (readyToLoadUrl.isEmpty())
+                getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
+            else {
+                getTabSwitcher().addTab(readyToLoadUrl, null);
+                readyToLoadUrl = "";
+            }
+
+            checkUpdate.start();
+
+            fastReloadComponents();
+            isBootstrapped = true;
         }
-
-        checkUpdate.start();
-
-        fastReloadComponents();
     }
 
     /**
@@ -592,7 +595,7 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus && browserStorage.getIsFullscreenEnabled()) {
+        if (browserStorage.getIsFullscreenEnabled()) {
             if(Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 getWindow().getDecorView()
                         .setSystemUiVisibility(
@@ -616,7 +619,7 @@ public class CornBrowser extends XquidCompatActivity {
                                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
             }
-        } else if(browserStorage.getIsFullscreenEnabled()) {
+        } else {
             getWindow().getDecorView()
                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }

@@ -15,10 +15,8 @@ android {
         applicationId "io.xdevs23.cornowser.browser"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2016011560      // Use YYYYMMDDNN, year month day rev,
+        versionCode 2016012430      // Use YYYYMMDDNN, year month day rev,
                                     // rev: 0X-2X,9X release, 3X-5X beta, 6X-7X alpha, 8X nightly
-                                    // 1000000001 is development phase version code, don't modify it
-                                    //          until the updater is implemented
                                     // Example: 2016010101 is first release on January 1, 2016
                                     //          2016010235 is fifth beta release on January 2, 2016
                                     //          2016010476 is 16th alpha release on January 4, 2016
@@ -30,7 +28,7 @@ android {
                                     //          I think not that you can release 16 alphas on one day,
                                     //          but we need to keep this format for the updater to
                                     //          work correctly. :D
-        versionName "1.0.3.1"       // Version name
+        versionName "1.0.4.0"       // Version name
         multiDexEnabled true        // For the libs to work correctly
     }
 

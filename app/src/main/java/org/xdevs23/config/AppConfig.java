@@ -23,7 +23,7 @@ public final class AppConfig {
 			 mainDevUrl = "http://xdevs23.bplaced.com/",
 			 updateRoot = UpdaterStorage.URL_RAW_CB_GITHUB_REPO  + "update/",
 			 debugTag   = appName,        // Tag used in logcat
-			 dbgVer     = debug  // Set this to 'debug' to enable debug mode
+			 dbgVer     = beta // Set this to 'debug' to enable debug mode
 	;
 	
 	public static final class Version {
@@ -39,8 +39,8 @@ public final class AppConfig {
 		public static final int
 				major     =  1   ,
 				minor     =  0   ,
-				build     =  3   ,
-		    	revision  =  1
+				build     =  4   ,
+		    	revision  =  0
 		;
 		
 		public static final boolean

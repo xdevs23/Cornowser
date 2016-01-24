@@ -1,11 +1,14 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.dialog.templates.PositiveButtonOK;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
@@ -23,8 +26,6 @@ public class CornUIClient extends XWalkUIClient {
 
     // This is for controlling errors on start-up loading
     private boolean readyForBugfreeBrowsing = false;
-
-    protected Bitmap currentFavicon = null;
 
     public CornUIClient(XWalkView view) {
         super(view);
@@ -45,7 +46,6 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onReceivedIcon(XWalkView view, String url, Bitmap icon) {
-        currentFavicon = icon;
         super.onReceivedIcon(view, url, icon);
     }
 
@@ -56,8 +56,7 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onJavascriptCloseWindow(XWalkView view) {
-        // TODO: handle this thing
-        super.onJavascriptCloseWindow(view);
+        CornBrowser.getTabSwitcher().removeTab(CornBrowser.getTabSwitcher().getCurrentTab());
     }
 
     @Override
@@ -78,34 +77,70 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public boolean onJsAlert(XWalkView view, String url, String message, XWalkJavascriptResult result) {
-        AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getContext());
+        AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
         b
                 .setCancelable(true)
-                .setTitle("")
+                .setTitle(view.getTitle())
                 .setMessage(message)
                 .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_ok), new PositiveButtonOK())
                 .create()
                 .show()
         ;
+        result.confirm();
 
-        return true;
+        return super.onJsAlert(view, url, message, result);
     }
 
     @Override
     public boolean onJsConfirm(XWalkView view, String url, String message, XWalkJavascriptResult result) {
-        // TODO: handle this thing
-        return super.onJsConfirm(view, url, message, result);
+        final XWalkJavascriptResult fResult = result;
+        AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
+        b
+                .setCancelable(true)
+                .setTitle(view.getTitle())
+                .setMessage(message)
+                .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_ok),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fResult.confirm();
+                    }
+                })
+                .setNegativeButton(CornBrowser.getContext().getString(R.string.answer_cancel),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fResult.cancel();
+                    }
+                })
+                .create()
+                .show()
+        ;
+
+        return super.onJsConfirm(view, url, message, fResult);
     }
 
     @Override
     public boolean onJsPrompt(XWalkView view, String url, String message, String defaultValue, XWalkJavascriptResult result) {
-        // TODO: handle this thing
-        return super.onJsPrompt(view, url, message, defaultValue, result);
+        final XWalkJavascriptResult fResult = result;
+        final EditTextDialog d = new EditTextDialog(CornBrowser.getContext(),
+                (XquidCompatActivity) CornBrowser.getActivity(),
+                message,
+                defaultValue);
+        d.showDialog();
+        d.setOnClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fResult.confirmWithResult(d.getEnteredText());
+                dialog.dismiss();
+            }
+        });
+
+        return super.onJsPrompt(view, url, message, defaultValue, fResult);
     }
 
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
-        currentFavicon = null;
         CornBrowser.resetOmniPositionState(true);
         super.onPageLoadStarted(view, url);
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
@@ -128,10 +163,6 @@ public class CornUIClient extends XWalkUIClient {
 
         CornBrowser.getWebProgressBar().setProgress(1.0f);
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
-    }
-
-    public Bitmap getCurrentFavicon() {
-        return currentFavicon;
     }
 
 }

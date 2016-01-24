@@ -21,7 +21,7 @@ public class BluePressOnTouchListener extends PressHoverTouchListener {
     }
 
     public BluePressOnTouchListener(@ColorRes int upColor, boolean isRes) {
-        this(ColorUtil.getColor(upColor));
+        this(isRes ? ColorUtil.getColor(upColor) : upColor);
     }
 
 }

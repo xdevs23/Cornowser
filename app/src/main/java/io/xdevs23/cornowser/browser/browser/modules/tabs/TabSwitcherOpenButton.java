@@ -59,7 +59,6 @@ public class TabSwitcherOpenButton extends RelativeLayout {
             t.setMinimumWidth(getWidth());
             t.setTextColor(Color.BLACK);
             addView(t);
-            t.setTranslationX( (getWidth() / 2) - (t.getWidth() / 2) - 1);
 
             t.bringToFront();
 
@@ -70,7 +69,9 @@ public class TabSwitcherOpenButton extends RelativeLayout {
 
     public void setTabCount(int count) {
         tabCount = String.valueOf(count);
-        ((TextView)getChildAt(1)).setText(tabCount);
+        TextView t = ((TextView)getChildAt(1));
+        t.setText(tabCount);
+        t.setTranslationX( Math.round( (getWidth() / 2) - (t.getWidth() / 2) ) );
     }
 
 }

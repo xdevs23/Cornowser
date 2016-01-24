@@ -1,6 +1,7 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.View;
@@ -32,9 +33,21 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
         private void updateStuff() {
-            WebThemeHelper.tintNow(CornBrowser.getWebEngine());
-            CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
-            CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
+            final Handler handler = new Handler();
+            final Runnable doUpdateStuff = new Runnable() {
+                @Override
+                public void run() {
+                    WebThemeHelper.tintNow(CornBrowser.getWebEngine());
+                    CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
+                    CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
+                }
+            };
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    handler.post(doUpdateStuff);
+                }
+            }, 200);
         }
 
         @Override
@@ -125,7 +138,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         mainView = new ScrollView(getContext());
 
-        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white));
+        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
 
         mainView.setLayoutParams(new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -143,7 +156,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         XquidLinearLayout footerLayout = getNewChildLayout(false);
         footerLayout.setGravity(Gravity.RIGHT | Gravity.TOP);
 
-        final int minWh = DpUtil.dp2px(getContext(), 32);
+        final int minWh  = DpUtil.dp2px(getContext(), 24);
+        final int bpd    = DpUtil.dp2px(getContext(), 2);
+        final int minWhP = minWh - bpd;
+
         RelativeLayout button = new RelativeLayout(getContext());
         button.setBackgroundColor(mainColor);
         button.setMinimumWidth(minWh);
@@ -151,12 +167,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         ImageView img = new ImageView(getContext());
         img.setImageResource(R.drawable.main_cross_plus_icon);
-        img.setMinimumWidth(minWh);
-        img.setMinimumHeight(minWh);
+        img.setMinimumWidth(minWhP);
+        img.setMinimumHeight(minWhP);
 
         button.addView(img);
 
-        button.setOnTouchListener(new PressHoverTouchListener(mainColor, ColorUtil.getColor(R.color.blue_500)));
+        button.setOnTouchListener(new PressHoverTouchListener(mainColor, ColorUtil.getColor(R.color.blue_600)));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +180,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 addTab(new Tab(CornBrowser.getBrowserStorage().getUserHomePage()));
             }
         });
+
+        button.setPadding(bpd, bpd, bpd, bpd);
 
         footerLayout.addView(button);
 
@@ -184,15 +202,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void switchTab(int tab) {
-        CornBrowser.publicWebRender.onHide();
-        CornBrowser.publicWebRender.pauseTimers();
-        CornBrowser.publicWebRender.setEnabled(false);
         int tabIndex = tab;
         if(tab < 0) tabIndex += 2;
         showTab(tabStorage.getTab(tabIndex));
-        CornBrowser.publicWebRender.setEnabled(true);
-        CornBrowser.publicWebRender.onShow();
-        CornBrowser.publicWebRender.resumeTimers();
     }
 
     @Override
@@ -322,18 +334,32 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void changeCurrentTab(String url, String title) {
-        super.changeCurrentTab(url, title);
-        tabSwitchListener.onTabChanged(getCurrentTab());
+        if(CornBrowser.publicWebRender != null && url != null && title != null
+                && (!url.isEmpty())) {
+            try {
+                if (url.equals(CornBrowser.publicWebRender.getUrl()))
+                    super.changeCurrentTab(url, title);
+                else super.changeCurrentTab(CornBrowser.publicWebRender.getUrl(),
+                        CornBrowser.publicWebRender.getTitle());
+                tabSwitchListener.onTabChanged(getCurrentTab());
+            } catch (NullPointerException ex) {
+                Logging.logd("Umm... Are you jumping on a null? ~changeCurrentTab");
+            }
+        }
     }
 
-    private int getLayoutTabId(int index) {
+    protected int getLayoutTabId(int index) {
         return ((TabCounterView)((XquidLinearLayout) tabsLayout.getChildAt(index))
                 .getChildAt(2)).getTabIndex();
     }
 
     private void setLayoutTabId(int index, int id) {
-        ((TabCounterView)((XquidLinearLayout) tabsLayout.getChildAt(index))
-                .getChildAt(2)).setTabIndex(id);
+        try {
+            ((TabCounterView) ((XquidLinearLayout) tabsLayout.getChildAt(index))
+                    .getChildAt(2)).setTabIndex(id);
+        } catch(Exception ex) {
+            Logging.logd("Something went wrong... ~setLayoutTabId (Tab switcher)");
+        }
     }
 
 }

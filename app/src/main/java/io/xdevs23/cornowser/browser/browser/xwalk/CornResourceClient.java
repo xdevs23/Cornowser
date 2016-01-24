@@ -1,7 +1,11 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
+import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
@@ -66,10 +70,25 @@ public class CornResourceClient extends XWalkResourceClient {
                     this);
             return true;
         }
+        checkIntentableUrl(url.toLowerCase());
         CornBrowser.resetOmniPositionState(true);
         CornBrowser.resetBarColor();
         Logging.logd("Starting url loading '" + url + "'");
         return super.shouldOverrideUrlLoading(view, url);
+    }
+
+    protected void checkIntentableUrl(String url) {
+        Context c = CornBrowser.getContext();
+        if(url.startsWith("intent")
+                || url.startsWith("market")
+                || url.contains("play.google.")
+                || url.contains("google.com/play")) {
+            try {
+                c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            } catch (Exception ex) {
+                Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
