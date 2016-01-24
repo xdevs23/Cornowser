@@ -252,6 +252,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void showSwitcher() {
+        if(switcherStatus == SwitcherStatus.VISIBLE) return;
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
         yPos =
@@ -267,6 +268,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void hideSwitcher() {
+        if(switcherStatus == SwitcherStatus.HIDDEN) return;
         super.hideSwitcher();
         Logging.logd("Hiding tab switcher");
         /*mainView.animate().setDuration(320)

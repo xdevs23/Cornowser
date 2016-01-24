@@ -74,6 +74,7 @@ public class OmniboxAnimations {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    CornBrowser.getTabSwitcher().hideSwitcher();
                     oh = CornBrowser.omnibox.getHeight();
                     if(-opos <= oh / 2) cy = (int)motionEvent.getRawY();
                     else cy = (int)motionEvent.getRawY() - opos;
