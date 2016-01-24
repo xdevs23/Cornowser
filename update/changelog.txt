@@ -1,9 +1,16 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fixed omnibox positioning/layout bug
- - Added fullscreen mode setting
- - Improved settings
- - Improved updater
- - Improved navbar/statusbar tinting
- - Updated translations
+ - Added tab switcher (Maybe there is a bug left)
+ - Added translation and special credits
+ - Added refresh feature (swipe the omnibox down)
+ - Improved omnibox tinting
+ - Added tinting for facebook, youtube, twitter and google
+ - Open external links in-app
+ - Updated Crosswalk version
+ - Improved fullscreen feature
+ - Improved omnibox
+ - Added some support for intents and google play
+ - Added italian translation (by DavideV)
+ - Added spanish translation (by Greck98)
+ - Clean-up and optimizations
  - Improvements and bugfixes
