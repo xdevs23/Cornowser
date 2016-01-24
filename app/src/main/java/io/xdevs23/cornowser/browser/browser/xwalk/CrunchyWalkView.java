@@ -134,4 +134,9 @@ public class CrunchyWalkView extends XWalkView {
         return goBack(1);
     }
 
+    public CrunchyWalkView immediatelyLoadUrl(String url) {
+        load(url);
+        return this;
+    }
+
 }

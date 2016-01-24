@@ -6,7 +6,7 @@
         <shape android:shape="line">
             <stroke
                 android:color="@android:color/white"
-                android:width="8dp" />
+                android:width="2dp" />
         </shape>
     </item>
 
@@ -19,7 +19,7 @@
             <shape android:shape="line">
                 <stroke
                     android:color="@android:color/white"
-                    android:width="8dp" />
+                    android:width="2dp" />
             </shape>
         </rotate>
     </item>

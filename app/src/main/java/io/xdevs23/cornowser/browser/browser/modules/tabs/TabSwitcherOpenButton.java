@@ -44,8 +44,8 @@ public class TabSwitcherOpenButton extends RelativeLayout {
     }
 
     public void init(Context context) {
+        if (myContext == null) myContext = context;
         if(CornBrowser.getContext() != null) {
-            if (myContext == null) myContext = context;
             setGravity(Gravity.CENTER);
 
             ImageView img = new ImageView(getContext());
@@ -55,12 +55,16 @@ public class TabSwitcherOpenButton extends RelativeLayout {
             TextView t = new TextView(getContext());
             t.setTextSize(14f);
             t.setText(tabCount);
+            t.setGravity(Gravity.CENTER);
+            t.setMinimumWidth(getWidth());
+            t.setTextColor(Color.BLACK);
             addView(t);
+            t.setTranslationX( (getWidth() / 2) - (t.getWidth() / 2) - 1);
 
             t.bringToFront();
 
             setOnTouchListener(new PressHoverTouchListener(Color.TRANSPARENT,
-                    ColorUtil.getColor(R.color.grey_400)));
+                    ColorUtil.getColor(R.color.dark_semi_transparent)));
         }
     }
 
