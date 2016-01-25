@@ -12,8 +12,6 @@
     <application
         android:name=".Core"
         android:allowBackup="true"
-        android:allowClearUserData="true"
-        android:restoreAnyVersion="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/m_app_icon"
         android:label="@string/app_name"
@@ -29,6 +27,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.BgLoadActivity"
+            android:label="@string/app_bg_name"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:uiOptions="none">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

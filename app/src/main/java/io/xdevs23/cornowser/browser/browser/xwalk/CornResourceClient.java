@@ -82,12 +82,34 @@ public class CornResourceClient extends XWalkResourceClient {
         if(url.startsWith("intent")
                 || url.startsWith("market")
                 || url.contains("play.google.")
-                || url.contains("google.com/play")) {
+                || url.contains("google.com/play")
+                || url.contains("spotify.")) {
+            boolean success = false;
             try {
                 c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                success = true;
             } catch (Exception ex) {
-                Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
+                //
             }
+
+            if(!success) {
+                try {
+                    String pkg;
+                    if(url.startsWith("market"))
+                        pkg = "com.android.vending";
+                    else if(url.contains("play.google"))
+                        pkg = "com.android.vending";
+                    else if(url.contains("open.spotify."))
+                        pkg = "com.spotify.music";
+                    else pkg = "<unknown>";
+                    if(!pkg.equals("<unknown>"))
+                        c.startActivity(CornBrowser.getContext().getPackageManager().getLaunchIntentForPackage(pkg));
+                } catch(Exception ex) {
+                    //
+                }
+            }
+
+            if(!success) Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
         }
     }
 

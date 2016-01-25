@@ -30,6 +30,7 @@ import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 
+import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
@@ -66,6 +67,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     public static String readyToLoadUrl = "";
 
+    public static boolean isBgBoot = false;
+
 
     private static PullRefreshLayout omniPtrLayout;
 
@@ -89,7 +92,6 @@ public class CornBrowser extends XquidCompatActivity {
 
     private static String[] optionsMenuItems;
 
-
     private AlertDialog optionsMenuDialog;
 
     private boolean isBootstrapped = false;
@@ -98,6 +100,7 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(isBgBoot) moveTaskToBack(true);
         if(!isBootstrapped) {
             setContentView(R.layout.main_corn);
 
@@ -107,6 +110,9 @@ public class CornBrowser extends XquidCompatActivity {
                 getTabSwitcher().addTab(getIntent().getStringExtra("intent_link_uri_load"));
             else if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
                 getTabSwitcher().addTab(getIntent().getDataString());
+            else if (getIntent().getStringExtra(BgLoadActivity.bgLoadKey) != null &&
+                    (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
+                getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
             else if (readyToLoadUrl.isEmpty())
                 getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
             else {
@@ -114,9 +120,9 @@ public class CornBrowser extends XquidCompatActivity {
                 readyToLoadUrl = "";
             }
 
-            checkUpdate.start();
+            if(!isBgBoot) checkUpdate.start();
 
-            fastReloadComponents();
+            if(!isBgBoot) fastReloadComponents();
             isBootstrapped = true;
         }
     }
@@ -152,18 +158,13 @@ public class CornBrowser extends XquidCompatActivity {
         staticWindow    = this.getWindow();
         staticRootView  = (RelativeLayout)staticView;
 
-        browserStorage = new BrowserStorage(getContext());
-
         // layout must be initialized before initializing the tab switcher
         publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
-        tabSwitcher = new TabSwitcherWrapper(
-                new BlueListedTabSwitcher(getContext(), staticRootView)
-                        .setTabStorage(new TabStorage())
-        );
+
+        initBrowsing();
     }
 
     // Pre init end
-
 
     /**
      * Main initialization
@@ -185,6 +186,19 @@ public class CornBrowser extends XquidCompatActivity {
         // web render layout is initialized while initializing static fields
 
         initOmniboxPosition();
+    }
+
+    /**
+     * Initialize essential browsing components
+     */
+    public static void initBrowsing() {
+        if(browserStorage == null && tabSwitcher == null) {
+            browserStorage = new BrowserStorage(getContext());
+
+            tabSwitcher = new TabSwitcherWrapper(
+                    new BlueListedTabSwitcher(getContext(), staticRootView)
+                            .setTabStorage(new TabStorage()));
+        }
     }
 
     /**
@@ -399,6 +413,15 @@ public class CornBrowser extends XquidCompatActivity {
 
     // Init end
 
+    // Special init
+
+    public static void initForBackgroundLoading(String url) {
+
+        initBrowsing();
+    }
+
+    // Special init end
+
     /**
      * Items of options menu
      */
@@ -560,6 +583,11 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onResume() {
         Logging.logd("Activity resumed.");
         super.onResume();
+        if(this.getWindow().isActive() && isBgBoot) {
+            isBgBoot = false;
+            checkUpdate.start();
+            fastReloadComponents();
+        }
         onResumeWebRender();
     }
 

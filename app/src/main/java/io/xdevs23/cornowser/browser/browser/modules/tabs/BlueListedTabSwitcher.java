@@ -1,7 +1,11 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.View;
@@ -28,7 +32,7 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
-    private ScrollView mainView;
+    private MeasuringScrollView mainView;
     private XquidLinearLayout tabsLayout;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
@@ -136,7 +140,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         mainColor = ColorUtil.getColor(R.color.blue_800);
 
-        mainView = new ScrollView(getContext());
+        mainView = new MeasuringScrollView(getContext());
+        mainView.setOnMeasureListener(new MeasuringScrollView.OnMeasureListener() {
+            @Override
+            public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                animateShowSwitcher();
+            }
+        });
 
         mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
 
@@ -247,7 +257,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 showTab(tabStorage.getTab(tabsLayout.indexOfChild(v)));
             }
         });
-        l.setOnTouchListener(new BluePressOnTouchListener(R.color.grey_50, true));
+        l.setOnTouchListener(new BluePressOnTouchListener(Color.TRANSPARENT));
         l.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -283,6 +293,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         removeTab(tabStorage.getTab(tabId));
     }
 
+    private void animateShowSwitcher() {
+        mainView.setTranslationY(yPos - mainView.getHeight());
+    }
+
     @Override
     public void showSwitcher() {
         if(switcherStatus == SwitcherStatus.VISIBLE) return;
@@ -294,7 +308,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();
 
-        mainView.setTranslationY(yPos - mainView.getHeight());
+        animateShowSwitcher();
         /* mainView.animate().setDuration(320)
                 .translationY(yPos - mainView.getHeight()).start(); */
     }
@@ -359,6 +373,48 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     .getChildAt(2)).setTabIndex(id);
         } catch(Exception ex) {
             Logging.logd("Something went wrong... ~setLayoutTabId (Tab switcher)");
+        }
+    }
+
+    protected static class MeasuringScrollView extends ScrollView {
+
+        public static interface OnMeasureListener {
+            public abstract void onMeasure(int widthMeasureSpec, int heightMeasureSpec);
+        }
+
+        private OnMeasureListener measureListener = new OnMeasureListener() {
+            @Override
+            public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                // Nothing
+            }
+        };
+
+        public MeasuringScrollView(Context context) {
+            super(context);
+        }
+
+        public MeasuringScrollView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public MeasuringScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
+
+        public MeasuringScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        public MeasuringScrollView setOnMeasureListener(OnMeasureListener ml) {
+            measureListener = ml;
+            return this;
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            measureListener.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
