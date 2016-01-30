@@ -21,4 +21,10 @@
     <string name="settings_list_licenses_title">Licenze Open Source</string>
     <string name="settings_list_licenses_summary">Librerie utilissime utilizzate in questa app</string>
 
+    <string name="settings_list_credits_tl_title">Traduzioni</string>
+    <string name="settings_list_credits_tl_summary">Riconoscimenti ai traduttori</string>
+
+    <string name="settings_list_credits_spc_title">Ringraziamenti speciali</string>
+    <string name="settings_list_credits_spc_summary">Ringrazio tantissimo tutte queste persone</string>
+
 </resources>

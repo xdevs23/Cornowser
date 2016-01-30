@@ -1,11 +1,10 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
-import android.annotation.TargetApi;
+import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.View;
@@ -28,12 +27,15 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
-    private MeasuringScrollView mainView;
+    private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
+
+    private int mainColor;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
         private void updateStuff() {
@@ -80,9 +82,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         }
     };
 
-    private int mainColor;
-
-    private int yPos;
 
     public BlueListedTabSwitcher(Context context, RelativeLayout rootView) {
         super(context, rootView);
@@ -136,24 +135,22 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void init() {
-        yPos = CornBrowser.getStaticWindow().getDecorView().getHeight();
-
         mainColor = ColorUtil.getColor(R.color.blue_800);
 
-        mainView = new MeasuringScrollView(getContext());
-        mainView.setOnMeasureListener(new MeasuringScrollView.OnMeasureListener() {
-            @Override
-            public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-                animateShowSwitcher();
-            }
-        });
+        mainView = new ScrollView(getContext());
 
         mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
 
-        mainView.setLayoutParams(new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams mainParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
+        );
+
+        mainParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mainParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        mainParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        mainView.setLayoutParams(mainParams);
 
         mainView.getLayoutParams().height = DpUtil.dp2px(getContext(), 200);
 
@@ -166,14 +163,22 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         XquidLinearLayout footerLayout = getNewChildLayout(false);
         footerLayout.setGravity(Gravity.RIGHT | Gravity.TOP);
 
-        final int minWh  = DpUtil.dp2px(getContext(), 24);
-        final int bpd    = DpUtil.dp2px(getContext(), 2);
+        final int minWh  = DpUtil.dp2px(getContext(), 24);  // Dimensions of button (wxh)
+        final int bpd    = DpUtil.dp2px(getContext(), 4);   // Button inner padding
         final int minWhP = minWh - bpd;
 
         RelativeLayout button = new RelativeLayout(getContext());
         button.setBackgroundColor(mainColor);
         button.setMinimumWidth(minWh);
         button.setMinimumHeight(minWh);
+
+        // This is for rounded corners
+        GradientDrawable gdrc = new GradientDrawable();
+        gdrc.setColor(mainColor);
+        gdrc.setCornerRadius(minWh / 2);
+        gdrc.setStroke(minWh, Color.TRANSPARENT);
+
+        button.setBackground(gdrc);
 
         ImageView img = new ImageView(getContext());
         img.setImageResource(R.drawable.main_cross_plus_icon);
@@ -204,28 +209,25 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         mainView.setVisibility(View.INVISIBLE);
 
+        // Add view to root view of CornBrowser
         getRootView().addView(mainView);
-
-        mainView.setTranslationY(yPos - mainView.getHeight());
-        mainView.bringToFront();
     }
 
     @Override
     public void switchTab(int tab) {
-        int tabIndex = tab;
-        if(tab < 0) tabIndex += 2;
-        showTab(tabStorage.getTab(tabIndex));
+        showTab(tabStorage.getTab(tab));
     }
 
     @Override
     public void showTab(Tab tab) {
         CornBrowser.publicWebRenderLayout.removeAllViews();
-        CornBrowser.publicWebRenderLayout.addView(
-                tab.webView
-        );
+        CornBrowser.publicWebRenderLayout.addView(tab.webView);
         CornBrowser.publicWebRender = tab.webView;
+
         currentTab = tab.tabId;
+
         setLayoutTabId(currentTab, tab.tabId);
+
         CornBrowser.applyInsideOmniText(tab.webView.getUrl());
         tabSwitchListener.onTabSwitched(tab);
     }
@@ -270,7 +272,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         l.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                // Do nothing!!
+                // Do nothing
             }
         });
 
@@ -285,6 +287,11 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         tabsLayout.removeViewAt(tabStorage.getTabIndex(tab));
         switchTab(0);
         super.removeTab(tab);
+        for ( int i = 0; i < tabsLayout.getChildCount(); i++ )
+            setLayoutTabId(i, i);
+        for ( int i = 0; i < tabStorage.getTabCount(); i++ )
+            tabStorage.getTab(i).setId(i);
+
         tabSwitchListener.onTabRemoved(tab);
     }
 
@@ -294,32 +301,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     }
 
     private void animateShowSwitcher() {
-        mainView.setTranslationY(yPos - mainView.getHeight());
-    }
-
-    @Override
-    public void showSwitcher() {
-        if(switcherStatus == SwitcherStatus.VISIBLE) return;
-        super.showSwitcher();
-        Logging.logd("Showing tab switcher");
-        yPos =
-                CornBrowser.getView().getHeight() -
-                        (OmniboxControl.isBottom() ? CornBrowser.omnibox.getHeight() : 0);
-        mainView.setVisibility(View.VISIBLE);
-        mainView.bringToFront();
-
-        animateShowSwitcher();
-        /* mainView.animate().setDuration(320)
-                .translationY(yPos - mainView.getHeight()).start(); */
-    }
-
-    @Override
-    public void hideSwitcher() {
-        if(switcherStatus == SwitcherStatus.HIDDEN) return;
-        super.hideSwitcher();
-        Logging.logd("Hiding tab switcher");
-        /*mainView.animate().setDuration(320)
-                .translationY(yPos)
+        mainView.animate()
+                .setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
+                .translationY((OmniboxControl.isBottom() ? -CornBrowser.omnibox.getHeight() : 0))
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -327,10 +311,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     }
 
                     @Override
-                    public void onAnimationEnd(Animator animation) { */
-        mainView.setVisibility(View.INVISIBLE);
-        mainView.clearFocus();
-        /*
+                    public void onAnimationEnd(Animator animation) {
+                        mainView.bringToFront();
                     }
 
                     @Override
@@ -342,8 +324,55 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     public void onAnimationRepeat(Animator animation) {
                         // Not needed
                     }
+                })
+                .start();
+    }
+
+    @Override
+    public void showSwitcher() {
+        if(switcherStatus == SwitcherStatus.VISIBLE) return;
+        super.showSwitcher();
+        Logging.logd("Showing tab switcher");
+
+        mainView.setTranslationY(-mainView.getHeight());
+
+        mainView.setVisibility(View.VISIBLE);
+        mainView.bringToFront();
+
+        animateShowSwitcher();
+    }
+
+    @Override
+    public void hideSwitcher() {
+        if(switcherStatus == SwitcherStatus.HIDDEN) return;
+        super.hideSwitcher();
+        Logging.logd("Hiding tab switcher");
+        mainView.animate().setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
+                .translationY(mainView.getHeight())
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        // Not needed
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mainView.setVisibility(View.INVISIBLE);
+                        mainView.clearFocus();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        mainView.setVisibility(View.INVISIBLE);
+                        mainView.clearFocus();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                        // Not needed
+                    }
                 }).start();
-                */
+
     }
 
     @Override
@@ -373,48 +402,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     .getChildAt(2)).setTabIndex(id);
         } catch(Exception ex) {
             Logging.logd("Something went wrong... ~setLayoutTabId (Tab switcher)");
-        }
-    }
-
-    protected static class MeasuringScrollView extends ScrollView {
-
-        public static interface OnMeasureListener {
-            public abstract void onMeasure(int widthMeasureSpec, int heightMeasureSpec);
-        }
-
-        private OnMeasureListener measureListener = new OnMeasureListener() {
-            @Override
-            public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-                // Nothing
-            }
-        };
-
-        public MeasuringScrollView(Context context) {
-            super(context);
-        }
-
-        public MeasuringScrollView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        public MeasuringScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
-        }
-
-        public MeasuringScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-        }
-
-        public MeasuringScrollView setOnMeasureListener(OnMeasureListener ml) {
-            measureListener = ml;
-            return this;
-        }
-
-        @Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            measureListener.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 

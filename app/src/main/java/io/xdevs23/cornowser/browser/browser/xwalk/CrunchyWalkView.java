@@ -27,7 +27,7 @@ public class CrunchyWalkView extends XWalkView {
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
                     "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/" +
-                    AppConfig.versionName + " Chrome/49.0.2612.0 Mobile Safari/601.1";
+                    AppConfig.versionName + " Chrome/50.0.2633.3 Mobile Safari/601.1";
 
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");

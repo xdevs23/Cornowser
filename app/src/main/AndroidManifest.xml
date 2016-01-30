@@ -19,7 +19,9 @@
         android:theme="@style/CoreMTRLTheme"
         android:uiOptions="none">
 
-        <activity android:name=".CornBrowser">
+        <activity
+            android:name=".CornBrowser"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.WEB_SEARCH" />

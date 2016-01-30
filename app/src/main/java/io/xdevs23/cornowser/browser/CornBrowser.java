@@ -90,41 +90,62 @@ public class CornBrowser extends XquidCompatActivity {
 
     private static String newVersionAv = "";
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static String[] optionsMenuItems;
 
-    private AlertDialog optionsMenuDialog;
+    private static boolean isBootstrapped = false;
+    private static boolean isInitialized  = false;
+    private static boolean isNewIntent    = false;
 
-    private boolean isBootstrapped = false;
+    private AlertDialog optionsMenuDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bootstrap();
+    }
+
+    protected void bootstrap() {
         if(isBgBoot) moveTaskToBack(true);
-        if(!isBootstrapped) {
+        if(!isBootstrapped
+                && !isInitialized
+                && staticContext == null
+                && (!isNewIntent)) {
             setContentView(R.layout.main_corn);
 
             initAll();
 
-            if (getIntent().getStringExtra("intent_link_uri_load") != null && (!getIntent().getStringExtra("intent_link_uri_load").isEmpty()))
-                getTabSwitcher().addTab(getIntent().getStringExtra("intent_link_uri_load"));
-            else if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
-                getTabSwitcher().addTab(getIntent().getDataString());
-            else if (getIntent().getStringExtra(BgLoadActivity.bgLoadKey) != null &&
-                    (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
-                getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
-            else if (readyToLoadUrl.isEmpty())
-                getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
-            else {
-                getTabSwitcher().addTab(readyToLoadUrl, null);
-                readyToLoadUrl = "";
-            }
-
-            if(!isBgBoot) checkUpdate.start();
-
-            if(!isBgBoot) fastReloadComponents();
             isBootstrapped = true;
+        } else if(isNewIntent) {
+            preInit();
+        } else {
+            if(!isInitialized) {
+                Logging.logd("Oops... Seems like we ran into an irregular situaion. Let me initialize the stuff");
+                initAll();
+                getTabSwitcher().addTab(browserStorage.getUserHomePage());
+                return;
+            }
         }
+
+        if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
+            getTabSwitcher().addTab(getIntent().getDataString());
+
+        else if (getIntent().getStringExtra(BgLoadActivity.bgLoadKey) != null &&
+                (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
+            getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
+
+        else if (readyToLoadUrl.isEmpty())
+            getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
+
+        else {
+            getTabSwitcher().addTab(readyToLoadUrl, null);
+            readyToLoadUrl = "";
+        }
+
+        if(!isBgBoot && (!checkUpdate.isAlive()) || isNewIntent) checkUpdate.start();
+
+        if(!isBgBoot) fastReloadComponents();
     }
 
     /**
@@ -134,6 +155,7 @@ public class CornBrowser extends XquidCompatActivity {
         Logging.logd("Initialization started.");
         preInit();
         init();
+        isInitialized = true;
     }
 
     /**
@@ -159,9 +181,9 @@ public class CornBrowser extends XquidCompatActivity {
         staticRootView  = (RelativeLayout)staticView;
 
         // layout must be initialized before initializing the tab switcher
-        publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
+        if(!isNewIntent) publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
 
-        initBrowsing();
+        if(!isNewIntent) initBrowsing();
     }
 
     // Pre init end
@@ -361,7 +383,6 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     public static void applyOnlyInsideOmniText(String url) {
-        if(browserInputBar.hasFocus()) return;
         try {
             browserInputBar.setText(url
                     .replaceFirst("^(.*)://", ""));
@@ -375,6 +396,7 @@ public class CornBrowser extends XquidCompatActivity {
      * @param url URL to set as text
      */
     public static void applyInsideOmniText(String url) {
+        if(browserInputBar.hasFocus()) return;
         getTabSwitcher().changeCurrentTab(url, publicWebRender.getTitle());
         applyOnlyInsideOmniText(url);
     }
@@ -412,15 +434,6 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     // Init end
-
-    // Special init
-
-    public static void initForBackgroundLoading(String url) {
-
-        initBrowsing();
-    }
-
-    // Special init end
 
     /**
      * Items of options menu
@@ -610,9 +623,9 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
-        if (publicWebRender != null)
-            publicWebRender.onNewIntent(intent);
-
+        setIntent(intent);
+        isNewIntent = true;
+        bootstrap();
     }
 
     @Override
@@ -666,9 +679,7 @@ public class CornBrowser extends XquidCompatActivity {
                 newVersionAv  = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
                 if(Integer.parseInt(newVer) > getContext().getPackageManager().getPackageInfo(
                         getApplicationContext().getPackageName(), 0
-                ).versionCode)
-                    mHandler.post(showUpdate);
-
+                ).versionCode) mHandler.post(showUpdate);
             } catch (Exception e) { /* Do nothing */ }
         }
 
