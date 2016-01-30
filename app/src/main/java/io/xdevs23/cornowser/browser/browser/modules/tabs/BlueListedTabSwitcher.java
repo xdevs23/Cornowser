@@ -2,9 +2,17 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.View;
@@ -172,13 +180,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         button.setMinimumWidth(minWh);
         button.setMinimumHeight(minWh);
 
-        // This is for rounded corners
-        GradientDrawable gdrc = new GradientDrawable();
-        gdrc.setColor(mainColor);
-        gdrc.setCornerRadius(minWh / 2);
-        gdrc.setStroke(minWh, Color.TRANSPARENT);
+        Drawable btnBg = ContextCompat.getDrawable(getContext(), R.drawable.main_circle_bg);
+        btnBg.setColorFilter(mainColor, PorterDuff.Mode.OVERLAY);
 
-        button.setBackground(gdrc);
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
+            button.setBackgroundDrawable(btnBg);
+        else
+            button.setBackground(btnBg);
 
         ImageView img = new ImageView(getContext());
         img.setImageResource(R.drawable.main_cross_plus_icon);
@@ -334,7 +342,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
 
-        mainView.setTranslationY(-mainView.getHeight());
+        mainView.setTranslationY(mainView.getHeight());
 
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();
