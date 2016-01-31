@@ -40,7 +40,7 @@ public final class AppConfig {
 				major     =  1   ,
 				minor     =  0   ,
 				build     =  4   ,
-		    	revision  =  0
+		    	revision  =  1
 		;
 		
 		public static final boolean

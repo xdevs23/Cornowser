@@ -117,8 +117,6 @@ public class CornBrowser extends XquidCompatActivity {
             initAll();
 
             isBootstrapped = true;
-        } else if(isNewIntent) {
-            preInit();
         } else {
             if(!isInitialized) {
                 Logging.logd("Oops... Seems like we ran into an irregular situaion. Let me initialize the stuff");
@@ -143,7 +141,7 @@ public class CornBrowser extends XquidCompatActivity {
             readyToLoadUrl = "";
         }
 
-        if(!isBgBoot && (!checkUpdate.isAlive()) || isNewIntent) checkUpdate.start();
+        if( (!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent) ) checkUpdate.start();
 
         if(!isBgBoot) fastReloadComponents();
     }
@@ -347,7 +345,7 @@ public class CornBrowser extends XquidCompatActivity {
                 0,
                 0,
                 DpUtil.dp2px(getContext(),
-                        3 * 24  + 2),
+                        3 * 24 + 2),
                 0
         );
 
@@ -389,6 +387,7 @@ public class CornBrowser extends XquidCompatActivity {
         } catch(Exception ex) {
             Logging.logd("Warning: Didn't succeed while applying inside omni text.");
         }
+
     }
 
     /**
@@ -409,7 +408,7 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_updater),
                 getString(R.string.cornmenu_item_settings)
         };
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
         ListView lv = new ListView(getContext());
         lv.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -600,8 +599,8 @@ public class CornBrowser extends XquidCompatActivity {
             isBgBoot = false;
             checkUpdate.start();
             fastReloadComponents();
-        }
-        onResumeWebRender();
+        } else onResumeWebRender();
+
     }
 
     @Override
@@ -623,7 +622,7 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
-        setIntent(intent);
+        super.onNewIntent(intent);
         isNewIntent = true;
         bootstrap();
     }

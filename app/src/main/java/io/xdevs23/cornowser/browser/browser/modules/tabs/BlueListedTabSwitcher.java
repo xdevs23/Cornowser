@@ -2,19 +2,15 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
-import org.xdevs23.ui.touch.PressHoverTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.widget.SimpleSeparator;
 
@@ -42,6 +37,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
+
+    private Drawable bgBtn;
 
     private int mainColor;
 
@@ -180,13 +177,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         button.setMinimumWidth(minWh);
         button.setMinimumHeight(minWh);
 
-        Drawable btnBg = ContextCompat.getDrawable(getContext(), R.drawable.main_circle_bg);
-        btnBg.setColorFilter(mainColor, PorterDuff.Mode.OVERLAY);
+        bgBtn = ContextCompat.getDrawable(getContext(), R.drawable.main_circle_bg);
+        bgBtn.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP);
 
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-            button.setBackgroundDrawable(btnBg);
+            button.setBackgroundDrawable(bgBtn);
         else
-            button.setBackground(btnBg);
+            button.setBackground(bgBtn);
 
         ImageView img = new ImageView(getContext());
         img.setImageResource(R.drawable.main_cross_plus_icon);
@@ -195,7 +192,29 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         button.addView(img);
 
-        button.setOnTouchListener(new PressHoverTouchListener(mainColor, ColorUtil.getColor(R.color.blue_600)));
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                    case MotionEvent.ACTION_DOWN:
+                        bgBtn.setColorFilter(ColorUtil.getColor(R.color.blue_400),
+                            PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                    case MotionEvent.ACTION_UP:
+                        bgBtn.setColorFilter(mainColor,
+                                PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    default: break;
+                }
+                if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
+                    v.setBackgroundDrawable(bgBtn);
+                else
+                    v.setBackground(bgBtn);
+                return false;
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,8 +360,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         if(switcherStatus == SwitcherStatus.VISIBLE) return;
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
-
-        mainView.setTranslationY(mainView.getHeight());
 
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();

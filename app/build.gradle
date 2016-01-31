@@ -28,7 +28,7 @@ android {
                                     //          I think not that you can release 16 alphas on one day,
                                     //          but we need to keep this format for the updater to
                                     //          work correctly. :D
-        versionName "1.0.4.0"       // Version name
+        versionName "1.0.4.1"       // Version name
         multiDexEnabled true        // For the libs to work correctly
     }
 

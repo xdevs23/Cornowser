@@ -97,13 +97,13 @@ public class CornResourceClient extends XWalkResourceClient {
                     String pkg;
                     if(url.startsWith("market"))
                         pkg = "com.android.vending";
-                    else if(url.contains("play.google"))
-                        pkg = "com.android.vending";
                     else if(url.contains("open.spotify."))
                         pkg = "com.spotify.music";
                     else pkg = "<unknown>";
-                    if(!pkg.equals("<unknown>"))
+                    if(!("<unknown>").equals(pkg))
                         c.startActivity(CornBrowser.getContext().getPackageManager().getLaunchIntentForPackage(pkg));
+
+                    success = true;
                 } catch(Exception ex) {
                     //
                 }
