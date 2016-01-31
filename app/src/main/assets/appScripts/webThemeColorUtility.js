@@ -54,7 +54,6 @@ try {
     if(webCol === "default") {
         webCol = tryElem("navbar", "color");
         webCol = tryElem("titlebar", "color");
-        webCol = tryElem("title", "color");
         webCol = tryElem("navigation", "color");
     }
     if(webCol === "") webCol = "default";

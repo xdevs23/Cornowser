@@ -178,7 +178,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         button.setMinimumHeight(minWh);
 
         bgBtn = ContextCompat.getDrawable(getContext(), R.drawable.main_circle_bg);
-        bgBtn.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP);
+        bgBtn.setColorFilter(mainColor, PorterDuff.Mode.MULTIPLY);
 
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
             button.setBackgroundDrawable(bgBtn);
@@ -199,12 +199,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     case MotionEvent.ACTION_HOVER_ENTER:
                     case MotionEvent.ACTION_DOWN:
                         bgBtn.setColorFilter(ColorUtil.getColor(R.color.blue_400),
-                            PorterDuff.Mode.SRC_ATOP);
+                            PorterDuff.Mode.MULTIPLY);
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT:
                     case MotionEvent.ACTION_UP:
                         bgBtn.setColorFilter(mainColor,
-                                PorterDuff.Mode.SRC_ATOP);
+                                PorterDuff.Mode.MULTIPLY);
                         break;
                     default: break;
                 }

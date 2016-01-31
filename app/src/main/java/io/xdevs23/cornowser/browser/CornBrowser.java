@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -117,15 +119,25 @@ public class CornBrowser extends XquidCompatActivity {
             initAll();
 
             isBootstrapped = true;
-        } else {
-            if(!isInitialized) {
-                Logging.logd("Oops... Seems like we ran into an irregular situaion. Let me initialize the stuff");
-                initAll();
-                getTabSwitcher().addTab(browserStorage.getUserHomePage());
-                return;
-            }
+        } else if(isNewIntent) {
+            handleStartupWebLoad();
+            fastReloadComponents();
+            return;
+        } else if(!isInitialized) {
+            initAll();
+            getTabSwitcher().addTab(browserStorage.getUserHomePage());
+            return;
         }
 
+        handleStartupWebLoad();
+
+        if( (!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent) )
+            checkUpdate.start();
+
+        if(!isBgBoot) fastReloadComponents();
+    }
+
+    protected void handleStartupWebLoad() {
         if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
             getTabSwitcher().addTab(getIntent().getDataString());
 
@@ -140,10 +152,6 @@ public class CornBrowser extends XquidCompatActivity {
             getTabSwitcher().addTab(readyToLoadUrl, null);
             readyToLoadUrl = "";
         }
-
-        if( (!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent) ) checkUpdate.start();
-
-        if(!isBgBoot) fastReloadComponents();
     }
 
     /**
@@ -163,6 +171,22 @@ public class CornBrowser extends XquidCompatActivity {
         mHandler = new Handler();
         initStaticFields();
         BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
+        staticView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                handleFullscreenMode();
+            }
+        });
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
+                new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if(browserStorage.getIsFullscreenEnabled() &&
+                        (visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                    handleFullscreenMode();
+                }
+            }
+        });
     }
 
     // Pre init start
@@ -409,11 +433,9 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_settings)
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
-        ListView lv = new ListView(getContext());
-        lv.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems), new DialogInterface.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int which, long id) {
+            public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case optMenuItems.UPDATER:
                         startActivity(new Intent(getContext(), UpdateActivity.class));
@@ -424,11 +446,9 @@ public class CornBrowser extends XquidCompatActivity {
                     default:
                         break;
                 }
-                optionsMenuDialog.hide();
+                dialog.dismiss();
             }
         });
-        lv.setBackgroundColor(ColorUtil.getColor(R.color.grey_50));
-        builder.setView(lv);
         optionsMenuDialog = builder.create();
     }
 
@@ -622,7 +642,7 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
-        super.onNewIntent(intent);
+        getIntent().setData(intent.getData());
         isNewIntent = true;
         bootstrap();
     }
@@ -632,9 +652,7 @@ public class CornBrowser extends XquidCompatActivity {
         if(!publicWebRender.goBack()) endApplication();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
+    public void handleFullscreenMode() {
         if (browserStorage.getIsFullscreenEnabled()) {
             if(Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 getWindow().getDecorView()
@@ -650,7 +668,7 @@ public class CornBrowser extends XquidCompatActivity {
                                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-            } else if(Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+            } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 getWindow().getDecorView()
                         .setSystemUiVisibility(
                                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -663,6 +681,12 @@ public class CornBrowser extends XquidCompatActivity {
             getWindow().getDecorView()
                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        handleFullscreenMode();
     }
 
     /* Updater section */

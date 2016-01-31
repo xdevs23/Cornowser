@@ -77,7 +77,7 @@
         <item name="colorAccent">@color/blue_600</item>
         <item name="colorControlActivated">@color/blue_500</item>
         <item name="colorControlHighlight">@color/blue_600</item>
-
+        <item name="android:colorBackground">@color/white</item>
     </style>
 
 

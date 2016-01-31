@@ -17,10 +17,6 @@ public class ColorFader extends ExtendedAndroidClass {
     public View animatingView;
 
     private Handler handler;
-    private Thread coloringThread;
-    private Runnable
-            coloringRunnable,
-            coloringUiRunnable;
 
     private boolean isAnimating = false;
 
@@ -38,7 +34,7 @@ public class ColorFader extends ExtendedAndroidClass {
     }
 
     private Runnable setColor(final int r, final int g, final int b) {
-        coloringUiRunnable = new Runnable() {
+        return new Runnable() {
             @Override
             public void run() {
                 animatingView.setBackgroundColor(
@@ -46,19 +42,27 @@ public class ColorFader extends ExtendedAndroidClass {
                 );
             }
         };
-        return coloringUiRunnable;
     }
 
     public void animate() {
         if(!isAnimating) {
-            coloringRunnable = new Runnable() {
+            Runnable coloringRunnable = new Runnable() {
                 @Override
                 public void run() {
                     isAnimating = true;
                     int
-                            r, g, b,
-                            or, og, ob,
-                            er, eg, eb;
+                            r,
+                            g,
+                            b,
+
+                            or,
+                            og,
+                            ob,
+
+                            er,
+                            eg,
+                            eb;
+
                     or = Color.red(startColor);
                     og = Color.green(startColor);
                     ob = Color.blue(startColor);
@@ -95,7 +99,7 @@ public class ColorFader extends ExtendedAndroidClass {
                     isAnimating = false;
                 }
             };
-            coloringThread = new Thread(coloringRunnable, "XD_" + this.getClass().getSimpleName());
+            Thread coloringThread = new Thread(coloringRunnable, "XD_" + this.getClass().getSimpleName());
             coloringThread.start();
         }
     }
