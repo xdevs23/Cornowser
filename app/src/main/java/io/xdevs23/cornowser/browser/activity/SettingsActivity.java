@@ -17,6 +17,7 @@ import org.xdevs23.ui.widget.EasyListView4;
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
+import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 public class SettingsActivity extends XquidCompatActivity {
 
@@ -139,6 +140,24 @@ public class SettingsActivity extends XquidCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     CornBrowser.getBrowserStorage().saveEnableFullscreen((boolean)newValue);
                     fullscreenPref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+
+            // Color mode
+
+            final ListPreference colorModePref =
+                    (ListPreference) findPreference("settings_web_colormode");
+
+            colorModePref.setValueIndex(CornBrowser.getBrowserStorage().getColorMode().mode);
+
+            colorModePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage()
+                            .saveColorMode(RenderColorMode
+                                    .toColorMode(Integer.parseInt((String)newValue)));
+                    colorModePref.setValueIndex(Integer.parseInt((String)newValue));
                     return false;
                 }
             });

@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +43,7 @@ import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
+import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode.ColorMode;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
@@ -94,6 +98,7 @@ public class CornBrowser extends XquidCompatActivity {
     private static boolean isBootstrapped = false;
     private static boolean isInitialized  = false;
     private static boolean isNewIntent    = false;
+
 
     private AlertDialog optionsMenuDialog;
 
@@ -208,6 +213,8 @@ public class CornBrowser extends XquidCompatActivity {
         if(!isNewIntent) publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
 
         if(!isNewIntent) initBrowsing();
+
+        initColorMode();
     }
 
     // Pre init end
@@ -229,6 +236,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initWebXWalkEngine() {
         Logging.logd("    Web engine and necessary components");
+
         // web render layout is initialized while initializing static fields
 
         initOmniboxPosition();
@@ -371,7 +379,7 @@ public class CornBrowser extends XquidCompatActivity {
                 0,
                 0,
                 DpUtil.dp2px(getContext(),
-                        3 * 24 + 2),
+                        3 * 32 + 2),
                 0
         );
 
@@ -383,6 +391,71 @@ public class CornBrowser extends XquidCompatActivity {
         omniboxControls.bringToFront();
 
         resetOmniPositionState();
+    }
+
+    public static void initColorMode() {
+        if(publicWebRenderLayout.getChildCount() <= 0) return;
+        Logging.logd("Applying web render color mode...");
+        ColorMode cm = getBrowserStorage().getColorMode();
+        Paint paint = new Paint();
+        float[] negativeColor = {
+                -1.0f, 0, 0, 0, 255,    // Red
+                0, -1.0f, 0, 0, 255,    // Green
+                0, 0, -1.0f, 0, 255,    // Blue
+                0, 0, 0,  1.0f, 0       // Alpha
+        };
+        float[] darkColor = {
+                1f, 0, 0, 0, -255,
+                0, 1f, 0, 0, -255,
+                0, 0, 1f, 0, -255,
+                0, 0, 0, 1f,    0
+        };
+        float[] invertColor = {
+                -1f, 0, 0, 0, 0,
+                0, -1f, 0, 0, 0,
+                0, 0, -1f, 0, 0,
+                0, 0, 0, 1f,  0
+        };
+
+        Logging.logd("Found color mode: " + cm.mode);
+
+        switch(cm.mode) {
+            case ColorMode.NORMAL:
+                Logging.logd("Applying normal color mode");
+                paint = null;
+                break;
+            case ColorMode.DARK:
+                Logging.logd("Applying dark mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(darkColor));
+                break;
+            case ColorMode.NEGATIVE:
+                Logging.logd("Applying negative mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(negativeColor));
+                break;
+            case ColorMode.INVERT:
+                Logging.logd("Applying inverted mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(invertColor));
+                break;
+            case ColorMode.GREYSCALE:
+                Logging.logd("Applying greyscale");
+                ColorMatrix m = new ColorMatrix();
+                m.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(m));
+                break;
+            default:
+                Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
+                break;
+        }
+
+        publicWebRenderLayout.getChildAt(0).setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    /**
+     * Init reloadable stuff
+     */
+    public void reloadComponents() {
+        initOmniboxPosition();
+        initColorMode();
     }
 
     /**
@@ -605,7 +678,6 @@ public class CornBrowser extends XquidCompatActivity {
      */
     protected void onResumeWebRender() {
         if (publicWebRender != null) {
-            initOmniboxPosition();
 
             publicWebRender.resumeTimers();
             publicWebRender.onShow();
@@ -627,6 +699,7 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onPause() {
         Logging.logd("Activity paused.");
         super.onPause();
+        reloadComponents();
         onPauseWebRender();
     }
 
@@ -662,6 +735,7 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
         getIntent().setData(intent.getData());
+        if(intent.getData() == null || intent.getDataString().isEmpty()) return;
         isNewIntent = true;
         bootstrap();
     }

@@ -10,10 +10,16 @@
     <string name="settings_category_layout_title">Layout</string>
 
     <string name="settings_layout_omni_pos_title">Adressleistenposition</string>
-    <string name="settings_layout_omni_pos_sumary">Setze deine bevorzugte Position der Adressleiste</string>
+    <string name="settings_layout_omni_pos_sumary">Lege deine bevorzugte Position der Adressleiste fest</string>
 
     <string name="settings_layout_fullscreen_title">Vollbild</string>
     <string name="settings_layout_fullscreen_summary">Aktiviert den Vollbildmodus</string>
+
+
+    <string name="settings_category_appearance_title">Aussehen</string>
+
+    <string name="settings_appearance_webcolmode_title">Farbenmodus</string>
+    <string name="settings_appearance_webcolmode_summary">Stelle deinen bevorzugten Farbenmodus ein</string>
 
 
     <string name="settings_category_misc_title">Sonstiges</string>

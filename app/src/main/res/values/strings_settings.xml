@@ -16,6 +16,12 @@
     <string name="settings_layout_fullscreen_summary">Enable fullscreen mode</string>
 
 
+    <string name="settings_category_appearance_title">Appearance</string>
+
+    <string name="settings_appearance_webcolmode_title">Color mode</string>
+    <string name="settings_appearance_webcolmode_summary">Set your preferred color mode</string>
+
+
     <string name="settings_category_misc_title">Miscellaneous</string>
 
     <string name="settings_list_licenses_title">Open Source Licenses</string>

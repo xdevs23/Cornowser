@@ -362,6 +362,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         super.showSwitcher();
         Logging.logd("Showing tab switcher");
 
+        mainView.setTranslationY(mainView.getHeight());
+
         mainView.setVisibility(View.VISIBLE);
         mainView.bringToFront();
 

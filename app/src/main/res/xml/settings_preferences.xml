@@ -42,6 +42,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:id="@+id/settings_category_appearance"
+        android:title="@string/settings_category_appearance_title"
+        android:key="settings_category_appearance">
+
+        <ListPreference
+            android:id="@+id/settings_preference_webcolormode"
+            android:title="@string/settings_appearance_webcolmode_title"
+            android:summary="@string/settings_appearance_webcolmode_summary"
+            android:key="settings_web_colormode"
+            android:dialogTitle="@string/settings_appearance_webcolmode_title"
+            android:entries="@array/settings_appearance_webcolmode_entries"
+            android:entryValues="@array/settings_appearance_webcolmode_entryvalues"
+            android:defaultValue="0" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         android:id="@+id/settings_category_misc"
         android:title="@string/settings_category_misc_title"
         android:key="settings_category_misc">

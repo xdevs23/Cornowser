@@ -3,9 +3,12 @@ package io.xdevs23.cornowser.browser.browser;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
+
 public class BrowserStorage {
 
-    // Variable storage section
+    /* Variable storage section */
+
     private String
                 userHomePage
             ;
@@ -15,7 +18,9 @@ public class BrowserStorage {
                 enableFullscreen
             ;
 
-    // Class section
+    private RenderColorMode.ColorMode renderingColorMode;
+
+    /* Class section */
 
     private Context myContext;
 
@@ -31,9 +36,12 @@ public class BrowserStorage {
         setUserHomePage(getPref(BPrefKeys.userHomePage, BrowserDefaults.HOME_URL));
         setOmniboxPosition(getPref(BPrefKeys.omniboxPos, false));
         setEnableFullscreen(getPref(BPrefKeys.fullscreenPref, false));
+        setColorMode(getPref(BPrefKeys.colorModePref, RenderColorMode.ColorMode.NORMAL));
     }
 
-    // Variable storage related methods
+    /* Variable storage related methods */
+
+    // User homepage
 
     public void setUserHomePage(String url) {
         this.userHomePage = url;
@@ -48,6 +56,7 @@ public class BrowserStorage {
         return userHomePage;
     }
 
+    // Omnibox position
 
     public void setOmniboxPosition(boolean isBottom) {
         this.omniboxIsBottom = isBottom;
@@ -62,6 +71,7 @@ public class BrowserStorage {
         return this.omniboxIsBottom;
     }
 
+    // Fullscreen
 
     public void setEnableFullscreen(boolean enable) {
         enableFullscreen = enable;
@@ -76,7 +86,27 @@ public class BrowserStorage {
         return enableFullscreen;
     }
 
-    // General methods
+    // Color mode
+
+    public void setColorMode(RenderColorMode.ColorMode colorMode) {
+        renderingColorMode = colorMode;
+    }
+
+    public void setColorMode(int mode) {
+        renderingColorMode = RenderColorMode.toColorMode(mode);
+    }
+
+    public void saveColorMode(RenderColorMode.ColorMode colorMode) {
+        setColorMode(colorMode);
+        setPref(BPrefKeys.colorModePref, colorMode.mode);
+    }
+
+    public RenderColorMode.ColorMode getColorMode() {
+        return renderingColorMode;
+    }
+
+
+    /* General methods */
 
     private Context getContext() {
         return myContext;
@@ -125,7 +155,8 @@ public class BrowserStorage {
         public static final String
                 userHomePage    = "pref_user_homepage",
                 omniboxPos      = "pref_omni_pos",
-                fullscreenPref  = "pref_enable_fullscreen"
+                fullscreenPref  = "pref_enable_fullscreen",
+                colorModePref   = "pref_render_color_mode"
                         ;
     }
 

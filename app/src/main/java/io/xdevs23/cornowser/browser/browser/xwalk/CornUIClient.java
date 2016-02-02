@@ -143,6 +143,7 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
         CornBrowser.resetOmniPositionState(true);
+        CornBrowser.initColorMode();
         super.onPageLoadStarted(view, url);
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
         CornBrowser.resetBarColor();

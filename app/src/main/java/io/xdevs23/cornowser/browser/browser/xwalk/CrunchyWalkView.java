@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 
 import org.xdevs23.annotation.DontUse;
-import org.xdevs23.config.AppConfig;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkNavigationHistory;
