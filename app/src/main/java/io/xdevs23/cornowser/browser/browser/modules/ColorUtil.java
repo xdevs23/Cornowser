@@ -7,7 +7,9 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 
 public class ColorUtil {
 
-    private ColorUtil() {}
+    private ColorUtil() {
+        
+    }
 
     public static int getColor(@ColorRes int colres) {
         return ContextCompat.getColor(CornBrowser.getContext(), colres);

@@ -5,6 +5,7 @@ import android.support.annotation.ColorRes;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 
+@SuppressWarnings("unused")
 public class BluePressOnTouchListener extends PressHoverTouchListener {
 
     public BluePressOnTouchListener(int upColor) {

@@ -66,14 +66,6 @@ public class CornHandler {
 
     }
 
-    public static void sendJSRequestWithCallback(CrunchyWalkView view, String req, String... params) {
-        StringBuilder sb = new StringBuilder();
-        for ( String str : params ) sb.append(str).append(":");
-        sb.deleteCharAt(sb.lastIndexOf(":"));
-        view.evaluateJavascript("try{document.location.href=\"CornHandler://" + sb.toString() + "\";}catch(ex){" +
-                "document.location.href=\"CornHandler://" + req + ":default\";}", null);
-    }
-
     public static void sendRawJSRequest(CrunchyWalkView view, String req) {
         view.evaluateJavascript(req, null);
     }

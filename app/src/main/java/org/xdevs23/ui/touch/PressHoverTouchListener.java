@@ -22,7 +22,7 @@ public class PressHoverTouchListener implements View.OnTouchListener {
         this.downColor = ColorUtil.getColor(R.color.grey_300);
     }
 
-    // isRes needed for keeping different method signature than BluePressOnTouchListener(int)
+    // isRes is needed for different method signatures
     public PressHoverTouchListener(@ColorRes int upColor, @ColorRes int downColor, boolean isRes) {
         this(
                 isRes ? ColorUtil.getColor(upColor) : upColor,

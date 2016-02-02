@@ -7,6 +7,7 @@ import android.os.Build;
 
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.AppConfig;
+import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
@@ -14,6 +15,7 @@ import org.xwalk.core.XWalkView;
 
 import java.util.regex.Matcher;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 
 /**
@@ -21,16 +23,19 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
  */
 public class CrunchyWalkView extends XWalkView {
 
+    public static String userAgent =
+            "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
+                    "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/%s Chrome/50.0.2633.3 Mobile Safari/601.1";
+
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
-    public static String userAgent =
-            "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
-                    "AppleWebKit/601.1.46 (KHTML, like Gecko) Cornowser/" +
-                    AppConfig.versionName + " Chrome/50.0.2633.3 Mobile Safari/601.1";
-
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
+
+        Logging.logd("      User agent");
+        userAgent =
+                String.format(userAgent, ConfigUtils.getVersionName(CornBrowser.getContext()));
 
         Logging.logd("      Resource Client");
         resourceClient  = new CornResourceClient(this);

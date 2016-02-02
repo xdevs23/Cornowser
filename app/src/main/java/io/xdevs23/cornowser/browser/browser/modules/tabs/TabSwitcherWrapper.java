@@ -4,6 +4,7 @@ public class TabSwitcherWrapper {
 
     private BasicTabSwitcher tabSwitcher;
 
+
     public TabSwitcherWrapper(BasicTabSwitcher tabSwitcher) {
         this.tabSwitcher = tabSwitcher;
     }

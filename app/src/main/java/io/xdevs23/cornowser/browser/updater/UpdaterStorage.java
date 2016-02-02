@@ -13,10 +13,7 @@ public class UpdaterStorage {
 
             URL_CHANGELOG               = URL_RAW_UBP_GITHUB_REPO + "/update/changelog.txt",
 
-            URL_APK                     = URL_RAW_UBP_GITHUB_REPO + "/update/Cornowser.apk",
-
-            _EMPTY                      = ""    // Ignore this
-
+            URL_APK                     = URL_RAW_UBP_GITHUB_REPO + "/update/Cornowser.apk"
             ;
 
 }

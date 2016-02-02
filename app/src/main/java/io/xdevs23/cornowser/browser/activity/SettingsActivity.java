@@ -20,7 +20,8 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 
 public class SettingsActivity extends XquidCompatActivity {
 
-    protected static XquidCompatActivity thisActivity = null;
+    protected static XquidCompatActivity thisActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +87,7 @@ public class SettingsActivity extends XquidCompatActivity {
             );
 
             // Home page
-            Preference homePagePref =
-                    (Preference) findPreference("settings_userhomepage");
+            Preference homePagePref = findPreference("settings_userhomepage");
             homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {

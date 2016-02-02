@@ -9,7 +9,9 @@ import org.xdevs23.debugutils.StackTraceParser;
  */
 public class BackgroundRunner {
 
-    private BackgroundRunner() {}
+    private BackgroundRunner() {
+
+    }
 
     public synchronized static void runInBackground(final Runnable runnable, final Handler handler) {
         Runnable wrap = new Runnable() {

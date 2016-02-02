@@ -7,8 +7,6 @@ import io.xdevs23.cornowser.browser.R;
 
 /**
  * Custom ListView
- * 
- *
  */
 public class XDListView {
 	

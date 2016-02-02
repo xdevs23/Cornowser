@@ -52,7 +52,7 @@ public class TastyOverflowMenu extends ImageButton {
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_overflow_default);
 
-        // Taken from UBP
+        // Tree dot overflow menu icon from UltimateBrowserProject
         this.setImageBitmap(Bitmap.createScaledBitmap(bitmap, ah, ah, false));
 
         this.setColorFilter(ContextCompat.getColor(context, R.color.black),

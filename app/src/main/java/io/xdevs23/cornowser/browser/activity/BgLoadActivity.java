@@ -15,6 +15,7 @@ public class BgLoadActivity extends XquidCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         try {
             CornBrowser.isBgBoot = true;
             startActivity((new Intent(getApplicationContext(), CornBrowser.class))

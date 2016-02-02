@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.general.ExtendedAndroidClass;
-import org.xdevs23.ui.dialog.templates.NegativeButtonCancel;
+import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 
 import io.xdevs23.cornowser.browser.R;
 
@@ -87,7 +87,7 @@ public class EditTextDialog extends ExtendedAndroidClass {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder
                 .setCancelable(true)
-                .setNegativeButton(R.string.answer_cancel, new NegativeButtonCancel())
+                .setNegativeButton(R.string.answer_cancel, new DismissDialogButton())
                 .setPositiveButton(R.string.answer_ok, onClickListener)
                 .setTitle(mTitle)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {

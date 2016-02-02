@@ -11,9 +11,10 @@ import org.xdevs23.ui.utils.DpUtil;
 
 public class XquidLinearLayout extends LinearLayout {
 
-    private AttributeSet attrs  = null;
+    private AttributeSet attrs;
     private int defStyleAttr    = 0;
     private int defStyleRes     = 0;
+
 
     public XquidLinearLayout(Context context) {
         super(context);

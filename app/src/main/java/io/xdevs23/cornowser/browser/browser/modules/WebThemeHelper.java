@@ -21,6 +21,8 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class WebThemeHelper {
 
+    private static int currentColor = 0;
+
     private enum AllowedWordColors {
         black,
         white,
@@ -35,7 +37,6 @@ public class WebThemeHelper {
         bluegray
     }
 
-    private static int currentColor = 0;
 
     private static int rCol(@ColorRes int colRes) {
         return ColorUtil.getColor(colRes);
@@ -59,8 +60,8 @@ public class WebThemeHelper {
                     case magenta:   col = rCol(R.color.pink_600);   break;
                     case yellow:    col = rCol(R.color.yellow_800); break;
                     case bluegray:
-                    case bluegrey:  col = rCol(R.color.blue_grey_700); break;
-                    case teal:      col = rCol(R.color.teal_700);   break;
+                    case bluegrey:  col = rCol(R.color.blue_grey_700);  break;
+                    case teal:      col = rCol(R.color.teal_700);       break;
                     default: break;
                 }
                 if(col != 0) setWebThemeColor(col, omnibox, window);

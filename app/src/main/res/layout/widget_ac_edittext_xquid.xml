@@ -9,4 +9,5 @@
     app:et_dividerColor="@color/blue_600"
     app:et_dividerHeight="2dp"
     app:et_labelEnable="true"
-    app:et_labelTextColor="@color/blue_600" />
+    app:et_labelTextColor="@color/blue_600"
+    android:layout_margin="1dp" />

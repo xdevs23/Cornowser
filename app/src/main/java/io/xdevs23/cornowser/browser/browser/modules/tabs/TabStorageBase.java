@@ -16,6 +16,7 @@ public interface TabStorageBase {
     public abstract Tab getTab(int tab);
     public abstract Tab getTab(String url);
     public abstract Tab getLastTab();
+
     public abstract ArrayList<Tab> getTabList();
 
 }

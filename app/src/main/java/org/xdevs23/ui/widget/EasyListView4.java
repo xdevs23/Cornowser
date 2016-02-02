@@ -14,7 +14,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.xdevs23.android.widget.XquidRelativeLayout;
-import org.xdevs23.ui.dialog.templates.PositiveButtonOK;
+import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -214,7 +214,7 @@ public class EasyListView4 extends XquidRelativeLayout {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder
                         .setView((new EasyListView4(activity).setListArray(res)))
-                        .setPositiveButton(R.string.answer_ok, new PositiveButtonOK())
+                        .setPositiveButton(R.string.answer_ok, new DismissDialogButton())
                         .create().show();
                 return false;
             }

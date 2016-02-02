@@ -94,6 +94,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
         for ( int i = 0; i < tabList.size(); i++ )
             if(tabList.get(i).tabUrl.equals(tab.tabUrl) && tabList.get(i).tabTitle.equals(tab.tabTitle))
                 return i;
+
         throw new IllegalStateException();
     }
 

@@ -126,7 +126,7 @@ public class BrowserStorage {
                 userHomePage    = "pref_user_homepage",
                 omniboxPos      = "pref_omni_pos",
                 fullscreenPref  = "pref_enable_fullscreen"
-        ;
+                        ;
     }
 
 }

@@ -7,19 +7,8 @@ import org.xdevs23.config.ConfigUtils;
 
 public class Logging {
 
-    private static String TAG = AppConfig.debugTag;
-
-    /**
-     * Deprecated. Use <code>ConfigUtils.isDebuggable()</code> instead.
-     * @return True if debuggable, false if not.
-     */
-    @Deprecated
-    public static boolean isDebuggable() {
-        return ConfigUtils.isDebuggable();
-    }
-
     public static void logt(String msg) {
-        Log.d(TAG, msg);
+        Log.d(AppConfig.debugTag, msg);
     }
 
     public static void logt(int i) {

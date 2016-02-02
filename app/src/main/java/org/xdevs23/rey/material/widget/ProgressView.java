@@ -26,6 +26,7 @@ public class ProgressView extends com.rey.material.widget.ProgressView {
     public void setProgress(float percentage) {
         if(this.getVisibility() == View.INVISIBLE)
             this.setVisibility(View.VISIBLE);
+
         super.setProgress(percentage);
     }
 

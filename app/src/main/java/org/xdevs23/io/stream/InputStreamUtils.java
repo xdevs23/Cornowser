@@ -9,7 +9,6 @@ public class InputStreamUtils {
 
     public static String readToString(InputStream inputStream) {
         String readData = "";
-
         try {
             readData = IOUtils.toString(inputStream, "UTF-8");
         } catch(Exception ex) {

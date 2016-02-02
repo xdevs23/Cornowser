@@ -18,7 +18,6 @@
         android:id="@+id/updaterToolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="56dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:background="@color/indigo_500"

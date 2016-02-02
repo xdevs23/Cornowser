@@ -212,6 +212,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     v.setBackgroundDrawable(bgBtn);
                 else
                     v.setBackground(bgBtn);
+
                 return false;
             }
         });
@@ -316,7 +317,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         super.removeTab(tab);
         for ( int i = 0; i < tabsLayout.getChildCount(); i++ )
             setLayoutTabId(i, i);
-        for ( int i = 0; i < tabStorage.getTabCount(); i++ )
+        for ( int i = 0; i < tabStorage.getTabCount();   i++ )
             tabStorage.getTab(i).setId(i);
 
         tabSwitchListener.onTabRemoved(tab);

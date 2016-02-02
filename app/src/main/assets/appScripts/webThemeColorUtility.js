@@ -33,16 +33,12 @@ try {
         else webCol = "default";
 
     }
-} catch(ex) {}
+} catch(ex) {
+    webCol = "default";
+}
 
-function tryElem(elem, attr) {
+function tryElem(elem) {
     if(webCol !== "default") return webCol;
-    try {
-        var dega = document.getElementById(elem).getAttribute(attr);
-        if(dega !== "") return dega;
-    } catch(ex) {
-
-    }
     try {
         return document.getElementById(elem).style.backgroundColor;
     } catch(ex) {
@@ -52,9 +48,9 @@ function tryElem(elem, attr) {
 
 try {
     if(webCol === "default") {
-        webCol = tryElem("navbar", "color");
-        webCol = tryElem("titlebar", "color");
-        webCol = tryElem("navigation", "color");
+        webCol = tryElem("navbar");
+        webCol = tryElem("titlebar");
+        webCol = tryElem("navigation");
     }
     if(webCol === "") webCol = "default";
     if(webCol.toUpperCase() === "#FFFFFF") webCol = "default";
@@ -62,5 +58,5 @@ try {
     webCol = "default";
 }
 
-
 console.log("CornHandler://setWebThemeColor:" + webCol);
+

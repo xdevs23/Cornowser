@@ -44,8 +44,13 @@ public class SimpleSeparator extends View {
         init(context);
     }
 
+    /**
+     * Init the view
+     * @param context Context
+     */
     protected void init(Context context) {
         myContext = context;
+
         ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 DpUtil.dp2px(context, 1)

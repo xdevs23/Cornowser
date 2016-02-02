@@ -104,6 +104,9 @@ public class CornBrowser extends XquidCompatActivity {
         bootstrap();
     }
 
+    /**
+     * Whole initialization is done here
+     */
     protected void bootstrap() {
         if(isBgBoot) moveTaskToBack(true);
         if(!isBootstrapped
@@ -133,6 +136,9 @@ public class CornBrowser extends XquidCompatActivity {
         if(!isBgBoot) fastReloadComponents();
     }
 
+    /**
+     * For start-up web loading
+     */
     protected void handleStartupWebLoad() {
         if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
             getTabSwitcher().addTab(getIntent().getDataString());
@@ -400,6 +406,10 @@ public class CornBrowser extends XquidCompatActivity {
         OmniboxAnimations.resetOmni();
     }
 
+    /**
+     * Set the text inside the omnibox
+     * @param url URL
+     */
     public static void applyOnlyInsideOmniText(String url) {
         try {
             browserInputBar.setText(url
@@ -562,15 +572,25 @@ public class CornBrowser extends XquidCompatActivity {
         }
     }
 
+    /**
+     * Quickly reload some components (e. g. after resume)
+     */
     private void fastReloadComponents() {
         onPauseWebRender(true);
         onResumeWebRender();
     }
 
+    /**
+     * Pause the web rendering engine (reduces memory leaks etc.)
+     */
     protected void onPauseWebRender() {
         onPauseWebRender(false);
     }
 
+    /**
+     * Pause the web rendering engine
+     * @param fastPause Choose if it should be a fast pause (no difference in speed)
+     */
     protected void onPauseWebRender(boolean fastPause) {
         if (publicWebRender != null) {
             publicWebRender.pauseTimers();
@@ -580,6 +600,9 @@ public class CornBrowser extends XquidCompatActivity {
         }
     }
 
+    /**
+     * Resume the web rendering engine after being paused (or reload)
+     */
     protected void onResumeWebRender() {
         if (publicWebRender != null) {
             initOmniboxPosition();
@@ -648,6 +671,9 @@ public class CornBrowser extends XquidCompatActivity {
         if(!publicWebRender.goBack()) endApplication();
     }
 
+    /**
+     * Handle fullscreen mode
+     */
     public void handleFullscreenMode() {
         if (browserStorage.getIsFullscreenEnabled()) {
             if(Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {

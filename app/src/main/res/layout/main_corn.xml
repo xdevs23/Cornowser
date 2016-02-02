@@ -106,8 +106,6 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_toLeftOf="@id/omnibox_control_open_tabswitcher" />
 
-
-
                         </RelativeLayout>
 
                     </RelativeLayout>

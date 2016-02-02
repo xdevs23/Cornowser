@@ -32,7 +32,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false     // Is it necessary? I think not.
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -42,7 +42,7 @@ android {
     }
 
     dexOptions {
-        preDexLibraries true        // For the libs to work better
+        preDexLibraries true    // For the libs to work better
     }
 
     lintOptions {

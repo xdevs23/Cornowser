@@ -1,7 +1,6 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.general.ExtendedAndroidClass;
@@ -12,10 +11,14 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
 
-    protected int currentTab = -1;
+
     protected TabStorage tabStorage = new TabStorage();
 
+    protected int currentTab = -1;
+
+
     private RelativeLayout rootView;
+
 
     public enum SwitcherStatus {
         VISIBLE,
@@ -34,6 +37,7 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     public abstract void init();
 
+
     @Override
     public Tab getCurrentTab() {
         return tabStorage.getTab(currentTab);
@@ -46,11 +50,10 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     @Override
     public void addTab(Tab tab) {
-        Tab t = tab;
         tab.setId(tabStorage.getTabCount());
-        tabStorage.addTab(t);
+        tabStorage.addTab(tab);
         CornBrowser.publicWebRender = tab.webView;
-        currentTab = t.tabId;
+        currentTab = tab.tabId;
     }
 
     @Override
@@ -94,10 +97,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     public void switchSwitcher() {
         if(switcherStatus == SwitcherStatus.HIDDEN) showSwitcher();
         else hideSwitcher();
-    }
-
-    protected void setSwitcherView(View view) {
-        rootView.addView(view);
     }
 
     protected RelativeLayout getRootView() {

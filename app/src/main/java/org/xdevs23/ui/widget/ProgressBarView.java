@@ -18,24 +18,6 @@ public class ProgressBarView extends RelativeLayout {
 
     private RelativeLayout innerProgressBar;
 
-    public void init(Context context) {
-        innerProgressBar = new RelativeLayout(context);
-
-        this.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_600_t));
-
-        LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-
-        p.setMargins(0, 0, 0, 0);
-
-        innerProgressBar.setLayoutParams(p);
-
-        innerProgressBar.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_600));
-
-        this.addView(innerProgressBar);
-
-        if(this.getChildCount() < 1)this.setVisibility(INVISIBLE);
-    }
-
     public ProgressBarView(Context context) {
         super(context);
         init(context);
@@ -54,6 +36,24 @@ public class ProgressBarView extends RelativeLayout {
     public ProgressBarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
+    }
+
+    public void init(Context context) {
+        innerProgressBar = new RelativeLayout(context);
+
+        this.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_600_t));
+
+        LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
+        p.setMargins(0, 0, 0, 0);
+
+        innerProgressBar.setLayoutParams(p);
+
+        innerProgressBar.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_600));
+
+        this.addView(innerProgressBar);
+
+        if(this.getChildCount() < 1)this.setVisibility(INVISIBLE);
     }
 
     public void setProgress(int progress) {

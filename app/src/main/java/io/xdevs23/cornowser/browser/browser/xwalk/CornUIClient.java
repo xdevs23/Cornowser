@@ -9,7 +9,7 @@ import android.view.View;
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.dialog.EditTextDialog;
-import org.xdevs23.ui.dialog.templates.PositiveButtonOK;
+import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
@@ -26,6 +26,7 @@ public class CornUIClient extends XWalkUIClient {
 
     // This is for controlling errors on start-up loading
     private boolean readyForBugfreeBrowsing = false;
+
 
     public CornUIClient(XWalkView view) {
         super(view);
@@ -82,7 +83,7 @@ public class CornUIClient extends XWalkUIClient {
                 .setCancelable(true)
                 .setTitle(view.getTitle())
                 .setMessage(message)
-                .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_ok), new PositiveButtonOK())
+                .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_ok), new DismissDialogButton())
                 .create()
                 .show()
         ;

@@ -57,6 +57,7 @@ public class Core extends Application {
     public void onCreate() {
         Logging.logd("PRE INIT START");
         coreContext = this.getApplicationContext();
+
         super.onCreate();
     }
 

@@ -45,6 +45,7 @@ public class TabSwitcherOpenButton extends RelativeLayout {
 
     public void init(Context context) {
         if (myContext == null) myContext = context;
+
         if(CornBrowser.getContext() != null) {
             setGravity(Gravity.CENTER);
 

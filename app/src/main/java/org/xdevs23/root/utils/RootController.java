@@ -38,8 +38,8 @@ public class RootController {
 			d("(requestRoot) Done!");
 	        return true;
 		}
-		catch( IOException ioex) {return false;}
-		catch(   Exception   ex) {return false;}
+		catch(IOException ioex) {return false;}
+		catch(  Exception   ex) {return false;}
 	}
 	
 	/**
@@ -51,15 +51,15 @@ public class RootController {
 			 suxbin = new File("/system/xbin/su"),
 			 susbin = new File("/sbin/su");
 		
-		return 	subin .exists()	||
-				suxbin.exists()	||
-				susbin.exists();
+		return subin.exists()
+                || suxbin.exists()
+                || susbin.exists();
 	}
 
     /**
      * Checks if BusyBox is installed - internal method
      *
-     * @return True if is installed. False if not.
+     * @return True if installed. False if not.
      */
 	private static boolean checkBusyboxInstalled() {
 		try {
@@ -89,7 +89,7 @@ public class RootController {
 	}
 	
 	/**
-	 * @author User <i style="color:aqua;">18446744073709551615</i> at <a href="http://stackoverflow.com/users/755804/18446744073709551615">stackoverflow</a>
+	 * By user <i style="color:aqua;">18446744073709551615</i> at <a href="http://stackoverflow.com/users/755804/18446744073709551615">stackoverflow</a>
 	 * @param is <code>InputStream</code> to read from
 	 * @return Content of <code><i>InputStream is</i></code>
 	 * @throws IOException
@@ -101,6 +101,7 @@ public class RootController {
 	    while ((length = is.read(buffer)) != -1) {
 	        baos.write(buffer, 0, length);
 	    }
+
 	    return baos.toString("UTF-8");
 	}
 
@@ -180,7 +181,7 @@ public class RootController {
 				cexec++;
 			}
 		} catch(Exception ex) {
-			
+			// Do nothing
 		}
 		
 		return cresults;

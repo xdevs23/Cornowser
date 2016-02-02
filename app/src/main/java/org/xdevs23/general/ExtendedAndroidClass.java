@@ -1,11 +1,11 @@
 package org.xdevs23.general;
 
-
 import android.content.Context;
 
 public class ExtendedAndroidClass {
 
     private Context myContext;
+
 
     public ExtendedAndroidClass() {
         this.myContext = null;

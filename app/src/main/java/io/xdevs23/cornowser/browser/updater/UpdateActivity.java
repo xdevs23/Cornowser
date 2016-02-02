@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +23,12 @@ import com.rey.material.widget.ProgressView;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.config.AppConfig;
+import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.root.utils.RootController;
 import org.xdevs23.ui.dialog.MessageDialog;
-import org.xdevs23.ui.dialog.templates.NegativeButtonCancel;
+import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xdevs23.ui.utils.BarColors;
 
 import java.io.File;
@@ -37,19 +37,17 @@ import io.xdevs23.cornowser.browser.R;
 
 @SuppressWarnings("unused")
 public class UpdateActivity extends XquidCompatActivity {
-	
-	private static String appversion = AppConfig.versionName;
 
-	private Activity thisActivity = this;
-	private boolean mgo = false;
+    public static ProgressView updateBar;
+    public static TextView     updateStatus;
 	
-	
-	private static Context staticContext = null;
-	private        Context     myContext = this;
+	private static String appversion;
+
+    private static Context staticContext = null;
 	
 	private static boolean enableRoot = false;
 	
-	private static       String
+	private static String
             updateRoot = AppConfig.updateRoot,
 	        updaterDir = updateRoot,
 
@@ -62,20 +60,18 @@ public class UpdateActivity extends XquidCompatActivity {
                     ;
 
     private static int    latestVersionCode = 0;
-	
-	public static ProgressView updateBar;
-	public static TextView     updateStatus;
 
     private static TextView currentVersionTv, newVersionTv, changelogTitle, changelogTv;
     private static com.rey.material.widget.Button updaterButton;
 
-    private WebView myWebView;
-    private static boolean isDownloadingUpdate = false;
+    private static UpdateType updateType;
+
 
     private boolean webloaded = false;
 
-    private static UpdateType updateType;
-
+    private Activity thisActivity = this;
+    private boolean mgo = false;
+    private Context myContext = this;
 
     private static void setStaticContext(Context context) {
         staticContext = context;
@@ -107,6 +103,7 @@ public class UpdateActivity extends XquidCompatActivity {
             loading     = staticContext.getString(R.string.updater_loading);
             launching   = staticContext.getString(R.string.updater_updating);
         }
+
 	}
 
     public enum UpdateType {
@@ -154,9 +151,6 @@ public class UpdateActivity extends XquidCompatActivity {
         updateBar.start();
 	    
 	    DownloadUtils.downloadFile(url, updatedApk);
-	   
-	    
-	    isDownloadingUpdate = true;
 	}
 	
 	public static void startUpdateInstallation() {
@@ -206,6 +200,8 @@ public class UpdateActivity extends XquidCompatActivity {
 
         updateBar = (ProgressView) findViewById(R.id.updateProgressBar);
         updateBar.setVisibility(View.VISIBLE);
+
+        appversion = ConfigUtils.getVersionName(getApplicationContext());
 
         updateStatus = (TextView) findViewById(R.id.updateStatus);
     }
@@ -364,7 +360,7 @@ public class UpdateActivity extends XquidCompatActivity {
                                 }
                             }
                         })
-                        .setNegativeButton(getString(R.string.answer_no), new NegativeButtonCancel());
+                        .setNegativeButton(getString(R.string.answer_no), new DismissDialogButton());
                 adB.create().show();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.root_toast_info_lollihigh),
@@ -374,7 +370,6 @@ public class UpdateActivity extends XquidCompatActivity {
         }
 
         init();
-		
 	}
 
 	@Override

@@ -55,6 +55,7 @@ public class CornResourceClient extends XWalkResourceClient {
     private boolean allowTinting = true;
     private boolean loadingLessThanMin = true;
 
+
     public CornResourceClient(XWalkView view) {
         super(view);
     }
@@ -89,7 +90,7 @@ public class CornResourceClient extends XWalkResourceClient {
                 c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                 success = true;
             } catch (Exception ex) {
-                //
+                // Ignore
             }
 
             if(!success) {
@@ -105,7 +106,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
                     success = true;
                 } catch(Exception ex) {
-                    //
+                    // Ignore
                 }
             }
 

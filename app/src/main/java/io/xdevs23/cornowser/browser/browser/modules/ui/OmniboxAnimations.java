@@ -12,6 +12,7 @@ public class OmniboxAnimations {
             DEFAULT_ANIMATION_DURATION = 420
             ;
 
+
     public static boolean isBottom() {
         return OmniboxControl.isBottom();
     }
@@ -20,12 +21,12 @@ public class OmniboxAnimations {
         return !isBottom();
     }
 
-    protected static int getOmniHeight() {
-        return OmniboxControl.getOmniboxHeight();
-    }
-
     public static int getOmniboxPositionInt() {
         return OmniboxControl.getOmniboxPositionInt();
+    }
+
+    protected static int getOmniHeight() {
+        return OmniboxControl.getOmniboxHeight();
     }
 
     protected static ViewPropertyAnimator omniboxAnimate() {
@@ -83,8 +84,7 @@ public class OmniboxAnimations {
                     if(-opos > oh / 2) {
                         animateOmni( (isBottom() ? 0 : -oh) );
                         opos =       (isBottom() ? 0 : -oh)  ;
-                    }
-                    else animateOmni( (isBottom() ? -oh : 0) );
+                    } else animateOmni( (isBottom() ? -oh : 0) );
                     break;
                 case MotionEvent.ACTION_MOVE:
                     ny = ((int)motionEvent.getRawY()) - cy;

@@ -11,6 +11,4 @@
     android:paddingRight="2dp"
     android:paddingTop="12dp"
     android:textSize="16sp"
-    android:textColor="@color/black">
-
-</TextView>
+    android:textColor="@color/black" />

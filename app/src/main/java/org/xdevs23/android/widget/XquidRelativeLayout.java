@@ -11,7 +11,7 @@ import org.xdevs23.ui.utils.DpUtil;
 
 public class XquidRelativeLayout extends RelativeLayout {
 
-    private AttributeSet attrs  = null;
+    private AttributeSet attrs;
     private int defStyleAttr    = 0;
     private int defStyleRes     = 0;
 

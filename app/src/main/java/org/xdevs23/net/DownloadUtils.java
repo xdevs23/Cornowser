@@ -3,11 +3,9 @@ package org.xdevs23.net;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.IdRes;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import org.xdevs23.config.AppConfig;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.io.stream.InputStreamUtils;
@@ -25,9 +23,9 @@ import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 
 public class DownloadUtils {
 	
-	public  static ProgressBar progressUpdateBar = null;
+	public static ProgressBar progressUpdateBar = null;
 
-    public  static final int
+    public static final int
             defaultBuf  =   8192,
             oneKiloByte =   1024;
 
@@ -36,29 +34,13 @@ public class DownloadUtils {
      * @param id Id of the progressbar
      * @param context Actual context
      */
-	public  static void setProgressBar( @IdRes int id, Context context ) {
+	public static void setProgressBar( @IdRes int id, Context context ) {
 		View view = new View(context);
 		progressUpdateBar = (ProgressBar) view.findViewById(id);
 	}
 	
-
-
-	public static class ContextManagement {
-		
-		private static Context activeContext = null;
-		
-		public static void setActiveContext(Context context) {
-			activeContext = context;
-		}
-		
-		public static Context getActiveContext() {
-			return activeContext;
-		}
-		
-	}
-	
 	private static void logt(String loginfo) {
-		Log.d(AppConfig.appName, loginfo);
+		Logging.logd(loginfo);
 	}
 	
 	public static void downloadFile( String dUrl, String dest ) {

@@ -3,7 +3,6 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 public interface TabSwitcherBase {
 
     public abstract void switchTab(int tab);
-
     public abstract void showTab(Tab tab);
 
     public abstract Tab getCurrentTab();

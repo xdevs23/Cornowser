@@ -11,6 +11,7 @@ public class TabCounterView extends View {
 
     public int ix = 0;
 
+
     public TabCounterView(Context context) {
         super(context);
     }

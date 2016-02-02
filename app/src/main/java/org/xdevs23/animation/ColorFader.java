@@ -119,4 +119,11 @@ public class ColorFader extends ExtendedAndroidClass {
         return new ColorFader(colorDrawable.getColor(), endColor, context, view, speed, handler);
     }
 
+    public static void animate(int startColor, int endColor,
+                               Context context, View view,
+                               float speed,
+                               Handler handler) {
+        createAnimation(startColor, endColor, context, view, speed, handler).animate();
+    }
+
 }

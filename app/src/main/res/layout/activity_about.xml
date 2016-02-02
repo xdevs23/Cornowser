@@ -9,5 +9,4 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/zero_padding"
     tools:context="io.xdevs23.cornowser.browser.activity.AboutActivity">
-
 </RelativeLayout>

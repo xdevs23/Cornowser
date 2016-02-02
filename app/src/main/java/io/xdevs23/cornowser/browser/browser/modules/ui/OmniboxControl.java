@@ -12,6 +12,7 @@ public class OmniboxControl {
         return !isBottom();
     }
 
+    
     public static int getOmniboxHeight() {
         return CornBrowser.omnibox.getHeight();
     }

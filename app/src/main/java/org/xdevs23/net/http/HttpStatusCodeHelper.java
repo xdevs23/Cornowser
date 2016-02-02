@@ -10,6 +10,7 @@ public class HttpStatusCodeHelper {
      * HTTP Status codes according to Wikipedia
      */
     public enum HttpStatusCode {
+
         // Information
         CONTINUE                                (100),
         SWITCHING_PROTOCOLS                     (101),
@@ -122,6 +123,7 @@ public class HttpStatusCodeHelper {
         public String toString() {
             return this.name();
         }
+
     }
 
     public static String getStatusCodeString(int code) {
