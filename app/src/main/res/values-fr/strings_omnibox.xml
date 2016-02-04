@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Omnibox strings file -->
+
+<resources>
+
+    <string name="omnibox_inputbar_hint">
+        Rechercher ou taper dans l\'URL
+    </string>
+
+    <string name="omnibox_forward_btn_acsb_desc">
+        Suivant
+    </string>
+    <string name="Favicon">Favicon</string>
+
+</resources>
