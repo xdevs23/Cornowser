@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Navigation</string>
+
+    <string name="settings_browsing_homepage_title">Page d\'accueil</string>
+    <string name="settings_browsing_homepage_summary">Définir votre page d\'accueil préférée</string>
+
+
+    <string name="settings_category_layout_title">Disposition</string>
+
+    <string name="settings_layout_omni_pos_title">Position Omnibox</string>
+    <string name="settings_layout_omni_pos_sumary">Définir la position préférée pour la barre d\'adresse Omnibox</string>
+
+    <string name="settings_layout_fullscreen_title">Plein écran</string>
+    <string name="settings_layout_fullscreen_summary">Activer le mode plein écran</string>
+
+
+    <string name="settings_category_appearance_title">Apparence</string>
+
+    <string name="settings_appearance_webcolmode_title">Mode couleur</string>
+    <string name="settings_appearance_webcolmode_summary">Définir votre mode couleur préféré</string>
+
+
+    <string name="settings_category_misc_title">Divers</string>
+
+    <string name="settings_list_licenses_title">Licences Open Source</string>
+    <string name="settings_list_licenses_summary">Librairies utilisées par cette application</string>
+
+    <string name="settings_list_credits_tl_title">Traductions</string>
+    <string name="settings_list_credits_tl_summary">Remerciements aux traductions</string>
+
+    <string name="settings_list_credits_spc_title">Remerciement spécial</string>
+    <string name="settings_list_credits_spc_summary">Merci beaucoup à toutes ces personnes</string>
+
+</resources>

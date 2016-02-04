@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    
+    <string name="app_bg_name">Cornowser (Arrière-plan)</string>
+
+    <string name="answer_cancel">Annuler</string>
+    <string name="answer_ok">OK</string>
+
+</resources>
