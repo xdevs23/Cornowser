@@ -3,7 +3,12 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Build;
+import android.view.View;
 
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
@@ -16,6 +21,7 @@ import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
+import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 /**
  * A delicious and crunchy XWalkView with awesome features
@@ -143,4 +149,69 @@ public class CrunchyWalkView extends XWalkView {
         return this;
     }
 
+
+    // Handle color modes
+
+    public void drawWithColorMode(Canvas canvas) {
+        Logging.logd("Applying web render color mode...");
+        Canvas ec = canvas;
+        RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
+        Paint paint = new Paint();
+        float[] negativeColor = {
+                -1.0f, 0, 0, 0, 255,    // Red
+                0, -1.0f, 0, 0, 255,    // Green
+                0, 0, -1.0f, 0, 255,    // Blue
+                0, 0, 0,  1.0f, 0       // Alpha
+        };
+        float[] darkColor = {
+                1f, 0, 0, 0, -255,
+                0, 1f, 0, 0, -255,
+                0, 0, 1f, 0, -255,
+                0, 0, 0, 1f,    0
+        };
+        float[] invertColor = {
+                -1f, 0, 0, 0, 0,
+                0, -1f, 0, 0, 0,
+                0, 0, -1f, 0, 0,
+                0, 0, 0, 1f,  0
+        };
+
+        Logging.logd("Found color mode: " + cm.mode);
+
+        switch(cm.mode) {
+            case RenderColorMode.ColorMode.NORMAL:
+                Logging.logd("Applying normal color mode");
+                paint.setColorFilter(null);
+                break;
+            case RenderColorMode.ColorMode.DARK:
+                Logging.logd("Applying dark mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(darkColor));
+                break;
+            case RenderColorMode.ColorMode.NEGATIVE:
+                Logging.logd("Applying negative mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(negativeColor));
+                break;
+            case RenderColorMode.ColorMode.INVERT:
+                Logging.logd("Applying inverted mode");
+                paint.setColorFilter(new ColorMatrixColorFilter(invertColor));
+                break;
+            case RenderColorMode.ColorMode.GREYSCALE:
+                Logging.logd("Applying greyscale");
+                ColorMatrix m = new ColorMatrix();
+                m.setSaturation(0);
+                paint.setColorFilter(new ColorMatrixColorFilter(m));
+                break;
+            default:
+                Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
+                break;
+        }
+
+        ec.drawPaint(paint);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawWithColorMode(canvas);
+    }
 }

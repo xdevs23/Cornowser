@@ -213,8 +213,6 @@ public class CornBrowser extends XquidCompatActivity {
         if(!isNewIntent) publicWebRenderLayout = (RelativeLayout) findViewById(R.id.webrender_layout);
 
         if(!isNewIntent) initBrowsing();
-
-        initColorMode();
     }
 
     // Pre init end
@@ -393,69 +391,11 @@ public class CornBrowser extends XquidCompatActivity {
         resetOmniPositionState();
     }
 
-    public static void initColorMode() {
-        if(publicWebRenderLayout.getChildCount() <= 0) return;
-        Logging.logd("Applying web render color mode...");
-        ColorMode cm = getBrowserStorage().getColorMode();
-        Paint paint = new Paint();
-        float[] negativeColor = {
-                -1.0f, 0, 0, 0, 255,    // Red
-                0, -1.0f, 0, 0, 255,    // Green
-                0, 0, -1.0f, 0, 255,    // Blue
-                0, 0, 0,  1.0f, 0       // Alpha
-        };
-        float[] darkColor = {
-                1f, 0, 0, 0, -255,
-                0, 1f, 0, 0, -255,
-                0, 0, 1f, 0, -255,
-                0, 0, 0, 1f,    0
-        };
-        float[] invertColor = {
-                -1f, 0, 0, 0, 0,
-                0, -1f, 0, 0, 0,
-                0, 0, -1f, 0, 0,
-                0, 0, 0, 1f,  0
-        };
-
-        Logging.logd("Found color mode: " + cm.mode);
-
-        switch(cm.mode) {
-            case ColorMode.NORMAL:
-                Logging.logd("Applying normal color mode");
-                paint = null;
-                break;
-            case ColorMode.DARK:
-                Logging.logd("Applying dark mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(darkColor));
-                break;
-            case ColorMode.NEGATIVE:
-                Logging.logd("Applying negative mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(negativeColor));
-                break;
-            case ColorMode.INVERT:
-                Logging.logd("Applying inverted mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(invertColor));
-                break;
-            case ColorMode.GREYSCALE:
-                Logging.logd("Applying greyscale");
-                ColorMatrix m = new ColorMatrix();
-                m.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(m));
-                break;
-            default:
-                Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
-                break;
-        }
-
-        publicWebRenderLayout.getChildAt(0).setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-    }
-
     /**
      * Init reloadable stuff
      */
     public void reloadComponents() {
         initOmniboxPosition();
-        initColorMode();
     }
 
     /**
