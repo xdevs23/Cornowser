@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,7 +40,6 @@ import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
-import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode.ColorMode;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
@@ -186,14 +182,14 @@ public class CornBrowser extends XquidCompatActivity {
         });
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
                 new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if(browserStorage.getIsFullscreenEnabled() &&
-                        (visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    handleFullscreenMode();
-                }
-            }
-        });
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        if (browserStorage.getIsFullscreenEnabled() &&
+                                (visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                            handleFullscreenMode();
+                        }
+                    }
+                });
     }
 
     // Pre init start

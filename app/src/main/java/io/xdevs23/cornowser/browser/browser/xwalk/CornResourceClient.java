@@ -55,6 +55,8 @@ public class CornResourceClient extends XWalkResourceClient {
     private boolean allowTinting = true;
     private boolean loadingLessThanMin = true;
 
+    private boolean triedIntentLoad = false;
+
 
     public CornResourceClient(XWalkView view) {
         super(view);
@@ -111,7 +113,7 @@ public class CornResourceClient extends XWalkResourceClient {
             }
 
             if(!success) Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
-        }
+        } else triedIntentLoad = false;
     }
 
     @Override
@@ -203,6 +205,11 @@ public class CornResourceClient extends XWalkResourceClient {
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_UNSUPPORTED_AUTH_SCHEME;
                 break;
             case ERROR_UNSUPPORTED_SCHEME:
+                if(!triedIntentLoad) {
+                    triedIntentLoad = true;
+                    checkIntentableUrl(failingUrl);
+                    return;
+                }
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_UNSUPPORTED_SCHEME;
                 break;
             case 0:  break;

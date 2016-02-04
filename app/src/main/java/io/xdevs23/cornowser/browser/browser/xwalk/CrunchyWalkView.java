@@ -8,7 +8,6 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.os.Build;
-import android.view.View;
 
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
