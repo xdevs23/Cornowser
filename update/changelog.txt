@@ -4,7 +4,7 @@ If you are using root, please wait a minute and start the app yourself if it doe
 
  Version 1.0.4.2:
  - Fixed Marshmallow storage permission (thanks to Primokorn for reporting)
- - Fixed URL intent handling / web loading error on some pages
+ - Fixed URL intent handling / web loading error on some pages (thanks to Primokorn for reporting)
  - Updated user agent
  - Minor improvements and other changes
 
