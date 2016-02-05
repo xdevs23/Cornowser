@@ -85,6 +85,12 @@ public class CrunchyWalkView extends XWalkView {
     @Override
     public void load(String url, String content) {
         if(url == null) { super.load(null, content); return; }
+        if(getResourceClient().checkIntentableUrl(
+                (url.startsWith("intent") || url.startsWith("market"))
+                        &&   url.contains("//")
+                        && (!url.contains(":" )) ?
+                    url.replace("//", "://") : url)
+                ) return;
         Matcher urlRegExMatcher     = CornResourceClient.urlRegEx   .matcher(url);
         Matcher urlSecRegExMatcher  = CornResourceClient.urlSecRegEx.matcher(url);
         String nUrl = url;
@@ -151,7 +157,7 @@ public class CrunchyWalkView extends XWalkView {
 
     // Handle color modes
 
-    public void drawWithColorMode(Canvas canvas) {
+    public Canvas drawWithColorMode(Canvas canvas) {
         Logging.logd("Applying web render color mode...");
         Canvas ec = canvas;
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
@@ -206,11 +212,7 @@ public class CrunchyWalkView extends XWalkView {
         }
 
         ec.drawPaint(paint);
+        return ec;
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        drawWithColorMode(canvas);
-    }
 }

@@ -80,14 +80,14 @@ public class CornResourceClient extends XWalkResourceClient {
         return super.shouldOverrideUrlLoading(view, url);
     }
 
-    protected void checkIntentableUrl(String url) {
+    protected boolean checkIntentableUrl(String url) {
         Context c = CornBrowser.getContext();
+        boolean success = false;
         if(url.startsWith("intent")
                 || url.startsWith("market")
                 || url.contains("play.google.")
                 || url.contains("google.com/play")
                 || url.contains("spotify.")) {
-            boolean success = false;
             try {
                 c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                 success = true;
@@ -114,6 +114,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
             if(!success) Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
         } else triedIntentLoad = false;
+        return success;
     }
 
     @Override
@@ -166,6 +167,10 @@ public class CornResourceClient extends XWalkResourceClient {
                 else statusCode = HttpStatusCodeHelper.HttpStatusCode.UNKNOWN;
                 break;
             case ERROR_BAD_URL:
+                if(!triedIntentLoad) {
+                    triedIntentLoad = true;
+                    if(checkIntentableUrl(failingUrl)) return;
+                }
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_BAD_URL;
                 break;
             case ERROR_AUTHENTICATION:
@@ -184,6 +189,10 @@ public class CornResourceClient extends XWalkResourceClient {
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERROR_NOT_FOUND;
                 break;
             case ERROR_HOST_LOOKUP:
+                if(!triedIntentLoad) {
+                    triedIntentLoad = true;
+                    if(checkIntentableUrl(failingUrl)) return;
+                }
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_NAME_NOT_RESOLVED;
                 break;
             case ERROR_IO:
@@ -207,8 +216,7 @@ public class CornResourceClient extends XWalkResourceClient {
             case ERROR_UNSUPPORTED_SCHEME:
                 if(!triedIntentLoad) {
                     triedIntentLoad = true;
-                    checkIntentableUrl(failingUrl);
-                    return;
+                    if(checkIntentableUrl(failingUrl)) return;
                 }
                 statusCode = HttpStatusCodeHelper.HttpStatusCode.ERR_UNSUPPORTED_SCHEME;
                 break;
@@ -225,7 +233,7 @@ public class CornResourceClient extends XWalkResourceClient {
                         AssetHelper.getAssetString("htdocs/error.html", CornBrowser.getContext()), // Error file
 
                         CornBrowser.getRStr(R.string.html_error_title),                     // Title 'Error'
-                        errorCode,
+                        errorCode + "<br />URL: " + failingUrl,
 
                         String.format(CornBrowser.getRStr(R.string.html_error_body_info),
                                 HttpStatusCodeHelper.getStatusCodeString(errorCode)), // Description
