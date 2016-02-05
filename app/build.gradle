@@ -60,6 +60,7 @@ dependencies {
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
 
     // TODO: Add fabric.io
 

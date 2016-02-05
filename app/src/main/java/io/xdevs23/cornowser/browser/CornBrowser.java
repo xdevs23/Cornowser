@@ -1,12 +1,16 @@
 package io.xdevs23.cornowser.browser;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 
@@ -67,6 +72,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     public static boolean isBgBoot = false;
 
+    private static final int
+            PERMISSION_REQUEST_CODE = 1;
 
     private static PullRefreshLayout omniPtrLayout;
 
@@ -114,6 +121,8 @@ public class CornBrowser extends XquidCompatActivity {
                 && !isInitialized
                 && staticContext == null
                 && (!isNewIntent)) {
+            if(!isBgBoot) checkMallowPermissions();
+
             setContentView(R.layout.main_corn);
 
             initAll();
@@ -135,6 +144,28 @@ public class CornBrowser extends XquidCompatActivity {
             checkUpdate.start();
 
         if(!isBgBoot) fastReloadComponents();
+    }
+
+    /**
+     * Permission check for Marshmallow
+     */
+    public void checkMallowPermissions() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                ContextCompat.checkSelfPermission(
+                        getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED && (!isBgBoot)) {
+
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.permission_hint_write_storage), Toast.LENGTH_LONG).show();
+
+
+            if(!ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE))
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSION_REQUEST_CODE);
+        }
     }
 
     /**
@@ -377,12 +408,14 @@ public class CornBrowser extends XquidCompatActivity {
                 0
         );
 
-        omniboxTinyItemsLayout.findViewById(R.id.omnibox_separator)
+        findViewById(R.id.omnibox_separator)
             .setTranslationY(browserStorage.getOmniboxPosition() ? -DpUtil.dp2px(getContext(), 3) : 0);
 
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
         omniboxControls.bringToFront();
+
+        omnibox.refreshDrawableState();
 
         resetOmniPositionState();
     }
