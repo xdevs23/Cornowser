@@ -44,7 +44,8 @@
     <PreferenceCategory
         android:id="@+id/settings_category_appearance"
         android:title="@string/settings_category_appearance_title"
-        android:key="settings_category_appearance">
+        android:key="settings_category_appearance"
+        android:enabled="false">
 
         <ListPreference
             android:id="@+id/settings_preference_webcolormode"
