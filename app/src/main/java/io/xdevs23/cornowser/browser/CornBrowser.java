@@ -160,7 +160,10 @@ public class CornBrowser extends XquidCompatActivity {
 
 
             if(!ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED)
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -668,7 +671,6 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onPause() {
         Logging.logd("Activity paused.");
         super.onPause();
-        reloadComponents();
         onPauseWebRender();
     }
 
@@ -681,6 +683,7 @@ public class CornBrowser extends XquidCompatActivity {
             checkUpdate.start();
             fastReloadComponents();
         } else onResumeWebRender();
+        reloadComponents();
 
     }
 
