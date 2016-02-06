@@ -292,7 +292,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             @Override
             public boolean onLongClick(View v) {
                 v.setOnClickListener(null);
-                if (tabsLayout.getChildCount() > 1) removeTab(tabsLayout.indexOfChild(v));
+                if (tabStorage.getTabCount() > 1) removeTab(tabsLayout.indexOfChild(v));
                 else Toast.makeText(getContext(), "(°o°)", Toast.LENGTH_SHORT).show();
                 return true;
             }
