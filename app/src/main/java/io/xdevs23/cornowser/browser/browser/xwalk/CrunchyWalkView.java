@@ -4,9 +4,12 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import org.xdevs23.annotation.DontUse;
@@ -157,9 +160,8 @@ public class CrunchyWalkView extends XWalkView {
 
     // Handle color modes
 
-    public Canvas drawWithColorMode(Canvas canvas) {
+    public Paint drawWithColorMode() {
         Logging.logd("Applying web render color mode...");
-        Canvas ec = canvas;
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
         Paint paint = new Paint();
         float[] negativeColor = {
@@ -210,9 +212,7 @@ public class CrunchyWalkView extends XWalkView {
                 Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
                 break;
         }
-
-        ec.drawPaint(paint);
-        return ec;
+        return paint;
     }
 
 }
