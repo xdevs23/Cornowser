@@ -15,6 +15,7 @@ import android.os.Build;
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
+import org.xwalk.core.XWalkDownloadListener;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
@@ -32,7 +33,7 @@ public class CrunchyWalkView extends XWalkView {
 
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
-                    "AppleWebKit/601.2.7 (KHTML, like Gecko) Cornowser/%s Chrome/50.0.2641.0 Mobile Safari/601.2.7";
+                    "AppleWebKit/601.2.7 (KHTML, like Gecko) Cornowser/%s Chrome/50.0.2646.0 Mobile Safari/601.2.7";
 
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
@@ -156,7 +157,6 @@ public class CrunchyWalkView extends XWalkView {
         load(url);
         return this;
     }
-
 
     // Handle color modes
 
