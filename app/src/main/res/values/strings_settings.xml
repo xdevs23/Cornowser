@@ -24,6 +24,9 @@
 
     <string name="settings_category_misc_title">Miscellaneous</string>
 
+    <string name="settings_misc_debug_title">Debug mode</string>
+    <string name="settings_misc_debug_summary">Enable logcat debug output. (Good if you want to show it to us)</string>
+
     <string name="settings_list_licenses_title">Open Source Licenses</string>
     <string name="settings_list_licenses_summary">Useful libraries used by this application</string>
 

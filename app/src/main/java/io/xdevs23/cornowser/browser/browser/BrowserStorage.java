@@ -7,7 +7,7 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 public class BrowserStorage {
 
-    /* Variable storage section */
+    //region Variable storage
 
     private String
                 userHomePage
@@ -15,11 +15,15 @@ public class BrowserStorage {
 
     private boolean
                 omniboxIsBottom,
-                enableFullscreen
+                enableFullscreen,
+                debugEnabled
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
 
+    //endregion
+
+    //region Class section
     /* Class section */
 
     private Context myContext;
@@ -39,9 +43,10 @@ public class BrowserStorage {
         setColorMode(getPref(BPrefKeys.colorModePref, RenderColorMode.ColorMode.NORMAL));
     }
 
-    /* Variable storage related methods */
+    //endregion
 
-    // User homepage
+
+    //region User homepage
 
     public void setUserHomePage(String url) {
         this.userHomePage = url;
@@ -56,7 +61,9 @@ public class BrowserStorage {
         return userHomePage;
     }
 
-    // Omnibox position
+    //endregion
+
+    //region Omnibox position
 
     public void setOmniboxPosition(boolean isBottom) {
         this.omniboxIsBottom = isBottom;
@@ -71,7 +78,9 @@ public class BrowserStorage {
         return this.omniboxIsBottom;
     }
 
-    // Fullscreen
+    //endregion
+
+    //region Fullscreen
 
     public void setEnableFullscreen(boolean enable) {
         enableFullscreen = enable;
@@ -86,7 +95,9 @@ public class BrowserStorage {
         return enableFullscreen;
     }
 
-    // Color mode
+    //endregion
+
+    //region Color mode
 
     public void setColorMode(RenderColorMode.ColorMode colorMode) {
         renderingColorMode = colorMode;
@@ -105,7 +116,27 @@ public class BrowserStorage {
         return renderingColorMode;
     }
 
+    //endregion
 
+    //region Debug mode
+
+    public void setDebugMode(boolean enabled) {
+        debugEnabled = enabled;
+    }
+
+    public void saveDebugMode(boolean enabled) {
+        setDebugMode(enabled);
+        setPref(BPrefKeys.debugModePref, enabled);
+    }
+
+    public boolean getDebugMode() {
+        return debugEnabled;
+    }
+
+    //endregion
+
+
+    //region General
     /* General methods */
 
     private Context getContext() {
@@ -156,8 +187,11 @@ public class BrowserStorage {
                 userHomePage    = "pref_user_homepage",
                 omniboxPos      = "pref_omni_pos",
                 fullscreenPref  = "pref_enable_fullscreen",
-                colorModePref   = "pref_render_color_mode"
+                colorModePref   = "pref_render_color_mode",
+                debugModePref   = "pref_enable_debug_mode"
                         ;
     }
+
+    //endregion
 
 }

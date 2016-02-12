@@ -164,6 +164,8 @@ public class CornUIClient extends XWalkUIClient {
 
         CornBrowser.getWebProgressBar().setProgress(1.0f);
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
+
+        CornBrowser.publicWebRender.drawWithColorMode();
     }
 
 }

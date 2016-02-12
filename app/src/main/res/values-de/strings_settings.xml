@@ -24,6 +24,9 @@
 
     <string name="settings_category_misc_title">Sonstiges</string>
 
+    <string name="settings_misc_debug_title">Debug-Modus</string>
+    <string name="settings_misc_debug_summary">Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)</string>
+
     <string name="settings_list_licenses_title">Open-Source-Lizenzen</string>
     <string name="settings_list_licenses_summary">Nützliche Bibliotheken, die von dieser App verwendet werden.</string>
 

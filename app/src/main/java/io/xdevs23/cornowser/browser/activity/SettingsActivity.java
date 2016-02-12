@@ -45,6 +45,7 @@ public class SettingsActivity extends XquidCompatActivity {
                 new SettingsPreferenceFragment().setContext(getApplicationContext(), this)).commit();
     }
 
+
     public static class SettingsPreferenceFragment extends PreferenceFragment {
 
         private Context pContext;
@@ -60,33 +61,11 @@ public class SettingsActivity extends XquidCompatActivity {
             return this.pContext;
         }
 
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        /* Init stuff */
 
-            addPreferencesFromResource(R.xml.settings_preferences);
+        // region Prefs: Browsing
 
-
-            // License dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_licenses"),
-                    R.array.app_license_list,
-                    thisActivity);
-
-            // Translation credits dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_credits_translation"),
-                    R.array.credits_translation_list,
-                    thisActivity
-            );
-
-            // Special thanks dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_credits_special"),
-                    R.array.credits_special_list,
-                    thisActivity
-            );
-
+        public void initHomePagePref() {
             // Home page
             Preference homePagePref = findPreference("settings_userhomepage");
             homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -111,7 +90,13 @@ public class SettingsActivity extends XquidCompatActivity {
                     return false;
                 }
             });
+        }
 
+        // endregion
+
+        // region Prefs: Layout
+
+        public void initOmniboxPosPref() {
             // Omnibox position
 
             final ListPreference omniPosPref =
@@ -127,7 +112,9 @@ public class SettingsActivity extends XquidCompatActivity {
                     return false;
                 }
             });
+        }
 
+        public void initFullscreenPref() {
             // Fullscreen
 
             final SwitchPreference fullscreenPref =
@@ -143,7 +130,13 @@ public class SettingsActivity extends XquidCompatActivity {
                     return false;
                 }
             });
+        }
 
+        // endregion
+
+        // region Prefs: Appearance
+
+        public void initColorModePref() {
             // Color mode
 
             final ListPreference colorModePref =
@@ -161,6 +154,70 @@ public class SettingsActivity extends XquidCompatActivity {
                     return false;
                 }
             });
+        }
+
+        // endregion
+
+        // region Prefs: Misc
+
+        public void initAboutDialogs() {
+            // License dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_licenses"),
+                    R.array.app_license_list,
+                    thisActivity);
+
+            // Translation credits dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_translation"),
+                    R.array.credits_translation_list,
+                    thisActivity
+            );
+
+            // Special thanks dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_special"),
+                    R.array.credits_special_list,
+                    thisActivity
+            );
+        }
+
+        public void initDebugModePref() {
+            final SwitchPreference debugModePref =
+                    (SwitchPreference) findPreference("settings_debug_mode");
+
+            debugModePref.setChecked(CornBrowser.getBrowserStorage().getDebugMode());
+
+            debugModePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().setDebugMode((boolean)newValue);
+                    debugModePref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+        }
+
+        // endregion
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.settings_preferences);
+
+            // Browsing
+            initHomePagePref();
+
+            // Layout
+            initOmniboxPosPref();
+            initFullscreenPref();
+
+            // Appearance
+            initColorModePref();
+
+            // Misc
+            initAboutDialogs();
         }
     }
 

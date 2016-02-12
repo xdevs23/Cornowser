@@ -64,6 +64,12 @@
         android:title="@string/settings_category_misc_title"
         android:key="settings_category_misc">
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_debugmode"
+            android:title="@string/settings_misc_debug_title"
+            android:summary="@string/settings_misc_debug_summary"
+            android:key="settings_debug_mode" />
+
         <Preference
             android:id="@+id/settings_preference_licenses"
             android:title="@string/settings_list_licenses_title"

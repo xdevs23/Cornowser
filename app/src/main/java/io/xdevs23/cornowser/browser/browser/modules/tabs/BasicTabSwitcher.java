@@ -85,6 +85,16 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     }
 
     @Override
+    public void showTab(Tab tab) {
+        try {
+            for (Tab t : getTabStorage().getTabList())
+                t.webView.drawWithColorMode();
+        } catch (Exception ex) {
+            // Ignore
+        }
+    }
+
+    @Override
     public void hideSwitcher() {
         switcherStatus = SwitcherStatus.HIDDEN;
     }

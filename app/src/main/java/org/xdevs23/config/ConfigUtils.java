@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConfigUtils {
+
+    public static boolean forceDebug = false;
 	
 	public static String getVersionName(Context context) {
         try {
@@ -19,8 +21,9 @@ public class ConfigUtils {
 
     public static boolean isDebuggable() {
         String debuggers = ".*(debug|dbg|rc|pre|alpha|beta).*";
-        return (!AppConfig.dbgVer.contains("release")) &&
-                ( ((Matcher)( Pattern.compile(debuggers).matcher(AppConfig.dbgVer) )) .matches() );
+        return (forceDebug
+                || ( ( !AppConfig.dbgVer.contains("release")) &&
+                 ((Matcher)( Pattern.compile(debuggers).matcher(AppConfig.dbgVer) )) .matches() ) );
     }
 
 }

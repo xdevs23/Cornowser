@@ -3,19 +3,14 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
-import org.xwalk.core.XWalkDownloadListener;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
@@ -58,6 +53,8 @@ public class CrunchyWalkView extends XWalkView {
         crispySettings.setUserAgentString(userAgent);
 
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
+
+        drawWithColorMode();
 
         Logging.logd("      Done!");
     }
@@ -160,23 +157,24 @@ public class CrunchyWalkView extends XWalkView {
 
     // Handle color modes
 
-    public Paint drawWithColorMode() {
+    public void drawWithColorMode() {
         Logging.logd("Applying web render color mode...");
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
         Paint paint = new Paint();
-        float[] negativeColor = {
+        
+        final float[] negativeColor = {
                 -1.0f, 0, 0, 0, 255,    // Red
                 0, -1.0f, 0, 0, 255,    // Green
                 0, 0, -1.0f, 0, 255,    // Blue
                 0, 0, 0,  1.0f, 0       // Alpha
         };
-        float[] darkColor = {
+        final float[] darkColor = {
                 1f, 0, 0, 0, -255,
                 0, 1f, 0, 0, -255,
                 0, 0, 1f, 0, -255,
                 0, 0, 0, 1f,    0
         };
-        float[] invertColor = {
+        final float[] invertColor = {
                 -1f, 0, 0, 0, 0,
                 0, -1f, 0, 0, 0,
                 0, 0, -1f, 0, 0,
@@ -212,7 +210,9 @@ public class CrunchyWalkView extends XWalkView {
                 Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
                 break;
         }
-        return paint;
+
+        Logging.logd("Setting layer type...");
+        setLayerType(LAYER_TYPE_HARDWARE, paint);
     }
 
 }

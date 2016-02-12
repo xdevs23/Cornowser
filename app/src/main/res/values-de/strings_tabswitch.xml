@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tabswitch_blue_longpress_to_remove">Tab zum Entfernen gedrückt halten</string>
+
+    <string name="tabswitch_no_removable_tabs">Keine entfernbaren Tabs</string>
+
+</resources>

@@ -40,6 +40,31 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private Drawable bgBtn;
 
+    private View.OnTouchListener addButtonOTL = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_HOVER_ENTER:
+                case MotionEvent.ACTION_DOWN:
+                    bgBtn.setColorFilter(ColorUtil.getColor(R.color.blue_400),
+                            PorterDuff.Mode.MULTIPLY);
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                case MotionEvent.ACTION_UP:
+                    bgBtn.setColorFilter(mainColor,
+                            PorterDuff.Mode.MULTIPLY);
+                    break;
+                default: break;
+            }
+            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
+                v.setBackgroundDrawable(bgBtn);
+            else
+                v.setBackground(bgBtn);
+
+            return false;
+        }
+    };
+
     private int mainColor;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
@@ -138,14 +163,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         return t;
     }
 
-    @Override
-    public void init() {
-        mainColor = ColorUtil.getColor(R.color.blue_800);
-
-        mainView = new ScrollView(getContext());
-
-        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
-
+    public void initViews() {
         RelativeLayout.LayoutParams mainParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -160,12 +178,11 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainView.getLayoutParams().height = DpUtil.dp2px(getContext(), 200);
 
         XquidLinearLayout mainLayout = new XquidLinearLayout(getContext());
-
         XquidLinearLayout switcherLayout = getNewChildLayout(4, 8, 4, 8);
+        XquidLinearLayout footerLayout = getNewChildLayout(false);
 
         tabsLayout = getNewChildLayout(1, 1, 1, 2);
 
-        XquidLinearLayout footerLayout = getNewChildLayout(false);
         footerLayout.setGravity(Gravity.RIGHT | Gravity.TOP);
 
         final int minWh  = DpUtil.dp2px(getContext(), 24);  // Dimensions of button (wxh)
@@ -192,31 +209,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         button.addView(img);
 
-        button.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_HOVER_ENTER:
-                    case MotionEvent.ACTION_DOWN:
-                        bgBtn.setColorFilter(ColorUtil.getColor(R.color.blue_400),
-                            PorterDuff.Mode.MULTIPLY);
-                        break;
-                    case MotionEvent.ACTION_HOVER_EXIT:
-                    case MotionEvent.ACTION_UP:
-                        bgBtn.setColorFilter(mainColor,
-                                PorterDuff.Mode.MULTIPLY);
-                        break;
-                    default: break;
-                }
-                if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-                    v.setBackgroundDrawable(bgBtn);
-                else
-                    v.setBackground(bgBtn);
-
-                return false;
-            }
-        });
-
+        button.setOnTouchListener(addButtonOTL);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,6 +219,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         button.setPadding(bpd, bpd, bpd, bpd);
 
+        TextView infLpTv = new TextView(getContext());
+        infLpTv.setText(getContext().getString(R.string.tabswitch_blue_longpress_to_remove));
+        infLpTv.setTextColor(mainColor);
+        infLpTv.setGravity(Gravity.CENTER_VERTICAL);
+
+        footerLayout.addView(infLpTv);
         footerLayout.addView(button);
 
         switcherLayout.addView(footerLayout);
@@ -234,6 +233,17 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainLayout.addView(switcherLayout);
 
         mainView.addView(mainLayout);
+    }
+
+    @Override
+    public void init() {
+        mainColor = ColorUtil.getColor(R.color.blue_800);
+
+        mainView = new ScrollView(getContext());
+
+        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
+
+        initViews();
 
         mainView.setVisibility(View.INVISIBLE);
 
