@@ -161,7 +161,6 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("Applying web render color mode...");
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
         Paint paint = new Paint();
-        
         final float[] negativeColor = {
                 -1.0f, 0, 0, 0, 255,    // Red
                 0, -1.0f, 0, 0, 255,    // Green
