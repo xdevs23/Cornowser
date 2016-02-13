@@ -8,8 +8,6 @@
     <string name="answer_cancel">Cancel</string>
     <string name="answer_ok">OK</string>
 
-    <string name="optmenu_use_dark_mode">Apply dark mode</string>
-
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Permission to write to storage needed for downloading files. Please accept.</string>
 

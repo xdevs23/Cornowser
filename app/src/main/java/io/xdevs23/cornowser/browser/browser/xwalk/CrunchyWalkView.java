@@ -8,6 +8,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.os.Build;
 
+import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
@@ -18,6 +19,7 @@ import org.xwalk.core.XWalkView;
 import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
+import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
@@ -158,6 +160,11 @@ public class CrunchyWalkView extends XWalkView {
     // Handle color modes
 
     public void drawWithColorMode() {
+        CornHandler.sendRawJSRequest(this,
+                AssetHelper.getAssetString("appScripts/colormodes/negativeMode.js", getContext()));
+    }
+
+    public void drawWithColorModeOld() {
         Logging.logd("Applying web render color mode...");
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
         Paint paint = new Paint();
