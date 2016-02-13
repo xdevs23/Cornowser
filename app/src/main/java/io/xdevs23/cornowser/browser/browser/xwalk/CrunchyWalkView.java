@@ -4,9 +4,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Build;
 
 import org.xdevs23.android.content.res.AssetHelper;

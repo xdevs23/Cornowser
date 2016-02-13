@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.baoyz.widget.PullRefreshLayout;
 
 import org.xdevs23.android.app.XquidCompatActivity;
-import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
@@ -38,7 +37,6 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
-import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
