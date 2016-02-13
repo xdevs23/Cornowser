@@ -6,6 +6,8 @@
     <string name="answer_cancel">Abbrechen</string>
     <string name="answer_ok">OK</string>
 
+    <string name="optmenu_use_dark_mode">Dunklen Modus anwenden</string>
+
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Berechtigungen für das Schreiben auf dem internen
         Speicher für Downloads benötigt. Bitte akzeptieren</string>

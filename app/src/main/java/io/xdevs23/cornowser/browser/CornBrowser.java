@@ -480,6 +480,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initOptionsMenu() {
         optionsMenuItems = new String[] {
+                getString(R.string.optmenu_use_dark_mode),
                 getString(R.string.cornmenu_item_updater),
                 getString(R.string.cornmenu_item_settings)
         };
