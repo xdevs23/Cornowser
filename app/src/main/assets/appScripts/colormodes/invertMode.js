@@ -1,13 +1,6 @@
-
-var css = 'body {-webkit-filter: invert(100%);';
+var css = 'body { -webkit-filter: hue-rotate(180deg); }';
 
 var head = document.getElementsByTagName('head')[0];
-
-try {
-    var oldStyles = document.getElementsByTagName('style');
-    var oldStyle = oldStyles[oldStyles.length - 1];
-    head.removeChild(oldStyle);
-} catch(ex) { /* Do nothing */ }
 
 var style = document.createElement('style');
 
@@ -20,3 +13,9 @@ if (style.styleSheet) {
 
 //injecting the css to the head
 head.appendChild(style);
+
+try {
+    var oldStyles = document.getElementsByTagName('style');
+    var oldStyle = oldStyles[oldStyles.length - 2];
+    head.removeChild(oldStyle);
+} catch(ex) { /* Do nothing */ }

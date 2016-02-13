@@ -1,5 +1,5 @@
 
-var css = 'body {-webkit-filter: invert(100%);';
+var css = 'body { -webkit-filter: none; }';
 
 var head = document.getElementsByTagName('head')[0];
 

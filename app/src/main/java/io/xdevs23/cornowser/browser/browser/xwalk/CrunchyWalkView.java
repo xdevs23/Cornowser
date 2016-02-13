@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -160,65 +161,48 @@ public class CrunchyWalkView extends XWalkView {
     // Handle color modes
 
     public void drawWithColorMode() {
-        CornHandler.sendRawJSRequest(this,
-                AssetHelper.getAssetString("appScripts/colormodes/negativeMode.js", getContext()));
-    }
-
-    public void drawWithColorModeOld() {
         Logging.logd("Applying web render color mode...");
         RenderColorMode.ColorMode cm = CornBrowser.getBrowserStorage().getColorMode();
-        Paint paint = new Paint();
-        final float[] negativeColor = {
-                -1.0f, 0, 0, 0, 255,    // Red
-                0, -1.0f, 0, 0, 255,    // Green
-                0, 0, -1.0f, 0, 255,    // Blue
-                0, 0, 0,  1.0f, 0       // Alpha
-        };
-        final float[] darkColor = {
-                1f, 0, 0, 0, -255,
-                0, 1f, 0, 0, -255,
-                0, 0, 1f, 0, -255,
-                0, 0, 0, 1f,    0
-        };
-        final float[] invertColor = {
-                -1f, 0, 0, 0, 0,
-                0, -1f, 0, 0, 0,
-                0, 0, -1f, 0, 0,
-                0, 0, 0, 1f,  0
-        };
 
         Logging.logd("Found color mode: " + cm.mode);
+
+        String scriptName = "resetMode";
 
         switch(cm.mode) {
             case RenderColorMode.ColorMode.NORMAL:
                 Logging.logd("Applying normal color mode");
-                paint.setColorFilter(null);
+                setBackgroundColor(Color.WHITE);
                 break;
             case RenderColorMode.ColorMode.DARK:
                 Logging.logd("Applying dark mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(darkColor));
+                scriptName = "darkMode";
+                setBackgroundColor(Color.BLACK);
                 break;
             case RenderColorMode.ColorMode.NEGATIVE:
                 Logging.logd("Applying negative mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(negativeColor));
+                scriptName = "negativeMode";
+                setBackgroundColor(Color.BLACK);
                 break;
             case RenderColorMode.ColorMode.INVERT:
                 Logging.logd("Applying inverted mode");
-                paint.setColorFilter(new ColorMatrixColorFilter(invertColor));
+                scriptName = "invertMode";
+                setBackgroundColor(Color.WHITE);
                 break;
             case RenderColorMode.ColorMode.GREYSCALE:
                 Logging.logd("Applying greyscale");
-                ColorMatrix m = new ColorMatrix();
-                m.setSaturation(0);
-                paint.setColorFilter(new ColorMatrixColorFilter(m));
+                scriptName = "greyscaleMode";
+                setBackgroundColor(Color.WHITE);
                 break;
             default:
                 Logging.logd("Warning: Unknown color mode " + cm.mode + ".");
+                setBackgroundColor(Color.WHITE);
                 break;
         }
 
-        Logging.logd("Setting layer type...");
-        setLayerType(LAYER_TYPE_HARDWARE, paint);
+        Logging.logd("Applying...");
+        CornHandler.sendRawJSRequest(this,
+                AssetHelper.getAssetString("appScripts/colormodes/" + scriptName + ".js",
+                        getContext()));
     }
 
 }

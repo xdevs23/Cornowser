@@ -123,6 +123,7 @@ public class CornResourceClient extends XWalkResourceClient {
         allowTinting = true;
         CornBrowser.applyInsideOmniText(view.getUrl());
         WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
+        CornBrowser.publicWebRender.drawWithColorMode();
     }
 
     @Override
@@ -134,6 +135,7 @@ public class CornResourceClient extends XWalkResourceClient {
         super.onLoadFinished(view, url);
         CornBrowser.applyInsideOmniText(view.getUrl());
         currentWorkingUrl = view.getUrl();
+        CornBrowser.publicWebRender.drawWithColorMode();
     }
 
     @Override
