@@ -1,11 +1,13 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Hotfix: Apply changes made in Settings immediately
-
- Version 1.0.4.2:
- - Fixed Marshmallow storage permission (thanks to Primokorn for reporting)
- - Fixed URL intent handling/web loading error on some pages (thanks to Primokorn for reporting)
- - Updated user agent
- - Minor improvements and other changes
-
-If you experience new bugs, please report them or wait until the next release to see if they are fixed then.
+ - COLOR MODES are working now! (Finally :D)
+     Inverted: invert all colors (only colors)
+     Negative: Negate everything
+     Dark mode: Black goes white, light goes dark, ...
+     Greyscale: Everything in gray
+     Normal: The normal one
+ - Updated Crosswalk version
+ - Added debug mode setting
+ - Some clean-up
+ - Improved code quality
+ - Other minor improvements and bugfixes
