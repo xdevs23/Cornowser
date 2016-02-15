@@ -1,10 +1,10 @@
-var css = 'body { -webkit-filter: hue-rotate(180deg); }';
+var css = "body { -webkit-filter: hue-rotate(180deg); }";
 
-var head = document.getElementsByTagName('head')[0];
+var head = document.getElementsByTagName("head")[0];
 
-var style = document.createElement('style');
+var style = document.createElement("style");
 
-style.type = 'text/css';
+style.type = "text/css";
 if (style.styleSheet) {
     style.styleSheet.cssText = css;
 } else {
@@ -15,7 +15,7 @@ if (style.styleSheet) {
 head.appendChild(style);
 
 try {
-    var oldStyles = document.getElementsByTagName('style');
+    var oldStyles = document.getElementsByTagName("style");
     var oldStyle = oldStyles[oldStyles.length - 2];
     head.removeChild(oldStyle);
 } catch(ex) { /* Do nothing */ }
