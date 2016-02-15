@@ -76,6 +76,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     WebThemeHelper.tintNow(CornBrowser.getWebEngine());
                     CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
                     CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
+                    CornBrowser.getWebEngine().drawWithColorMode();
                 }
             };
             handler.postDelayed(new Runnable() {
@@ -222,7 +223,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         TextView infLpTv = new TextView(getContext());
         infLpTv.setText(getContext().getString(R.string.tabswitch_blue_longpress_to_remove));
         infLpTv.setTextColor(mainColor);
-        infLpTv.setGravity(Gravity.CENTER_VERTICAL);
+        infLpTv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 
         footerLayout.addView(infLpTv);
         footerLayout.addView(button);
@@ -339,6 +340,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     }
 
     private void animateShowSwitcher() {
+        mainView.bringToFront();
         mainView.animate()
                 .setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
                 .translationY((OmniboxControl.isBottom() ? -CornBrowser.omnibox.getHeight() : 0))
