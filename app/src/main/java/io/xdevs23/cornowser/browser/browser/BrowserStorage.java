@@ -3,6 +3,8 @@ package io.xdevs23.cornowser.browser.browser;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.xdevs23.config.ConfigUtils;
+
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 public class BrowserStorage {
@@ -122,6 +124,7 @@ public class BrowserStorage {
 
     public void setDebugMode(boolean enabled) {
         debugEnabled = enabled;
+        ConfigUtils.forceDebug = enabled;
     }
 
     public void saveDebugMode(boolean enabled) {

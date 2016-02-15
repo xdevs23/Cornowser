@@ -148,9 +148,11 @@ public class CornUIClient extends XWalkUIClient {
                 url.indexOf("/", url.indexOf("//") + 1));
         String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
                 .split("\n");
-        for ( String s : dUrls )
-            if(matchUrl.contains(s))
+        for ( String s : dUrls ) {
+            Logging.logd(matchUrl + " checking...");
+            if (matchUrl.contains(s))
                 return true;
+        }
         return false;
     }
 
@@ -163,10 +165,15 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
         CornBrowser.resetOmniPositionState(true);
+        Logging.logd("Page load started for: " + url);
         final XWalkView fView = view;
         final String fUrl = url;
-        if(!isDangerousPage(url)) super.onPageLoadStarted(view, url);
+        if(!isDangerousPage(url)) {
+            Logging.logd("Web page not detected as dangerous.");
+            super.onPageLoadStarted(view, url);
+        }
         else {
+            Logging.logd("Dangerous website detected: " + url);
             AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
             b
                     .setTitle(CornBrowser.getContext().getString(R.string.webrender_dangerous_site_title))
