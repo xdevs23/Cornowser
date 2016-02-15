@@ -26,6 +26,8 @@ import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
  */
 public class CornUIClient extends XWalkUIClient {
 
+    public boolean skipDCheck = false;
+
     // This is for controlling errors on start-up loading
     private boolean readyForBugfreeBrowsing = false;
 
@@ -144,8 +146,8 @@ public class CornUIClient extends XWalkUIClient {
 
     protected boolean isDangerousPage(String url) {
         String matchUrl = url.substring(
-                url.indexOf("//"),
-                url.indexOf("/", url.indexOf("//") + 1));
+                url.indexOf("//") + 2,
+                url.indexOf("/", url.indexOf("//") + 2));
         String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
                 .split("\n");
         for ( String s : dUrls ) {
@@ -168,12 +170,14 @@ public class CornUIClient extends XWalkUIClient {
         Logging.logd("Page load started for: " + url);
         final XWalkView fView = view;
         final String fUrl = url;
-        if(!isDangerousPage(url)) {
+        if(skipDCheck || (!isDangerousPage(url))) {
             Logging.logd("Web page not detected as dangerous.");
+            skipDCheck = false;
             super.onPageLoadStarted(view, url);
         }
         else {
             Logging.logd("Dangerous website detected: " + url);
+            fView.stopLoading();
             AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
             b
                     .setTitle(CornBrowser.getContext().getString(R.string.webrender_dangerous_site_title))
@@ -182,7 +186,8 @@ public class CornUIClient extends XWalkUIClient {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    forceOnPageLoadStarted(fView, fUrl);
+                                    skipDCheck = true;
+                                    CornBrowser.publicWebRender.load(fUrl);
                                     dialog.dismiss();
                                 }
                             })
@@ -191,12 +196,11 @@ public class CornUIClient extends XWalkUIClient {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     fView.stopLoading();
-                                    Toast.makeText(CornBrowser.getContext(), "",
-                                            Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
                                 }
                             })
                     .create().show();
+            CornBrowser.initOmniboxPosition();
             return;
         }
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());

@@ -360,7 +360,7 @@ public class CornBrowser extends XquidCompatActivity {
     /**
      * Properly init omnibox position
      */
-    public void initOmniboxPosition() {
+    public static void initOmniboxPosition() {
         Logging.logd("    Omnibox position");
 
         int
@@ -411,7 +411,7 @@ public class CornBrowser extends XquidCompatActivity {
                 0
         );
 
-        findViewById(R.id.omnibox_separator)
+        getActivity().findViewById(R.id.omnibox_separator)
             .setTranslationY(browserStorage.getOmniboxPosition() ? -DpUtil.dp2px(getContext(), 3) : 0);
 
         omnibox.bringToFront();
