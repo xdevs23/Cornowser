@@ -5,7 +5,7 @@ import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
 @SuppressWarnings("unused")
 public final class AppConfig {
 
-    private static final String
+    protected static final String
             debug   = "debug",
             alpha   = "alpharelease",
             beta    = "betarelease",
@@ -16,8 +16,9 @@ public final class AppConfig {
 			    appName = "Cornowser",
 			 mainDevUrl = "http://xdevs23.bplaced.com/",
 			 updateRoot = UpdaterStorage.URL_RAW_CB_GITHUB_REPO  + "update/",
-			 debugTag   = appName,        // Tag used in logcat
-			 dbgVer     = debug // Set this to 'debug' to enable debug mode
+			 debugTag   = appName        // Tag used in logcat
 	;
+
+    public static String dbgVer = debug; // Change to debug to use debug mode
 
 }

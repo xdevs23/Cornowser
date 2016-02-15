@@ -174,8 +174,7 @@ public class CornUIClient extends XWalkUIClient {
             Logging.logd("Web page not detected as dangerous.");
             skipDCheck = false;
             super.onPageLoadStarted(view, url);
-        }
-        else {
+        } else {
             Logging.logd("Dangerous website detected: " + url);
             fView.stopLoading();
             AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());

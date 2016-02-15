@@ -20,10 +20,8 @@ public class ConfigUtils {
 	}
 
     public static boolean isDebuggable() {
-        String debuggers = ".*(debug|dbg|rc|pre|alpha|beta).*";
-        return (forceDebug
-                || ( ( !AppConfig.dbgVer.contains("release")) &&
-                 ((Matcher)( Pattern.compile(debuggers).matcher(AppConfig.dbgVer) )) .matches() ) );
+        if(forceDebug) AppConfig.dbgVer = AppConfig.debug;
+        return ( AppConfig.dbgVer.equals(AppConfig.debug) );
     }
 
 }
