@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Dangerous website detected</string>
+    <string name="webrender_dangerous_site_message">
+        A probably dangerous website has been detected.
+        We strongly advise you not to visit this web page.
+        If you feel this is an error or if you want to visit the website anyways,
+        you can do so.
+
+        Do you want to continue loading this web page?
+    </string>
+
+</resources>

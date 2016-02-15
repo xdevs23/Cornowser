@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Gefährliche Webseite erkannt</string>
+    <string name="webrender_dangerous_site_message">
+        Eine möglicherweise gefährliche Webseite wurde erkannt.
+        Wir empfehlen dir, diese Webseite nicht aufzurufen.
+        Falls dies für dich ein Fehler ist oder du diese Webseite trotzdem aufrufen möchtest,
+        kannst du dies tun.
+
+        Möchtest du die Webseite weiterhin laden?
+    </string>
+
+</resources>

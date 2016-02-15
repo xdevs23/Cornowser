@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Toast;
 
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.dialog.templates.DismissDialogButton;
@@ -140,10 +142,56 @@ public class CornUIClient extends XWalkUIClient {
         return super.onJsPrompt(view, url, message, defaultValue, fResult);
     }
 
+    protected boolean isDangerousPage(String url) {
+        String matchUrl = url.substring(
+                url.indexOf("//"),
+                url.indexOf("/", url.indexOf("//") + 1));
+        String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
+                .split("\n");
+        for ( String s : dUrls )
+            if(matchUrl.contains(s))
+                return true;
+        return false;
+    }
+
+    protected void forceOnPageLoadStarted(XWalkView view, String url) {
+        super.onPageLoadStarted(view, url);
+        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
+        CornBrowser.resetBarColor();
+    }
+
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
         CornBrowser.resetOmniPositionState(true);
-        super.onPageLoadStarted(view, url);
+        final XWalkView fView = view;
+        final String fUrl = url;
+        if(!isDangerousPage(url)) super.onPageLoadStarted(view, url);
+        else {
+            AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
+            b
+                    .setTitle(CornBrowser.getContext().getString(R.string.webrender_dangerous_site_title))
+                    .setMessage(CornBrowser.getContext().getString(R.string.webrender_dangerous_site_message))
+                    .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_yes),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    forceOnPageLoadStarted(fView, fUrl);
+                                    dialog.dismiss();
+                                }
+                            })
+                    .setNegativeButton(CornBrowser.getContext().getString(R.string.answer_no),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    fView.stopLoading();
+                                    Toast.makeText(CornBrowser.getContext(), "",
+                                            Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                    .create().show();
+            return;
+        }
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
         CornBrowser.resetBarColor();
     }
