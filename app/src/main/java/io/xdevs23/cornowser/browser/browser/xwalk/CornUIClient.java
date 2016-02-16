@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Toast;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.android.content.res.AssetHelper;
@@ -92,8 +91,7 @@ public class CornUIClient extends XWalkUIClient {
                 .show()
         ;
         result.confirm();
-
-        return super.onJsAlert(view, url, message, result);
+        return true;
     }
 
     @Override
@@ -156,12 +154,6 @@ public class CornUIClient extends XWalkUIClient {
                 return true;
         }
         return false;
-    }
-
-    protected void forceOnPageLoadStarted(XWalkView view, String url) {
-        super.onPageLoadStarted(view, url);
-        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
-        CornBrowser.resetBarColor();
     }
 
     @Override
