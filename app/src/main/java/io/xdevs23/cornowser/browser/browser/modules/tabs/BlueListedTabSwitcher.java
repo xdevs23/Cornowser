@@ -223,7 +223,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         TextView infLpTv = new TextView(getContext());
         infLpTv.setText(getContext().getString(R.string.tabswitch_blue_longpress_to_remove));
         infLpTv.setTextColor(mainColor);
-        infLpTv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+        infLpTv.setGravity(Gravity.CENTER_VERTICAL);
 
         footerLayout.addView(infLpTv);
         footerLayout.addView(button);
@@ -302,8 +302,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         l.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                v.setOnClickListener(null);
-                if (tabStorage.getTabCount() > 1) removeTab(tabsLayout.indexOfChild(v));
+                if (tabStorage.getTabCount() > 1) {
+                    v.setOnClickListener(null);
+                    removeTab(tabsLayout.indexOfChild(v));
+                }
                 else Toast.makeText(getContext(), "(°o°)", Toast.LENGTH_SHORT).show();
                 return true;
             }

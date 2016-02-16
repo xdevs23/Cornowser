@@ -19,6 +19,6 @@ public final class AppConfig {
 			 debugTag   = appName        // Tag used in logcat
 	;
 
-    public static String dbgVer = debug; // Change to debug to use debug mode
+    public static String dbgVer = beta; // Change to debug to use debug mode
 
 }

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.webkit.ValueCallback;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.android.content.res.AssetHelper;
@@ -61,6 +62,12 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public void onJavascriptCloseWindow(XWalkView view) {
         CornBrowser.getTabSwitcher().removeTab(CornBrowser.getTabSwitcher().getCurrentTab());
+    }
+
+    @Override
+    public boolean onCreateWindowRequested(XWalkView view, InitiateBy initiator, ValueCallback<XWalkView> callback) {
+        CornBrowser.getTabSwitcher().addTab(initiator.name());
+        return true;
     }
 
     @Override
@@ -192,6 +199,7 @@ public class CornUIClient extends XWalkUIClient {
                             })
                     .create().show();
             CornBrowser.initOmniboxPosition();
+            CornBrowser.getWebEngine().goBack();
             return;
         }
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());

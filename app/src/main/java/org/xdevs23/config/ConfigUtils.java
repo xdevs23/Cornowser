@@ -2,9 +2,6 @@ package org.xdevs23.config;
 
 import android.content.Context;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class ConfigUtils {
 
     public static boolean forceDebug = false;
