@@ -33,6 +33,7 @@ import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
+import org.xwalk.core.XWalkPreferences;
 
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
@@ -122,6 +123,10 @@ public class CornBrowser extends XquidCompatActivity {
                 && staticContext == null
                 && (!isNewIntent)) {
             if(!isBgBoot) checkMallowPermissions();
+
+            XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
+            XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
+            XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
 
             setContentView(R.layout.main_corn);
 

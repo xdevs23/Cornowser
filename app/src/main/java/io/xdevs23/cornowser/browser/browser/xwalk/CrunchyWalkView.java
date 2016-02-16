@@ -11,7 +11,6 @@ import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkNavigationHistory;
-import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
 
@@ -52,10 +51,6 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("      Configuring settings");
         XWalkSettings crispySettings = this.getSettings();
         crispySettings.setUserAgentString(userAgent);
-
-        XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
-        XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
-        XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
 
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
 
