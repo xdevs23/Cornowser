@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Un site web dangereux a été détecté</string>
+    <string name="webrender_dangerous_site_message">
+        Un site web probablement dangereux vient d\'être détecté.
+        \nNous vous recommandons de ne pas visiter cette page web.
+        \nSi vous estimez que c'est une erreur ou si vous voulez quand même consulter le site web, vous pouvez le faire.
+\n
+        \nVoulez-vous continuer à charger cette page web ?
+    </string>
+
+</resources>
