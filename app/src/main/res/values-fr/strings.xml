@@ -6,5 +6,8 @@
 
     <string name="answer_cancel">Annuler</string>
     <string name="answer_ok">OK</string>
+    
+    <!-- Permissions -->
+    <string name="permission_hint_write_storage">Permission pour écrire sur le stockage nécessaire pour le téléchargement de fichiers. Merci de valider.</string>
 
 </resources>
