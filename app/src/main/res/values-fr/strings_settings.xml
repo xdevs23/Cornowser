@@ -23,6 +23,9 @@
 
 
     <string name="settings_category_misc_title">Divers</string>
+    
+    <string name="settings_misc_debug_title">Mode débogage</string>
+    <string name="settings_misc_debug_summary">Activer cette fonction pour aider le développeur à corriger les problèmes</string>
 
     <string name="settings_list_licenses_title">Licences Open Source</string>
     <string name="settings_list_licenses_summary">Librairies utilisées par cette application</string>
