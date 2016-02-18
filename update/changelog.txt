@@ -1,5 +1,11 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - New feature: Protection against dangerous websites (experimental)
- - Updated Crosswalk version to 19.48.483.0
- - Minor improvements
+ - Fixed refresh feature for bottom omnibox
+ - Fixed debug mode
+ - Fixed JS alert dialogs on websites
+ - Added setting to choose if omnibox tinting is enabled
+ - Added share feature
+ - Updated french translation (thanks to Primokorn)
+ - Improved omnibox tinting
+ - Improved tab switcher
+ - Improved protection against bad websites
