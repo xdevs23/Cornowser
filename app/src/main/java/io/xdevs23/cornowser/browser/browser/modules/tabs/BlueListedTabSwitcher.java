@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -280,9 +281,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         TextView titleView = getNewItemText();
         titleView.setText(tab.getTitle());
+        titleView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        titleView.setSingleLine(true);
 
         TextView urlView = getNewItemText();
         urlView.setText(tab.getUrl());
+        urlView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        urlView.setSingleLine(true);
 
         TabCounterView counterView = new TabCounterView(getContext());
         counterView.setTabIndex(currentTab);
