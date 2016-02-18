@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="io.xdevs23.cornowser.browser"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="io.xdevs23.cornowser.browser"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -9,15 +10,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
 
+    <!-- Debug mode is handled by application, so enable it here -->
     <application
         android:name=".Core"
         android:allowBackup="true"
+        android:debuggable="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/m_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/CoreMTRLTheme"
-        android:uiOptions="none">
+        android:uiOptions="none"
+        tools:ignore="HardcodedDebugMode">
 
         <activity
             android:name=".CornBrowser"
