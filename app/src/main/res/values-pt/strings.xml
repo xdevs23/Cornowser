@@ -4,4 +4,7 @@
     <string name="answer_cancel">Cancelar</string>
     <string name="answer_ok">Ok</string>
 
+    <!-- Options menu -->
+    <string name="optmenu_share">Compartilhar</string>
+
 </resources>

@@ -156,6 +156,26 @@ public class SettingsActivity extends XquidCompatActivity {
             });
         }
 
+        /**
+         * Omnibox coloring
+         */
+        public void initOmniColoringPref() {
+
+            final SwitchPreference omniColorPref =
+                    (SwitchPreference) findPreference("settings_omni_coloring");
+
+            omniColorPref.setChecked(CornBrowser.getBrowserStorage().getOmniColoringEnabled());
+
+            omniColorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveOmniColoring((boolean)newValue);
+                    omniColorPref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+        }
+
         // endregion
 
         // region Prefs: Misc
@@ -191,7 +211,7 @@ public class SettingsActivity extends XquidCompatActivity {
             debugModePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().setDebugMode((boolean)newValue);
+                    CornBrowser.getBrowserStorage().saveDebugMode((boolean)newValue);
                     debugModePref.setChecked((boolean)newValue);
                     return false;
                 }

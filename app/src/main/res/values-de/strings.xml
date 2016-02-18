@@ -6,6 +6,9 @@
     <string name="answer_cancel">Abbrechen</string>
     <string name="answer_ok">OK</string>
 
+    <!-- Options menu -->
+    <string name="optmenu_share">Teilen</string>
+
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Berechtigungen für das Schreiben auf dem internen
         Speicher für Downloads benötigt. Bitte akzeptieren</string>

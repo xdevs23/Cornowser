@@ -421,7 +421,7 @@ public class CornBrowser extends XquidCompatActivity {
 
         // This is for proper refresh feature when omnibox is at bottom
         omniPtrLayout.setRotation(OmniboxControl.isBottom() ? 180f : 0f);
-        ((RelativeLayout)getActivity().findViewById(R.id.omnibox_layout_inner))
+        getActivity().findViewById(R.id.omnibox_layout_inner)
                 .setRotation(OmniboxControl.isBottom() ? 180f : 0);
 
         omnibox.bringToFront();
@@ -486,12 +486,24 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
+     * Items of options menu
+     */
+    private static class optMenuItems {
+        public static final int
+                UPDATER         = 0,
+                SETTINGS        = 1,
+                SHARE_PAGE      = 2
+                        ;
+    }
+
+    /**
      * Initialize the options menu
      */
     public void initOptionsMenu() {
         optionsMenuItems = new String[] {
                 getString(R.string.cornmenu_item_updater),
-                getString(R.string.cornmenu_item_settings)
+                getString(R.string.cornmenu_item_settings),
+                getString(R.string.optmenu_share)
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
         builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems), new DialogInterface.OnClickListener() {
@@ -504,6 +516,14 @@ public class CornBrowser extends XquidCompatActivity {
                     case optMenuItems.SETTINGS:
                         startActivity(new Intent(getContext(), SettingsActivity.class));
                         break;
+                    case optMenuItems.SHARE_PAGE:
+                        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra
+                                (android.content.Intent.EXTRA_TEXT, publicWebRender.getUrl());
+                        startActivity(Intent.createChooser(shareIntent,
+                                getString(R.string.optmenu_share)));
+                        break;
                     default:
                         break;
                 }
@@ -514,16 +534,6 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     // Init end
-
-    /**
-     * Items of options menu
-     */
-    private static class optMenuItems {
-        public static final int
-                UPDATER         = 0,
-                SETTINGS        = 1
-                    ;
-    }
 
     /**
      * Open the options menu

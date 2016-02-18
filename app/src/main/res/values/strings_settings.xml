@@ -21,6 +21,10 @@
     <string name="settings_appearance_webcolmode_title">Color mode</string>
     <string name="settings_appearance_webcolmode_summary">Set your preferred color mode</string>
 
+    <string name="settings_appearance_omnicoloring_title">Omnibox coloring</string>
+    <string name="settings_appearance_omnicoloring_summary">Set whether the omnibox and status bar
+        should be automatically tinted or not</string>
+
 
     <string name="settings_category_misc_title">Miscellaneous</string>
 

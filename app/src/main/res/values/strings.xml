@@ -9,6 +9,9 @@
     <string name="answer_cancel">Cancel</string>
     <string name="answer_ok">OK</string>
 
+    <!-- Options menu -->
+    <string name="optmenu_share">Share</string>
+
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Permission to write to storage needed for downloading files. Please accept.</string>
 

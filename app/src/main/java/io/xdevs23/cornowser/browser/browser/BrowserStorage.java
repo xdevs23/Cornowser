@@ -18,7 +18,8 @@ public class BrowserStorage {
     private boolean
                 omniboxIsBottom,
                 enableFullscreen,
-                debugEnabled
+                debugEnabled,
+                omniColoringEnabled
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -43,6 +44,7 @@ public class BrowserStorage {
         setOmniboxPosition(getPref(BPrefKeys.omniboxPos, false));
         setEnableFullscreen(getPref(BPrefKeys.fullscreenPref, false));
         setColorMode(getPref(BPrefKeys.colorModePref, RenderColorMode.ColorMode.NORMAL));
+        setOmniColoring(getPref(BPrefKeys.omniColorPref, true));
     }
 
     //endregion
@@ -138,6 +140,23 @@ public class BrowserStorage {
 
     //endregion
 
+    // region Omnibox coloring
+
+    public void setOmniColoring(boolean enabled) {
+        omniColoringEnabled = enabled;
+    }
+
+    public void saveOmniColoring(boolean enabled) {
+        setOmniColoring(enabled);
+        setPref(BPrefKeys.omniColorPref, enabled);
+    }
+
+    public boolean getOmniColoringEnabled() {
+        return omniColoringEnabled;
+    }
+
+    // endregion
+
 
     //region General
     /* General methods */
@@ -191,7 +210,8 @@ public class BrowserStorage {
                 omniboxPos      = "pref_omni_pos",
                 fullscreenPref  = "pref_enable_fullscreen",
                 colorModePref   = "pref_render_color_mode",
-                debugModePref   = "pref_enable_debug_mode"
+                debugModePref   = "pref_enable_debug_mode",
+                omniColorPref   = "pref_enable_omni_coloring"
                         ;
     }
 

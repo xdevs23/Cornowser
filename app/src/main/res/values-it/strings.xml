@@ -5,4 +5,7 @@
     <string name="answer_cancel">Cancella</string>
     <string name="answer_ok">OK</string>
 
+    <!-- Options menu -->
+    <string name="optmenu_share">Condividere</string>
+
 </resources>

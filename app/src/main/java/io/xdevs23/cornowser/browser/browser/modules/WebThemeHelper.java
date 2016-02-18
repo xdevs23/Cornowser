@@ -43,6 +43,7 @@ public class WebThemeHelper {
     }
 
     public static void setWebThemeColor(String color, RelativeLayout omnibox, Window window) {
+        if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
         if(!color.contains("#")) {
             boolean isMatched = false;
             for ( AllowedWordColors c : AllowedWordColors.values() )
@@ -73,6 +74,7 @@ public class WebThemeHelper {
     }
 
     public static void setWebThemeColor(int color, RelativeLayout omnibox, Window window) {
+        if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
         if(currentColor == 0) currentColor = ((ColorDrawable)omnibox.getBackground()).getColor();
         ColorFader.createAnimation(
                 CornBrowser.omnibox.getBackground(),
@@ -108,6 +110,7 @@ public class WebThemeHelper {
     }
 
     public static void tintNow(CrunchyWalkView view) {
+        if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
         try {
             if (!view.getUrl().toLowerCase().contains("cornhandler://"))
                 CornHandler.sendRawJSRequest(view, AssetHelper.getAssetString("appScripts/webThemeColorUtility.js",

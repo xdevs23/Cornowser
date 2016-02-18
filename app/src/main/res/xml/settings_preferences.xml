@@ -56,6 +56,12 @@
             android:entryValues="@array/settings_appearance_webcolmode_entryvalues"
             android:defaultValue="0" />
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_enablecoloring"
+            android:title="@string/settings_appearance_omnicoloring_title"
+            android:summary="@string/settings_appearance_omnicoloring_summary"
+            android:key="settings_omni_coloring" />
+
     </PreferenceCategory>
 
 

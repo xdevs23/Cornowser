@@ -21,6 +21,10 @@
     <string name="settings_appearance_webcolmode_title">Farbenmodus</string>
     <string name="settings_appearance_webcolmode_summary">Stelle deinen bevorzugten Farbenmodus ein</string>
 
+    <string name="settings_appearance_omnicoloring_title">Adressleistenfärbung</string>
+    <string name="settings_appearance_omnicoloring_summary">Lege fest, ob die Adress- sowie die
+        Statusleiste gefärbt werden sollen</string>
+
 
     <string name="settings_category_misc_title">Sonstiges</string>
 
