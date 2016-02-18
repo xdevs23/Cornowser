@@ -677,6 +677,9 @@ public class CornBrowser extends XquidCompatActivity {
             resetBarColor();
             WebThemeHelper.tintNow(publicWebRender);
 
+            if(!browserStorage.getOmniColoringEnabled())
+                WebThemeHelper.resetWebThemeColor(omnibox);
+
             publicWebRender.drawWithColorMode();
 
             if(readyToLoadUrl.length() > 0) {

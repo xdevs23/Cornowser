@@ -235,8 +235,10 @@ public class SettingsActivity extends XquidCompatActivity {
 
             // Appearance
             initColorModePref();
+            initOmniColoringPref();
 
             // Misc
+            initDebugModePref();
             initAboutDialogs();
         }
     }
