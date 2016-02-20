@@ -411,8 +411,7 @@ public class CornBrowser extends XquidCompatActivity {
         ((RelativeLayout.LayoutParams)browserInputBar.getLayoutParams()).setMargins(
                 0,
                 0,
-                DpUtil.dp2px(getContext(),
-                        3 * 32 + 2),
+                DpUtil.dp2px(getContext(), 3 * 32 + 2),
                 0
         );
 
@@ -427,8 +426,6 @@ public class CornBrowser extends XquidCompatActivity {
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
         omniboxControls.bringToFront();
-
-        omnibox.refreshDrawableState();
 
         resetOmniPositionState();
     }
@@ -517,10 +514,10 @@ public class CornBrowser extends XquidCompatActivity {
                         startActivity(new Intent(getContext(), SettingsActivity.class));
                         break;
                     case optMenuItems.SHARE_PAGE:
-                        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
                         shareIntent.setType("text/plain");
                         shareIntent.putExtra
-                                (android.content.Intent.EXTRA_TEXT, publicWebRender.getUrl());
+                                (Intent.EXTRA_TEXT, publicWebRender.getUrl());
                         startActivity(Intent.createChooser(shareIntent,
                                 getString(R.string.optmenu_share)));
                         break;
