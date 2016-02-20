@@ -15,11 +15,13 @@ import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.internal.XWalkUIClientBridge;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.Tab;
 
 /**
  * A custom UIClient for our crunchy view
@@ -41,6 +43,7 @@ public class CornUIClient extends XWalkUIClient {
         Logging.logd("Web received title: " + title);
         super.onReceivedTitle(view, title);
         WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
+        CornBrowser.getTabSwitcher().getCurrentTab().setTitle(title);
     }
 
     @Override
@@ -61,13 +64,16 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onJavascriptCloseWindow(XWalkView view) {
-        CornBrowser.getTabSwitcher().removeTab(CornBrowser.getTabSwitcher().getCurrentTab());
+        if(CornBrowser.getTabSwitcher().getTabStorage().getTabCount() > 1)
+            CornBrowser.getTabSwitcher().removeTab(CornBrowser.getTabSwitcher().getCurrentTab());
+        else
+            CornBrowser.getWebEngine().load(CornBrowser.getBrowserStorage().getUserHomePage());
     }
 
     @Override
     public boolean onCreateWindowRequested(XWalkView view, InitiateBy initiator, ValueCallback<XWalkView> callback) {
-        CornBrowser.getTabSwitcher().addTab(initiator.name());
-        return true;
+        CornBrowser.getTabSwitcher().addTab(new Tab());
+        return super.onCreateWindowRequested(CornBrowser.publicWebRender, initiator, callback);
     }
 
     @Override
@@ -126,8 +132,7 @@ public class CornUIClient extends XWalkUIClient {
                 .create()
                 .show()
         ;
-
-        return super.onJsConfirm(view, url, message, fResult);
+        return true;
     }
 
     @Override
@@ -137,7 +142,6 @@ public class CornUIClient extends XWalkUIClient {
                 (XquidCompatActivity) CornBrowser.getActivity(),
                 message,
                 defaultValue);
-        d.showDialog();
         d.setOnClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -145,8 +149,10 @@ public class CornUIClient extends XWalkUIClient {
                 dialog.dismiss();
             }
         });
+        d.showDialog();
 
-        return super.onJsPrompt(view, url, message, defaultValue, fResult);
+
+        return true;
     }
 
     protected boolean isDangerousPage(String url) {
@@ -199,7 +205,7 @@ public class CornUIClient extends XWalkUIClient {
                             })
                     .create().show();
             CornBrowser.initOmniboxPosition();
-            CornBrowser.getWebEngine().goBack();
+            CornBrowser.getWebEngine().loadWorkingUrl();
             return;
         }
         CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());

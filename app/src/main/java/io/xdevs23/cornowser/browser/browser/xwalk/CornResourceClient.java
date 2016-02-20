@@ -33,7 +33,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlRegEx = Pattern.compile(
             "(" +
-                    "(^(https|http|ftp|rtmp)://.*[.].*)|" +         // Protocols for adresses
+                    "(^(https|http|ftp|rtmp)://[^ ]*[.][^ ]*)|" +   // Protocols for adresses
                     "^(file:///).*|" +                              // Local files
                     "^(CornHandler://).*|" +                        // Handler
                     "^(javascript:).*" +                            // Javascript
@@ -43,11 +43,11 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlSecRegEx = Pattern.compile(
             "(" +
-                    "(.*[.].*)|" +                                  // Adresses without protocol
+                    "([^ ]*[.][^ ]*)|" +                            // Adresses without protocol
                     "^(localhost).*|" +                             // localhost
-                    "(.*[.].*[.].*[.].*)|" +                        // IPv4 adresses
-                    "(.*(::|:).*)|" +                               // IPv6 adresses
-                    "(.*@.*[.].*)" +                                // user@host.domain
+                    "([^ ]*[.][^ ]*[.][^ ]*[.][^ ]*)|" +            // IPv4 adresses
+                    "([^ ]*(::|:)[^ ]*)|" +                         // IPv6 adresses
+                    "([^ ]*@[^ ]*[.][^ ]*)" +                       // user@host.tld
 
                     ")"
     );
