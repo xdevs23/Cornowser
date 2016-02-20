@@ -1,11 +1,11 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fixed refresh feature for bottom omnibox
- - Fixed debug mode
- - Fixed JS alert dialogs on websites
- - Added setting to choose if omnibox tinting is enabled
- - Added share feature
+ - Fixed bug when removing tabs
+ - Fixed JavaScript dialogs (prompt, confirm)
+ - Added search engine setting
+ - Changed transparency of tab switcher
+ - Updated Crosswalk version to 19.48.486.0
+ - Updated user agent string
  - Updated french translation (thanks to Primokorn)
- - Improved omnibox tinting
- - Improved tab switcher
- - Improved protection against bad websites
+ - Improved URL detection
+ - Other minor improvements and bugfixes
