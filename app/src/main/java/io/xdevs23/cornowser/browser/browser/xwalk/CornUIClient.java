@@ -15,7 +15,6 @@ import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
-import org.xwalk.core.internal.XWalkUIClientBridge;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;

@@ -12,16 +12,19 @@ if [ ! -e "crosswalk-$1.aar" ]; then
 else echo -e "\e[1;92mCrosswalk $1 is available locally. Download skipped.\e[0m\n"
 fi
 
-if [ ! -e "crosswalk-$1-64bit.aar" ]; then
-  echo -e "\e[1mDownloading Crosswalk $1 64 bit\e[0m\n"
-  wget https://download.01.org/crosswalk/releases/crosswalk/android/canary/$1/crosswalk-$1-64bit.aar
-else echo -e "\e[1;92mCrosswalk $1 64 bit is available locally. Download skipped.\e[0m\n"
+if [ ! "$2" == "--no64" ]; then
+  if [ ! -e "crosswalk-$1-64bit.aar" ]; then
+    echo -e "\e[1mDownloading Crosswalk $1 64 bit\e[0m\n"
+    wget https://download.01.org/crosswalk/releases/crosswalk/android/canary/$1/crosswalk-$1-64bit.aar
+  else echo -e "\e[1;92mCrosswalk $1 64 bit is available locally. Download skipped.\e[0m\n"
+  fi
 fi
-
 echo -e "\n\e[1mInstalling library into local maven repo...\e[0m\n"
 
 mvn install:install-file -DgroupId=org.xwalk -DartifactId=xwalk_core_library_canary -Dversion=$1 -Dpackaging=aar -Dfile=crosswalk-$1.aar -DgeneratePom=true
-mvn install:install-file -DgroupId=org.xwalk -DartifactId=xwalk_core_library_canary_sixtyfour -Dversion=$1 -Dpackaging=aar -Dfile=crosswalk-$1-64bit.aar -DgeneratePom=true
+if [ ! "$2" == "--no64" ]; then
+  mvn install:install-file -DgroupId=org.xwalk -DartifactId=xwalk_core_library_canary_sixtyfour -Dversion=$1 -Dpackaging=aar -Dfile=crosswalk-$1-64bit.aar -DgeneratePom=true
+fi
 
 echo -e "\n\e[7mInstallation finished! You can now use it in gradle.\e[0m\n"
 echo -e "\n\nTo use it in gradle insert following code into your repositories section:"
