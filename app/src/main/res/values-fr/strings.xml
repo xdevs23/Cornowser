@@ -11,6 +11,6 @@
     <string name="permission_hint_write_storage">Permission pour écrire sur le stockage nécessaire pour le téléchargement de fichiers. Merci de valider.</string>
 
     <!-- Options menu -->
-    <string name="optmenu_share">Répartir</string>
+    <string name="optmenu_share">Partager</string>
 
 </resources>
