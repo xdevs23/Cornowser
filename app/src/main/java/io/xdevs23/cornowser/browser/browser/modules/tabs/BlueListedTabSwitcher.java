@@ -243,7 +243,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         mainView = new ScrollView(getContext());
 
-        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_less_transparent));
+        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_min_transparent));
 
         initViews();
 
@@ -330,8 +330,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     @Override
     public void removeTab(Tab tab) {
         CornBrowser.publicWebRenderLayout.removeAllViews();
-        tabsLayout.removeViewAt(tabStorage.getTabIndex(tab));
-        switchTab(0);
+        tabsLayout.removeViewAt(tab.tabId);
         super.removeTab(tab);
         for ( int i = 0; i < tabsLayout.getChildCount(); i++ )
             setLayoutTabId(i, i);
