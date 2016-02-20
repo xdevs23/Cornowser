@@ -339,6 +339,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         for ( int i = 0; i < tabStorage.getTabCount();   i++ )
             tabStorage.getTab(i).setId(i);
 
+        switchTab(0);
+
         tabSwitchListener.onTabRemoved(tab);
     }
 

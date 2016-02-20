@@ -68,7 +68,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     @Override
     public void removeTab(Tab tab) {
-        switchTab(0);
         tabStorage.removeTab(tab);
         currentTab = 0;
     }

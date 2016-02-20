@@ -10,6 +10,7 @@ import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
+import org.xwalk.core.XWalkDownloadListener;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
