@@ -4,7 +4,10 @@
     <string name="settings_category_browsing_title">Browsing</string>
 
     <string name="settings_browsing_homepage_title">Startseite</string>
-    <string name="settings_browsing_homepage_summary">Lege deine bevorzugte Startseite fest.</string>
+    <string name="settings_browsing_homepage_summary">Lege deine bevorzugte Startseite fest</string>
+
+    <string name="settings_browsing_searchengine_title">Suchmaschine</string>
+    <string name="settings_browsing_searchengine_summary">Lege deine bevorzugte Suchmaschine fest</string>
 
 
     <string name="settings_category_layout_title">Layout</string>
@@ -32,7 +35,7 @@
     <string name="settings_misc_debug_summary">Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)</string>
 
     <string name="settings_list_licenses_title">Open-Source-Lizenzen</string>
-    <string name="settings_list_licenses_summary">Nützliche Bibliotheken, die von dieser App verwendet werden.</string>
+    <string name="settings_list_licenses_summary">Nützliche Bibliotheken, die von dieser App verwendet werden</string>
 
     <string name="settings_list_credits_tl_title">Übersetzungen</string>
     <string name="settings_list_credits_tl_summary">Danke an die Übersetzer/Innen</string>

@@ -66,7 +66,6 @@ public class SettingsActivity extends XquidCompatActivity {
         // region Prefs: Browsing
 
         public void initHomePagePref() {
-            // Home page
             Preference homePagePref = findPreference("settings_userhomepage");
             homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -87,6 +86,22 @@ public class SettingsActivity extends XquidCompatActivity {
                             dialog.dismiss();
                         }
                     }).showDialog();
+                    return false;
+                }
+            });
+        }
+
+        public void initSearchEnginePref() {
+            final ListPreference searchEnginePref =
+                    (ListPreference) findPreference("settings_search_engine");
+
+            searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
+
+            searchEnginePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveSearchEngine((String)newValue);
+                    searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
                     return false;
                 }
             });
@@ -228,6 +243,7 @@ public class SettingsActivity extends XquidCompatActivity {
 
             // Browsing
             initHomePagePref();
+            initSearchEnginePref();
 
             // Layout
             initOmniboxPosPref();

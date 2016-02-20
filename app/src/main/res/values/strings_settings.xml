@@ -6,6 +6,9 @@
     <string name="settings_browsing_homepage_title">Home page</string>
     <string name="settings_browsing_homepage_summary">Set your preferred home page</string>
 
+    <string name="settings_browsing_searchengine_title">Search engine</string>
+    <string name="settings_browsing_searchengine_summary">Set your preferred search engine</string>
+
 
     <string name="settings_category_layout_title">Layout</string>
 

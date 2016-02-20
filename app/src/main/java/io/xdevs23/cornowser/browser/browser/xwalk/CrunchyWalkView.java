@@ -97,8 +97,29 @@ public class CrunchyWalkView extends XWalkView {
         String nUrl = url;
         if(urlRegExMatcher.matches()) nUrl = url;
         else if(urlSecRegExMatcher.matches()) nUrl = "http://" + url;
-        else nUrl = "https://google.com/search?q=" + url
-                    .replace("+", "%2B").replace(" ", "+"); // What is C++ -> What+is+C%2B%2B
+        else {
+            switch(CornBrowser.getBrowserStorage().getSearchEngine()) {
+                case Google:
+                    nUrl = "https://google.com/search?q=%s";
+                    break;
+                case DuckDuckGo:
+                    nUrl = "https://duckduckgo.com/?q=%s";
+                    break;
+                case Yahoo:
+                    nUrl = "https://search.yahoo.com/search?q=%s&toggle=1&cop=mss&ei=UTF-8";
+                    break;
+                case Bing:
+                    nUrl = "https://bing.com/search?q=%s";
+                    break;
+                case Ecosia:
+                    nUrl = "https://ecosia.org/search?q=%s";
+                    break;
+                default: break;
+            }
+
+            nUrl = String.format(nUrl,
+                    url.replace("+", "%2B").replace(" ", "+")); // What is C++ -> What+is+C%2B%2B
+        }
         super.load(nUrl, content);
     }
 

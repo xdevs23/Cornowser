@@ -260,6 +260,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void showTab(Tab tab) {
+        Logging.logd("Showing tab " + tab.tabId);
         CornBrowser.publicWebRenderLayout.removeAllViews();
         CornBrowser.publicWebRenderLayout.addView(tab.webView);
         CornBrowser.publicWebRender = tab.webView;
@@ -329,6 +330,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void removeTab(Tab tab) {
+        Logging.logd("Removing tab " + tab.tabId);
         CornBrowser.publicWebRenderLayout.removeAllViews();
         tabsLayout.removeViewAt(tab.tabId);
         super.removeTab(tab);

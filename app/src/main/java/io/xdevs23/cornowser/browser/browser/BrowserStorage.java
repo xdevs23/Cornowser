@@ -24,6 +24,8 @@ public class BrowserStorage {
 
     private RenderColorMode.ColorMode renderingColorMode;
 
+    private BrowserStorageEnums.SearchEngine searchEngine;
+
     //endregion
 
     //region Class section
@@ -45,6 +47,8 @@ public class BrowserStorage {
         setEnableFullscreen(getPref(BPrefKeys.fullscreenPref, false));
         setColorMode(getPref(BPrefKeys.colorModePref, RenderColorMode.ColorMode.NORMAL));
         setOmniColoring(getPref(BPrefKeys.omniColorPref, true));
+        setSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(getPref(BPrefKeys.searchEngPref,
+                BrowserStorageEnums.SearchEngine.Google.name())));
     }
 
     //endregion
@@ -66,6 +70,23 @@ public class BrowserStorage {
     }
 
     //endregion
+
+    public void setSearchEngine(BrowserStorageEnums.SearchEngine searchEngine) {
+        this.searchEngine = searchEngine;
+    }
+
+    public void saveSearchEngine(BrowserStorageEnums.SearchEngine searchEngine) {
+        setSearchEngine(searchEngine);
+        setPref(BPrefKeys.searchEngPref, searchEngine.name());
+    }
+
+    public void saveSearchEngine(String engine) {
+        saveSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(engine));
+    }
+
+    public BrowserStorageEnums.SearchEngine getSearchEngine() {
+        return this.searchEngine;
+    }
 
     //region Omnibox position
 
@@ -211,7 +232,8 @@ public class BrowserStorage {
                 fullscreenPref  = "pref_enable_fullscreen",
                 colorModePref   = "pref_render_color_mode",
                 debugModePref   = "pref_enable_debug_mode",
-                omniColorPref   = "pref_enable_omni_coloring"
+                omniColorPref   = "pref_enable_omni_coloring",
+                searchEngPref   = "pref_search_engine"
                         ;
     }
 

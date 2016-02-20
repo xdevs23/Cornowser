@@ -16,6 +16,16 @@
             android:summary="@string/settings_browsing_homepage_summary"
             android:key="settings_userhomepage" />
 
+        <ListPreference
+            android:id="@+id/settings_preference_searchengine"
+            android:title="@string/settings_browsing_searchengine_title"
+            android:summary="@string/settings_browsing_searchengine_summary"
+            android:key="settings_search_engine"
+            android:dialogTitle="@string/settings_browsing_searchengine_title"
+            android:entries="@array/settings_browsing_searchengine_entries"
+            android:entryValues="@array/settings_browsing_searchengine_entries"
+            android:defaultValue="0" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
