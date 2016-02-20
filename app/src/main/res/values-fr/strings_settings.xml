@@ -22,7 +22,7 @@
     <string name="settings_appearance_webcolmode_summary">Définir votre mode couleur préféré</string>
 
     <string name="settings_appearance_omnicoloring_title">Couleur de l\'Omnibox</string>
-    <string name="settings_appearance_omnicoloring_summary">Choisir si l'omnibox et la barre d\'état doivent être automatiquement colorées</string>
+    <string name="settings_appearance_omnicoloring_summary">Choisir si l\'omnibox et la barre d\'état doivent être automatiquement colorées</string>
 
     <string name="settings_category_misc_title">Divers</string>
     
