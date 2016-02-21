@@ -14,6 +14,9 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -40,6 +43,7 @@ import org.xwalk.core.XWalkPreferences;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
+import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
@@ -104,6 +108,12 @@ public class CornBrowser extends XquidCompatActivity {
     private static boolean isBootstrapped = false;
     private static boolean isInitialized  = false;
     private static boolean isNewIntent    = false;
+
+    private static final int
+            aLeft   = RelativeLayout.ALIGN_PARENT_LEFT,
+            aTop    = RelativeLayout.ALIGN_PARENT_TOP,
+            aRight  = RelativeLayout.ALIGN_PARENT_RIGHT,
+            aBottom = RelativeLayout.ALIGN_PARENT_BOTTOM;
 
 
     private AlertDialog optionsMenuDialog;
@@ -372,12 +382,6 @@ public class CornBrowser extends XquidCompatActivity {
     public static void initOmniboxPosition() {
         Logging.logd("    Omnibox position");
 
-        int
-                aLeft   = RelativeLayout.ALIGN_PARENT_LEFT,
-                aTop    = RelativeLayout.ALIGN_PARENT_TOP,
-                aRight  = RelativeLayout.ALIGN_PARENT_RIGHT,
-                aBottom = RelativeLayout.ALIGN_PARENT_BOTTOM;
-
         RelativeLayout.LayoutParams omniparams = new RelativeLayout.LayoutParams(
                 omnibox.getLayoutParams().width,
                 omnibox.getLayoutParams().height
@@ -420,7 +424,7 @@ public class CornBrowser extends XquidCompatActivity {
         );
 
         getActivity().findViewById(R.id.omnibox_separator)
-            .setTranslationY(browserStorage.getOmniboxPosition() ? -DpUtil.dp2px(getContext(), 3) : 0);
+                .setTranslationY(OmniboxControl.isBottom() ? -webProgressBar.getHeight() : 0);
 
         // This is for proper refresh feature when omnibox is at bottom
         omniPtrLayout.setRotation(OmniboxControl.isBottom() ? 180f : 0f);
@@ -430,6 +434,7 @@ public class CornBrowser extends XquidCompatActivity {
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
         omniboxControls.bringToFront();
+        getActivity().findViewById(R.id.omnibox_separator).bringToFront();
 
         resetOmniPositionState();
     }
@@ -468,8 +473,16 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public static void applyOnlyInsideOmniText(String url) {
         try {
-            browserInputBar.setText(url
-                    .replaceFirst("^(.*)://", ""));
+            String eurl = url;
+            eurl = eurl.replaceFirst("^([^ ]*)://", "");
+            if(eurl.substring(eurl.length() - 2, eurl.length() - 1).equals("/"))
+                eurl = eurl.substring(0, eurl.length() - 2);
+            browserInputBar.setText(eurl);
+            if(url.startsWith("https://")) {
+                getActivity().findViewById(R.id.omnibox_separator)
+                    .setBackgroundColor(ColorUtil.getColor(R.color.light_green_A700));
+            } else getActivity().findViewById(R.id.omnibox_separator)
+                    .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
         } catch(Exception ex) {
             Logging.logd("Warning: Didn't succeed while applying inside omni text.");
         }
@@ -744,6 +757,11 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(browserInputBar != null && !browserInputBar.hasFocus()) {
+            browserInputBar.clearFocus();
+            applyInsideOmniText(publicWebRender.getUrl());
+            return;
+        }
         if(!publicWebRender.goBack()) endApplication();
     }
 

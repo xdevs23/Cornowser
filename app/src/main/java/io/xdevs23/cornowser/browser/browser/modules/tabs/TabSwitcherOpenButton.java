@@ -4,7 +4,9 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -73,6 +75,11 @@ public class TabSwitcherOpenButton extends RelativeLayout {
         TextView t = ((TextView)getChildAt(1));
         t.setText(tabCount);
         t.setTranslationX( Math.round( (getWidth() / 2) - (t.getWidth() / 2) ) );
+    }
+
+    public void setIconColor(@ColorRes int color) {
+        ((ImageView)getChildAt(0)).setColorFilter(ColorUtil.getColor(color),
+                PorterDuff.Mode.MULTIPLY);
     }
 
 }
