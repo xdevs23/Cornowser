@@ -172,6 +172,7 @@ public class CornUIClient extends XWalkUIClient {
     public void onPageLoadStarted(XWalkView view, String url) {
         CornBrowser.resetOmniPositionState(true);
         Logging.logd("Page load started for: " + url);
+        CrunchyWalkView.fromXWalkView(view).currentProgress = 0;
         final XWalkView fView = view;
         final String fUrl = url;
         if(skipDCheck || (!isDangerousPage(url))) {
@@ -207,8 +208,7 @@ public class CornUIClient extends XWalkUIClient {
             CornBrowser.getWebEngine().loadWorkingUrl();
             return;
         }
-        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
-        CornBrowser.resetBarColor();
+        CornBrowser.handleGoForwardControlVisibility();
     }
 
     @Override
@@ -221,7 +221,7 @@ public class CornUIClient extends XWalkUIClient {
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
 
-        CornBrowser.toggleGoForwardControlVisibility(CornBrowser.getWebEngine().canGoForward());
+        CornBrowser.handleGoForwardControlVisibility();
 
         CornBrowser.getOmniPtrLayout().setRefreshing(false);
 
@@ -229,6 +229,8 @@ public class CornUIClient extends XWalkUIClient {
         CornBrowser.getWebProgressBar().setVisibility(View.INVISIBLE);
 
         CornBrowser.publicWebRender.drawWithColorMode();
+
+        CrunchyWalkView.fromXWalkView(view).currentProgress = 100;
     }
 
 }

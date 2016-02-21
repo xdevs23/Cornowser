@@ -2,8 +2,11 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.Toast;
 
@@ -152,6 +155,7 @@ public class CornResourceClient extends XWalkResourceClient {
     public void onProgressChanged(XWalkView view, int percentage) {
         super.onProgressChanged(view, percentage);
         Logging.logd("Actual loading progress: " + percentage);
+        CrunchyWalkView.fromXWalkView(view).currentProgress = percentage;
         CornBrowser.getWebProgressBar().setProgress((float) percentage * 0.01f);
         if(loadingLessThanMin && percentage > 40) {
             CornBrowser.getOmniPtrLayout().setRefreshing(false);

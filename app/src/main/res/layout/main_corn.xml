@@ -101,7 +101,6 @@
                                 android:layout_width="@dimen/omnibox_items_def"
                                 android:layout_height="@dimen/omnibox_items_def"
                                 android:layout_centerVertical="true"
-                                android:background="@drawable/ic_arrow_forward_black_48dp"
                                 android:contentDescription="@string/omnibox_forward_btn_acsb_desc"
                                 android:layout_marginRight="10dp"
                                 android:layout_toLeftOf="@id/omnibox_control_open_tabswitcher" />

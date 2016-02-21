@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -355,10 +357,12 @@ public class CornBrowser extends XquidCompatActivity {
         goForwardImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getWebEngine().goForward();
+                if(getWebEngine().currentProgress != 100) getWebEngine().stopLoading();
+                else getWebEngine().goForward();
             }
         });
         goForwardImgBtn.setVisibility(View.INVISIBLE);
+        goForwardImgBtn.setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY);
 
     }
 
@@ -542,13 +546,17 @@ public class CornBrowser extends XquidCompatActivity {
 
     /**
      * Hide/show go forward button
-     * @param visible True for showing, false for hiding
      */
-    public static void toggleGoForwardControlVisibility(boolean visible) {
-        if(visible && goForwardImgBtn.getVisibility() == View.INVISIBLE)
+    public static void handleGoForwardControlVisibility() {
+        if(publicWebRender.currentProgress != 100) {
+            goForwardImgBtn.setBackgroundResource(R.drawable.main_cross_rot_icon);
             goForwardImgBtn.setVisibility(View.VISIBLE);
-        else if(goForwardImgBtn.getVisibility() == View.VISIBLE)
-            goForwardImgBtn.setVisibility(View.INVISIBLE);
+        } else {
+            if(publicWebRender.canGoForward()) {
+                goForwardImgBtn.setBackgroundResource(R.drawable.ic_arrow_forward_black_48dp);
+                goForwardImgBtn.setVisibility(View.VISIBLE);
+            } else goForwardImgBtn.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
