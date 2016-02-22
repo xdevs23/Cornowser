@@ -2,11 +2,8 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.Toast;
 

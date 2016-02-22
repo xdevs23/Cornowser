@@ -26,6 +26,12 @@
             android:entryValues="@array/settings_browsing_searchengine_entries"
             android:defaultValue="0" />
 
+        <Preference
+            android:id="@+id/settings_preference_adblock"
+            android:title=""
+            android:summary=""
+            android:key="settings_go_adblock" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

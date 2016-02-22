@@ -1,8 +1,11 @@
 package io.xdevs23.cornowser.browser.browser.modules.ui;
 
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+
+import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 
@@ -11,6 +14,14 @@ public class OmniboxAnimations {
     public static final int
             DEFAULT_ANIMATION_DURATION = 420
             ;
+
+    private static Handler handler = new Handler();
+    private static Runnable longPressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Logging.logd("Long press detected");
+        }
+    };
 
 
     public static boolean isBottom() {
@@ -75,12 +86,14 @@ public class OmniboxAnimations {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    handler.postDelayed(longPressRunnable, 1200);
                     CornBrowser.getTabSwitcher().hideSwitcher();
                     oh = CornBrowser.omnibox.getHeight();
                     if(-opos <= oh / 2) cy = (int)motionEvent.getRawY();
                     else cy = (int)motionEvent.getRawY() - opos;
                     break;
                 case MotionEvent.ACTION_UP:
+                    handler.removeCallbacks(longPressRunnable);
                     if(-opos > oh / 2) {
                         animateOmni( (isBottom() ? 0 : -oh) );
                         opos =       (isBottom() ? 0 : -oh)  ;
@@ -93,6 +106,7 @@ public class OmniboxAnimations {
                     if(opos < -oh) opos = -oh;
 
                     moveOmni(opos);
+                    handler.removeCallbacks(longPressRunnable);
                     break;
                 default: break;
             }

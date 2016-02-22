@@ -33,6 +33,8 @@ public class CornUIClient extends XWalkUIClient {
     private boolean readyForBugfreeBrowsing = false;
 
 
+
+
     public CornUIClient(XWalkView view) {
         super(view);
     }
@@ -87,7 +89,8 @@ public class CornUIClient extends XWalkUIClient {
     }
 
     @Override
-    public boolean onJavascriptModalDialog(XWalkView view, XWalkUIClient.JavascriptMessageType type, String url, String message, String defaultValue, XWalkJavascriptResult result) {
+    public boolean onJavascriptModalDialog(XWalkView view, XWalkUIClient.JavascriptMessageType type,
+                                           String url, String message, String defaultValue, XWalkJavascriptResult result) {
         return super.onJavascriptModalDialog(view, type, url, message, defaultValue, result);
     }
 

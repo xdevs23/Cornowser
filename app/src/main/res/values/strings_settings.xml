@@ -9,6 +9,9 @@
     <string name="settings_browsing_searchengine_title">Search engine</string>
     <string name="settings_browsing_searchengine_summary">Set your preferred search engine</string>
 
+    <string name="settings_browsing_adblock_title">AdBlock</string>
+    <string name="settings_browsing_adblock_summary">Access the setting for the ad blocker</string>
+
 
     <string name="settings_category_layout_title">Layout</string>
 

@@ -13,6 +13,8 @@ import org.xdevs23.debugutils.Logging;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.internal.XWalkAPI;
+import org.xwalk.core.internal.XWalkContentView;
 
 import java.util.regex.Matcher;
 
@@ -60,7 +62,6 @@ public class CrunchyWalkView extends XWalkView {
 
         Logging.logd("      Done!");
     }
-
     /* Don't use this! */
     @DontUse
     public CrunchyWalkView(Context context) {
@@ -223,6 +224,10 @@ public class CrunchyWalkView extends XWalkView {
         CornHandler.sendRawJSRequest(this,
                 AssetHelper.getAssetString("appScripts/colormodes/" + scriptName + ".js",
                         getContext()));
+    }
+
+    public void onLongPress(String url) {
+
     }
 
 }
