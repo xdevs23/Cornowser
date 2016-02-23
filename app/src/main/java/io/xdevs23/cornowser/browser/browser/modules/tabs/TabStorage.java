@@ -39,25 +39,36 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
         tabList.add(tab);
     }
 
+    /**
+     * Makes sure that the view is stopped and memory can be freed up by GC
+     * @param tab Tab to recycle
+     */
+    protected void recycleTab(Tab tab) {
+        tab.webView.stopLoading();
+        tab.webView = null;
+    }
+
     @Override
     public void removeTab(int tabIndex) {
+        recycleTab(tabList.get(tabIndex));
         tabList.remove(tabIndex);
     }
 
     @Override
     public void removeTab(Tab tab) {
         tabList.remove(tab);
+        recycleTab(tab);
     }
 
     @Override
     public void removeTab(String url) {
         for ( Tab t : tabList )
-            if(t.tabUrl.equals(url)) { tabList.remove(t); return; }
+            if(t.tabUrl.equals(url)) { removeTab(t); return; }
     }
 
     @Override
     public void removeLastTab() {
-        tabList.remove(tabList.size() - 1);
+        removeTab(tabList.size() - 1);
     }
 
     @Override
