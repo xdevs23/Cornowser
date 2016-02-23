@@ -19,7 +19,8 @@ public class BrowserStorage {
                 omniboxIsBottom,
                 enableFullscreen,
                 debugEnabled,
-                omniColoringEnabled
+                omniColoringEnabled,
+                adBlockEnabled
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -49,6 +50,7 @@ public class BrowserStorage {
         setOmniColoring(getPref(BPrefKeys.omniColorPref, true));
         setSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(getPref(BPrefKeys.searchEngPref,
                 BrowserStorageEnums.SearchEngine.Google.name())));
+        setEnableAdBlock(getPref(BPrefKeys.adBlockEnPref, true));
     }
 
     //endregion
@@ -71,6 +73,8 @@ public class BrowserStorage {
 
     //endregion
 
+    // region Search engine
+
     public void setSearchEngine(BrowserStorageEnums.SearchEngine searchEngine) {
         this.searchEngine = searchEngine;
     }
@@ -87,6 +91,8 @@ public class BrowserStorage {
     public BrowserStorageEnums.SearchEngine getSearchEngine() {
         return this.searchEngine;
     }
+
+    // endregion
 
     //region Omnibox position
 
@@ -178,6 +184,23 @@ public class BrowserStorage {
 
     // endregion
 
+    // region AdBlock
+
+    public void setEnableAdBlock(boolean enable) {
+        adBlockEnabled = enable;
+    }
+
+    public void saveEnableAdBlock(boolean enable) {
+        setEnableAdBlock(enable);
+        setPref(BPrefKeys.adBlockEnPref, enable);
+    }
+
+    public boolean isAdBlockEnabled() {
+        return adBlockEnabled;
+    }
+
+    // endregion
+
 
     //region General
     /* General methods */
@@ -233,7 +256,8 @@ public class BrowserStorage {
                 colorModePref   = "pref_render_color_mode",
                 debugModePref   = "pref_enable_debug_mode",
                 omniColorPref   = "pref_enable_omni_coloring",
-                searchEngPref   = "pref_search_engine"
+                searchEngPref   = "pref_search_engine",
+                adBlockEnPref   = "pref_adblock_enable"
                         ;
     }
 

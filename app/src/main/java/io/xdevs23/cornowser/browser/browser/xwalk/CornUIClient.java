@@ -33,8 +33,6 @@ public class CornUIClient extends XWalkUIClient {
     private boolean readyForBugfreeBrowsing = false;
 
 
-
-
     public CornUIClient(XWalkView view) {
         super(view);
     }

@@ -42,6 +42,7 @@ import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabStorage;
@@ -156,6 +157,10 @@ public class CornBrowser extends XquidCompatActivity {
 
         if( (!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent) )
             checkUpdate.start();
+
+        // AdBlock hosts update
+        if(getBrowserStorage().isAdBlockEnabled())
+            AdBlockManager.initAdBlock();
 
         if(!isBgBoot) fastReloadComponents();
     }

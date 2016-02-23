@@ -22,5 +22,7 @@ else
   adb shell pm set-install-location 1
   adb shell pm install -rdtf /sdcard/CBCustom.apk
   adb shell am start -n io.xdevs23.cornowser.browser/.CornBrowser
-  adb logcat -v tag -s Cornowser:*
+  if [ $1 = "--grp" ]; then adb logcat -v tag -s Cornowser | grep $2
+  else adb logcat -v tag -s Cornowser:*
+  fi
 fi

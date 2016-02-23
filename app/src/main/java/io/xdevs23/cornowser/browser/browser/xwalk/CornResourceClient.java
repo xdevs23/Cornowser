@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.net.http.HttpStatusCodeHelper;
 import org.xwalk.core.ClientCertRequest;
 import org.xwalk.core.XWalkHttpAuthHandler;
@@ -16,13 +19,18 @@ import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.XWalkWebResourceRequest;
 import org.xwalk.core.XWalkWebResourceResponse;
+import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
+import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -119,6 +127,10 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
+        if(AdBlockManager.isAdBlockedHost(url)) {
+            Logging.logd("AdBlock: Blocked ad!");
+            return;
+        }
         super.onLoadStarted(view, url);
         allowTinting = true;
         CornBrowser.applyInsideOmniText(view.getUrl());
@@ -136,6 +148,23 @@ public class CornResourceClient extends XWalkResourceClient {
         CornBrowser.applyInsideOmniText(view.getUrl());
         currentWorkingUrl = view.getUrl();
         CornBrowser.publicWebRender.drawWithColorMode();
+    }
+
+    @Override
+    public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
+        if(AdBlockManager.isAdBlockedHost(request.getUrl().toString())) {
+            try {
+                XWalkWebResourceResponse response = new XWalkWebResourceResponse(null);
+                response.setMimeType("text/plain");
+                response.setEncoding("UTF-8");
+                response.setData(new ByteArrayInputStream("".getBytes()));
+                Logging.logd("AdBlock: Blocked ad!");
+                return response;
+            } catch(Exception ex) {
+                StackTraceParser.logStackTrace(ex);
+            }
+        }
+        return super.shouldInterceptLoadRequest(view, request);
     }
 
     @Override

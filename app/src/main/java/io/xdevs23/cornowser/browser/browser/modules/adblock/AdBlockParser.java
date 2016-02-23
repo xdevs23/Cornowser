@@ -16,10 +16,11 @@ public final class AdBlockParser {
                 || s.startsWith(" ")
                 || s.length() < 3
                 || s.contains(" localhost")
-            )) filteredAdList.add(s.replace("127.0.0.1 ", "").replace("0.0.0.0 ", ""));
+            )) filteredAdList.add(s.replace("\t", " ")
+                    .replace("127.0.0.1 ", "").replace("0.0.0.0 ", ""));
         }
 
-        String[] filteredList = (String[]) filteredAdList.toArray();
+        String[] filteredList = filteredAdList.toArray(new String[0]);
         filteredAdList.clear();
         return filteredList;
     }
