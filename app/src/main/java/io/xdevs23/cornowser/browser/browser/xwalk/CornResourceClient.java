@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
@@ -22,8 +20,6 @@ import org.xwalk.core.XWalkWebResourceResponse;
 import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -154,7 +150,8 @@ public class CornResourceClient extends XWalkResourceClient {
     public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
         if(AdBlockManager.isAdBlockedHost(request.getUrl().toString())) {
             try {
-                XWalkWebResourceResponse response = new XWalkWebResourceResponse(null);
+                XWalkWebResourceResponse response =
+                        new XWalkWebResourceResponse(CrunchyWalkView.fromXWalkView(view).getBridge());
                 response.setMimeType("text/plain");
                 response.setEncoding("UTF-8");
                 response.setData(new ByteArrayInputStream("".getBytes()));

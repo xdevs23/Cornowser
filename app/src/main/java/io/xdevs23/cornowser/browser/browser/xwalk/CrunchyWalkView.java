@@ -10,12 +10,13 @@ import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
-import org.xwalk.core.internal.XWalkAPI;
-import org.xwalk.core.internal.XWalkContentView;
 
+import java.lang.reflect.Field;
+import java.util.Stack;
 import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -228,6 +229,24 @@ public class CrunchyWalkView extends XWalkView {
 
     public void onLongPress(String url) {
 
+    }
+
+    /**
+     * Get the private bridge
+     * @return Bridge
+     */
+    protected Object getBridge() {
+        Object bridge;
+        try {
+            Field field = getClass().getSuperclass().getDeclaredField("bridge");
+            field.setAccessible(true);
+            bridge = field.get(this);
+            field.setAccessible(false);
+        } catch(Exception ex) {
+            StackTraceParser.logStackTrace(ex);
+            bridge = null;
+        }
+        return bridge;
     }
 
 }

@@ -1,12 +1,8 @@
 package io.xdevs23.cornowser.browser.browser.modules.adblock;
 
-import android.content.Context;
-import android.os.Environment;
-
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.file.FileUtils;
-import org.xdevs23.general.ExtendedAndroidClass;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.net.NetUtils;
 
