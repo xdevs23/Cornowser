@@ -128,17 +128,12 @@ public class CornBrowser extends XquidCompatActivity {
      */
     protected void bootstrap() {
         if(isBgBoot) moveTaskToBack(true);
-        if(!isBootstrapped
-                && !isInitialized
-                && staticContext == null
-                && (!isNewIntent)) {
+        if(isNormalStartUp()) {
             if(!isBgBoot) checkMallowPermissions();
 
             XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
             XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
             XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
-
-            setContentView(R.layout.main_corn);
 
             initAll();
 
@@ -155,14 +150,24 @@ public class CornBrowser extends XquidCompatActivity {
 
         handleStartupWebLoad();
 
-        if( (!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent) )
-            checkUpdate.start();
+        if(isUpdateCheckAllowed()) checkUpdate.start();
 
         // AdBlock hosts update
         if(getBrowserStorage().isAdBlockEnabled())
             AdBlockManager.initAdBlock();
 
         if(!isBgBoot) fastReloadComponents();
+    }
+
+    private boolean isNormalStartUp() {
+        return (!isBootstrapped
+                && !isInitialized
+                && staticContext == null
+                && (!isNewIntent));
+    }
+
+    private boolean isUpdateCheckAllowed() {
+        return ((!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent));
     }
 
     /**
@@ -215,6 +220,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void initAll() {
         Logging.logd("Initialization started.");
+        setContentView(R.layout.main_corn);
         preInit();
         init();
         isInitialized = true;

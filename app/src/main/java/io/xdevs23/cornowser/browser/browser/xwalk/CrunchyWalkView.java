@@ -228,7 +228,8 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public void onLongPress(String url) {
-
+        // This is going to be handled later (maybe), but let this stay here first
+        // TODO: Handle long press and show dialog
     }
 
     /**
