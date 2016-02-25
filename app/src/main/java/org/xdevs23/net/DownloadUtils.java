@@ -13,8 +13,10 @@ import org.xdevs23.io.stream.InputStreamUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -66,6 +68,15 @@ public class DownloadUtils {
 
     public static String downloadString(String url) {
         return downloadString(url, "");
+    }
+
+    public static InputStream getInputStreamForConnection(String url) throws IOException {
+        URL ur = new URL(url);
+        URLConnection connection = ur.openConnection();
+
+        connection.connect();
+
+        return new BufferedInputStream(ur.openStream(), defaultBuf);
     }
 
 	//////////////////////////////////////////////
@@ -143,7 +154,7 @@ public class DownloadUtils {
 	    	  	doUrl = fDUrl[0];
 	    	  	
 	    	  	logt("Connecting...");
-	            
+
 	    	  	URL url = new URL(doUrl);
 	            URLConnection connection = url.openConnection();
 	            

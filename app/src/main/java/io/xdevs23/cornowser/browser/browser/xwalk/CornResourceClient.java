@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
+import android.webkit.WebResourceResponse;
 import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
@@ -16,9 +17,12 @@ import org.xwalk.core.XWalkHttpAuthHandler;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.XWalkWebResourceRequest;
+import org.xwalk.core.XWalkWebResourceRequestHandler;
 import org.xwalk.core.XWalkWebResourceResponse;
+import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
 import java.io.ByteArrayInputStream;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -147,22 +151,17 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
-        if(AdBlockManager.isAdBlockedHost(request.getUrl().toString())) {
-            XWalkWebResourceResponse response = null;
-            try {
-                response =
-                        new XWalkWebResourceResponse(CrunchyWalkView.fromXWalkView(view).getBridge());
-                response.setMimeType("text/plain");
-                response.setEncoding("UTF-8");
-                response.setData(new ByteArrayInputStream("".getBytes()));
-                Logging.logd("AdBlock: Blocked ad!");
-            } catch(Exception ex) {
-                StackTraceParser.logStackTrace(ex);
-            }
-            return response;
-
-        }
+        if(AdBlockManager.isAdBlockedHost(request.getUrl().toString()))
+            return null;
         return super.shouldInterceptLoadRequest(view, request);
+    }
+
+    @Override
+    public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
+        if(AdBlockManager.isAdBlockedHost(url))
+            return new WebResourceResponse("text/plain", "UTF-8",
+                    new ByteArrayInputStream("".getBytes()));
+        else return super.shouldInterceptLoadRequest(view, url);
     }
 
     @Override

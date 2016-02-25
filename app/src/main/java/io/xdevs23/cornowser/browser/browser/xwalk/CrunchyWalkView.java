@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 
@@ -34,8 +35,11 @@ public class CrunchyWalkView extends XWalkView {
 
     public int currentProgress = 0;
 
+    protected Bitmap favicon;
+
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
+
 
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
@@ -235,6 +239,10 @@ public class CrunchyWalkView extends XWalkView {
         // TODO: Handle long press and show dialog
     }
 
+    @Override
+    public Bitmap getFavicon() {
+        return favicon;
+    }
     /**
      * Get the private bridge
      * @return Bridge

@@ -2,6 +2,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -10,11 +11,15 @@ import android.webkit.ValueCallback;
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
+import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 import org.xwalk.core.XWalkJavascriptResult;
 import org.xwalk.core.XWalkUIClient;
 import org.xwalk.core.XWalkView;
+
+import java.io.InputStream;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
@@ -47,13 +52,27 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onIconAvailable(XWalkView view, String url, Message startDownload) {
-        super.onIconAvailable(view, url, startDownload);
+        final CrunchyWalkView fView = CrunchyWalkView.fromXWalkView(view);
+        final String fUrl = url;
+        Thread downIcon = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream inputStream = DownloadUtils.getInputStreamForConnection(fUrl);
+                    fView.favicon = BitmapFactory.decodeStream(inputStream);
+                } catch(Exception ex) {
+                    StackTraceParser.logStackTrace(ex);
+                }
+            }
+        });
+        downIcon.start();
+
         WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override
     public void onReceivedIcon(XWalkView view, String url, Bitmap icon) {
-        super.onReceivedIcon(view, url, icon);
+        // Do nothing
     }
 
     @Override
@@ -171,6 +190,7 @@ public class CornUIClient extends XWalkUIClient {
 
     @Override
     public void onPageLoadStarted(XWalkView view, String url) {
+        CrunchyWalkView.fromXWalkView(view).favicon = null;
         CornBrowser.resetOmniPositionState(true);
         Logging.logd("Page load started for: " + url);
         CrunchyWalkView.fromXWalkView(view).currentProgress = 0;

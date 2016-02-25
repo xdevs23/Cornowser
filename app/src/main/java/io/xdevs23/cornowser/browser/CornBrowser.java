@@ -134,6 +134,7 @@ public class CornBrowser extends XquidCompatActivity {
             XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
             XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
             XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
+            XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
 
             initAll();
 
@@ -559,9 +560,12 @@ public class CornBrowser extends XquidCompatActivity {
                         final Intent intent = new Intent();
                         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
                         intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getWebEngine().getTitle());
-                        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                                (getWebEngine().getFavicon() != null ? getWebEngine().getFavicon()
-                                 : Intent.ShortcutIconResource.fromContext(getContext(), R.mipmap.m_app_icon)));
+                        if(getWebEngine().getFavicon() != null)
+                            intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, getWebEngine().getFavicon());
+                        else
+                            intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                                    Intent.ShortcutIconResource
+                                            .fromContext(getContext(), R.mipmap.m_app_icon));
                         intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                         sendBroadcast(intent);
                         break;
