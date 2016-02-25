@@ -1,11 +1,12 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fixed bug when removing tabs
- - Fixed JavaScript dialogs (prompt, confirm)
- - Added search engine setting
+ - Added AdBlock
+ - Added stop button
+ - Added shortcut to homescreen feature
+ - Tiny line in omnibox now is green when using HTTPS
+ - Improved omnibox tinting (probably the best of all)
+ - Improved memory usage
  - Changed transparency of tab switcher
- - Updated Crosswalk version to 19.48.486.0
- - Updated user agent string
- - Updated french translation (thanks to Primokorn)
- - Improved URL detection
+ - Updated Crosswalk version to 19.48.488.0
+ - Updated AppCompat dependencies
  - Other minor improvements and bugfixes
