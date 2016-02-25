@@ -154,7 +154,8 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
-        if(AdBlockManager.isAdBlockedHost(url))
+        if(CrunchyWalkView.fromXWalkView(view).getUIClient().readyForBugfreeBrowsing &&
+                AdBlockManager.isAdBlockedHost(url))
             return new WebResourceResponse("text/plain", "UTF-8",
                     new ByteArrayInputStream("".getBytes()));
         else return super.shouldInterceptLoadRequest(view, url);
@@ -162,8 +163,6 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onReceivedResponseHeaders(XWalkView view, XWalkWebResourceRequest request, XWalkWebResourceResponse response) {
-        if(AdBlockManager.isAdBlockedHost(request.getUrl().toString()))
-            return;
         super.onReceivedResponseHeaders(view, request, response);
     }
 

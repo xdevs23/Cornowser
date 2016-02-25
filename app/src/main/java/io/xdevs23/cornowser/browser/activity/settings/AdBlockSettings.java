@@ -22,12 +22,12 @@ public class AdBlockSettings extends XquidCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.settings_toolbar);
+        setContentView(R.layout.activity_settings_adblock);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.adblock_settings_toolbar);
 
         setSupportActionBar(toolbar);
 
-        BarColors.enableBarColoring(getWindow(), R.color.light_blue_800);
+        BarColors.enableBarColoring(getWindow(), R.color.red_900);
 
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -36,7 +36,7 @@ public class AdBlockSettings extends XquidCompatActivity {
 
         thisActivity = this;
 
-         getFragmentManager().beginTransaction().replace(R.id.settings_pref_content_frame,
+        getFragmentManager().beginTransaction().replace(R.id.adblock_pref_content_frame,
                  new AdBlockPreferenceFragment().setContext(getApplicationContext(), this)).commit();
     }
 
@@ -76,7 +76,7 @@ public class AdBlockSettings extends XquidCompatActivity {
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    final ProgressDialog dialog = new ProgressDialog(pContext);
+                    final ProgressDialog dialog = new ProgressDialog(activity);
                     dialog.setTitle(getString(R.string.adblock_download_hosts_title));
                     dialog.setMessage(getString(R.string.adblock_hosts_downloading));
                     dialog.setCancelable(true);
@@ -88,6 +88,7 @@ public class AdBlockSettings extends XquidCompatActivity {
                         }
                     });
                     dialog.show();
+                    AdBlockManager.downloadHostsAsync();
                     return false;
                 }
             });

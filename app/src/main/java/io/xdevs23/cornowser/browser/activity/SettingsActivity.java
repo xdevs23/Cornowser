@@ -257,6 +257,7 @@ public class SettingsActivity extends XquidCompatActivity {
             // Browsing
             initHomePagePref();
             initSearchEnginePref();
+            initAdBlockPref();
 
             // Layout
             initOmniboxPosPref();

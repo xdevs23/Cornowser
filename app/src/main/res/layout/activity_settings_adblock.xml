@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/settings_toolbar"
+        android:id="@+id/adblock_settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -19,12 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@drawable/toolbar_dropshadow"
-        android:layout_below="@id/settings_toolbar" />
+        android:layout_below="@id/adblock_settings_toolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/settings_pref_content_frame"
-        android:layout_below="@id/settings_toolbar" />
+        android:id="@+id/adblock_pref_content_frame"
+        android:layout_below="@id/adblock_settings_toolbar" />
 
 </RelativeLayout>

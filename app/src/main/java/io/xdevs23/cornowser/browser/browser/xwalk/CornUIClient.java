@@ -35,7 +35,7 @@ public class CornUIClient extends XWalkUIClient {
     public boolean skipDCheck = false;
 
     // This is for controlling errors on start-up loading
-    private boolean readyForBugfreeBrowsing = false;
+    protected boolean readyForBugfreeBrowsing = false;
 
 
     public CornUIClient(XWalkView view) {
