@@ -22,4 +22,6 @@
         This is done automatically on every start-up if AdBlock is enabled.
     </string>
 
+    <string name="adblock_hosts_downloading">Downloading and processing hosts files...</string>
+
 </resources>

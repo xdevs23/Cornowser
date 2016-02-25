@@ -22,5 +22,6 @@
         Dies wird automatisch bei jedem App-Start durchgeführt.
     </string>
 
+    <string name="adblock_hosts_downloading">Hosts-Dateien werden heruntergeladen und verarbeitet...</string>
 
 </resources>

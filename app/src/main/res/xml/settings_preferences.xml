@@ -28,8 +28,8 @@
 
         <Preference
             android:id="@+id/settings_preference_adblock"
-            android:title=""
-            android:summary=""
+            android:title="@string/settings_browsing_adblock_title"
+            android:summary="@string/settings_browsing_adblock_summary"
             android:key="settings_go_adblock" />
 
     </PreferenceCategory>

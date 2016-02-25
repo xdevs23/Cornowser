@@ -1,14 +1,20 @@
 package io.xdevs23.cornowser.browser.activity.settings;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 import android.support.v7.widget.Toolbar;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.ui.utils.BarColors;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.activity.SettingsActivity;
+import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 
 public class AdBlockSettings extends XquidCompatActivity {
 
@@ -31,9 +37,8 @@ public class AdBlockSettings extends XquidCompatActivity {
 
         thisActivity = this;
 
-        // getFragmentManager().beginTransaction().replace(R.id.settings_pref_content_frame,
-        //         new SettingsPreferenceFragment().setContext(getApplicationContext(), this)).commit();
-        // TODO: Add xml
+         getFragmentManager().beginTransaction().replace(R.id.settings_pref_content_frame,
+                 new AdBlockPreferenceFragment().setContext(getApplicationContext(), this)).commit();
     }
 
     public static class AdBlockPreferenceFragment extends PreferenceFragment {
@@ -51,15 +56,52 @@ public class AdBlockSettings extends XquidCompatActivity {
             return this.pContext;
         }
 
+        private void initAdBlockEnable() {
+            final SwitchPreference pref = (SwitchPreference) findPreference("adblock_enable");
+
+            pref.setChecked(CornBrowser.getBrowserStorage().isAdBlockEnabled());
+
+            pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().setEnableAdBlock((boolean)newValue);
+                    pref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+        }
+
+        private void initDownloadHostsPref() {
+            Preference pref = findPreference("adblock_download_hosts");
+
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    final ProgressDialog dialog = new ProgressDialog(pContext);
+                    dialog.setTitle(getString(R.string.adblock_download_hosts_title));
+                    dialog.setMessage(getString(R.string.adblock_hosts_downloading));
+                    dialog.setCancelable(true);
+                    dialog.setIndeterminate(true);
+                    AdBlockManager.setOnHostsUpdatedListener(new AdBlockManager.OnHostsUpdatedListener() {
+                        @Override
+                        public void onUpdateFinished() {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    return false;
+                }
+            });
+        }
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            // TODO: add xml
-            //addPreferencesFromResource(R.xml.settings_preferences);
+            addPreferencesFromResource(R.xml.adblock_preferences);
 
-            // TODO: init stuff here
+            initAdBlockEnable();
+            initDownloadHostsPref();
         }
     }
 }

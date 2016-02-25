@@ -19,6 +19,14 @@ public class AdBlockManager {
             new File(CornBrowser.getContext().getExternalFilesDir(null), "adblock.txt")
                     .getAbsolutePath();
 
+    private static OnHostsUpdatedListener defaultHostsUpdatedListener = new OnHostsUpdatedListener() {
+        @Override
+        public void onUpdateFinished() {
+            // Do nothing
+        }
+    };
+
+    private static OnHostsUpdatedListener hostsUpdatedListener = defaultHostsUpdatedListener;
 
     private AdBlockManager() {
 
@@ -78,7 +86,8 @@ public class AdBlockManager {
         sb.delete(sb.length() - 2, sb.length() - 1); // Delete last new line character
         FileUtils.writeFileString(adBlockFile, sb.toString()); // Write the merged host files to file
         Logging.logd("AdBlock: Finished!");
-
+        hostsUpdatedListener.onUpdateFinished();
+        hostsUpdatedListener = defaultHostsUpdatedListener;
     }
 
     public static boolean isAdBlockedHost(String url) {
@@ -91,6 +100,15 @@ public class AdBlockManager {
             StackTraceParser.logStackTrace(ex);
             return false;
         }
+    }
+
+    public static void setOnHostsUpdatedListener(OnHostsUpdatedListener listener) {
+        hostsUpdatedListener = listener;
+    }
+
+
+    public static interface OnHostsUpdatedListener {
+        public void onUpdateFinished();
     }
 
 }
