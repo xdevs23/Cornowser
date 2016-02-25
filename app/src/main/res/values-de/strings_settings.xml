@@ -34,6 +34,9 @@
 
     <string name="settings_category_misc_title">Sonstiges</string>
 
+    <string name="settings_misc_clean_data_title">Clean data</string>
+    <string name="settings_misc_clean_data_summary">Use this feature to clean cached and other data</string>
+
     <string name="settings_misc_debug_title">Debug-Modus</string>
     <string name="settings_misc_debug_summary">Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)</string>
 
@@ -45,5 +48,7 @@
 
     <string name="settings_list_credits_spc_title">Spezielle Danksagungen</string>
     <string name="settings_list_credits_spc_summary">Ein großes Dankeschön an genannte Leute</string>
+
+
 
 </resources>

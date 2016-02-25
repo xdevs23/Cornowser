@@ -206,6 +206,10 @@ public class CornBrowser extends XquidCompatActivity {
                 (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
             getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
 
+        else if(getIntent().getStringExtra("urlToLoad") != null &&
+                (!getIntent().getStringExtra("urlToLoad").isEmpty()))
+            getTabSwitcher().addTab(getIntent().getStringExtra("urlToLoad"));
+
         else if (readyToLoadUrl.isEmpty())
             getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
 
@@ -514,7 +518,8 @@ public class CornBrowser extends XquidCompatActivity {
         public static final int
                 UPDATER         = 0,
                 SETTINGS        = 1,
-                SHARE_PAGE      = 2
+                SHARE_PAGE      = 2,
+                ADD_HOME_SHCT   = 3
                         ;
     }
 
@@ -525,7 +530,8 @@ public class CornBrowser extends XquidCompatActivity {
         optionsMenuItems = new String[] {
                 getString(R.string.cornmenu_item_updater),
                 getString(R.string.cornmenu_item_settings),
-                getString(R.string.optmenu_share)
+                getString(R.string.optmenu_share),
+                getString(R.string.cornmenu_item_addhomesc)
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
         builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems), new DialogInterface.OnClickListener() {
@@ -545,6 +551,19 @@ public class CornBrowser extends XquidCompatActivity {
                                 (Intent.EXTRA_TEXT, publicWebRender.getUrl());
                         startActivity(Intent.createChooser(shareIntent,
                                 getString(R.string.optmenu_share)));
+                        break;
+                    case optMenuItems.ADD_HOME_SHCT:
+                        final Intent shortcutIntent = new Intent(getActivity(), CornBrowser.class);
+                        shortcutIntent.putExtra("urlToLoad", getWebEngine().getUrl());
+
+                        final Intent intent = new Intent();
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getWebEngine().getTitle());
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                                (getWebEngine().getFavicon() != null ? getWebEngine().getFavicon()
+                                 : Intent.ShortcutIconResource.fromContext(getContext(), R.mipmap.m_app_icon)));
+                        intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+                        sendBroadcast(intent);
                         break;
                     default:
                         break;

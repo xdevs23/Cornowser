@@ -16,7 +16,6 @@ import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
 
 import java.lang.reflect.Field;
-import java.util.Stack;
 import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -30,8 +29,8 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 public class CrunchyWalkView extends XWalkView {
 
     public static String userAgent =
-            "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.DEVICE + ") " +
-                    "AppleWebKit/601.2.7 (KHTML, like Gecko) Cornowser/%s Chrome/50.0.2655.1 Mobile Safari/601.2.7";
+            "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
+                    "AppleWebKit/601.2.7 (KHTML, like Gecko) Cornowser/%s Chrome/50.0.2659.1 Mobile Safari/601.2.7";
 
     public int currentProgress = 0;
 
@@ -122,7 +121,11 @@ public class CrunchyWalkView extends XWalkView {
             }
 
             nUrl = String.format(nUrl,
-                    url.replace("+", "%2B").replace(" ", "+")); // What is C++ -> What+is+C%2B%2B
+                    url
+                            .replace("+", "%2B")
+                            .replace("#", "%23")
+                            .replace("?", "%3F")
+                            .replace(" ", "+")); // What is C++ and C#? -> What+is+C%2B%2B+and+C%23%3F
         }
         super.load(nUrl, content);
     }

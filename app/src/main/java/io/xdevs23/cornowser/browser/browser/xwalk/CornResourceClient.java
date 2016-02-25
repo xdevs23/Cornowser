@@ -17,7 +17,6 @@ import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.XWalkWebResourceRequest;
 import org.xwalk.core.XWalkWebResourceResponse;
-import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
 import java.io.ByteArrayInputStream;
 import java.util.regex.Pattern;
@@ -149,23 +148,27 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
         if(AdBlockManager.isAdBlockedHost(request.getUrl().toString())) {
+            XWalkWebResourceResponse response = null;
             try {
-                XWalkWebResourceResponse response =
+                response =
                         new XWalkWebResourceResponse(CrunchyWalkView.fromXWalkView(view).getBridge());
                 response.setMimeType("text/plain");
                 response.setEncoding("UTF-8");
                 response.setData(new ByteArrayInputStream("".getBytes()));
                 Logging.logd("AdBlock: Blocked ad!");
-                return response;
             } catch(Exception ex) {
                 StackTraceParser.logStackTrace(ex);
             }
+            return response;
+
         }
         return super.shouldInterceptLoadRequest(view, request);
     }
 
     @Override
     public void onReceivedResponseHeaders(XWalkView view, XWalkWebResourceRequest request, XWalkWebResourceResponse response) {
+        if(AdBlockManager.isAdBlockedHost(request.getUrl().toString()))
+            return;
         super.onReceivedResponseHeaders(view, request, response);
     }
 

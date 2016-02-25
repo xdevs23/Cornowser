@@ -3,5 +3,6 @@
 
     <string name="cornmenu_item_updater">Updater</string>
     <string name="cornmenu_item_settings">Einstellungen</string>
+    <string name="cornmenu_item_addhomesc">Zur Startseite hinzufügen</string>
 
 </resources>
