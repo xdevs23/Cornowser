@@ -493,7 +493,7 @@ public class CornBrowser extends XquidCompatActivity {
             browserInputBar.setText(eurl);
             if(url.startsWith("https://")) {
                 getActivity().findViewById(R.id.omnibox_separator)
-                    .setBackgroundColor(ColorUtil.getColor(R.color.light_green_A700));
+                    .setBackgroundColor(ColorUtil.getColor(R.color.transGreen));
             } else getActivity().findViewById(R.id.omnibox_separator)
                     .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
         } catch(Exception ex) {

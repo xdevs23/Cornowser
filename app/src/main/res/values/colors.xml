@@ -25,4 +25,5 @@
     <color name="full_transparent">@android:color/transparent</color>
     
     <color name="transBlue">#481652FF</color>
+    <color name="transGreen">#4816FF48</color>
 </resources>
