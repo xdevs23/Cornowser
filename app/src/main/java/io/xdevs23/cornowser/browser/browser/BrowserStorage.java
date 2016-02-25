@@ -50,7 +50,7 @@ public class BrowserStorage {
         setOmniColoring(getPref(BPrefKeys.omniColorPref, true));
         setSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(getPref(BPrefKeys.searchEngPref,
                 BrowserStorageEnums.SearchEngine.Google.name())));
-        setEnableAdBlock(getPref(BPrefKeys.adBlockEnPref, true));
+        setEnableAdBlock(getPref(BPrefKeys.adBlockEnPref, false));
     }
 
     //endregion

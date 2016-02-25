@@ -63,11 +63,28 @@ public class AdBlockSettings extends XquidCompatActivity {
             pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().setEnableAdBlock((boolean)newValue);
+                    CornBrowser.getBrowserStorage().saveEnableAdBlock((boolean)newValue);
                     pref.setChecked((boolean)newValue);
+                    if((boolean)newValue) doUpdateAdBlock();
                     return false;
                 }
             });
+        }
+
+        private void doUpdateAdBlock() {
+            final ProgressDialog dialog = new ProgressDialog(activity);
+            dialog.setTitle(getString(R.string.adblock_download_hosts_title));
+            dialog.setMessage(getString(R.string.adblock_hosts_downloading));
+            dialog.setCancelable(true);
+            dialog.setIndeterminate(true);
+            AdBlockManager.setOnHostsUpdatedListener(new AdBlockManager.OnHostsUpdatedListener() {
+                @Override
+                public void onUpdateFinished() {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+            AdBlockManager.downloadHostsAsync();
         }
 
         private void initDownloadHostsPref() {
@@ -76,19 +93,7 @@ public class AdBlockSettings extends XquidCompatActivity {
             pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    final ProgressDialog dialog = new ProgressDialog(activity);
-                    dialog.setTitle(getString(R.string.adblock_download_hosts_title));
-                    dialog.setMessage(getString(R.string.adblock_hosts_downloading));
-                    dialog.setCancelable(true);
-                    dialog.setIndeterminate(true);
-                    AdBlockManager.setOnHostsUpdatedListener(new AdBlockManager.OnHostsUpdatedListener() {
-                        @Override
-                        public void onUpdateFinished() {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    AdBlockManager.downloadHostsAsync();
+                    doUpdateAdBlock();
                     return false;
                 }
             });
