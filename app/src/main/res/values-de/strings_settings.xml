@@ -34,8 +34,8 @@
 
     <string name="settings_category_misc_title">Sonstiges</string>
 
-    <string name="settings_misc_clean_data_title">Clean data</string>
-    <string name="settings_misc_clean_data_summary">Use this feature to clean cached and other data</string>
+    <string name="settings_misc_clean_data_title">Daten bereinigen</string>
+    <string name="settings_misc_clean_data_summary">Verwende diese Funktion um Daten zu bereinigen</string>
 
     <string name="settings_misc_debug_title">Debug-Modus</string>
     <string name="settings_misc_debug_summary">Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)</string>
@@ -49,6 +49,25 @@
     <string name="settings_list_credits_spc_title">Spezielle Danksagungen</string>
     <string name="settings_list_credits_spc_summary">Ein großes Dankeschön an genannte Leute</string>
 
+    <!-- Clean data settings page -->
 
+    <string name="cleandata_clean_cache_title">Cache bereinigen</string>
+    <string name="cleandata_clean_cache_summary">Zwischengespeicherte Daten löschen</string>
+
+    <string name="cleandata_clean_cookies_title">Cookies bereinigen</string>
+    <string name="cleandata_clean_cookies_summary">Von Webseiten erstellte Cookies löschen</string>
+
+    <string name="cleandata_clean_all_nad_title">Alles bereinigen</string>
+    <string name="cleandata_clean_all_nad_summary">Alle Daten außer Einstellungen löschen</string>
+
+    <string name="cleandata_clean_force_all_title">Alles entfernen</string>
+    <string name="cleandata_clean_force_all_summary">Alle Daten inklusive Einstellungen löschen</string>
+
+    <string name="cleandata_clean_force_all_warn">
+        Dies wird alle Daten inklusive zwischengespeicherte Daten, Cookies, Einstellungen, Passwörter
+        \nund AutoFill-Daten vom diesem Gerät endgültig löschen!
+\n
+        \nMöchtest Du wirklich fortfahren?
+    </string>
 
 </resources>

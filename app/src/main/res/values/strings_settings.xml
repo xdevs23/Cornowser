@@ -63,4 +63,10 @@
     <string name="cleandata_clean_force_all_title">Remove everything</string>
     <string name="cleandata_clean_force_all_summary">Delete the whole data including web data and settings</string>
 
+    <string name="cleandata_clean_force_all_warn">
+        This will delete all data including cache, cookies, settings, passwords and AutoFill data!
+\n
+        \nAre you sure that you want to proceed?
+    </string>
+
 </resources>
