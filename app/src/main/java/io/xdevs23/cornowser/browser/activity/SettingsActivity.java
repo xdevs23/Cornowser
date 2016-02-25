@@ -2,6 +2,7 @@ package io.xdevs23.cornowser.browser.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -16,6 +17,7 @@ import org.xdevs23.ui.widget.EasyListView4;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.activity.settings.AdBlockSettings;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
@@ -102,6 +104,17 @@ public class SettingsActivity extends XquidCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     CornBrowser.getBrowserStorage().saveSearchEngine((String)newValue);
                     searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
+                    return false;
+                }
+            });
+        }
+
+        public void initAdBlockPref() {
+            Preference pref = findPreference("settings_go_adblock");
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    startActivity(new Intent(pContext, AdBlockSettings.class));
                     return false;
                 }
             });

@@ -14,6 +14,11 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 public class AdBlockManager {
 
     protected static String[] hosts;
+    protected static final String[] whiteListedHosts = new String[] {
+            "html5test.com",
+            "github.com",
+            "xda-developers.com"
+    }; // This is just to avoid load problems. The ads will still be blocked.
 
     private static String adBlockFile =
             new File(CornBrowser.getContext().getExternalFilesDir(null), "adblock.txt")
@@ -92,7 +97,8 @@ public class AdBlockManager {
 
     public static boolean isAdBlockedHost(String url) {
         if(!CornBrowser.getBrowserStorage().isAdBlockEnabled()) return false;
-        if(hosts.length <= 1) return false;
+        if(hosts == null || hosts.length <= 1)                  return false;
+        if(AdBlockParser.isHostListed(url, whiteListedHosts))   return false;
         try {
             return AdBlockParser.isHostListed(url, hosts);
         } catch(Exception ex) {

@@ -82,6 +82,14 @@
                 android:value=".CornBrowser" />
         </activity>
 
+        <activity
+            android:name=".activity.settings.AdBlockSettings"
+            android:parentActivityName=".activity.SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity" />
+        </activity>
+
     </application>
 
 </manifest>

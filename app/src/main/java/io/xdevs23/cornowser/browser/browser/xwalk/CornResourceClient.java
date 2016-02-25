@@ -10,19 +10,15 @@ import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
-import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.net.http.HttpStatusCodeHelper;
 import org.xwalk.core.ClientCertRequest;
 import org.xwalk.core.XWalkHttpAuthHandler;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
 import org.xwalk.core.XWalkWebResourceRequest;
-import org.xwalk.core.XWalkWebResourceRequestHandler;
 import org.xwalk.core.XWalkWebResourceResponse;
-import org.xwalk.core.internal.XWalkWebResourceResponseBridge;
 
 import java.io.ByteArrayInputStream;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import io.xdevs23.cornowser.browser.CornBrowser;

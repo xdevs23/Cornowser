@@ -13,7 +13,6 @@ import org.xdevs23.ui.utils.BarColors;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
-import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 
 public class AdBlockSettings extends XquidCompatActivity {
