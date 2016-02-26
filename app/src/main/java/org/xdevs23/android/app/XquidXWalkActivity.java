@@ -1,10 +1,6 @@
 package org.xdevs23.android.app;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
@@ -14,7 +10,12 @@ import org.xwalk.core.XWalkActivity;
 
 import io.xdevs23.cornowser.browser.R;
 
-public class XquidCompatActivity extends AppCompatActivity {
+public class XquidXWalkActivity extends XWalkActivity {
+
+    @Override
+    protected void onXWalkReady() {
+        Logging.logd("XWalk is ready!");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +27,8 @@ public class XquidCompatActivity extends AppCompatActivity {
         Logging.logd("DEBUG ENABLED");
         Logging.logd(
                 "Using debug mode could (maybe) have impact on performance. " +
-                "Please make sure that you use release mode when releasing a new " +
-                "version to get the best performance and avoid logcat spamming."
+                        "Please make sure that you use release mode when releasing a new " +
+                        "version to get the best performance and avoid logcat spamming."
         );
 
         if(ConfigUtils.isDebuggable())
@@ -41,11 +42,6 @@ public class XquidCompatActivity extends AppCompatActivity {
             });
 
         BarColors.enableBarColoring(this.getWindow(), R.color.colorPrimaryDark);
-    }
-
-    public static float dp2px(Context context, float dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
     }
 
     protected void endApplication() {

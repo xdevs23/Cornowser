@@ -56,9 +56,12 @@ public class CrunchyWalkView extends XWalkView {
         setResourceClient(getResourceClient());
         setUIClient(getUIClient());
 
-        Logging.logd("      Configuring settings");
-        XWalkSettings crispySettings = this.getSettings();
-        crispySettings.setUserAgentString(userAgent);
+        try {
+            Logging.logd("      Configuring settings");
+            setUserAgentString(userAgent);
+        } catch(UnsupportedOperationException ex) {
+            Logging.logd("Failed configuring settings, maybe you are using x86?");
+        }
 
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
 

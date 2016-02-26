@@ -14,6 +14,7 @@
     <!-- AdBlock section -->
 
     <string name="adblock_enable_title">Enable AdBlock</string>
+    <string name="adblock_disable_title">Disable AdBlock</string>
     <string name="adblock_enable_summary">To block advertisement, enable AdBlock</string>
 
     <string name="adblock_download_hosts_title">Download host files</string>

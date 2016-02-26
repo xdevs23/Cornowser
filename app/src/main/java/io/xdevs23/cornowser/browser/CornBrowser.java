@@ -26,7 +26,10 @@ import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 
+import junit.framework.AssertionFailedError;
+
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.android.app.XquidXWalkActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
@@ -131,10 +134,14 @@ public class CornBrowser extends XquidCompatActivity {
         if(isNormalStartUp()) {
             if(!isBgBoot) checkMallowPermissions();
 
-            XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
-            XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
-            XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
-            XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
+            try {
+                XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
+                XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
+                XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
+                XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
+            } catch(AssertionFailedError ex) {
+                Logging.logd("Error while setting some XWalk preferences. Are you using x86?");
+            }
 
             initAll();
 
