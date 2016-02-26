@@ -6,10 +6,13 @@
     <string name="html_error_title">Error </string>
     <string name="html_error_body_info">
         <![CDATA[
+		
         A ocurrido un error mientras se cargaba la web: %s<br />
         <br />
+		
         Porfavor, asegurate de estar conectado a internet.<br />
         <br />
+		
         Si el problema persiste y puedes abrir la web en otros navegadores, envíanos el error mediante GitHub.
         ]]>
     </string>

@@ -3,5 +3,6 @@
 
     <string name="cornmenu_item_updater">Actualizador</string>
     <string name="cornmenu_item_settings">Ajustes</string>
+    <string name="cornmenu_item_addhomesc">Añadir un acceso directo a la pantalla de inicio</string>
 
 </resources>
