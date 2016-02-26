@@ -8,7 +8,7 @@
 
     <!-- Root -->
     <string name="rootutils_root_detect_title">
-        Systèle rooté détecté
+        Système rooté détecté
     </string>
     <string name="rootutils_root_detect_message">
         Nous avons détecté que votre appareil est rooté.\n
@@ -52,7 +52,7 @@
         Vous avez déjà la dernière version installée.
     </string>
     <string name="updater_msg_new_version">
-        Une mise à jour est disponibles.\nType de version : %s
+        Une mise à jour est disponible.\nType de version : %s
     </string>
     <string name="updater_prefix_changelog_for">
         Liste des changements pour %s
