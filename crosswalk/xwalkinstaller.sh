@@ -18,6 +18,7 @@ if [ ! -e "crosswalk-webview-$1-arm.zip" ]; then
 else echo -e "\e[1;92mCrosswalk $1 (additional zip) is available locally. Download skipped.\e[0m\n"
 fi
 
+if [ ! "$3" == "--nominify" ]; then
 echo -e "\e[1mMinifying aar..."
 
 mkdir minify
@@ -43,6 +44,8 @@ cp "minify/aar/crosswalk-$1-arm.aar" "./crosswalk-$1-arm.aar"
 rm -rf minify/
 rm crosswalk-webview-$1-arm.zip
 rm crosswalk-$1.aar
+else mv crosswalk-$1.aar crosswalk-$1-arm.zip
+fi
 
 echo -e "\n\e[1mInstalling library into local maven repo...\e[0m\n"
 
