@@ -52,7 +52,7 @@
         Ya tienes instalada la última versión instalada.
     </string>
     <string name="updater_msg_new_version">
-        Hay una actuañización disponible.\nTipo de actualización: %s
+        Hay una actualización disponible.\nTipo de actualización: %s
     </string>
     <string name="updater_prefix_changelog_for">
         Lista de cambios para: %s
