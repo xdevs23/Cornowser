@@ -6,6 +6,12 @@
     <string name="settings_browsing_homepage_title">Página de inicio</string>
     <string name="settings_browsing_homepage_summary">Introduce tu página de inicio preferida</string>
 
+    <string name="settings_browsing_searchengine_title">Buscador</string>
+    <string name="settings_browsing_searchengine_summary">Escoje tu buscador preferido</string>
+
+    <string name="settings_browsing_adblock_title">AdBlock</string>
+    <string name="settings_browsing_adblock_summary">Accede a los ajustes del bloqueador de anuncios</string>
+
 
     <string name="settings_category_layout_title">Diseño</string>
 
@@ -16,9 +22,51 @@
     <string name="settings_layout_fullscreen_summary">Habilitar el modo de pantalla completa</string>
 
 
+    <string name="settings_category_appearance_title">Apariencia</string>
+
+    <string name="settings_appearance_webcolmode_title">Modo de color</string>
+    <string name="settings_appearance_webcolmode_summary">Escoje el modo preferido de coloración</string>
+
+    <string name="settings_appearance_omnicoloring_title">Coloración del Omnibox</string>
+    <string name="settings_appearance_omnicoloring_summary">Escoje si el omnibox y la barra de estado
+         deben ser tintados o no de forma automática</string>
+
+
     <string name="settings_category_misc_title">Otros</string>
+
+    <string name="settings_misc_clean_data_title">Eliminar datos</string>
+    <string name="settings_misc_clean_data_summary">Utiliza esta función para eliminar la caché y otros datos</string>
+
+    <string name="settings_misc_debug_title">Modo de depuración</string>
+    <string name="settings_misc_debug_summary">Habilitar para mostrar el logcat mediante la depuración (Útil si quieres mostrarnos el logcat)</string>
 
     <string name="settings_list_licenses_title">Ver las licencias Open Source del código fuente</string>
     <string name="settings_list_licenses_summary">Librerias útiles utilizadas en esta aplicación</string>
+
+    <string name="settings_list_credits_tl_title">Traducciones</string>
+    <string name="settings_list_credits_tl_summary">Créditos a los traductores</string>
+
+    <string name="settings_list_credits_spc_title">Agradecimientos especiales</string>
+    <string name="settings_list_credits_spc_summary">Muchas gracias a toda esta gente</string>
+
+    <!-- Clean data settings page -->
+
+    <string name="cleandata_clean_cache_title">Eliminar la caché</string>
+    <string name="cleandata_clean_cache_summary">Elimina la caché de las webs</string>
+
+    <string name="cleandata_clean_cookies_title">Eliminar cookies</string>
+    <string name="cleandata_clean_cookies_summary">Elimina las cookies almacenadas por las páginas web</string>
+
+    <string name="cleandata_clean_all_nad_title">Eliminar todo de las web</string>
+    <string name="cleandata_clean_all_nad_summary">Elimina toda la información de las páginas web excepto los ajustes de la app</string>
+
+    <string name="cleandata_clean_force_all_title">Eliminar todo</string>
+    <string name="cleandata_clean_force_all_summary">Elimina toda la información incluyendo los datos de páginas web y los ajustes de la app</string>
+
+    <string name="cleandata_clean_force_all_warn">
+        Esto eliminará todos los datos incluyendo la caché, las cookies, los ajustes, las contraseñas y los datos del autocompletado!
+\n
+        \nEstás seguro de que quieres continuar?
+    </string>
 
 </resources>
