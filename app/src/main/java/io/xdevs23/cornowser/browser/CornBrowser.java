@@ -794,7 +794,7 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(browserInputBar != null && !browserInputBar.hasFocus()) {
+        if(browserInputBar != null && browserInputBar.hasFocus()) {
             browserInputBar.clearFocus();
             applyInsideOmniText(publicWebRender.getUrl());
             return;
