@@ -18,33 +18,34 @@ if [ ! -e "crosswalk-webview-$1-arm.zip" ]; then
 else echo -e "\e[1;92mCrosswalk $1 (additional zip) is available locally. Download skipped.\e[0m\n"
 fi
 
-if [ "$3" == "--nominify" ]; then mv crosswalk-$1.aar crosswalk-$1-arm.zip
+if [ "$2" == "--nominify" ]; then
+  mv crosswalk-$1.aar crosswalk-$1-arm.aar
 else
-echo -e "\e[1mMinifying aar..."
+  echo -e "\e[1mMinifying aar..."
 
-mkdir minify
-mkdir minify/aar
-mkdir minify/zip
+  mkdir minify
+  mkdir minify/aar
+  mkdir minify/zip
 
-unzip "crosswalk-$1.aar" -d "minify/aar/"
-unzip "crosswalk-webview-$1-arm.zip" -d "minify/zip/"
+  unzip "crosswalk-$1.aar" -d "minify/aar/"
+  unzip "crosswalk-webview-$1-arm.zip" -d "minify/zip/"
 
-rm "minify/aar/classes.jar"
-cp "minify/zip/crosswalk-webview-$1-arm/libs/xwalk_core_library_java.jar" "minify/aar/classes.jar"
-rm -rf "minify/aar/jni/armeabi-v7a/"
-rm -rf "minify/aar/jni/x86/"
-cp -R "minify/zip/crosswalk-webview-$1-arm/libs/armeabi-v7a" "minify/aar/jni/armeabi-v7a"
+  rm "minify/aar/classes.jar"
+  cp "minify/zip/crosswalk-webview-$1-arm/libs/xwalk_core_library_java.jar" "minify/aar/classes.jar"
+  rm -rf "minify/aar/jni/armeabi-v7a/"
+  rm -rf "minify/aar/jni/x86/"
+  cp -R "minify/zip/crosswalk-webview-$1-arm/libs/armeabi-v7a" "minify/aar/jni/armeabi-v7a"
 
-cd "minify/aar"
-zip -r crosswalk-$1-arm.aar ./
+  cd "minify/aar"
+  zip -r crosswalk-$1-arm.aar ./
 
-cd "../../"
+  cd "../../"
 
-cp "minify/aar/crosswalk-$1-arm.aar" "./crosswalk-$1-arm.aar"
+  cp "minify/aar/crosswalk-$1-arm.aar" "./crosswalk-$1-arm.aar"
 
-rm -rf minify/
-rm crosswalk-webview-$1-arm.zip
-rm crosswalk-$1.aar
+  rm -rf minify/
+  rm crosswalk-webview-$1-arm.zip
+  rm crosswalk-$1.aar
 fi
 
 echo -e "\n\e[1mInstalling library into local maven repo...\e[0m\n"
