@@ -10,7 +10,6 @@ import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.ui.utils.BarColors;
-import org.xwalk.core.XWalkActivity;
 
 import io.xdevs23.cornowser.browser.R;
 

@@ -29,7 +29,6 @@ import com.baoyz.widget.PullRefreshLayout;
 import junit.framework.AssertionFailedError;
 
 import org.xdevs23.android.app.XquidCompatActivity;
-import org.xdevs23.android.app.XquidXWalkActivity;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;

@@ -13,7 +13,6 @@ import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xwalk.core.XWalkNavigationHistory;
-import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkView;
 
 import java.lang.reflect.Field;
