@@ -134,7 +134,7 @@ public class CornBrowser extends XquidCompatActivity {
             if(!isBgBoot) checkMallowPermissions();
 
             try {
-                XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, true);
+                XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW, false);
                 XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
                 XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
                 XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
