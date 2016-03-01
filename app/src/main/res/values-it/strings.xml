@@ -48,6 +48,6 @@
     <string name="optmenu_share">Condividi</string>
 
     <!-- Permissions -->
-    <string name="permission_hint_write_storage">E' necessario il permesso di scrivere sulla memoria esterna per scaricare files. Accetta per favore.</string>
+    <string name="permission_hint_write_storage">E\' necessario il permesso di scrivere sulla memoria esterna per scaricare files. Accetta per favore.</string>
 
 </resources>
