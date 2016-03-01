@@ -22,7 +22,7 @@ According to these results **this browser is ready for HTML5**.
 <img src="http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png" width="240" />
 
 ### Cornowser score:
-<img src="http://forum.xda-developers.com/attachment.php?attachmentid=3605386&stc=1&d=1452441158" width="240" />
+<img src="http://forum.xda-developers.com/attachment.php?attachmentid=3653399&stc=1&d=1455983069" width="240" />
 
 ## Screenhots
 
