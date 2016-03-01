@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.browser.modules.adblock;
 
-import org.xdevs23.crypto.HexUtils;
 import org.xdevs23.crypto.hashing.HashUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
