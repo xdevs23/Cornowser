@@ -1,24 +1,23 @@
 package io.xdevs23.cornowser.browser.browser.modules.adblock;
 
+import org.xdevs23.crypto.HexUtils;
+import org.xdevs23.crypto.hashing.HashUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.file.FileUtils;
+import org.xdevs23.general.StringManipulation;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.net.NetUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 
 public class AdBlockManager {
 
-    protected static String[] hosts;
-    protected static final String[] whiteListedHosts = new String[] {
-            "html5test.com",
-            "github.com",
-            "xda-developers.com"
-    }; // This is just to avoid load problems. The ads will still be blocked.
+    protected static String[] hosts = new String[] {""};
 
     private static String adBlockFile =
             new File(CornBrowser.getContext().getExternalFilesDir(null), "adblock.txt")
@@ -69,7 +68,7 @@ public class AdBlockManager {
         Logging.logd("AdBlock: Checking connection...");
         if(!NetUtils.isInternetAvailable()) return;
 
-        Logging.logd("AdBlock: Downloading and processing files...");
+        Logging.logd("AdBlock: Downloading hosts...");
         // Create new string array to later store host files
         String[] adblockFiles = new String[AdBlockConst.HOST_FILES_ADBLOCK.length];
 
@@ -77,19 +76,45 @@ public class AdBlockManager {
         for ( int i = 0; i < adblockFiles.length; i++)
             adblockFiles[i] = DownloadUtils.downloadString(AdBlockConst.HOST_FILES_ADBLOCK[i]);
 
+        Logging.logd("AdBlock: Processing hosts...");
         // Filter/parse the host files
         ArrayList<String> filteredAdBlockFiles = new ArrayList<String>();
         for ( String s : adblockFiles )
-            for ( String sf : AdBlockParser.parseRawAdBlockList(s.split("\n")))
-                filteredAdBlockFiles.add(sf);
+            Collections.addAll(filteredAdBlockFiles, AdBlockParser.parseRawAdBlockList(s.split("\n")));
 
         // Merge all host files together and save them into a single string
         StringBuilder sb = new StringBuilder();
         for ( String s : filteredAdBlockFiles )
             sb.append(s).append("\n");
 
-        sb.delete(sb.length() - 2, sb.length() - 1); // Delete last new line character
-        FileUtils.writeFileString(adBlockFile, sb.toString()); // Write the merged host files to file
+        Logging.logd("AdBlock: Checking...");
+        Logging.logd("AdBlock: existing hosts array length: " + hosts.length);
+        Logging.logd("AdBlock: new hosts array length:      " + filteredAdBlockFiles.size());
+        Logging.logd("AdBlock: new merged hosts length:     " + sb.length());
+
+        boolean allowUpdate = true;
+
+        if(hosts.length > 1) {
+            // Check if the file needs to be updated
+            String mergedExistingHosts = StringManipulation.arrayToString(hosts);
+            Logging.logd("AdBlock: existing hosts length: " + mergedExistingHosts.length());
+            String existingHash = HashUtils.hash(mergedExistingHosts,
+                    HashUtils.HashTypes.SHA1);
+            String newHash = HashUtils.hash(sb.toString(), HashUtils.HashTypes.SHA1);
+
+            Logging.logd("AdBlock: Existing hash: " + existingHash);
+            Logging.logd("AdBlock: New hash:      " + newHash);
+
+            allowUpdate = !existingHash.equals(newHash);
+        } else {
+            Logging.logd("AdBlock: Hash check skipped. Hosts too small");
+        }
+
+        if (allowUpdate) {
+            Logging.logd("AdBlock: Writing to file...");
+            FileUtils.writeFileString(adBlockFile, sb.toString()); // Write the merged host files to file
+        } else Logging.logd("AdBlock: File already up-to-date. No action is taken.");
+
         Logging.logd("AdBlock: Finished!");
         hostsUpdatedListener.onUpdateFinished();
         hostsUpdatedListener = defaultHostsUpdatedListener;
@@ -98,7 +123,6 @@ public class AdBlockManager {
     public static boolean isAdBlockedHost(String url) {
         if(!CornBrowser.getBrowserStorage().isAdBlockEnabled()) return false;
         if(hosts == null || hosts.length <= 1)                  return false;
-        if(AdBlockParser.isHostListed(url, whiteListedHosts))   return false;
         try {
             return AdBlockParser.isHostListed(url, hosts);
         } catch(Exception ex) {

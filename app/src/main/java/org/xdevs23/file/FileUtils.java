@@ -49,8 +49,10 @@ public class FileUtils {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 while ( (readString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(readString);
+                    stringBuilder.append(readString).append("\n");
                 }
+
+                stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length() - 2);
 
                 inputStream.close();
                 logt("Read complete.");

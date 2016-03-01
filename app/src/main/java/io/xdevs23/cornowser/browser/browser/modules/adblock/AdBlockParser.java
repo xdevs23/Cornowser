@@ -16,7 +16,7 @@ public final class AdBlockParser {
                 || s.startsWith(" ")
                 || s.length() < 3
                 || s.contains(" localhost")
-            )) filteredAdList.add(s.replace("\t", " ")
+            )) filteredAdList.add(s.replace("\t", " ").replace("\r", "")
                     .replace("127.0.0.1 ", "").replace("0.0.0.0 ", ""));
         }
 
