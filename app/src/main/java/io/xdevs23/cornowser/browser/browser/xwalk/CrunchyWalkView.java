@@ -12,6 +12,7 @@ import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
+import org.xdevs23.general.URLEncode;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
 
@@ -55,12 +56,8 @@ public class CrunchyWalkView extends XWalkView {
         setResourceClient(getResourceClient());
         setUIClient(getUIClient());
 
-        try {
-            Logging.logd("      Configuring settings");
-            setUserAgentString(userAgent);
-        } catch(UnsupportedOperationException ex) {
-            Logging.logd("Failed configuring settings, maybe you are using x86?");
-        }
+        Logging.logd("      Configuring settings");
+        setUserAgentString(userAgent);
 
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
 
@@ -126,12 +123,7 @@ public class CrunchyWalkView extends XWalkView {
                 default: break;
             }
 
-            nUrl = String.format(nUrl,
-                    url
-                            .replace("+", "%2B")
-                            .replace("#", "%23")
-                            .replace("?", "%3F")
-                            .replace(" ", "+")); // What is C++ and C#? -> What+is+C%2B%2B+and+C%23%3F
+            nUrl = String.format(nUrl, URLEncode.encode(url));
         }
         super.load(nUrl, content);
     }
