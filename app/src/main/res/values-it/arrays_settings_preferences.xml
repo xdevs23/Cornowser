@@ -21,21 +21,4 @@
         <item>Scala di grigi</item>
     </string-array>
 
-    <string-array name="settings_appearance_webcolmode_entryvalues" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <!-- Search engine -->
-    <string-array name="settings_browsing_searchengine_entries" translatable="false">
-        <item>Google</item>
-        <item>DuckDuckGo</item>
-        <item>Yahoo</item>
-        <item>Bing</item>
-        <item>Ecosia</item>
-    </string-array>
-
 </resources>
