@@ -1,12 +1,8 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Improved AdBlock (Hosts files are now only updated when needed. This prevents eMMC corruption because it is not being overwritten on each launch)
- - Improved URL encoding when searching
- - Added omnibox tint colors
- - Updated french translation (Thanks to Primokorn)
- - Updated spanish translation (Thanks to Greck98)
- - Updated italian translation (Thanks to DavideV)
- - Updated website for Greck98
- - Fixed back button to close app
- - Updated Crosswalk version to 19.48.491.0
- - Other minor improvements and changes
+ - Add Crashlytics for automatic bug & crash reports
+ - Reduced transparency in tab switcher
+ - Added some padding in options menu
+ - Fixed html5test web page when using AdBlock
+ - Updated Crosswalk version to 19.48.492.0
+ - Other minor changes
