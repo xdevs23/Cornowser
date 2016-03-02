@@ -45,6 +45,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 
@@ -69,6 +71,7 @@ public class Core extends Application {
         if(ConfigUtils.forceDebug) Logging.logd("DEBUG MODE IS FORCE-ENABLED.\nPre init finished!");
 
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
     }
 
 }

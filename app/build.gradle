@@ -1,10 +1,22 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        //noinspection GradleDynamicVersion
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
     mavenLocal()
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -62,7 +74,10 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
 
-    // TODO: Add fabric.io
+    // Fabric.io Crashlytics
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
 
     // Apache Crosswalk (Canary)
     // See https://goo.gl/xRSxNW for instructions or use the installer script in crosswalk/xwalkinstaller.sh
@@ -76,4 +91,5 @@ dependencies {
 
     // PullToRefresh layout
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
+
 }
