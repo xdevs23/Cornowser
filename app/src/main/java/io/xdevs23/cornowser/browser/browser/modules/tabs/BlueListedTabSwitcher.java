@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
+import org.xdevs23.ui.ux.BlurBuilder;
 import org.xdevs23.ui.widget.SimpleSeparator;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -38,6 +40,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
+
+
 
     private Drawable bgBtn;
 
@@ -66,7 +70,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         }
     };
 
-    private int mainColor;
+    private int mainColor,
+                mainBgColor;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
         private void updateStuff() {
@@ -239,11 +244,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void init() {
-        mainColor = ColorUtil.getColor(R.color.blue_800);
+        mainColor   = ColorUtil.getColor(R.color.blue_800);
+        mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
 
         mainView = new ScrollView(getContext());
 
-        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_min_transparent));
+        mainView.setBackgroundColor(mainBgColor);
 
         initViews();
 

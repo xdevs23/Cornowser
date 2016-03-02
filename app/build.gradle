@@ -40,6 +40,8 @@ android {
 
         versionName "1.0.5.2"       // Version name
         multiDexEnabled true        // For the libs to work correctly
+        renderscriptTargetApi 23    // This is for use of RenderScript
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {

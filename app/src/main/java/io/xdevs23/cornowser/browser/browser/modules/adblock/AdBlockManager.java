@@ -120,8 +120,9 @@ public class AdBlockManager {
     }
 
     public static boolean isAdBlockedHost(String url) {
-        if(!CornBrowser.getBrowserStorage().isAdBlockEnabled()) return false;
-        if(hosts == null || hosts.length <= 1)                  return false;
+        if(!CornBrowser.getBrowserStorage().isAdBlockEnabled())             return false;
+        if(hosts == null || hosts.length <= 1)                              return false;
+        if(AdBlockParser.isHostListed(url, AdBlockConst.WHITELISTED_HOSTS)) return false;
         try {
             return AdBlockParser.isHostListed(url, hosts);
         } catch(Exception ex) {
