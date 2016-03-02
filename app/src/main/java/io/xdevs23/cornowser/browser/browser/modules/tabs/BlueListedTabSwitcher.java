@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -26,7 +25,6 @@ import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
-import org.xdevs23.ui.ux.BlurBuilder;
 import org.xdevs23.ui.widget.SimpleSeparator;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
