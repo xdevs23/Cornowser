@@ -436,14 +436,8 @@ public class CornBrowser extends XquidCompatActivity {
         omniboxTinyItemsLayout.setLayoutParams(otilparams);
 
         ((RelativeLayout.LayoutParams)browserInputBar.getLayoutParams()).setMargins(
-                0,
-                0,
-                DpUtil.dp2px(getContext(), 3 * 32 + 2),
-                0
+                0, 0, DpUtil.dp2px(getContext(), 3 * 32 + 2), 0
         );
-
-        getActivity().findViewById(R.id.omnibox_separator)
-                .setTranslationY(OmniboxControl.isBottom() ? -webProgressBar.getHeight() : 0);
 
         // This is for proper refresh feature when omnibox is at bottom
         omniPtrLayout.setRotation(OmniboxControl.isBottom() ? 180f : 0f);

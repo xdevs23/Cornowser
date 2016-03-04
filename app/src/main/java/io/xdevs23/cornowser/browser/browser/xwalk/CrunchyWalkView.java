@@ -237,6 +237,7 @@ public class CrunchyWalkView extends XWalkView {
     public Bitmap getFavicon() {
         return favicon;
     }
+
     /**
      * Get the private bridge
      * @return Bridge
