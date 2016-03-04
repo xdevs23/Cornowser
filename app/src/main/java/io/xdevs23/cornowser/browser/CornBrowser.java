@@ -29,6 +29,7 @@ import com.baoyz.widget.PullRefreshLayout;
 import junit.framework.AssertionFailedError;
 
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
@@ -57,6 +58,10 @@ import io.xdevs23.cornowser.browser.updater.UpdateActivity;
 import io.xdevs23.cornowser.browser.updater.UpdaterStorage;
 
 public class CornBrowser extends XquidCompatActivity {
+
+    public static final String
+            URL_TO_LOAD_KEY     = "urlToLoad"
+            ;
 
     public static CrunchyWalkView publicWebRender = null;
 
@@ -213,9 +218,9 @@ public class CornBrowser extends XquidCompatActivity {
                 (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
             getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
 
-        else if(getIntent().getStringExtra("urlToLoad") != null &&
-                (!getIntent().getStringExtra("urlToLoad").isEmpty()))
-            getTabSwitcher().addTab(getIntent().getStringExtra("urlToLoad"));
+        else if(getIntent().getStringExtra(URL_TO_LOAD_KEY) != null &&
+                (!getIntent().getStringExtra(URL_TO_LOAD_KEY).isEmpty()))
+            getTabSwitcher().addTab(getIntent().getStringExtra(URL_TO_LOAD_KEY));
 
         else if (readyToLoadUrl.isEmpty())
             getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
@@ -401,25 +406,16 @@ public class CornBrowser extends XquidCompatActivity {
     public static void initOmniboxPosition() {
         Logging.logd("    Omnibox position");
 
-        RelativeLayout.LayoutParams omniparams = new RelativeLayout.LayoutParams(
-                omnibox.getLayoutParams().width,
-                omnibox.getLayoutParams().height
-        );
-        RelativeLayout.LayoutParams webrparams = new RelativeLayout.LayoutParams(
-                publicWebRenderLayout.getLayoutParams().width,
-                publicWebRenderLayout.getLayoutParams().height
-        );
-        RelativeLayout.LayoutParams otilparams = new RelativeLayout.LayoutParams(
-                omniboxTinyItemsLayout.getLayoutParams().width,
-                omniboxTinyItemsLayout.getLayoutParams().height
-        );
+        RelativeLayout.LayoutParams omniparams =
+                XquidRelativeLayout.LayoutParams.getPredefinedLPFromViewMetrics(omnibox);
+        RelativeLayout.LayoutParams webrparams =
+                XquidRelativeLayout.LayoutParams.getPredefinedLPFromViewMetrics(publicWebRenderLayout);
+        RelativeLayout.LayoutParams otilparams =
+                XquidRelativeLayout.LayoutParams.getPredefinedLPFromViewMetrics(omniboxTinyItemsLayout);
 
-        omniparams.addRule(aLeft);
-        omniparams.addRule(aRight);
-        webrparams.addRule(aLeft);
-        webrparams.addRule(aRight);
-        otilparams.addRule(aLeft);
-        otilparams.addRule(aRight);
+
+        XquidRelativeLayout.addRuleLP(aLeft,  omniparams, webrparams, otilparams);
+        XquidRelativeLayout.addRuleLP(aRight, omniparams, webrparams, otilparams);
 
         if(browserStorage.getOmniboxPosition()) {
             omniparams.addRule(aBottom);
@@ -555,7 +551,7 @@ public class CornBrowser extends XquidCompatActivity {
                         break;
                     case optMenuItems.ADD_HOME_SHCT:
                         final Intent shortcutIntent = new Intent(getActivity(), CornBrowser.class);
-                        shortcutIntent.putExtra("urlToLoad", getWebEngine().getUrl());
+                        shortcutIntent.putExtra(URL_TO_LOAD_KEY, getWebEngine().getUrl());
 
                         final Intent intent = new Intent();
                         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);

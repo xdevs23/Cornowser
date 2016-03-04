@@ -68,8 +68,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         }
     };
 
-    private int mainColor,
-                mainBgColor;
+    private int mainColor;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
         private void updateStuff() {
@@ -242,8 +241,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void init() {
-        mainColor   = ColorUtil.getColor(R.color.blue_800);
-        mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
+        mainColor       = ColorUtil.getColor(R.color.blue_800);
+        int mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
 
         mainView = new ScrollView(getContext());
 

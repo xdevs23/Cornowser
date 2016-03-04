@@ -118,13 +118,13 @@ public class BarColors {
         int sColor = color;
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        if(hsv[3] > 0.86f) hsv[3] = 0.86f;
+        if(hsv[2] > 0.56f && hsv[1] < 0.12) hsv[2] = 0.56f;
         sColor = Color.HSVToColor(hsv);
         updateBarsColorWoCheck(sColor, window, applyDarken, navbar, statusbar);
     }
 
     /**
-     * Set both navigatio bar and status bar color
+     * Set both navigation bar and status bar color
      * @param color Color
      * @param window Window
      * @param applyDarken Use darker color
