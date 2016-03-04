@@ -38,9 +38,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
-
-
-
+    
     private Drawable bgBtn;
 
     private View.OnTouchListener addButtonOTL = new View.OnTouchListener() {
@@ -315,7 +313,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     v.setOnClickListener(null);
                     removeTab(tabsLayout.indexOfChild(v));
                 }
-                else Toast.makeText(getContext(), "(°o°)", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getContext(),
+                        getContext().getString(R.string.tabswitch_no_removable_tabs),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
