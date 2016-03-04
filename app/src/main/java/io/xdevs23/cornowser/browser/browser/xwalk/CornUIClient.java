@@ -244,7 +244,13 @@ public class CornUIClient extends XWalkUIClient {
         if( (status == LoadStatus.CANCELLED || status == LoadStatus.FAILED)
                 && (!readyForBugfreeBrowsing) && (!url.isEmpty()) )
             view.load(url, null);
-        else readyForBugfreeBrowsing = true;
+        else {
+            readyForBugfreeBrowsing = true;
+            CornBrowser.publicWebRenderLayout.bringToFront();
+            CornBrowser.getWebEngine().bringToFront();
+            CornBrowser.omnibox.bringToFront();
+            CornBrowser.getWebEngine().refreshDrawableState();
+        }
 
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
