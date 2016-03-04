@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -54,20 +55,26 @@ public class CornUIClient extends XWalkUIClient {
     public void onIconAvailable(XWalkView view, String url, Message startDownload) {
         final CrunchyWalkView fView = CrunchyWalkView.fromXWalkView(view);
         final String fUrl = url;
+        final Handler handler = new Handler();
+        final Runnable tintNowRunnable = new Runnable() {
+            @Override
+            public void run() {
+                WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(fView));
+            }
+        };
         Thread downIcon = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     InputStream inputStream = DownloadUtils.getInputStreamForConnection(fUrl);
                     fView.favicon = BitmapFactory.decodeStream(inputStream);
+                    handler.post(tintNowRunnable);
                 } catch(Exception ex) {
                     StackTraceParser.logStackTrace(ex);
                 }
             }
         });
         downIcon.start();
-
-        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override
