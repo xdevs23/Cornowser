@@ -98,23 +98,6 @@ public class CornResourceClient extends XWalkResourceClient {
                 // Ignore
             }
 
-            if(!success) {
-                try {
-                    String pkg;
-                    if(url.startsWith("market"))
-                        pkg = "com.android.vending";
-                    else if(url.contains("open.spotify."))
-                        pkg = "com.spotify.music";
-                    else pkg = "<unknown>";
-                    if(!("<unknown>").equals(pkg))
-                        c.startActivity(CornBrowser.getContext().getPackageManager().getLaunchIntentForPackage(pkg));
-
-                    success = true;
-                } catch(Exception ex) {
-                    // Ignore
-                }
-            }
-
             if(!success) Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();
         } else triedIntentLoad = false;
         return success;
