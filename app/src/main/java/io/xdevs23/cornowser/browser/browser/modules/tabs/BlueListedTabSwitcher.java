@@ -38,7 +38,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
     private XquidLinearLayout tabsLayout;
-    
+
     private Drawable bgBtn;
 
     private View.OnTouchListener addButtonOTL = new View.OnTouchListener() {
