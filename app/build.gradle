@@ -44,6 +44,17 @@ android {
         renderscriptSupportModeEnabled true
     }
 
+    signingConfigs {
+        release {
+            storeFile file("privatekey.jks")
+            keyAlias "xd"
+        }
+        debug {
+            storeFile file("privatekey.jks")
+            keyAlias "xd"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
