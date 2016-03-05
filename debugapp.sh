@@ -1,5 +1,7 @@
 #/bin/sh
 
+source buildDebugApp.sh
+
 if [ $1 = '-l' ]; then
   adb logcat -v tag -s Cornowser:*
 elif [ $1 = "--cleardata" ]; then
