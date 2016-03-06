@@ -127,7 +127,7 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bootstrap();
+        if(!isBootstrapped) bootstrap();
     }
 
     /**
