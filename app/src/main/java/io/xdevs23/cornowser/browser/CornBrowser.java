@@ -751,7 +751,7 @@ public class CornBrowser extends XquidCompatActivity {
         super.onResume();
         if(this.getWindow().isActive() && isBgBoot) {
             isBgBoot = false;
-            checkUpdate.start();
+            if(!checkUpdate.isAlive()) checkUpdate.start();
             fastReloadComponents();
         } else onResumeWebRender();
         reloadComponents();
