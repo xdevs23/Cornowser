@@ -51,7 +51,8 @@ android {
             keyAlias "xd"
             keyPassword System.getenv("ENV_CORNOWSER_KEYPWD")
         }
-        debug {
+
+        appdebug {
             storeFile file("../privatekey.jks")
             storePassword System.getenv("ENV_CORNOWSER_STOREPWD")
             keyAlias "xd"
@@ -62,10 +63,22 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            debuggable true
+            zipAlignEnabled true
         }
 
         debug {
             minifyEnabled false
+            debuggable true
+            zipAlignEnabled true
+        }
+
+        appdebug {
+            minifyEnabled false
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+            zipAlignEnabled true
         }
     }
 
@@ -80,11 +93,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
 
     // Apache Commons
-    compile('org.apache.commons:commons-io:+')
+    compile 'org.apache.commons:commons-io:+'
 
     // AppCompat
     compile 'com.android.support:appcompat-v7:23.2.0'
@@ -108,5 +121,4 @@ dependencies {
 
     // PullToRefresh layout
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
-
 }

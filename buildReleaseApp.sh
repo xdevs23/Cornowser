@@ -1,5 +1,9 @@
 #!/bin/bash
 
-. configure.sh
+echo "Configuring..."
+source configure.sh
 
+echo "Building..."
 ./gradlew clean build connectedCheck assembleRelease clean
+
+echo "Build finished!"
