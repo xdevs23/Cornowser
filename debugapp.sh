@@ -1,6 +1,6 @@
 #/bin/sh
 
-if [ -z "$1" ]; then source buildDebugApp.sh
+if [ -z "$1" ]; then source buildDebugApp.sh; fi
 
 if [ "$1" == "-l" ]; then
   adb logcat -v tag -s Cornowser:*
