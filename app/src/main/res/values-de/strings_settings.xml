@@ -12,6 +12,9 @@
     <string name="settings_browsing_adblock_title">AdBlock</string>
     <string name="settings_browsing_adblock_summary">Öffne die Einstellungen für den Werbeblocker</string>
 
+    <string name="settings_browsing_lsession_title">Letzte Sitzung wiederherstellen</string>
+    <string name="settings_browsing_lsession_summary">Alle Tabs der letzten Sitzung beim Start öffnen</string>
+
 
     <string name="settings_category_layout_title">Layout</string>
 

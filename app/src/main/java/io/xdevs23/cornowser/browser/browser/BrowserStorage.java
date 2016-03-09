@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.xdevs23.config.ConfigUtils;
+import org.xdevs23.management.config.SharedPreferenceArray;
 
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
@@ -15,12 +16,17 @@ public class BrowserStorage {
                 userHomePage
             ;
 
+    private String[]
+                lastSession
+            ;
+
     private boolean
                 omniboxIsBottom,
                 enableFullscreen,
                 debugEnabled,
                 omniColoringEnabled,
-                adBlockEnabled
+                adBlockEnabled,
+                saveLastSession
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -51,6 +57,8 @@ public class BrowserStorage {
         setSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(getPref(BPrefKeys.searchEngPref,
                 BrowserStorageEnums.SearchEngine.Google.name())));
         setEnableAdBlock(getPref(BPrefKeys.adBlockEnPref, false));
+        setLastBrowsingSession(SharedPreferenceArray.getStringArray(getPref(BPrefKeys.lastSessionPref,
+                "")));
     }
 
     //endregion
@@ -201,6 +209,36 @@ public class BrowserStorage {
 
     // endregion
 
+    // region Save session
+
+    public void setLastBrowsingSession(String[] session) {
+        lastSession = session;
+    }
+
+    public void saveLastBrowsingSession(String[] session) {
+        setLastBrowsingSession(session);
+        setPref(BPrefKeys.lastSessionPref, SharedPreferenceArray.getPreferenceString(session));
+    }
+
+    public String[] getLastBrowsingSession() {
+        return lastSession;
+    }
+
+    public void setSaveBrowsingSession(boolean save) {
+        saveLastSession = save;
+    }
+
+    public void saveEnableSaveSession(boolean save) {
+        setSaveBrowsingSession(save);
+        setPref(BPrefKeys.saveLastSessionPref, save);
+    }
+
+    public boolean isLastSessionEnabled() {
+        return saveLastSession;
+    }
+
+    // endregion
+
 
     //region General
     /* General methods */
@@ -250,14 +288,16 @@ public class BrowserStorage {
      */
     public static final class BPrefKeys {
         public static final String
-                userHomePage    = "pref_user_homepage",
-                omniboxPos      = "pref_omni_pos",
-                fullscreenPref  = "pref_enable_fullscreen",
-                colorModePref   = "pref_render_color_mode",
-                debugModePref   = "pref_enable_debug_mode",
-                omniColorPref   = "pref_enable_omni_coloring",
-                searchEngPref   = "pref_search_engine",
-                adBlockEnPref   = "pref_adblock_enable"
+                userHomePage        = "pref_user_homepage",
+                omniboxPos          = "pref_omni_pos",
+                fullscreenPref      = "pref_enable_fullscreen",
+                colorModePref       = "pref_render_color_mode",
+                debugModePref       = "pref_enable_debug_mode",
+                omniColorPref       = "pref_enable_omni_coloring",
+                searchEngPref       = "pref_search_engine",
+                adBlockEnPref       = "pref_adblock_enable",
+                saveLastSessionPref = "pref_last_session",
+                lastSessionPref     = "saved_last_session"
                         ;
     }
 

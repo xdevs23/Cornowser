@@ -32,6 +32,12 @@
             android:summary="@string/settings_browsing_adblock_summary"
             android:key="settings_go_adblock" />
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_lsession"
+            android:title="@string/settings_browsing_lsession_title"
+            android:summary="@string/settings_browsing_lsession_summary"
+            android:key="settings_last_session" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

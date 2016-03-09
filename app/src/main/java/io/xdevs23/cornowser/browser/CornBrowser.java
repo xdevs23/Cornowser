@@ -223,6 +223,12 @@ public class CornBrowser extends XquidCompatActivity {
                 (!getIntent().getStringExtra(URL_TO_LOAD_KEY).isEmpty()))
             getTabSwitcher().addTab(getIntent().getStringExtra(URL_TO_LOAD_KEY));
 
+        else if(getBrowserStorage().getLastBrowsingSession() != null) {
+            for (String s : getBrowserStorage().getLastBrowsingSession())
+                getTabSwitcher().addTab(s);
+            getTabSwitcher().switchTab(0);
+        }
+
         else if (readyToLoadUrl.isEmpty())
             getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
 
