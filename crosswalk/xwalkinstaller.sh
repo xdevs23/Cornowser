@@ -1,5 +1,7 @@
 #/bin/bash
 
+if [ "${PWD##*/}" != "crosswalk" ]; then cd crosswalk; fi
+
 xwalkver=$(cat version.txt)
 
 if [ -z "$1" ]; then
