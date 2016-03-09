@@ -1,8 +1,8 @@
 #/bin/sh
 
-source buildDebugApp.sh
+if [ -z "$1" ]; then source buildDebugApp.sh
 
-if [ "$1" == '-l' ]; then
+if [ "$1" == "-l" ]; then
   adb logcat -v tag -s Cornowser:*
 elif [ "$1" == "--cleardata" ]; then
   adb shell pm clear io.xdevs23.cornowser.browser
