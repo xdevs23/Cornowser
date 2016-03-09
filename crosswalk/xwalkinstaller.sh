@@ -10,7 +10,7 @@ if [ -z "$1" ]; then
 else xwalkver="$1"
 fi
 
-if [ "$xwalkver" == "auto" ]; then
+if [ "$xwalkver" == 'auto' ]; then
   xwalkver=$(cat version.txt)
 fi
 
