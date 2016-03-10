@@ -82,7 +82,10 @@ public class CornBrowser extends XquidCompatActivity {
 
     public static String readyToLoadUrl = "";
 
-    public static boolean isBgBoot = false;
+    public static boolean
+            isBgBoot                = false,
+            alreadyCheckedUpdate    = false
+                    ;
 
     private static final int
             PERMISSION_REQUEST_CODE = 1;
@@ -119,7 +122,6 @@ public class CornBrowser extends XquidCompatActivity {
             aTop    = RelativeLayout.ALIGN_PARENT_TOP,
             aRight  = RelativeLayout.ALIGN_PARENT_RIGHT,
             aBottom = RelativeLayout.ALIGN_PARENT_BOTTOM;
-
 
     private AlertDialog optionsMenuDialog;
 
@@ -163,7 +165,7 @@ public class CornBrowser extends XquidCompatActivity {
 
         handleStartupWebLoad();
 
-        if(isUpdateCheckAllowed()) checkUpdate.start();
+        if(isUpdateCheckAllowed() && (!alreadyCheckedUpdate)) checkUpdate.start();
 
         // AdBlock hosts update
         if(getBrowserStorage().isAdBlockEnabled())
@@ -789,7 +791,8 @@ public class CornBrowser extends XquidCompatActivity {
         super.onResume();
         if(this.getWindow().isActive() && isBgBoot) {
             isBgBoot = false;
-            if(!checkUpdate.isAlive()) checkUpdate.start();
+            if( (!checkUpdate.isAlive()) && (!alreadyCheckedUpdate) )
+                checkUpdate.start();
             fastReloadComponents();
         } else onResumeWebRender();
         reloadComponents();
@@ -888,6 +891,7 @@ public class CornBrowser extends XquidCompatActivity {
     private Thread checkUpdate = new Thread() {
         public void run() {
             try {
+                alreadyCheckedUpdate = true;
                 Sleeper.sleep(1000); // Give the browser a second to get air xD
                 String newVer = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE);
                 newVersionAv  = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_NAME);
