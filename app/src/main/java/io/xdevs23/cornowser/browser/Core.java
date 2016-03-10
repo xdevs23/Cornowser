@@ -60,9 +60,13 @@ public class Core extends Application {
 
     protected static Context coreContext;
 
+    protected static Core applicationCore;
+
     @Override
     public void onCreate() {
         Logging.logd("PRE INIT START");
+
+        applicationCore = this;
 
         coreContext = this.getApplicationContext();
 
@@ -72,7 +76,6 @@ public class Core extends Application {
         if(ConfigUtils.forceDebug) Logging.logd("DEBUG MODE IS FORCE-ENABLED.\nPre init finished!");
 
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
     }
 
 }

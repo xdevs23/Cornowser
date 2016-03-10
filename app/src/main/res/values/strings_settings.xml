@@ -43,6 +43,10 @@
     <string name="settings_misc_debug_title">Debug mode</string>
     <string name="settings_misc_debug_summary">Enable logcat debug output. (Good if you want to show it to us)</string>
 
+    <string name="settings_misc_optout_clytics_title">Disable Crashlytics</string>
+    <string name="settings_misc_optout_clytics_summary">Opt-out of automatic crash reporting
+        (Application restart required)</string>
+
     <string name="settings_list_licenses_title">Open Source Licenses</string>
     <string name="settings_list_licenses_summary">Useful libraries used by this application</string>
 

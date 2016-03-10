@@ -27,7 +27,8 @@ public class BrowserStorage {
                 debugEnabled,
                 omniColoringEnabled,
                 adBlockEnabled,
-                saveLastSession
+                saveLastSession,
+                crashlyticsOptOut
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -243,6 +244,22 @@ public class BrowserStorage {
 
     // endregion
 
+    // region Crashlytics Opt-Out
+
+    public void setCrashlyticsOptedOut(boolean optedOut) {
+        crashlyticsOptOut = optedOut;
+    }
+
+    public void saveCrashlyticsOptedOut(boolean optedOut) {
+        setCrashlyticsOptedOut(optedOut);
+        setPref(BPrefKeys.crashltcOptOutPref, optedOut);
+    }
+
+    public boolean isCrashlyticsOptedOut() {
+        return crashlyticsOptOut;
+    }
+
+    // endregion
 
     //region General
     /* General methods */
@@ -311,7 +328,8 @@ public class BrowserStorage {
                 searchEngPref       = "pref_search_engine",
                 adBlockEnPref       = "pref_adblock_enable",
                 saveLastSessionPref = "pref_last_session",
-                lastSessionPref     = "saved_last_session"
+                lastSessionPref     = "saved_last_session",
+                crashltcOptOutPref  = "pref_crashlytics_optout"
                         ;
     }
 

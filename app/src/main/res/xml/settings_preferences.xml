@@ -98,6 +98,12 @@
             android:summary="@string/settings_misc_debug_summary"
             android:key="settings_debug_mode" />
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_optout_clytics"
+            android:title="@string/settings_misc_optout_clytics_title"
+            android:summary="@string/settings_misc_optout_clytics_summary"
+            android:key="settings_optout_clytics" />
+
         <Preference
             android:id="@+id/settings_preference_licenses"
             android:title="@string/settings_list_licenses_title"

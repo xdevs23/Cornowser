@@ -259,6 +259,22 @@ public class SettingsActivity extends XquidCompatActivity {
             });
         }
 
+        public void initClyticsOptOutPref() {
+            final SwitchPreference pref =
+                    (SwitchPreference) findPreference("settings_optout_clytics");
+
+            pref.setChecked(CornBrowser.getBrowserStorage().isCrashlyticsOptedOut());
+
+            pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveCrashlyticsOptedOut((boolean)newValue);
+                    pref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+        }
+
         // endregion
 
         @Override
@@ -283,6 +299,7 @@ public class SettingsActivity extends XquidCompatActivity {
 
             // Misc
             initDebugModePref();
+            initClyticsOptOutPref();
             initAboutDialogs();
         }
     }

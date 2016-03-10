@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.crashlytics.android.Crashlytics;
 
 import junit.framework.AssertionFailedError;
 
@@ -40,6 +41,7 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 import org.xwalk.core.XWalkPreferences;
 
+import io.fabric.sdk.android.Fabric;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
@@ -151,6 +153,9 @@ public class CornBrowser extends XquidCompatActivity {
             }
 
             initAll();
+
+            if(!getBrowserStorage().isCrashlyticsOptedOut())
+                Fabric.with(Core.applicationCore, new Crashlytics());
 
             isBootstrapped = true;
         } else if(isNewIntent) {
