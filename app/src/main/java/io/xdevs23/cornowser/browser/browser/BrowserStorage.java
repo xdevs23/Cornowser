@@ -57,9 +57,11 @@ public class BrowserStorage {
         setOmniColoring(getPref(BPrefKeys.omniColorPref, true));
         setSearchEngine(BrowserStorageEnums.SearchEngine.valueOf(getPref(BPrefKeys.searchEngPref,
                 BrowserStorageEnums.SearchEngine.Google.name())));
+        setDebugMode(getPref(BPrefKeys.debugModePref, false));
         setEnableAdBlock(getPref(BPrefKeys.adBlockEnPref, false));
         setLastBrowsingSession(SharedPreferenceArray.getStringArray(getPref(BPrefKeys.lastSessionPref,
                 "")));
+        setSaveBrowsingSession(getPref(BPrefKeys.saveLastSessionPref, false));
     }
 
     //endregion
@@ -232,6 +234,7 @@ public class BrowserStorage {
     public void saveEnableSaveSession(boolean save) {
         setSaveBrowsingSession(save);
         setPref(BPrefKeys.saveLastSessionPref, save);
+        if(!save) rmPref(BPrefKeys.lastSessionPref);
     }
 
     public boolean isLastSessionEnabled() {
@@ -279,6 +282,13 @@ public class BrowserStorage {
         editor.putInt(key, value);
         editor.apply();
         Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
+    }
+
+    public void rmPref(String key) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.remove(key);
+        editor.apply();
+        Logging.logd("Pref '" + key + "' removed.");
     }
 
     public void clearPrefs() {

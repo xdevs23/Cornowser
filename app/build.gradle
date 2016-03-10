@@ -78,8 +78,6 @@ android {
             signingConfig signingConfigs.appdebug
             minifyEnabled false
             debuggable true
-            jniDebuggable true
-            renderscriptDebuggable true
             zipAlignEnabled true
         }
     }

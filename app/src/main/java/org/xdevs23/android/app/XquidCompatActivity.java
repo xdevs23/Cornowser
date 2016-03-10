@@ -48,11 +48,13 @@ public class XquidCompatActivity extends AppCompatActivity {
     }
 
     protected void endApplication() {
+        onDestroy();
         finish();
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     protected void softEndApplication() {
+        onDestroy();
         finish();
     }
 

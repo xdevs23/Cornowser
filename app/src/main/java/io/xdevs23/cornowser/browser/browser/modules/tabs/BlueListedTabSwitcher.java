@@ -256,7 +256,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void switchTab(int tab) {
-        showTab(tabStorage.getTab(tab));
+        super.switchTab(tab);
     }
 
     @Override

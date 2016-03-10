@@ -226,10 +226,13 @@ public class CornBrowser extends XquidCompatActivity {
 
         else if(getBrowserStorage().isLastSessionEnabled() &&
                 getBrowserStorage().getLastBrowsingSession() != null) {
-            Logging.logd("Restoring last session...");
-            for (String s : getBrowserStorage().getLastBrowsingSession())
+            Logging.logd("Restoring last session ("
+                    + getBrowserStorage().getLastBrowsingSession().length + " tabs)...");
+            for (String s : getBrowserStorage().getLastBrowsingSession()) {
                 getTabSwitcher().addTab(s);
+            }
             getTabSwitcher().switchTab(0);
+            getTabSwitcher().fixWebResumation();
             Logging.logd("Restored!");
         }
 
@@ -751,8 +754,19 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onPause() {
         Logging.logd("Activity paused.");
-        super.onPause();
         onPauseWebRender();
+        if(getBrowserStorage().isLastSessionEnabled()) {
+            String[] sessionArray = new String[getTabSwitcher().getTabStorage().getTabCount()];
+            Logging.logd("Session urls:" + sessionArray.length);
+            for (int i = 0; i < getTabSwitcher().getTabStorage().getTabCount(); i++) {
+                Logging.logd("Saving tab " + i);
+                if (getBrowserStorage().isLastSessionEnabled())
+                    sessionArray[i] = getTabSwitcher().getTabStorage().getTab(i).getUrl();
+            }
+            if(sessionArray != getBrowserStorage().getLastBrowsingSession())
+                getBrowserStorage().saveLastBrowsingSession(sessionArray);
+        }
+        super.onPause();
     }
 
     @Override
@@ -765,23 +779,24 @@ public class CornBrowser extends XquidCompatActivity {
             fastReloadComponents();
         } else onResumeWebRender();
         reloadComponents();
-
     }
 
     @Override
     protected void onDestroy() {
+        Logging.logd("Destroying activity");
+        super.onDestroy();
         if (publicWebRender != null) {
             Logging.logd("Saving state and destroying webviews...");
             String[] sessionArray = new String[getTabSwitcher().getTabStorage().getTabCount()];
+            Logging.logd("Session urls:" + sessionArray.length);
             for (int i = 0; i < getTabSwitcher().getTabStorage().getTabCount(); i++) {
+                Logging.logd("Shutting down tab " + i);
                 if(getBrowserStorage().isLastSessionEnabled())
                     sessionArray[i] = getTabSwitcher().getTabStorage().getTab(i).getUrl();
                 getTabSwitcher().getTabStorage().getTab(i).getWebView().onDestroy();
             }
             getBrowserStorage().saveLastBrowsingSession(sessionArray);
         }
-        Logging.logd("Destroying activity");
-        super.onDestroy();
     }
 
     @Override

@@ -7,13 +7,13 @@ public class SharedPreferenceArray {
         for ( String s : array)
             sb.append(s.replace(":", "::").replace("|", "||"))
                     .append("|:|");
-        sb.delete(sb.length() - 4, sb.length() - 1);
+        sb.delete(sb.length() - 5, sb.length() - 1);
         return sb.toString();
     }
 
     public static String[] getStringArray(String preferenceString) {
         if(preferenceString.isEmpty()) return null;
-        String[] array = preferenceString.split("|:|");
+        String[] array = preferenceString.split("([|][:][|])");
         for ( int i = 0; i < array.length; i++ )
             array[i] = array[i].replace("::", ":").replace("||", "|");
         return array;
