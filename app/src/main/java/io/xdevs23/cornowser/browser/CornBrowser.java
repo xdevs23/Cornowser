@@ -48,6 +48,7 @@ import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.Tab;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabStorage;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
@@ -223,10 +224,13 @@ public class CornBrowser extends XquidCompatActivity {
                 (!getIntent().getStringExtra(URL_TO_LOAD_KEY).isEmpty()))
             getTabSwitcher().addTab(getIntent().getStringExtra(URL_TO_LOAD_KEY));
 
-        else if(getBrowserStorage().getLastBrowsingSession() != null) {
+        else if(getBrowserStorage().isLastSessionEnabled() &&
+                getBrowserStorage().getLastBrowsingSession() != null) {
+            Logging.logd("Restoring last session...");
             for (String s : getBrowserStorage().getLastBrowsingSession())
                 getTabSwitcher().addTab(s);
             getTabSwitcher().switchTab(0);
+            Logging.logd("Restored!");
         }
 
         else if (readyToLoadUrl.isEmpty())
@@ -766,10 +770,18 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Logging.logd("Activity destroyed.");
+        if (publicWebRender != null) {
+            Logging.logd("Saving state and destroying webviews...");
+            String[] sessionArray = new String[getTabSwitcher().getTabStorage().getTabCount()];
+            for (int i = 0; i < getTabSwitcher().getTabStorage().getTabCount(); i++) {
+                if(getBrowserStorage().isLastSessionEnabled())
+                    sessionArray[i] = getTabSwitcher().getTabStorage().getTab(i).getUrl();
+                getTabSwitcher().getTabStorage().getTab(i).getWebView().onDestroy();
+            }
+            getBrowserStorage().saveLastBrowsingSession(sessionArray);
+        }
+        Logging.logd("Destroying activity");
         super.onDestroy();
-        if (publicWebRender != null)
-            publicWebRender.onDestroy();
     }
 
     @Override

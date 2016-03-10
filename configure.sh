@@ -14,8 +14,6 @@ function goodbye() {
 
 welcome
 
-echo "First of all the keystore needs to be configured."
-
 if [ "$1" == "--clearPw" ]; then
   export ENV_CORNOWSER_KEYPWD=""
   export ENV_CORNOWSER_STOREPWD=""
@@ -30,6 +28,7 @@ if [ "$1" == "--gpw" ]; then
 fi
 
 if [ -z $ENV_CORNOWSER_KEYPWD ]; then
+  echo "First of all the keystore needs to be configured."
   echo -en "\nKeystore password: "
   read -s -p "" CORNOWSER_STOREPWD
   echo -en "\nKey      password: "
@@ -41,9 +40,11 @@ fi
 
 echo -en "\n"
 
-echo "Configuring XWalk..."
-cd crosswalk
-bash xwalkinstaller.sh auto --nominify
-cd ../
+if [ "$1" != "--noX" ]; then
+  echo "Configuring XWalk..."
+  cd crosswalk
+  bash xwalkinstaller.sh auto --nominify
+  cd ../
+fi
 
 goodbye

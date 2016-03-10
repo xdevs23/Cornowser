@@ -74,4 +74,8 @@ public class Tab {
         return tab.getTitle();
     }
 
+    public CrunchyWalkView getWebView() {
+        return webView;
+    }
+
 }

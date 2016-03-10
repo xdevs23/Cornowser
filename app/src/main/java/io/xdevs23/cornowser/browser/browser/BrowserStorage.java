@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.xdevs23.config.ConfigUtils;
+import org.xdevs23.debugutils.Logging;
 import org.xdevs23.management.config.SharedPreferenceArray;
 
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
@@ -263,18 +264,21 @@ public class BrowserStorage {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
+        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
     }
 
     public void setPref(String key, boolean value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
+        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
     }
 
     public void setPref(String key, int value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(key, value);
         editor.apply();
+        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
     }
 
     public void clearPrefs() {

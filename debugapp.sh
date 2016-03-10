@@ -1,13 +1,15 @@
 #/bin/sh
 
-if [ -z "$1" ]; then source buildDebugApp.sh; fi
+DBGAPKPATH="app/build/outputs/apk/app-appdebug.apk"
+
+if [ -z "$1" ]; then source buildDebugApp.sh --noX; fi
 
 if [ "$1" == "-l" ]; then
   adb logcat -v tag -s Cornowser:*
 elif [ "$1" == "--cleardata" ]; then
   adb shell pm clear io.xdevs23.cornowser.browser
 elif [ "$1" == "-i" ]; then
-  adb push app/app-debug.apk /sdcard/CBCustom.apk
+  adb push $DBGAPKPATH /sdcard/CBCustom.apk
   adb shell pm set-install-location 1
   adb shell pm install -rdtf /sdcard/CBCustom.apk
 elif [ "$1" == "--start" ]; then
@@ -16,11 +18,13 @@ elif [ "$1" == "--uninstall" ]; then
   adb shell pm uninstall io.xdevs23.cornowser.browser
 elif [ "$1" == "--reinstall" ]; then
   adb shell pm uninstall io.xdevs23.cornowser.browser
-  adb push app/app-debug.apk /sdcard/CBCustom.apk
+  adb push $DBGAPKPATH /sdcard/CBCustom.apk
   adb shell pm set-install-location 1
   adb shell pm install -rdtf /sdcard/CBCustom.apk
 else
-  adb push app/app-debug.apk /sdcard/CBCustom.apk
+  adb push $DBGAPKPATH /sdcard/CBCustom.apk
+  adb root>/dev/null
+  adb wait-for-device
   adb shell pm set-install-location 1
   adb shell pm install -rdtf /sdcard/CBCustom.apk
   adb shell am start -n io.xdevs23.cornowser.browser/.CornBrowser

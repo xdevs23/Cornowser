@@ -122,12 +122,12 @@ public class SettingsActivity extends XquidCompatActivity {
 
         public void initSaveSessionPref() {
             final SwitchPreference pref = (SwitchPreference) findPreference("settings_last_session");
-            pref.setEnabled(CornBrowser.getBrowserStorage().isLastSessionEnabled());
+            pref.setChecked(CornBrowser.getBrowserStorage().isLastSessionEnabled());
             pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     CornBrowser.getBrowserStorage().saveEnableSaveSession((boolean) newValue);
-                    pref.setEnabled((boolean) newValue);
+                    pref.setChecked((boolean) newValue);
                     return false;
                 }
             });

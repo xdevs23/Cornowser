@@ -74,6 +74,8 @@ android {
         }
 
         appdebug {
+            //noinspection GroovyAssignabilityCheck
+            signingConfig signingConfigs.appdebug
             minifyEnabled false
             debuggable true
             jniDebuggable true
