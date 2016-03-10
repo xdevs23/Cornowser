@@ -7,7 +7,7 @@ public class SharedPreferenceArray {
         for ( String s : array)
             sb.append(s.replace(":", "::").replace("|", "||"))
                     .append("|:|");
-        sb.delete(sb.length() - 5, sb.length() - 1);
+        sb.delete(sb.length() - 3, sb.length());
         return sb.toString();
     }
 

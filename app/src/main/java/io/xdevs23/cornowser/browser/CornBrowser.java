@@ -491,35 +491,50 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
-     * Set the text inside the omnibox
+     * Set the text inside the omnibox (for old calls)
      * @param url URL
      */
+    @Deprecated
     public static void applyOnlyInsideOmniText(String url) {
+        applyOnlyInsideOmniText();
+    }
+
+    /**
+     * Set the text inside the omnibox
+     */
+    public static void applyOnlyInsideOmniText() {
         try {
-            String eurl = url;
+            String eurl = getWebEngine().getUrl();
             eurl = eurl.replaceFirst("^([^ ]*)://", "");
             if(eurl.substring(eurl.length() - 2, eurl.length() - 1).equals("/"))
                 eurl = eurl.substring(0, eurl.length() - 2);
             browserInputBar.setText(eurl);
-            if(url.startsWith("https://")) {
+            if(getWebEngine().getUrl().startsWith("https://")) {
                 getActivity().findViewById(R.id.omnibox_separator)
-                    .setBackgroundColor(ColorUtil.getColor(R.color.transGreen));
+                        .setBackgroundColor(ColorUtil.getColor(R.color.transGreen));
             } else getActivity().findViewById(R.id.omnibox_separator)
                     .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
         } catch(Exception ex) {
             Logging.logd("Warning: Didn't succeed while applying inside omni text.");
         }
+    }
 
+    /**
+     * Set the text of the address bar (and apply it in tab switcher) (for old calls)
+     * @param url URL to set as text
+     */
+    @Deprecated
+    public static void applyInsideOmniText(String url) {
+        applyInsideOmniText();
     }
 
     /**
      * Set the text of the address bar (and apply it in tab switcher)
-     * @param url URL to set as text
      */
-    public static void applyInsideOmniText(String url) {
+    public static void applyInsideOmniText() {
         if(browserInputBar.hasFocus()) return;
-        getTabSwitcher().changeCurrentTab(url, publicWebRender.getTitle());
-        applyOnlyInsideOmniText(url);
+        getTabSwitcher().changeCurrentTab(publicWebRender.getUrl(), publicWebRender.getTitle());
+        applyOnlyInsideOmniText();
     }
 
     /**

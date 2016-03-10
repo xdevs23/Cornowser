@@ -247,6 +247,8 @@ public class CornUIClient extends XWalkUIClient {
             view.load(url, null);
         else {
             readyForBugfreeBrowsing = true;
+            CornBrowser.getWebEngine().resumeTimers();
+            CornBrowser.getWebEngine().onShow();
             CornBrowser.publicWebRenderLayout.bringToFront();
             CornBrowser.getWebEngine().bringToFront();
             CornBrowser.omnibox.bringToFront();
