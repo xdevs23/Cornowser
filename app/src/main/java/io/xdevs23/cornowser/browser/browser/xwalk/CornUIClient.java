@@ -98,7 +98,8 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public boolean onCreateWindowRequested(XWalkView view, InitiateBy initiator, ValueCallback<XWalkView> callback) {
         CornBrowser.getTabSwitcher().addTab(new Tab());
-        return super.onCreateWindowRequested(CornBrowser.publicWebRender, initiator, callback);
+        callback.onReceiveValue(CornBrowser.getTabSwitcher().getCurrentTab().getWebView());
+        return true;
     }
 
     @Override
