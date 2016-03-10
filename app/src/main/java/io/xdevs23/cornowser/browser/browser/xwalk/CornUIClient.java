@@ -183,17 +183,22 @@ public class CornUIClient extends XWalkUIClient {
     }
 
     protected boolean isDangerousPage(String url) {
-        String matchUrl = url.substring(
-                url.indexOf("//") + 2,
-                url.indexOf("/", url.indexOf("//") + 2));
-        String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
-                .split("\n");
-        for ( String s : dUrls ) {
-            Logging.logd(matchUrl + " checking...");
-            if (matchUrl.contains(s))
-                return true;
+        try {
+            String matchUrl = url.substring(
+                    url.indexOf("//") + 2,
+                    url.indexOf("/", url.indexOf("//") + 2));
+            String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
+                    .split("\n");
+            for (String s : dUrls) {
+                Logging.logd(matchUrl + " checking...");
+                if (matchUrl.contains(s))
+                    return true;
+            }
+            return false;
+        } catch(Exception ex) {
+            Logging.logd("Warning: Checking for dangerous page failed.");
+            return false;
         }
-        return false;
     }
 
     @Override

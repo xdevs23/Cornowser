@@ -48,7 +48,6 @@ import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BasicTabSwitcher;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.BlueListedTabSwitcher;
-import io.xdevs23.cornowser.browser.browser.modules.tabs.Tab;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabStorage;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton;
 import io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherWrapper;
