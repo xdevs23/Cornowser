@@ -21,7 +21,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "24.0.0 rc1"
 
     defaultConfig {
         applicationId "io.xdevs23.cornowser.browser"
@@ -100,9 +100,9 @@ dependencies {
     compile 'org.apache.commons:commons-io:+'
 
     // AppCompat
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:cardview-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
 
     // Fabric.io Crashlytics
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
