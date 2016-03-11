@@ -90,6 +90,22 @@ public class BarColors {
     }
 
     /**
+     * Set bars color without brightness check
+     * @param color Color
+     * @param window Window
+     * @param applyDarken Use darker color
+     * @param navbar Tint navigation bar
+     * @param statusbar Tint status bar
+     */
+    public static void updateBarsColorWoCheck(int color, Window window, boolean applyDarken,
+                                              boolean navbar, boolean statusbar) {
+        if(statusbar)
+            setStatusBarColor    ((applyDarken ? getDarkerColor(color) : color), window);
+        if(navbar)
+            setNavigationBarColor((applyDarken ? getDarkerColor(color) : color), window);
+    }
+
+    /**
      * Set bars color
      * @param color Color
      * @param window Window
@@ -99,14 +115,16 @@ public class BarColors {
      */
     public static void updateBarsColor(int color, Window window, boolean applyDarken,
                                        boolean navbar, boolean statusbar) {
-        if(statusbar)
-            setStatusBarColor    ( (applyDarken ? getDarkerColor(color) : color), window );
-        if(navbar)
-            setNavigationBarColor((applyDarken ? getDarkerColor(color) : color), window);
+        int sColor = color;
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        if(hsv[2] > 0.56f && hsv[1] < 0.12) hsv[2] = 0.56f;
+        sColor = Color.HSVToColor(hsv);
+        updateBarsColorWoCheck(sColor, window, applyDarken, navbar, statusbar);
     }
 
     /**
-     * Set both navigatio bar and status bar color
+     * Set both navigation bar and status bar color
      * @param color Color
      * @param window Window
      * @param applyDarken Use darker color

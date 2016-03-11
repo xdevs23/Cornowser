@@ -32,6 +32,12 @@
             android:summary="@string/settings_browsing_adblock_summary"
             android:key="settings_go_adblock" />
 
+        <SwitchPreference
+            android:id="@+id/settings_preference_lsession"
+            android:title="@string/settings_browsing_lsession_title"
+            android:summary="@string/settings_browsing_lsession_summary"
+            android:key="settings_last_session" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -91,6 +97,12 @@
             android:title="@string/settings_misc_debug_title"
             android:summary="@string/settings_misc_debug_summary"
             android:key="settings_debug_mode" />
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_optout_clytics"
+            android:title="@string/settings_misc_optout_clytics_title"
+            android:summary="@string/settings_misc_optout_clytics_summary"
+            android:key="settings_optout_clytics" />
 
         <Preference
             android:id="@+id/settings_preference_licenses"

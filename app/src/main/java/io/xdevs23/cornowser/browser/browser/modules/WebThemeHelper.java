@@ -109,15 +109,21 @@ public class WebThemeHelper {
         } else resetWebThemeColor(omnibox);
     }
 
-    public static void tintNow(CrunchyWalkView view) {
+    public static void tintNow() {
         if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
         try {
-            if (!view.getUrl().toLowerCase().contains("cornhandler://"))
-                CornHandler.sendRawJSRequest(view, AssetHelper.getAssetString("appScripts/webThemeColorUtility.js",
-                        view.getContext()));
+            if (!CornBrowser.getWebEngine().getUrl().toLowerCase().contains("cornhandler://"))
+                CornHandler.sendRawJSRequest(CornBrowser.getWebEngine(), AssetHelper.getAssetString("appScripts/webThemeColorUtility.js",
+                        CornBrowser.getWebEngine().getContext()));
         } catch(Exception ex) {
             Logging.logd("Warning: Did not succeed while starting tinting. Skipping.");
         }
+    }
+
+    // Overload for old calls
+    @Deprecated
+    public static void tintNow(CrunchyWalkView view) {
+        tintNow();
     }
 
 }

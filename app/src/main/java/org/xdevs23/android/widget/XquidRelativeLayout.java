@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -50,6 +51,10 @@ public class XquidRelativeLayout extends RelativeLayout {
         return defStyleRes;
     }
 
+    public static void addRuleLP(int rule, RelativeLayout.LayoutParams... params) {
+        LayoutParams.addRule(rule, params);
+    }
+
     public static class LayoutParams extends RelativeLayout.LayoutParams {
 
         public LayoutParams(Context c, AttributeSet attrs) {
@@ -67,6 +72,16 @@ public class XquidRelativeLayout extends RelativeLayout {
         @TargetApi(Build.VERSION_CODES.KITKAT)
         public LayoutParams(RelativeLayout.LayoutParams source) {
             super(source);
+        }
+
+        public static RelativeLayout.LayoutParams getPredefinedLPFromViewMetrics(View view) {
+            return new RelativeLayout.LayoutParams
+                    (view.getLayoutParams().width, view.getLayoutParams().height);
+        }
+
+        public static void addRule(int rule, RelativeLayout.LayoutParams... params) {
+            for(RelativeLayout.LayoutParams p : params)
+                p.addRule(rule);
         }
 
         public LayoutParams(ViewGroup.LayoutParams source) {

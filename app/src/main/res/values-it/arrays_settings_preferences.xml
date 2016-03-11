@@ -5,5 +5,20 @@
         <item>Alto</item>
         <item>Basso</item>
     </string-array>
+    
+    
+    <string-array name="settings_layout_omni_pos_entryvalues" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <!-- Color mode -->
+    <string-array name="settings_appearance_webcolmode_entries">
+        <item>Normale</item>
+        <item>Scuro</item>
+        <item>Negativo</item>
+        <item>Invertito</item>
+        <item>Scala di grigi</item>
+    </string-array>
 
 </resources>

@@ -30,6 +30,9 @@ try {
         else if(cu.indexOf("twitter")           !== -1) webCol = "#55acee";
         else if(cu.indexOf("youtube")           !== -1) webCol = "#dd0804";
         else if(cu.indexOf("xda-developers")    !== -1) webCol = "#de7300";
+        else if(cu.indexOf("yahoo")             !== -1) webCol = "#400090";
+        else if(cu.indexOf("twitch")            !== -1) webCol = "#6441a5";
+        else if(cu.indexOf("stackoverflow")     !== -1) webCol = "#23334e";
 
         else webCol = "default";
 

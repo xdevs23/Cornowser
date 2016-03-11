@@ -239,11 +239,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void init() {
-        mainColor = ColorUtil.getColor(R.color.blue_800);
+        mainColor       = ColorUtil.getColor(R.color.blue_800);
+        int mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
 
         mainView = new ScrollView(getContext());
 
-        mainView.setBackgroundColor(ColorUtil.getColor(R.color.white_semi_min_transparent));
+        mainView.setBackgroundColor(mainBgColor);
 
         initViews();
 
@@ -255,7 +256,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     @Override
     public void switchTab(int tab) {
-        showTab(tabStorage.getTab(tab));
+        super.switchTab(tab);
     }
 
     @Override
@@ -312,7 +313,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     v.setOnClickListener(null);
                     removeTab(tabsLayout.indexOfChild(v));
                 }
-                else Toast.makeText(getContext(), "(°o°)", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getContext(),
+                        getContext().getString(R.string.tabswitch_no_removable_tabs),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

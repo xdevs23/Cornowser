@@ -50,7 +50,8 @@ public class OmniboxAnimations {
 
     public static void moveOmni(int posY) {
         if(isBottom()) return;
-        float mov = (float) (posY);
+        float mov = (float) posY;
+        CornBrowser.omnibox.bringToFront();
         CornBrowser.omnibox.setTranslationY(mov);
         CornBrowser.publicWebRenderLayout
                 .setTranslationY(mov + CornBrowser.omnibox.getHeight());
@@ -58,18 +59,18 @@ public class OmniboxAnimations {
 
     public static void animateOmni(int posY) {
         float mov = (float) posY;
-        CornBrowser.omnibox.animate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
+        if(mov > 0) CornBrowser.omnibox.bringToFront();
+        omniboxAnimate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
         if(isTop())
-            CornBrowser.publicWebRenderLayout.animate()
-                .setDuration(DEFAULT_ANIMATION_DURATION)
-                .translationY((mov + CornBrowser.omnibox.getHeight()));
+            CornBrowser.publicWebRenderLayout
+                .setTranslationY((mov + CornBrowser.omnibox.getHeight()));
     }
 
     public static void resetOmni() {
+        CornBrowser.omnibox.bringToFront();
         omniboxAnimate().translationY(0);
         if(isTop()) CornBrowser.publicWebRenderLayout.setTranslationY(getOmniHeight());
         else        CornBrowser.publicWebRenderLayout.setTranslationY(0);
-
     }
 
     // Main listener for controlling omnibox show/hide animations
@@ -77,9 +78,9 @@ public class OmniboxAnimations {
     public static final View.OnTouchListener
             mainOnTouchListener = new View.OnTouchListener() {
         int
-                oh = 0,
-                cy = 0,
-                ny = 0,
+                oh   = 0,
+                cy   = 0,
+                ny   = 0,
                 opos = 0;
 
         @Override
@@ -97,7 +98,10 @@ public class OmniboxAnimations {
                     if(-opos > oh / 2) {
                         animateOmni( (isBottom() ? 0 : -oh) );
                         opos =       (isBottom() ? 0 : -oh)  ;
-                    } else animateOmni( (isBottom() ? -oh : 0) );
+                    } else {
+                        animateOmni( (isBottom() ? -oh : 0) );
+                        opos =       (isBottom() ? -oh : 0)  ;
+                    }
                     break;
                 case MotionEvent.ACTION_MOVE:
                     ny = ((int)motionEvent.getRawY()) - cy;

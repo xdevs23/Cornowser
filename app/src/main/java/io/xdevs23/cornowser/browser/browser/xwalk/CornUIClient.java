@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -54,20 +55,26 @@ public class CornUIClient extends XWalkUIClient {
     public void onIconAvailable(XWalkView view, String url, Message startDownload) {
         final CrunchyWalkView fView = CrunchyWalkView.fromXWalkView(view);
         final String fUrl = url;
+        final Handler handler = new Handler();
+        final Runnable tintNowRunnable = new Runnable() {
+            @Override
+            public void run() {
+                WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(fView));
+            }
+        };
         Thread downIcon = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     InputStream inputStream = DownloadUtils.getInputStreamForConnection(fUrl);
                     fView.favicon = BitmapFactory.decodeStream(inputStream);
+                    handler.post(tintNowRunnable);
                 } catch(Exception ex) {
                     StackTraceParser.logStackTrace(ex);
                 }
             }
         });
         downIcon.start();
-
-        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
     }
 
     @Override
@@ -91,7 +98,8 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public boolean onCreateWindowRequested(XWalkView view, InitiateBy initiator, ValueCallback<XWalkView> callback) {
         CornBrowser.getTabSwitcher().addTab(new Tab());
-        return super.onCreateWindowRequested(CornBrowser.publicWebRender, initiator, callback);
+        callback.onReceiveValue(CornBrowser.getTabSwitcher().getCurrentTab().getWebView());
+        return true;
     }
 
     @Override
@@ -175,17 +183,22 @@ public class CornUIClient extends XWalkUIClient {
     }
 
     protected boolean isDangerousPage(String url) {
-        String matchUrl = url.substring(
-                url.indexOf("//") + 2,
-                url.indexOf("/", url.indexOf("//") + 2));
-        String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
-                .split("\n");
-        for ( String s : dUrls ) {
-            Logging.logd(matchUrl + " checking...");
-            if (matchUrl.contains(s))
-                return true;
+        try {
+            String matchUrl = url.substring(
+                    url.indexOf("//") + 2,
+                    url.indexOf("/", url.indexOf("//") + 2));
+            String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
+                    .split("\n");
+            for (String s : dUrls) {
+                Logging.logd(matchUrl + " checking...");
+                if (matchUrl.contains(s))
+                    return true;
+            }
+            return false;
+        } catch(Exception ex) {
+            Logging.logd("Warning: Checking for dangerous page failed.");
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -237,7 +250,15 @@ public class CornUIClient extends XWalkUIClient {
         if( (status == LoadStatus.CANCELLED || status == LoadStatus.FAILED)
                 && (!readyForBugfreeBrowsing) && (!url.isEmpty()) )
             view.load(url, null);
-        else readyForBugfreeBrowsing = true;
+        else {
+            readyForBugfreeBrowsing = true;
+            CornBrowser.getWebEngine().resumeTimers();
+            CornBrowser.getWebEngine().onShow();
+            CornBrowser.publicWebRenderLayout.bringToFront();
+            CornBrowser.getWebEngine().bringToFront();
+            CornBrowser.omnibox.bringToFront();
+            CornBrowser.getWebEngine().refreshDrawableState();
+        }
 
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);

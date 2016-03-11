@@ -36,7 +36,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlRegEx = Pattern.compile(
             "(" +
-                    "(^(https|http|ftp|rtmp)://[^ ]*[.][^ ]*)|" +   // Protocols for adresses
+                    "(^(https|http|ftp|rtmp)://[^ ]*[.][^ ]*)|" +   // Protocols for addresses
                     "^(file:///).*|" +                              // Local files
                     "^(CornHandler://).*|" +                        // Handler
                     "^(javascript:).*" +                            // Javascript
@@ -46,10 +46,10 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlSecRegEx = Pattern.compile(
             "(" +
-                    "([^ ]*[.][^ ]*)|" +                            // Adresses without protocol
+                    "([^ ]*[.][^ ]*)|" +                            // Addresses without protocol
                     "^(localhost).*|" +                             // localhost
-                    "([^ ]*[.][^ ]*[.][^ ]*[.][^ ]*)|" +            // IPv4 adresses
-                    "([^ ]*(::|:)[^ ]*)|" +                         // IPv6 adresses
+                    "([^ ]*[.][^ ]*[.][^ ]*[.][^ ]*)|" +            // IPv4 addresses
+                    "([^ ]*(::|:)[^ ]*)|" +                         // IPv6 addresses
                     "([^ ]*@[^ ]*[.][^ ]*)" +                       // user@host.tld
 
                     ")"
@@ -96,23 +96,6 @@ public class CornResourceClient extends XWalkResourceClient {
                 success = true;
             } catch (Exception ex) {
                 // Ignore
-            }
-
-            if(!success) {
-                try {
-                    String pkg;
-                    if(url.startsWith("market"))
-                        pkg = "com.android.vending";
-                    else if(url.contains("open.spotify."))
-                        pkg = "com.spotify.music";
-                    else pkg = "<unknown>";
-                    if(!("<unknown>").equals(pkg))
-                        c.startActivity(CornBrowser.getContext().getPackageManager().getLaunchIntentForPackage(pkg));
-
-                    success = true;
-                } catch(Exception ex) {
-                    // Ignore
-                }
             }
 
             if(!success) Toast.makeText(c, "(°-°)", Toast.LENGTH_SHORT).show();

@@ -12,6 +12,9 @@
     <string name="settings_browsing_adblock_title">AdBlock</string>
     <string name="settings_browsing_adblock_summary">Access the settings for the ad blocker</string>
 
+    <string name="settings_browsing_lsession_title">Restore last session</string>
+    <string name="settings_browsing_lsession_summary">Open all tabs from last session on start-up</string>
+
 
     <string name="settings_category_layout_title">Layout</string>
 
@@ -39,6 +42,10 @@
 
     <string name="settings_misc_debug_title">Debug mode</string>
     <string name="settings_misc_debug_summary">Enable logcat debug output. (Good if you want to show it to us)</string>
+
+    <string name="settings_misc_optout_clytics_title">Disable Crashlytics</string>
+    <string name="settings_misc_optout_clytics_summary">Opt-out of automatic crash reporting
+        (Application restart required)</string>
 
     <string name="settings_list_licenses_title">Open Source Licenses</string>
     <string name="settings_list_licenses_summary">Useful libraries used by this application</string>

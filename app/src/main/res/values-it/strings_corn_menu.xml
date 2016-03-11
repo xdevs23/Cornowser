@@ -3,5 +3,6 @@
 
     <string name="cornmenu_item_updater">Auto aggiornamento</string>
     <string name="cornmenu_item_settings">Impostazioni</string>
-
+    <string name="cornmenu_item_addhomesc">Aggiungi scorciatoia alla schermata home</string>
+    
 </resources>

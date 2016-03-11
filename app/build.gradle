@@ -1,21 +1,33 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        //noinspection GradleDynamicVersion
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
     mavenLocal()
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "24.0.0 rc1"
 
     defaultConfig {
         applicationId "io.xdevs23.cornowser.browser"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2016022531      // Use YYYYMMDDNN, year month day rev,
+        versionCode 2016030230      // Use YYYYMMDDNN, year month day rev,
                                     // rev: 0X-2X,9X release, 3X-5X beta, 6X-7X alpha, 8X nightly
                                     // Example: 2016010101 is first release on January 1, 2016
                                     //          2016010235 is fifth beta release on January 2, 2016
@@ -26,17 +38,47 @@ android {
                                     // If we had released an alpha/beta/nightly and then we want to
                                     // release a stable release on the same day we need to use 9X.
 
-        versionName "1.0.5.1"       // Version name
+        versionName "1.0.5.3"       // Version name
         multiDexEnabled true        // For the libs to work correctly
+        renderscriptTargetApi 23    // This is for use of RenderScript
+        renderscriptSupportModeEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../privatekey.jks")
+            storePassword System.getenv("ENV_CORNOWSER_STOREPWD")
+            keyAlias "xd"
+            keyPassword System.getenv("ENV_CORNOWSER_KEYPWD")
+        }
+
+        appdebug {
+            storeFile file("../privatekey.jks")
+            storePassword System.getenv("ENV_CORNOWSER_STOREPWD")
+            keyAlias "xd"
+            keyPassword System.getenv("ENV_CORNOWSER_KEYPWD")
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            debuggable true
+            zipAlignEnabled true
         }
 
         debug {
             minifyEnabled false
+            debuggable true
+            zipAlignEnabled true
+        }
+
+        appdebug {
+            //noinspection GroovyAssignabilityCheck
+            signingConfig signingConfigs.appdebug
+            minifyEnabled false
+            debuggable true
+            zipAlignEnabled true
         }
     }
 
@@ -51,22 +93,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
 
     // Apache Commons
-    compile('org.apache.commons:commons-io:+')
+    compile 'org.apache.commons:commons-io:+'
 
     // AppCompat
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:cardview-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
 
-    // TODO: Add fabric.io
+    // Fabric.io Crashlytics
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
 
     // Apache Crosswalk (Canary)
     // See https://goo.gl/xRSxNW for instructions or use the installer script in crosswalk/xwalkinstaller.sh
-    compile 'org.xwalk:xwalk_core_library_canary:19.48.490.0'
+    compile 'org.xwalk:xwalk_core_library_canary:19.48.495.0'
 
     // Material library
     compile 'com.github.rey5137:material:1.2.2.1-SNAPSHOT'
