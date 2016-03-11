@@ -45,12 +45,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 
-import io.fabric.sdk.android.Fabric;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 
 /**

@@ -63,6 +63,7 @@ public class BrowserStorage {
         setLastBrowsingSession(SharedPreferenceArray.getStringArray(getPref(BPrefKeys.lastSessionPref,
                 "")));
         setSaveBrowsingSession(getPref(BPrefKeys.saveLastSessionPref, false));
+        setCrashlyticsOptedOut(getPref(BPrefKeys.crashltcOptOutPref, false));
     }
 
     //endregion
