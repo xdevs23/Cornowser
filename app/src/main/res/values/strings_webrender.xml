@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Dangerous website detected</string>
+    <string name="webrender_dangerous_site_message">
+        A probably dangerous website has been detected.
+        \nWe strongly advise you not to visit this web page.
+        \nIf you feel this is an error or if you want to visit the website anyways,
+        you can do so.
+\n
+        \nDo you want to continue loading this web page?
+    </string>
+
+    <!-- AdBlock section -->
+
+    <string name="adblock_enable_title">Enable AdBlock</string>
+    <string name="adblock_disable_title">Disable AdBlock</string>
+    <string name="adblock_enable_summary">To block advertisement, enable AdBlock</string>
+
+    <string name="adblock_download_hosts_title">Download host files</string>
+    <string name="adblock_download_hosts_summary">
+        Download the latest host files.
+        This is done automatically on every start-up if AdBlock is enabled.
+    </string>
+
+    <string name="adblock_hosts_downloading">Downloading and processing hosts files...</string>
+
+</resources>

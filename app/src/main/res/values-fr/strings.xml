@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    
+    <string name="app_bg_name">Cornowser (Arrière-plan)</string>
+
+    <!-- General stuff -->
+    
+    <string name="answer_cancel">Annuler</string>
+    <string name="answer_ok">OK</string>
+    
+    <string name="instr_next">Suivant</string>
+    <string name="instr_next_go">Suivant</string>
+    <string name="instr_prev">Précédent</string>
+    <string name="instr_forward">Transférer</string>
+    <string name="instr_backward">En arrière</string>
+
+    <string name="instr_new">Nouveau</string>
+
+    <string name="instr_goto">Aller à</string>
+
+    <string name="instr_opts">Options</string>
+
+    <string name="instr_add">Ajouter</string>
+    <string name="instr_remove">Supprimer</string>
+
+    <string name="instr_move">Déplacer</string>
+    <string name="instr_copy">Copier</string>
+    <string name="instr_rename">Renommer</string>
+
+    <string name="instr_download">Télécharger</string>
+    <string name="instr_upload">Charger</string>
+
+    <string name="instr_progress">Progression</string>
+    <string name="instr_s_percent">Pourcentage</string>
+    <string name="instr_finished">Terminé</string>
+    <string name="instr_started">Démarré</string>
+    <string name="instr_start">Démarrage</string>
+    <string name="instr_stopped">Arrêté</string>
+    <string name="instr_stop">Stop</string>
+    <string name="instr_pause">Pause</string>
+    <string name="instr_paused">Mis en pause</string>
+    <string name="instr_continue">Continuer</string>
+    
+    <!-- Permissions -->
+    <string name="permission_hint_write_storage">Permission pour écrire sur le stockage nécessaire pour le téléchargement de fichiers. Merci de valider.</string>
+
+    <!-- Options menu -->
+    <string name="optmenu_share">Partager</string>
+
+</resources>

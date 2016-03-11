@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="settings_layout_omni_pos_entries">
+        <item>Acima</item>
+        <item>Em baixo</item>
+    </string-array>
+
+</resources>

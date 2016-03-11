@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Error page -->
+    <string name="html_error_title">Erro </string>
+    <string name="html_error_body_info">
+        <![CDATA[
+        Um erro foi encontrado enquanto a página estava a ser carregada: %s<br />
+        <br />
+        Por favor certifica que a ligação á internet esta disponível.<br />
+        ]]>
+    </string>
+
+
+    <!-- General -->
+    <string name="html_reload_btn_value">Recarragar</string>
+
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- No margins / paddings -->
+    <dimen name="zero_padding">0dp</dimen>
+
+
+    <dimen name="omnibox_height">56dp</dimen>
+
+    <dimen name="omnibox_items_dimen">40dp</dimen>
+
+    <dimen name="omnibox_items_def">24dp</dimen>
+
+</resources>

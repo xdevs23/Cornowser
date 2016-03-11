@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="credits_special_list" translatable="false">
+        <item>Thunderbottom</item>
+        <item> </item>
+        <item> </item>
+        <item>http://github.com/Thunderbottom</item>
+    </string-array>
+
+</resources>

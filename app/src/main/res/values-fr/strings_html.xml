@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Error page -->
+    <string name="html_error_title">Erreur </string>
+    <string name="html_error_body_info">
+        <![CDATA[
+        Une erreur est survenue lors du chargement de la page web : %s<br />
+        <br />
+        Assurez-vous d\'être connecté à Internet.<br />
+        <br />
+        Si le problème persiste et que vous avez accès à cette page web depuis d\'autres navigateurs, veuillez créer un rapport de bug sur Github.
+        ]]>
+    </string>
+
+
+    <!-- General -->
+    <string name="html_reload_btn_value">Actualiser</string>
+
+</resources>

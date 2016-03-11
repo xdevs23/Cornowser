@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="cornmenu_item_updater">Mise à jour</string>
+    <string name="cornmenu_item_settings">Paramètres</string>
+    <string name="cornmenu_item_addhomesc">Ajouter un raccourci à la page d\'accueil</string>
+</resources>

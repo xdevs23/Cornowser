@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_bg_name">Cornowser (fondo)</string>
+
+    <!-- General stuff -->
+
+    <string name="answer_cancel">Cancelar</string>
+    <string name="answer_ok">OK</string>
+
+    <string name="instr_next">Siguiente</string>
+    <string name="instr_next_go">Siguiente</string>
+    <string name="instr_prev">Anterior</string>
+    <string name="instr_forward">Adelante</string>
+    <string name="instr_backward">Volver atras</string>
+
+    <string name="instr_new">Nuevo</string>
+
+    <string name="instr_goto">Ir a</string>
+
+    <string name="instr_opts">Opciones</string>
+
+    <string name="instr_add">Añadir</string>
+    <string name="instr_remove">Eliminar</string>
+
+    <string name="instr_move">Mover</string>
+    <string name="instr_copy">Copiar</string>
+    <string name="instr_rename">Renombrar</string>
+
+    <string name="instr_download">Descargar</string>
+    <string name="instr_upload">Subir</string>
+
+    <string name="instr_progress">Progreso</string>
+    <string name="instr_s_percent">Porciento</string>
+    <string name="instr_finished">Finalizado</string>
+    <string name="instr_started">Iniciado</string>
+    <string name="instr_start">Iniciar</string>
+    <string name="instr_stopped">Detenido</string>
+    <string name="instr_stop">Detener</string>
+    <string name="instr_pause">Pausar</string>
+    <string name="instr_paused">Pausado</string>
+    <string name="instr_continue">Continuar</string>
+
+    <!-- Options menu -->
+    <string name="optmenu_share">Compartir</string>
+
+    <!-- Permissions -->
+    <string name="permission_hint_write_storage">Los permisos para escribir en el almacenamiento son necesarios para descargar archivos. Porfavor acepta.</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Error page -->
+    <string name="html_error_title">Fehler </string>
+    <string name="html_error_body_info">
+        <![CDATA[
+        Ein Fehler ist während des Ladens der angeforderten Webseite aufgetreten: %s<br />
+        <br />
+        Bitte stelle sicher, dass du mit dem Internet verbunden bist und versuche es erneut.<br />
+        <br />
+        Falls das Problem besteht und andere Browser die angeforderte Webseite problemlos
+        laden können, erstelle auf GitHub einen Fehlerbericht.
+        ]]>
+    </string>
+
+
+    <!-- General -->
+    <string name="html_reload_btn_value">Neu laden</string>
+
+</resources>

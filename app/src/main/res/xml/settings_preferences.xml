@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:id="@+id/settings_category_browsing"
+        android:title="@string/settings_category_browsing_title"
+        android:key="settings_category_browsing">
+
+        <Preference
+            android:id="@+id/settings_preference_homepage"
+            android:title="@string/settings_browsing_homepage_title"
+            android:summary="@string/settings_browsing_homepage_summary"
+            android:key="settings_userhomepage" />
+
+        <ListPreference
+            android:id="@+id/settings_preference_searchengine"
+            android:title="@string/settings_browsing_searchengine_title"
+            android:summary="@string/settings_browsing_searchengine_summary"
+            android:key="settings_search_engine"
+            android:dialogTitle="@string/settings_browsing_searchengine_title"
+            android:entries="@array/settings_browsing_searchengine_entries"
+            android:entryValues="@array/settings_browsing_searchengine_entries"
+            android:defaultValue="0" />
+
+        <Preference
+            android:id="@+id/settings_preference_adblock"
+            android:title="@string/settings_browsing_adblock_title"
+            android:summary="@string/settings_browsing_adblock_summary"
+            android:key="settings_go_adblock" />
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_lsession"
+            android:title="@string/settings_browsing_lsession_title"
+            android:summary="@string/settings_browsing_lsession_summary"
+            android:key="settings_last_session" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:id="@+id/settings_category_layout"
+        android:title="@string/settings_category_layout_title"
+        android:key="settings_category_layout">
+
+        <ListPreference
+            android:id="@+id/settings_preference_omnibox_pos"
+            android:title="@string/settings_layout_omni_pos_title"
+            android:summary="@string/settings_layout_omni_pos_sumary"
+            android:key="settings_omnibox_pos"
+            android:dialogTitle="@string/settings_layout_omni_pos_title"
+            android:entries="@array/settings_layout_omni_pos_entries"
+            android:entryValues="@array/settings_layout_omni_pos_entryvalues"
+            android:defaultValue="0" />
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_fullscreen"
+            android:title="@string/settings_layout_fullscreen_title"
+            android:summary="@string/settings_layout_fullscreen_summary"
+            android:key="settings_fullscreen" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:id="@+id/settings_category_appearance"
+        android:title="@string/settings_category_appearance_title"
+        android:key="settings_category_appearance">
+
+        <ListPreference
+            android:id="@+id/settings_preference_webcolormode"
+            android:title="@string/settings_appearance_webcolmode_title"
+            android:summary="@string/settings_appearance_webcolmode_summary"
+            android:key="settings_web_colormode"
+            android:dialogTitle="@string/settings_appearance_webcolmode_title"
+            android:entries="@array/settings_appearance_webcolmode_entries"
+            android:entryValues="@array/settings_appearance_webcolmode_entryvalues"
+            android:defaultValue="0" />
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_enablecoloring"
+            android:title="@string/settings_appearance_omnicoloring_title"
+            android:summary="@string/settings_appearance_omnicoloring_summary"
+            android:key="settings_omni_coloring" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:id="@+id/settings_category_misc"
+        android:title="@string/settings_category_misc_title"
+        android:key="settings_category_misc">
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_debugmode"
+            android:title="@string/settings_misc_debug_title"
+            android:summary="@string/settings_misc_debug_summary"
+            android:key="settings_debug_mode" />
+
+        <SwitchPreference
+            android:id="@+id/settings_preference_optout_clytics"
+            android:title="@string/settings_misc_optout_clytics_title"
+            android:summary="@string/settings_misc_optout_clytics_summary"
+            android:key="settings_optout_clytics" />
+
+        <Preference
+            android:id="@+id/settings_preference_licenses"
+            android:title="@string/settings_list_licenses_title"
+            android:summary="@string/settings_list_licenses_summary"
+            android:key="settings_licenses" />
+
+        <Preference
+            android:id="@+id/settings_preference_credits_tl"
+            android:title="@string/settings_list_credits_tl_title"
+            android:summary="@string/settings_list_credits_tl_summary"
+            android:key="settings_credits_translation" />
+
+        <Preference
+            android:id="@+id/settings_preference_credits_special"
+            android:title="@string/settings_list_credits_spc_title"
+            android:summary="@string/settings_list_credits_spc_summary"
+            android:key="settings_credits_special" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

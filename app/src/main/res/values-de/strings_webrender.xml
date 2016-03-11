@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Gefährliche Webseite erkannt</string>
+    <string name="webrender_dangerous_site_message">
+        Eine möglicherweise gefährliche Webseite wurde erkannt.
+        \nWir empfehlen dir, diese Webseite nicht aufzurufen.
+        \nFalls dies für dich ein Fehler ist oder du diese Webseite trotzdem aufrufen möchtest,
+        kannst du dies tun.
+\n
+        \nMöchtest du die Webseite weiterhin laden?
+    </string>
+
+    <!-- AdBlock section -->
+
+    <string name="adblock_enable_title">Aktiviere AdBlock</string>
+    <string name="adblock_enable_summary">Um Werbung zu blockieren, aktiviere AdBlock.</string>
+
+    <string name="adblock_download_hosts_title">Host-Dateien herunterladen</string>
+    <string name="adblock_download_hosts_summary">
+        Lade die neuesten Host-Dateien herunter.
+        Dies wird automatisch bei jedem App-Start durchgeführt.
+    </string>
+
+    <string name="adblock_hosts_downloading">Hosts-Dateien werden heruntergeladen und verarbeitet...</string>
+
+</resources>

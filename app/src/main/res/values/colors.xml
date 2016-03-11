@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/grey_100</color>
+    <color name="colorPrimaryDark">@color/grey_300</color>
+    <color name="colorAccent">@color/blue_600</color>
+
+    <color name="separator_semi_transparent">@color/dark_semi_min_transparent</color>
+
+    <color name="white_unnoticeable_opaque">#FDFFFFFF</color>
+    <color name="white_semi_min_transparent">#DFFFFFFF</color>
+    <color name="white_semi_less_transparent">#C4FFFFFF</color>
+    <color name="white_semi_transparent">#8AFFFFFF</color>
+    <color name="white_semi_more_transparent">#56FFFFFF</color>
+    <color name="white_semi_most_transparent">#32FFFFFF</color>
+    <color name="white_unnoticeable_transparent">#01FFFFFF</color>
+
+    <color name="dark_unnoticeable_opaque">#FD000000</color>
+    <color name="dark_semi_min_transparent">#DF000000</color>
+    <color name="dark_semi_less_transparent">#C4000000</color>
+    <color name="dark_semi_transparent">#8A000000</color>
+    <color name="dark_semi_more_transparent">#56000000</color>
+    <color name="dark_semi_most_transparent">#32000000</color>
+    <color name="dark_unnoticeable_transparent">#01000000</color>
+
+    <color name="full_transparent">@android:color/transparent</color>
+
+    <color name="transRed">#44FF4012</color>
+    <color name="transGreen">#4216FF48</color>
+    <color name="transBlue">#481652FF</color>
+
+    <color name="transCyan">#4212FFFF</color>
+    <color name="transMagenta">#44FF16FF</color>
+    <color name="transYellow">#44FFFF12</color>
+
+</resources>

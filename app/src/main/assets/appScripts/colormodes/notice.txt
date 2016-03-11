@@ -1,0 +1,4 @@
+Thanks to http://html5-demos.appspot.com/static/css/filters/index.html
+and http://stackoverflow.com/a/16239245/4479004 we were finally able to do this :)
+
+THANK YOU!

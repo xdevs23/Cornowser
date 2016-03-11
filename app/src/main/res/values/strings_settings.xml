@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Browsing</string>
+
+    <string name="settings_browsing_homepage_title">Home page</string>
+    <string name="settings_browsing_homepage_summary">Set your preferred home page</string>
+
+    <string name="settings_browsing_searchengine_title">Search engine</string>
+    <string name="settings_browsing_searchengine_summary">Set your preferred search engine</string>
+
+    <string name="settings_browsing_adblock_title">AdBlock</string>
+    <string name="settings_browsing_adblock_summary">Access the settings for the ad blocker</string>
+
+    <string name="settings_browsing_lsession_title">Restore last session</string>
+    <string name="settings_browsing_lsession_summary">Open all tabs from last session on start-up</string>
+
+
+    <string name="settings_category_layout_title">Layout</string>
+
+    <string name="settings_layout_omni_pos_title">Omnibox position</string>
+    <string name="settings_layout_omni_pos_sumary">Set your preferred address bar position</string>
+
+    <string name="settings_layout_fullscreen_title">Fullscreen</string>
+    <string name="settings_layout_fullscreen_summary">Enable fullscreen mode</string>
+
+
+    <string name="settings_category_appearance_title">Appearance</string>
+
+    <string name="settings_appearance_webcolmode_title">Color mode</string>
+    <string name="settings_appearance_webcolmode_summary">Set your preferred color mode</string>
+
+    <string name="settings_appearance_omnicoloring_title">Omnibox coloring</string>
+    <string name="settings_appearance_omnicoloring_summary">Set whether the omnibox and status bar
+        should be automatically tinted or not</string>
+
+
+    <string name="settings_category_misc_title">Miscellaneous</string>
+
+    <string name="settings_misc_clean_data_title">Clean data</string>
+    <string name="settings_misc_clean_data_summary">Use this feature to clean cached and other data</string>
+
+    <string name="settings_misc_debug_title">Debug mode</string>
+    <string name="settings_misc_debug_summary">Enable logcat debug output. (Good if you want to show it to us)</string>
+
+    <string name="settings_misc_optout_clytics_title">Disable Crashlytics</string>
+    <string name="settings_misc_optout_clytics_summary">Opt-out of automatic crash reporting
+        (Application restart required)</string>
+
+    <string name="settings_list_licenses_title">Open Source Licenses</string>
+    <string name="settings_list_licenses_summary">Useful libraries used by this application</string>
+
+    <string name="settings_list_credits_tl_title">Translations</string>
+    <string name="settings_list_credits_tl_summary">Credits to translators</string>
+
+    <string name="settings_list_credits_spc_title">Special thanks</string>
+    <string name="settings_list_credits_spc_summary">Thanks a lot to these people</string>
+
+    <!-- Clean data settings page -->
+
+    <string name="cleandata_clean_cache_title">Clean cache</string>
+    <string name="cleandata_clean_cache_summary">Delete cached web data</string>
+
+    <string name="cleandata_clean_cookies_title">Clean cookies</string>
+    <string name="cleandata_clean_cookies_summary">Delete cookies stored by websites</string>
+
+    <string name="cleandata_clean_all_nad_title">Clean everything</string>
+    <string name="cleandata_clean_all_nad_summary">Delete all web data except the app\'s settings</string>
+
+    <string name="cleandata_clean_force_all_title">Remove everything</string>
+    <string name="cleandata_clean_force_all_summary">Delete the whole data including web data and settings</string>
+
+    <string name="cleandata_clean_force_all_warn">
+        This will delete all data including cache, cookies, settings, passwords and AutoFill data!
+\n
+        \nAre you sure that you want to proceed?
+    </string>
+
+</resources>

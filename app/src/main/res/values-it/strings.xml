@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Don't translate strings with 'translatable="false"' -->
+    <string name="app_bg_name">Cornowser (Background)</string>
+
+    <!-- General stuff -->
+
+    <string name="answer_cancel">Cancel</string>
+    <string name="answer_ok">OK</string>
+
+    <string name="instr_next">Next</string>
+    <string name="instr_next_go">Next</string>
+    <string name="instr_prev">Previous</string>
+    <string name="instr_forward">Forward</string>
+    <string name="instr_backward">Backward</string>
+
+    <string name="instr_new">New</string>
+
+    <string name="instr_goto">Go to</string>
+
+    <string name="instr_opts">Options</string>
+
+    <string name="instr_add">Aggiungi</string>
+    <string name="instr_remove">Rimuovi</string>
+
+    <string name="instr_move">Sposta</string>
+    <string name="instr_copy">Copia</string>
+    <string name="instr_rename">Rinomina</string>
+
+    <string name="instr_download">Download</string>
+    <string name="instr_upload">Upload</string>
+
+    <string name="instr_progress">Avanzamento</string>
+    <string name="instr_s_percent">Percentuale</string>
+    <string name="instr_finished">Finito</string>
+    <string name="instr_started">Iniziato</string>
+    <string name="instr_start">Start</string>
+    <string name="instr_stopped">Fermato</string>
+    <string name="instr_stop">Stop</string>
+    <string name="instr_pause">Pausa</string>
+    <string name="instr_paused">In pausa</string>
+    <string name="instr_continue">Continua</string>
+
+    <!-- Options menu -->
+    <string name="optmenu_share">Condividi</string>
+
+    <!-- Permissions -->
+    <string name="permission_hint_write_storage">E\' necessario il permesso di scrivere sulla memoria esterna per scaricare files. Accetta per favore.</string>
+
+</resources>

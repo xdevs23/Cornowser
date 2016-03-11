@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- General -->
+    <string name="answer_yes">Oui</string>
+    <string name="answer_no">Non</string>
+
+    <!-- Root -->
+    <string name="rootutils_root_detect_title">
+        Système rooté détecté
+    </string>
+    <string name="rootutils_root_detect_message">
+        Nous avons détecté que votre appareil est rooté.\n
+        Voulez-vous accorder les permissions root à cette application ?
+        Si vous acceptez, vous aurez des avantages comme des mises à jour plus rapides et plus faciles.\n
+        Ceci est facultatif.
+    </string>
+    <string name="rootutils_root_access_failed_title">
+        Accès root refusé
+    </string>
+    <string name="rootutils_root_access_failed">
+        L\'application ne peut pas obtenir l\'accès root.\n
+        Veuillez vous assurer que votre appareil soit correctement rooté et que vous avez bien accordé l\'accès root à cette application.
+    </string>
+
+    <!-- Updater -->
+    <string name="updater_downloading">
+        Téléchargement
+    </string>
+    <string name="updater_loading">
+        Chargement
+    </string>
+    <string name="updater_updating">
+        Lancement de la mise à jour
+    </string>
+    <string name="updater_root_install_error">
+        Erreur survenue lors de la mise à jour automatique.\n
+        Lancement de l\'installation manuelle.
+    </string>
+    <string name="updater_button_update_now">
+        Mise à jour
+    </string>
+    <string name="updater_awaiting_loading"><![CDATA[Loading...]]></string>
+    <string name="updater_prefix_actual_version">
+        Version actuelle : %s
+    </string>
+    <string name="updater_prefix_latest_version">
+        Dernière version : %s
+    </string>
+    <string name="updater_msg_latest_installed">
+        Vous avez déjà la dernière version installée.
+    </string>
+    <string name="updater_msg_new_version">
+        Une mise à jour est disponible.\nType de version : %s
+    </string>
+    <string name="updater_prefix_changelog_for">
+        Liste des changements pour %s
+    </string>
+    <string name="updater_mask_changelog_inner" formatted="false">
+        Code version %s, sortie le %s/%s/%s\n\n%s
+    </string>
+
+    <string name="update_available_title">
+        Mise à jour disponible
+    </string>
+    <string name="update_available_message">
+        La version %s est maintenant disponible !\n
+        Voulez-vous faire la mise à jour maintenant ?
+    </string>
+
+    <string name="updater_title">
+        Outil de mise à jour
+    </string>
+
+    <string name="root_enable_root_access">
+        Utiliser l\'accès root
+    </string>
+
+    <string name="root_toast_info_lollihigh">
+        Vous utilisez Lollipop ou supérieur. La procédure d\'installation des mises à jour peut ne pas fonctionner correctement.
+        Merci de ne pas utiliser le root si vous rencontrez des problèmes.
+    </string>
+
+</resources>

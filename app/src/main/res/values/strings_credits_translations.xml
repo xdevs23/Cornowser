@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="credits_translation_list" translatable="false">
+        <item>English, Deutsch (German), Português (Portuguese)</item>
+        <item>xdevs23</item>
+        <item> </item>
+        <item>http://github.com/xdevs23</item>
+
+        <item>Italiano (Italian)</item>
+        <item>DavideV</item>
+        <item> </item>
+        <item>https://goo.gl/vsU4K2</item>
+
+        <item>Español (Spanish)</item>
+        <item>Greck98</item>
+        <item> </item>
+        <item>http://greck.ga</item>
+
+        <item>Français (French)</item>
+        <item>Primokorn</item>
+        <item> </item>
+        <item>https://github.com/Primokorn</item>
+    </string-array>
+
+</resources>

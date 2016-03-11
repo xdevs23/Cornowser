@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:id="@+id/adblock_preference_enable"
+        android:title="@string/adblock_enable_title"
+        android:summary="@string/adblock_enable_summary"
+        android:key="adblock_enable" />
+
+    <Preference
+        android:id="@+id/adblock_preference_download"
+        android:title="@string/adblock_download_hosts_title"
+        android:summary="@string/adblock_download_hosts_summary"
+        android:key="adblock_download_hosts" />
+
+</PreferenceScreen>

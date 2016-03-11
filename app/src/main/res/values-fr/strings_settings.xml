@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Navigation</string>
+
+    <string name="settings_browsing_homepage_title">Page d\'accueil</string>
+    <string name="settings_browsing_homepage_summary">Définir votre page d\'accueil préférée</string>
+
+    <string name="settings_browsing_searchengine_title">Moteur de recherche</string>
+    <string name="settings_browsing_searchengine_summary">Choisir votre moteur de recherche préféré</string>
+    
+    <string name="settings_browsing_adblock_title">AdBlock</string>
+    <string name="settings_browsing_adblock_summary">Accéder aux paramètres pour le bloqueur de publicités</string>
+
+
+    <string name="settings_category_layout_title">Disposition</string>
+
+    <string name="settings_layout_omni_pos_title">Position Omnibox</string>
+    <string name="settings_layout_omni_pos_sumary">Définir la position préférée pour la barre d\'adresse Omnibox</string>
+
+    <string name="settings_layout_fullscreen_title">Plein écran</string>
+    <string name="settings_layout_fullscreen_summary">Activer le mode plein écran</string>
+
+
+    <string name="settings_category_appearance_title">Apparence</string>
+
+    <string name="settings_appearance_webcolmode_title">Mode couleur</string>
+    <string name="settings_appearance_webcolmode_summary">Définir votre mode couleur préféré</string>
+
+    <string name="settings_appearance_omnicoloring_title">Couleur de l\'Omnibox</string>
+    <string name="settings_appearance_omnicoloring_summary">Choisir si l\'omnibox et la barre d\'état doivent être automatiquement colorées</string>
+
+    <string name="settings_category_misc_title">Divers</string>
+    
+    <string name="settings_misc_clean_data_title">Effacer les données</string>
+    <string name="settings_misc_clean_data_summary">Utiliser cette option pour effacer le cache et d\'autres données</string>
+    
+    <string name="settings_misc_debug_title">Mode débogage</string>
+    <string name="settings_misc_debug_summary">Activer cette fonction pour aider le développeur à corriger les problèmes</string>
+
+    <string name="settings_list_licenses_title">Licences Open Source</string>
+    <string name="settings_list_licenses_summary">Librairies utilisées par cette application</string>
+
+    <string name="settings_list_credits_tl_title">Traductions</string>
+    <string name="settings_list_credits_tl_summary">Remerciements aux traductions</string>
+
+    <string name="settings_list_credits_spc_title">Remerciement spécial</string>
+    <string name="settings_list_credits_spc_summary">Merci beaucoup à toutes ces personnes</string>
+    
+    <!-- Clean data settings page -->
+
+    <string name="cleandata_clean_cache_title">Effacer le cache</string>
+    <string name="cleandata_clean_cache_summary">Supprimer les données web du cache</string>
+
+    <string name="cleandata_clean_cookies_title">Effacer les cookies</string>
+    <string name="cleandata_clean_cookies_summary">Supprimer les cookies stockés par les sites web</string>
+
+    <string name="cleandata_clean_all_nad_title">Tout effacer</string>
+    <string name="cleandata_clean_all_nad_summary">Supprimer toutes les données web sauf les paramètres de l\'application</string>
+
+    <string name="cleandata_clean_force_all_title">Tout supprimer</string>
+    <string name="cleandata_clean_force_all_summary">Supprimer toutes les données dont le données web et les paramètres</string>
+
+    <string name="cleandata_clean_force_all_warn">
+        Ceci effacera toutes les données dont le cache, les cookies, les paramètres, les mots de passe et les remplissages de formulaire !
+\n
+        \nÊtes-vous sûr de vouloir continuer ?
+    </string>
+
+</resources>

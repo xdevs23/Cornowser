@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Omnibox position -->
+    <string-array name="settings_layout_omni_pos_entries">
+        <item>Haut</item>
+        <item>Bas</item>
+    </string-array>
+
+    <!-- Color mode -->
+    <string-array name="settings_appearance_webcolmode_entries">
+        <item>Normal</item>
+        <item>Sombre</item>
+        <item>Négatif</item>
+        <item>Inversé</item>
+        <item>Nuage de gris</item>
+    </string-array>
+
+</resources>

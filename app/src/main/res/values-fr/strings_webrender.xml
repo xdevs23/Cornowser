@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="webrender_dangerous_site_title">Un site web dangereux a été détecté</string>
+    <string name="webrender_dangerous_site_message">
+        Un site web probablement dangereux vient d\'être détecté.
+        \nNous vous recommandons de ne pas visiter cette page web.
+        \nSi vous estimez que c\'est une erreur ou si vous voulez quand même consulter le site web, vous pouvez le faire.
+\n
+        \nVoulez-vous continuer à charger cette page web ?
+    </string>
+
+    <!-- AdBlock section -->
+
+    <string name="adblock_enable_title">Activer l\'AdBlock</string>
+    <string name="adblock_disable_title">Désactiver l\'AdBlock</string>
+    <string name="adblock_enable_summary">Pour bloquer les publicités, activer l\'AdBlock</string>
+
+    <string name="adblock_download_hosts_title">Télécharger des fichiers host</string>
+    <string name="adblock_download_hosts_summary">
+        Télécharger les derniers fichiers host.
+        Ceci se fait automatiquement à chaque démarrage, si l\'AdBlock est activé.
+    </string>
+
+    <string name="adblock_hosts_downloading">Téléchargement et installation des fichiers hosts...</string>
+</resources>

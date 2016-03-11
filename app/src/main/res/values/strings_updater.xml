@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- General -->
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
+
+    <!-- Root -->
+    <string name="rootutils_root_detect_title">
+        Rooted system detected
+    </string>
+    <string name="rootutils_root_detect_message">
+        We detected that your device is rooted.\n
+        Do you want to allow this app to use root permissions?
+        If you allow, you will have benefits such as faster and easier updating.\n
+        It is optional.
+    </string>
+    <string name="rootutils_root_access_failed_title">
+        Root access failed
+    </string>
+    <string name="rootutils_root_access_failed">
+        The application cannot gain root access.\n
+        Please make sure that your device is properly rooted and that you have allowed root access
+        for this app.
+    </string>
+
+    <!-- Updater -->
+    <string name="updater_downloading">
+        Downloading
+    </string>
+    <string name="updater_loading">
+        Loading
+    </string>
+    <string name="updater_updating">
+        Starting update
+    </string>
+    <string name="updater_root_install_error">
+        Error occurred while updating automatically.\n
+        Manual installation is starting.
+    </string>
+    <string name="updater_button_update_now">
+        Update
+    </string>
+    <string name="updater_awaiting_loading"><![CDATA[Loading...]]></string>
+    <string name="updater_prefix_actual_version">
+        Current version: %s
+    </string>
+    <string name="updater_prefix_latest_version">
+        Latest version: %s
+    </string>
+    <string name="updater_msg_latest_installed">
+        You already have the latest version installed.
+    </string>
+    <string name="updater_msg_new_version">
+        An update is available.\nRelease type: %s
+    </string>
+    <string name="updater_prefix_changelog_for">
+        Changelog for %s
+    </string>
+    <string name="updater_mask_changelog_inner" formatted="false">
+        Version code %s, released on %s/%s/%s\n\n%s
+    </string>
+
+    <string name="update_available_title">
+        Update available
+    </string>
+    <string name="update_available_message">
+        Version %s is now available!\n
+        Do you want to update now?
+    </string>
+
+    <string name="updater_title">
+        Updater
+    </string>
+
+    <string name="root_enable_root_access">
+        Use root access
+    </string>
+
+    <string name="root_toast_info_lollihigh">
+        You are using Lollipop or higher. Installation procedure of updates might not work correctly.
+        Please don\'t use root if you experience any issues or problems.
+    </string>
+
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="io.xdevs23.cornowser.browser"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
+
+    <!-- Debug mode is handled by application, so enable it here -->
+    <application
+        android:name=".Core"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/m_app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/CoreMTRLTheme"
+        android:uiOptions="none"
+        tools:ignore="HardcodedDebugMode">
+
+        <activity
+            android:name=".CornBrowser"
+            android:launchMode="singleTask"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.WEB_SEARCH" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.BgLoadActivity"
+            android:label="@string/app_bg_name"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:uiOptions="none">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".updater.UpdateActivity"
+            android:parentActivityName=".CornBrowser">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CornBrowser" />
+        </activity>
+
+        <activity
+            android:name=".activity.AboutActivity"
+            android:parentActivityName=".CornBrowser">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CornBrowser" />
+        </activity>
+
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:parentActivityName=".CornBrowser">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CornBrowser" />
+        </activity>
+
+        <activity
+            android:name=".activity.settings.AdBlockSettings"
+            android:parentActivityName=".activity.SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity" />
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="152cedb2e680f4228acd505b46ffdd9cc4d35a12" />
+    </application>
+
+</manifest>

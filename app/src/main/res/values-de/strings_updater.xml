@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- General -->
+    <string name="answer_yes">Ja</string>
+    <string name="answer_no">Nein</string>
+
+    <!-- Root -->
+    <string name="rootutils_root_detect_title">
+        Gerootetes System erkannt
+    </string>
+    <string name="rootutils_root_detect_message">
+        Auf Deinem System wurden Root-Rechte erkannt.\n
+        Möchtest Du dieser App Root-Rechte gewähren, um beispielsweise Updates schneller und einfacher
+        Updates durchzuführen?\n
+        Dies ist optional.
+    </string>
+    <string name="rootutils_root_access_failed_title">
+        Root-Zugriff fehlgeschlagen
+    </string>
+    <string name="rootutils_root_access_failed">
+        Es konnten keine erhöhten Rechte erlangt werden.\n
+        Bitte stelle sicher, dass die Root-Funktion ordnungsgemäß
+        funktioniert und dass Du dieser App die Root-Rechte
+        gewährt hast.
+    </string>
+
+    <!-- Updater -->
+    <string name="updater_downloading">
+        Herunterladen
+    </string>
+    <string name="updater_loading">
+        Wird geladen
+    </string>
+    <string name="updater_updating">
+        Starte update
+    </string>
+    <string name="updater_root_install_error">
+        Fehler bei der automatischen Installation\n
+        Manuelle Installation wird gestartet.
+    </string>
+    <string name="updater_button_update_now">
+        Update
+    </string>
+    <string name="updater_awaiting_loading">
+        Wird geladen...
+    </string>
+    <string name="updater_prefix_actual_version">
+        Installierte Version: %s
+    </string>
+    <string name="updater_prefix_latest_version">
+        Neueste Version: %s
+    </string>
+    <string name="updater_msg_latest_installed">
+        Die neueste Version ist bereits installiert.
+    </string>
+    <string name="updater_msg_new_version">
+        Ein Update ist verfügbar.\nVeröffentlichungstyp: %s.
+    </string>
+    <string name="updater_prefix_changelog_for">
+        Neues in der Version %s
+    </string>
+    <string name="updater_mask_changelog_inner" formatted="false">
+        Version-Code %s, veröffentlicht am %s.%s.%s\n\n%s
+    </string>
+
+    <string name="update_available_title">
+        Update verfügbar
+    </string>
+    <string name="update_available_message">
+        Version %s ist verfügbar!\n
+        Jetzt updaten?
+    </string>
+
+    <string name="updater_title">
+        Updater
+    </string>
+
+    <string name="root_enable_root_access">
+        Root-Zugriff verwenden
+    </string>
+
+    <string name="root_toast_info_lollihigh">
+        Du verwendest Lollipop oder höher. Der Installationsvorgang funktioniert möglicherweise nicht richtig.
+        Bitte verwende nicht den Root-Zugriff, falls Probleme entstehen.
+    </string>
+
+
+</resources>

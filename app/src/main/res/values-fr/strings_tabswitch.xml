@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tabswitch_blue_longpress_to_remove">Appui long sur un onglet pour le supprimer</string>
+
+    <string name="tabswitch_no_removable_tabs">Aucun onglet supprimable</string>
+
+</resources>

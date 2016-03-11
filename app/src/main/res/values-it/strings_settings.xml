@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Navigazione</string>
+
+    <string name="settings_browsing_homepage_title">Pagina iniziale</string>
+    <string name="settings_browsing_homepage_summary">Imposta la tua pagina iniziale preferita</string>
+
+
+    <string name="settings_category_layout_title">Aspetto</string>
+
+    <string name="settings_layout_omni_pos_title">Posizione della Omnibox</string>
+    <string name="settings_layout_omni_pos_sumary">Imposta la tua posizione preferita per la barra degli indirizzi</string>
+
+    <string name="settings_layout_fullscreen_title">Schermo intero</string>
+    <string name="settings_layout_fullscreen_summary">Abilita modalità a schermo intero</string>
+
+
+    <string name="settings_category_misc_title">Varie</string>
+
+    <string name="settings_list_licenses_title">Licenze Open Source</string>
+    <string name="settings_list_licenses_summary">Librerie utilissime utilizzate in questa app</string>
+
+    <string name="settings_list_credits_tl_title">Traduzioni</string>
+    <string name="settings_list_credits_tl_summary">Riconoscimenti ai traduttori</string>
+
+    <string name="settings_list_credits_spc_title">Ringraziamenti speciali</string>
+    <string name="settings_list_credits_spc_summary">Ringrazio tantissimo tutte queste persone</string>
+
+</resources>
