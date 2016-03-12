@@ -24,6 +24,9 @@ android:
 before_install:
     - sudo apt-get -qq update
     - sudo add-apt-repository ppa:webupd8team/java
-    - sudo apt-get install -y oracle-java8-installer
+    - echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+    - echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+    - sudo apt-get install -y oracle-java8-installer oracle-java8-set-default
+    - sudo update-java-alternatives -s java-8-oracle
 install: bash crosswalk/xwalkinstaller.sh auto --nominify
 script: gradle clean assembleDebug
