@@ -21,5 +21,9 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     # - sys-img-armeabi-v7a-android-23
+before_install:
+    - sudo apt-get -qq update
+    - sudo add-apt-repository ppa:webupd8team/java
+    - sudo apt-get install -y oracle-java8-installer
 install: bash crosswalk/xwalkinstaller.sh auto --nominify
 script: gradle clean assembleDebug
