@@ -57,7 +57,6 @@ public class CornResourceClient extends XWalkResourceClient {
     );
 
     private boolean allowTinting = true;
-    private boolean loadingLessThanMin = true;
 
     private boolean triedIntentLoad = false;
 
@@ -131,13 +130,14 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public XWalkWebResourceResponse shouldInterceptLoadRequest(XWalkView view, XWalkWebResourceRequest request) {
-        return null;
+        return super.shouldInterceptLoadRequest(view, request);
     }
 
     @Override
     public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
         try {
             if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
+                    && CrunchyWalkView.fromXWalkView(view).getUIClient().readyForBugfreeBrowsing
                     && AdBlockManager.isAdBlockedHost(url)) {
                 Logging.logd("AdBlock: Ad blocked");
                 return new WebResourceResponse("text/plain", "UTF-8",

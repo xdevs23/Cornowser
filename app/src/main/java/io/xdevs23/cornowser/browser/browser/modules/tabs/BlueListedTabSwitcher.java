@@ -74,8 +74,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             final Runnable doUpdateStuff = new Runnable() {
                 @Override
                 public void run() {
-                    WebThemeHelper.tintNow(CornBrowser.getWebEngine());
-                    CornBrowser.applyOnlyInsideOmniText(CornBrowser.getWebEngine().getUrl());
+                    WebThemeHelper.tintNow();
+                    CornBrowser.applyOnlyInsideOmniText();
                     CornBrowser.openTabswitcherImgBtn.setTabCount(getTabStorage().getTabCount());
                     CornBrowser.getWebEngine().drawWithColorMode();
                 }
@@ -85,13 +85,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 public void run() {
                     handler.post(doUpdateStuff);
                 }
-            }, 200);
+            }, 120);
         }
 
         @Override
         public void onTabAdded(Tab tab) {
-            updateStuff();
             CornBrowser.publicWebRender.load(tab.getUrl());
+            updateStuff();
         }
 
         @Override

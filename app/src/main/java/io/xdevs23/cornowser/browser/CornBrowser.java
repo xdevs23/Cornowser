@@ -32,6 +32,7 @@ import junit.framework.AssertionFailedError;
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
 import org.xdevs23.threads.Sleeper;
@@ -375,8 +376,8 @@ public class CornBrowser extends XquidCompatActivity {
         openTabswitcherImgBtn   = (TabSwitcherOpenButton) findViewById(R.id.omnibox_control_open_tabswitcher);
         goForwardImgBtn         = (ImageButton)           findViewById(R.id.omnibox_control_forward);
 
-        TastyOverflowMenu overflowMenuLayout;
-        overflowMenuLayout      = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
+        TastyOverflowMenu overflowMenuLayout
+                = (TastyOverflowMenu)   findViewById(R.id.omnibox_control_overflowmenu);
 
 
         browserInputBar.setOnKeyListener(new View.OnKeyListener() {
@@ -399,6 +400,7 @@ public class CornBrowser extends XquidCompatActivity {
                 openOptionsMenu();
             }
         });
+
 
         openTabswitcherImgBtn.init(getContext());
         openTabswitcherImgBtn.setOnClickListener(new View.OnClickListener() {
@@ -539,8 +541,14 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public static void applyInsideOmniText() {
         if(browserInputBar.hasFocus()) return;
-        getTabSwitcher().changeCurrentTab(publicWebRender.getUrl(), publicWebRender.getTitle());
-        getTabSwitcher().updateAllTabs();
+        try {
+            if (publicWebRender.getUrl().isEmpty())
+                publicWebRender.load(getTabSwitcher().getCurrentTab().getUrl());
+            getTabSwitcher().changeCurrentTab(publicWebRender.getUrl(), publicWebRender.getTitle());
+            getTabSwitcher().updateAllTabs();
+        } catch(Exception ex) {
+            StackTraceParser.logStackTrace(ex);
+        }
         applyOnlyInsideOmniText();
     }
 
@@ -763,7 +771,7 @@ public class CornBrowser extends XquidCompatActivity {
             publicWebRender.onShow();
 
             resetBarColor();
-            WebThemeHelper.tintNow(publicWebRender);
+            WebThemeHelper.tintNow();
 
             if(!browserStorage.getOmniColoringEnabled())
                 WebThemeHelper.resetWebThemeColor(omnibox);
@@ -850,7 +858,7 @@ public class CornBrowser extends XquidCompatActivity {
     public void onBackPressed() {
         if(browserInputBar != null && browserInputBar.hasFocus()) {
             browserInputBar.clearFocus();
-            applyInsideOmniText(publicWebRender.getUrl());
+            applyInsideOmniText();
             return;
         }
         if(!publicWebRender.goBack()) endApplication();

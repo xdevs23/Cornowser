@@ -31,6 +31,8 @@ public class AdBlockManager {
 
     private static OnHostsUpdatedListener hostsUpdatedListener = defaultHostsUpdatedListener;
 
+    private static boolean areHostsLoaded = false;
+
     private AdBlockManager() {
 
     }
@@ -48,7 +50,9 @@ public class AdBlockManager {
 
     public static void loadHosts() {
         Logging.logd("AdBlock: Loading hosts...");
+        areHostsLoaded = false;
         hosts = FileUtils.readFileStringArray(adBlockFile);
+        areHostsLoaded = true;
         Logging.logd("AdBlock: All hosts loaded!");
     }
 
@@ -121,6 +125,7 @@ public class AdBlockManager {
 
     public static boolean isAdBlockedHost(String url) {
         if(!CornBrowser.getBrowserStorage().isAdBlockEnabled())             return false;
+        if(!areHostsLoaded)                                                 return false;
         if(hosts == null || hosts.length <= 1)                              return false;
         if(AdBlockParser.isHostListed(url, AdBlockConst.WHITELISTED_HOSTS)) return false;
         try {
