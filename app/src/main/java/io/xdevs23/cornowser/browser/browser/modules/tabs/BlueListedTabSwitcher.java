@@ -106,11 +106,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         @Override
         public void onTabChanged(Tab tab) {
+            onTabChanged(tab, true);
+        }
+
+        @Override
+        public void onTabChanged(Tab tab, boolean forcing) {
             ((TextView)((XquidLinearLayout)tabsLayout.getChildAt(tab.tabId))
                     .getChildAt(0)).setText(tab.getTitle());
             ((TextView)((XquidLinearLayout)tabsLayout.getChildAt(tab.tabId))
                     .getChildAt(1)).setText(tab.getUrl());
-            updateStuff();
+            if(forcing) updateStuff();
         }
     };
 
@@ -455,6 +460,14 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     .getChildAt(2)).setTabIndex(id);
         } catch(Exception ex) {
             Logging.logd("Something went wrong... ~setLayoutTabId (Tab switcher)");
+        }
+    }
+
+    public void updateAllTabs() {
+        for ( Tab t : tabStorage.getTabList() ) {
+            t.setUrl(t.webView.getUrl());
+            t.setTitle(t.webView.getTitle());
+            tabSwitchListener.onTabChanged(t, false);
         }
     }
 

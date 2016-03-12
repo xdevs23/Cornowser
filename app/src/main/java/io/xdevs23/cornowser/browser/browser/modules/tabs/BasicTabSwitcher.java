@@ -138,4 +138,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
         switchTab(currentTab);
     }
 
+    public abstract void updateAllTabs();
+
 }

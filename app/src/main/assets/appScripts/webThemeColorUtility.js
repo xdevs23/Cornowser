@@ -33,6 +33,9 @@ try {
         else if(cu.indexOf("yahoo")             !== -1) webCol = "#400090";
         else if(cu.indexOf("twitch")            !== -1) webCol = "#6441a5";
         else if(cu.indexOf("stackoverflow")     !== -1) webCol = "#23334e";
+        else if(cu.indexOf("androidfilehost")   !== -1) webCol = "#222222";
+        else if(cu.indexOf("codepen")           !== -1) webCol = "#1d1f20";
+        else if(cu.indexOf("agar")              !== -1) webCol = "#428bca";
 
         else webCol = "default";
 

@@ -31,7 +31,7 @@ public class CrunchyWalkView extends XWalkView {
 
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
-                    "AppleWebKit/601.2.7 (KHTML, like Gecko) Cornowser/%s Chrome/51.0.2667.1 Mobile Safari/601.2.7";
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/51.0.2675.1 Mobile Safari/537.36";
 
     public int currentProgress = 0;
 
@@ -65,6 +65,7 @@ public class CrunchyWalkView extends XWalkView {
 
         Logging.logd("      Done!");
     }
+
     /* Don't use this! */
     @DontUse
     public CrunchyWalkView(Context context) {

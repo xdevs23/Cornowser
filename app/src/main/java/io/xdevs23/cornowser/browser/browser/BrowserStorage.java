@@ -285,34 +285,46 @@ public class BrowserStorage {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
-        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
+        logPref(key, value);
     }
 
     public void setPref(String key, boolean value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
-        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
+        logPref(key, String.valueOf(value));
     }
 
     public void setPref(String key, int value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(key, value);
         editor.apply();
-        Logging.logd("Pref '" + key + "' saved with value '" + value + "'.");
+        logPref(key, String.valueOf(value));
     }
 
     public void rmPref(String key) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.remove(key);
         editor.apply();
-        Logging.logd("Pref '" + key + "' removed.");
+        logPrefRm(key);
     }
 
     public void clearPrefs() {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    protected void logPref(String msg) {
+        Logging.logd("Pref " + msg);
+    }
+
+    protected void logPref(String key, String value) {
+        logPref("'" + key + "' saved with value '" + value + "'.");
+    }
+
+    protected void logPrefRm(String key) {
+        logPref("'" + key + "' removed.");
     }
 
     /**

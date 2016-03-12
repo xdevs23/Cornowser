@@ -540,7 +540,15 @@ public class CornBrowser extends XquidCompatActivity {
     public static void applyInsideOmniText() {
         if(browserInputBar.hasFocus()) return;
         getTabSwitcher().changeCurrentTab(publicWebRender.getUrl(), publicWebRender.getTitle());
+        getTabSwitcher().updateAllTabs();
         applyOnlyInsideOmniText();
+    }
+
+    /**
+     * Update the progress bar
+     */
+    public static void updateWebProgress() {
+        webProgressBar.setProgress(publicWebRender.currentProgress);
     }
 
     /**
