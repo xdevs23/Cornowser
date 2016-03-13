@@ -21,7 +21,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "io.xdevs23.cornowser.browser"
