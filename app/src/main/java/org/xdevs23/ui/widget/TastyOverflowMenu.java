@@ -64,13 +64,20 @@ public class TastyOverflowMenu extends ImageButton {
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                    ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.dark_semi_more_transparent),
-                            PorterDuff.Mode.MULTIPLY);
-                else if(event.getAction() == MotionEvent.ACTION_UP)
-                    ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.black),
-                            PorterDuff.Mode.MULTIPLY);
-
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                    case MotionEvent.ACTION_DOWN:
+                        ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.dark_semi_more_transparent),
+                                PorterDuff.Mode.MULTIPLY);
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                    case MotionEvent.ACTION_OUTSIDE:
+                    case MotionEvent.ACTION_UP:
+                        ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.black),
+                                PorterDuff.Mode.MULTIPLY);
+                        break;
+                    default: break;
+                }
                 return false;
             }
         });
