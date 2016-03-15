@@ -856,11 +856,20 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
         getIntent().setData(intent.getData());
-        if(intent.getData() == null || intent.getDataString().isEmpty()
-                || intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()
-                || intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) return;
-        if(!intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty())
+        if( (intent.getData() == null || intent.getDataString().isEmpty())
+                && intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()
+                && intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) return;
+        Logging.logd("URL information in intent found");
+        if(!intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()) {
+            getIntent().putExtra(URL_TO_LOAD_KEY, intent.getStringExtra(URL_TO_LOAD_KEY));
+            handleStartupWebLoad();
+            return;
+        }
+        if(!intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) {
+            getIntent().putExtra(BgLoadActivity.bgLoadKey,
+                    intent.getStringExtra(BgLoadActivity.bgLoadKey));
             isBgBoot = true;
+        }
         isNewIntent = true;
         bootstrap();
     }
