@@ -78,7 +78,6 @@ public class CornResourceClient extends XWalkResourceClient {
         }
         checkIntentableUrl(url.toLowerCase());
         CornBrowser.resetOmniPositionState(true);
-        CornBrowser.resetBarColor();
         Logging.logd("Starting url loading '" + url + "'");
         return super.shouldOverrideUrlLoading(view, url);
     }
