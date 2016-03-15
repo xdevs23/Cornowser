@@ -13,9 +13,3 @@ if (style.styleSheet) {
 
 //injecting the css to the head
 head.appendChild(style);
-
-try {
-    var oldStyles = document.getElementsByTagName("style");
-    var oldStyle = oldStyles[oldStyles.length - 2];
-    head.removeChild(oldStyle);
-} catch(ex) { /* Do nothing */ }
