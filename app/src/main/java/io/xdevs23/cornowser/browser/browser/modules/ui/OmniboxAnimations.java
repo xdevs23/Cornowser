@@ -1,5 +1,6 @@
 package io.xdevs23.cornowser.browser.browser.modules.ui;
 
+import android.animation.Animator;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,7 +61,29 @@ public class OmniboxAnimations {
     public static void animateOmni(int posY) {
         float mov = (float) posY;
         if(mov > 0) CornBrowser.omnibox.bringToFront();
-        omniboxAnimate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0));
+        omniboxAnimate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0))
+                // This listener is to fix glitches
+                .setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                CornBrowser.omnibox.bringToFront();
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                CornBrowser.omnibox.bringToFront();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // Not necessary
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // Not necessary
+            }
+        });
         if(isTop())
             CornBrowser.publicWebRenderLayout
                 .setTranslationY((mov + CornBrowser.omnibox.getHeight()));
