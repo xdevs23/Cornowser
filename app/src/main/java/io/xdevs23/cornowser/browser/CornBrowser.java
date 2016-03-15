@@ -409,6 +409,13 @@ public class CornBrowser extends XquidCompatActivity {
                 getTabSwitcher().switchSwitcher();
             }
         });
+        openTabswitcherImgBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                getTabSwitcher().addTab(getBrowserStorage().getUserHomePage());
+                return false;
+            }
+        });
 
         goForwardImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
