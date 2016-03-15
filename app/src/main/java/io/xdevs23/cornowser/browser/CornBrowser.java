@@ -556,7 +556,7 @@ public class CornBrowser extends XquidCompatActivity {
      * Update the progress bar
      */
     public static void updateWebProgress() {
-        webProgressBar.setProgress(publicWebRender.currentProgress);
+        webProgressBar.setProgress((float) (publicWebRender.currentProgress / 100));
     }
 
     /**
