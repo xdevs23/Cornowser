@@ -849,7 +849,11 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onNewIntent(Intent intent) {
         Logging.logd("New intent!");
         getIntent().setData(intent.getData());
-        if(intent.getData() == null || intent.getDataString().isEmpty()) return;
+        if(intent.getData() == null || intent.getDataString().isEmpty()
+                || intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()
+                || intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) return;
+        if(!intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty())
+            isBgBoot = true;
         isNewIntent = true;
         bootstrap();
     }
