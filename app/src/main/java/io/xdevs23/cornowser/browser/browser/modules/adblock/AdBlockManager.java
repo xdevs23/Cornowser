@@ -128,6 +128,7 @@ public class AdBlockManager {
         if(!areHostsLoaded)                                                 return false;
         if(hosts == null || hosts.length <= 1)                              return false;
         if(AdBlockParser.isHostListed(url, AdBlockConst.WHITELISTED_HOSTS)) return false;
+        if(AdBlockParser.isHostListed(url, AdBlockConst. PREDEFINED_HOSTS)) return true ;
         try {
             return AdBlockParser.isHostListed(url, hosts);
         } catch(Exception ex) {
