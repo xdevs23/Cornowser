@@ -100,14 +100,14 @@ public class AdBlockSettings extends XquidCompatActivity {
         }
 
         private void initAdBlockNetBehaviorPref() {
-            final SwitchPreference pref = (SwitchPreference) findPreference("adblock_netbehavior");
+            final SwitchPreference pref = (SwitchPreference) findPreference("adblock_network_behavior");
 
             pref.setChecked(!CornBrowser.getBrowserStorage().getAdBlockNetBehavior());
 
             pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().setAdBlockNetBehavior(!(boolean)newValue);
+                    CornBrowser.getBrowserStorage().saveAdBlockNetBehavior(!(boolean)newValue);
                     pref.setChecked((boolean)newValue);
                     return false;
                 }

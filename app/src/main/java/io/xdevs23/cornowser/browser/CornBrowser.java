@@ -220,33 +220,44 @@ public class CornBrowser extends XquidCompatActivity {
      * For start-up web loading
      */
     protected void handleStartupWebLoad() {
-        if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty()))
+        Logging.logd("Handling start-up load");
+        if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty())) {
+            Logging.logd(" => Intent url load");
             getTabSwitcher().addTab(getIntent().getDataString());
+        }
 
         else if (getIntent().getStringExtra(BgLoadActivity.bgLoadKey) != null &&
-                (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()))
+                (!getIntent().getStringExtra(BgLoadActivity.bgLoadKey).isEmpty())) {
+            Logging.logd(" => Background load");
             getTabSwitcher().addTab(getIntent().getStringExtra(BgLoadActivity.bgLoadKey));
+        }
 
         else if(getIntent().getStringExtra(URL_TO_LOAD_KEY) != null &&
-                (!getIntent().getStringExtra(URL_TO_LOAD_KEY).isEmpty()))
+                (!getIntent().getStringExtra(URL_TO_LOAD_KEY).isEmpty())) {
+            Logging.logd(" => Shortcut/requested load");
             getTabSwitcher().addTab(getIntent().getStringExtra(URL_TO_LOAD_KEY));
+        }
 
         else if(getBrowserStorage().isLastSessionEnabled() &&
                 getBrowserStorage().getLastBrowsingSession() != null) {
-            Logging.logd("Restoring last session ("
+            Logging.logd(" => Restore last session");
+            Logging.logd("    Restoring last session ("
                     + getBrowserStorage().getLastBrowsingSession().length + " tabs)...");
             for (String s : getBrowserStorage().getLastBrowsingSession()) {
                 getTabSwitcher().addTab(s);
             }
             getTabSwitcher().switchTab(0);
             getTabSwitcher().fixWebResumation();
-            Logging.logd("Restored!");
+            Logging.logd("    Restored!");
         }
 
-        else if (readyToLoadUrl.isEmpty())
+        else if (readyToLoadUrl.isEmpty()) {
+            Logging.logd(" => Default load");
             getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
+        }
 
         else {
+            Logging.logd("In-App requested load");
             getTabSwitcher().addTab(readyToLoadUrl, null);
             readyToLoadUrl = "";
         }
@@ -549,7 +560,7 @@ public class CornBrowser extends XquidCompatActivity {
     public static void applyInsideOmniText() {
         if(browserInputBar.hasFocus()) return;
         try {
-            if (publicWebRender.getUrl().isEmpty())
+            if (publicWebRender.getUrl() != null && publicWebRender.getUrl().isEmpty())
                 publicWebRender.load(getTabSwitcher().getCurrentTab().getUrl());
             getTabSwitcher().changeCurrentTab(publicWebRender.getUrl(), publicWebRender.getTitle());
             getTabSwitcher().updateAllTabs();
@@ -857,8 +868,11 @@ public class CornBrowser extends XquidCompatActivity {
         Logging.logd("New intent!");
         getIntent().setData(intent.getData());
         if( (intent.getData() == null || intent.getDataString().isEmpty())
-                && intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()
-                && intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) return;
+                && (intent.getStringExtra(URL_TO_LOAD_KEY) == null
+                    || intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty())
+                && (intent.getStringExtra(BgLoadActivity.bgLoadKey) == null
+                    || intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty())
+                ) return;
         Logging.logd("URL information in intent found");
         if(!intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()) {
             getIntent().putExtra(URL_TO_LOAD_KEY, intent.getStringExtra(URL_TO_LOAD_KEY));

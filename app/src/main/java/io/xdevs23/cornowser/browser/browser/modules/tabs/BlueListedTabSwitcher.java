@@ -90,7 +90,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         @Override
         public void onTabAdded(Tab tab) {
-            CornBrowser.publicWebRender.load(tab.getUrl());
             updateStuff();
         }
 
@@ -275,7 +274,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         setLayoutTabId(currentTab, tab.tabId);
 
-        CornBrowser.applyInsideOmniText(tab.webView.getUrl());
+        CornBrowser.applyInsideOmniText();
         tabSwitchListener.onTabSwitched(tab);
     }
 
