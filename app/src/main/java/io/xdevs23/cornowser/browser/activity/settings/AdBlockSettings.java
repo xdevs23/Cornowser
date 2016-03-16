@@ -99,6 +99,10 @@ public class AdBlockSettings extends XquidCompatActivity {
             });
         }
 
+        private void initAdBlockNetBehaviorPref() {
+
+        }
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -107,6 +111,7 @@ public class AdBlockSettings extends XquidCompatActivity {
 
             initAdBlockEnable();
             initDownloadHostsPref();
+            initAdBlockNetBehaviorPref();
         }
     }
 }

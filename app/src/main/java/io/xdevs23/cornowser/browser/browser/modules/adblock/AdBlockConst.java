@@ -33,4 +33,8 @@ public final class AdBlockConst {
             "302br.net"
     };
 
+    public static final boolean
+            NET_BEHAVIOR_ALL  = true,
+            NET_BEHAVIOR_WIFI = false;
+
 }

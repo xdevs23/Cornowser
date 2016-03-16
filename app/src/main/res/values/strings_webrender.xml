@@ -25,4 +25,8 @@
 
     <string name="adblock_hosts_downloading">Downloading and processing hosts files...</string>
 
+    <string name="adblock_netbehavior_title">Update only with WiFi</string>
+    <string name="adblock_netbehavior_summary">Save your mobile data by only updating hosts file when
+        WiFi is enabled at start-up</string>
+
 </resources>

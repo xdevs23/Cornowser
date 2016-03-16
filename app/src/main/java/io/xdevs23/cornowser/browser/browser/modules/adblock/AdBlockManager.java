@@ -42,7 +42,10 @@ public class AdBlockManager {
             Logging.logd("AdBlock: Starting initialization");
             Logging.logd("AdBlock: Hosts file is " + adBlockFile);
             loadHosts();
-            downloadHostsAsync();
+            if(CornBrowser.getBrowserStorage().getAdBlockNetBehavior()
+                    || NetUtils.isWifiConnected(CornBrowser.getContext()))
+                downloadHostsAsync();
+            else Logging.logd("Not updating hosts, wifi is activated.");
         } catch(Exception ex) {
             StackTraceParser.logStackTrace(ex);
         }

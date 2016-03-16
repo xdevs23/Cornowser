@@ -13,4 +13,10 @@
         android:summary="@string/adblock_download_hosts_summary"
         android:key="adblock_download_hosts" />
 
+    <SwitchPreference
+        android:id="@+id/adblock_preference_netbehavior"
+        android:title="@string/adblock_netbehavior_title"
+        android:summary="@string/adblock_netbehavior_summary"
+        android:key="adblock_network_behavior" />
+
 </PreferenceScreen>

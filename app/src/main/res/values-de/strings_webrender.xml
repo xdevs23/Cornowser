@@ -24,4 +24,7 @@
 
     <string name="adblock_hosts_downloading">Hosts-Dateien werden heruntergeladen und verarbeitet...</string>
 
+    <string name="adblock_netbehavior_title">Nur mit WLAN aktualisieren</string>
+    <string name="adblock_netbehavior_summary">Spare dein mobiles Datenvolumen, indem die Hosts-Dateien
+        nur bei aktiviertem WLAN beim App-Start aktualisiert werden</string>
 </resources>

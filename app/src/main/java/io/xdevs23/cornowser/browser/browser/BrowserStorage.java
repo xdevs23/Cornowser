@@ -7,6 +7,7 @@ import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.management.config.SharedPreferenceArray;
 
+import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockConst;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 public class BrowserStorage {
@@ -28,7 +29,8 @@ public class BrowserStorage {
                 omniColoringEnabled,
                 adBlockEnabled,
                 saveLastSession,
-                crashlyticsOptOut
+                crashlyticsOptOut,
+                adBlockNetBehavior
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -64,6 +66,7 @@ public class BrowserStorage {
                 "")));
         setSaveBrowsingSession(getPref(BPrefKeys.saveLastSessionPref, false));
         setCrashlyticsOptedOut(getPref(BPrefKeys.crashltcOptOutPref, false));
+        setAdBlockNetBehavior(getPref(BPrefKeys.adBlockNetBehavPref, AdBlockConst.NET_BEHAVIOR_WIFI));
     }
 
     //endregion
@@ -262,6 +265,21 @@ public class BrowserStorage {
 
     // endregion
 
+    // region AdBlock Network Behavior
+
+    public void setAdBlockNetBehavior(boolean behavior) {
+        adBlockNetBehavior = behavior;
+    }
+
+    public void saveAdBlockNetBehavior(boolean behavior) {
+        setAdBlockNetBehavior(behavior);
+        setPref(BPrefKeys.adBlockNetBehavPref, behavior);
+    }
+
+    public boolean getAdBlockNetBehavior() {
+        return adBlockNetBehavior;
+    }
+
     //region General
     /* General methods */
 
@@ -342,7 +360,8 @@ public class BrowserStorage {
                 adBlockEnPref       = "pref_adblock_enable",
                 saveLastSessionPref = "pref_last_session",
                 lastSessionPref     = "saved_last_session",
-                crashltcOptOutPref  = "pref_crashlytics_optout"
+                crashltcOptOutPref  = "pref_crashlytics_optout",
+                adBlockNetBehavPref = "pref_adblock_net_behavior"
                         ;
     }
 
