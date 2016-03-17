@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
@@ -195,7 +196,7 @@ public class UpdateActivity extends XquidCompatActivity {
 	}
 
     protected void initVars() {
-        updatedApk = (getApplicationContext().getExternalCacheDir() + "/CBUpdate.apk")
+        updatedApk = (Environment.getExternalStorageDirectory() + "/Cornowser/CBUpdate.apk")
                 .replace("//", "/");
 
         updateBar = (ProgressView) findViewById(R.id.updateProgressBar);

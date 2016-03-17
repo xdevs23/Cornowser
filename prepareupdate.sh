@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPRELPATH="app/build/outputs/apk/app-release.apk"
+APPRELPATH="app/build/outputs/apk/app-release-unaligned.apk"
 
 if [ -z $1 ]; then echo "Usage: $0 vername vercode vertype"
 else

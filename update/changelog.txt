@@ -1,5 +1,8 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
+ - Trying to fix Updater for some users
+
+Version 1.0.5.4
  - Fix black screen issue on x86 devices
  - Fix: Display correct toast when no tabs removable
  - Fix a rare crash while loading a website for some users
