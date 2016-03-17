@@ -143,7 +143,8 @@ public class UpdateActivity extends XquidCompatActivity {
 
 		
 		UpdateStatus.setStatus(UpdateStatus.downloading);
-		
+
+        updaterButton.setVisibility(View.INVISIBLE);
 		
 	    DownloadUtils.setProgressBar(R.id.updateProgressBar, staticContext);
 		
