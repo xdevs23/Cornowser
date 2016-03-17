@@ -424,7 +424,7 @@ public class CornBrowser extends XquidCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 getTabSwitcher().addTab(getBrowserStorage().getUserHomePage());
-                return false;
+                return true;
             }
         });
 

@@ -364,7 +364,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        // Not needed
+                        mainView.bringToFront();
                     }
 
                     @Override
@@ -394,7 +394,6 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainView.setTranslationY(mainView.getHeight());
 
         mainView.setVisibility(View.VISIBLE);
-        mainView.bringToFront();
 
         animateShowSwitcher();
     }

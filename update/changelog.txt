@@ -1,8 +1,23 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Add Crashlytics for automatic bug & crash reports
- - Reduced transparency in tab switcher
- - Added some padding in options menu
- - Fixed html5test web page when using AdBlock
- - Updated Crosswalk version to 19.48.492.0
- - Other minor changes
+ - Fix black screen issue on x86 devices
+ - Fix: Display correct toast when no tabs removable
+ - Fix a rare crash while loading a website for some users
+ - Fixed background loading
+ - Fixed weird CSS bug on some web pages
+ - Fix: Omnibox going crazy sometimes when having multiple tabs open
+ - Fix: Opening pages from shortcut while already running
+ - Add Crashlytics to license dialog
+ - Add feature: Disable/Enable Crashlytics crash reporting
+ - Add feature: Restore last session (enable in settings)
+ - Add feature: Long-click tab switcher icon to add tab
+ - Add feature: Enable/Disable updating hosts only with wifi
+ - Improved 3-dot menu
+ - Improved intent handling
+ - Improved omnibox animations and smoothness
+ - Improved omnibox tinting (added some websites)
+ - Improved AdBlock speed
+ - Decreased lag while loading a web page
+ - Update Chrome version number
+ - Update Crosswalk version to 19.48.498.0
+ - Many improvements and bug fixes

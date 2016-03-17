@@ -1,16 +1,16 @@
 #!/bin/bash
 
-APPRELPATH="app/build/outputs/apk/app-release-signed.apk"
+APPRELPATH="app/build/outputs/apk/app-release.apk"
 
 if [ -z $1 ]; then echo "Usage: $0 vername vercode vertype"
 else
-source make.sh
+  if [ ! "$4" == "--updateOnly" ]; then source make.sh; fi
 
-cp "$APPRELPATH" "update/Cornowser.apk"
-cp "$APPRELPATH" "versions/Cornowser-$1-$2$3.apk"
+  cp "$APPRELPATH" "update/Cornowser.apk"
+  cp "$APPRELPATH" "versions/Cornowser-$1-$2$3.apk"
 
-echo -en $1>update/version.txt
-echo -en $2>update/rel.txt
+  echo -en $1>update/version.txt
+  echo -en $2>update/rel.txt
 
-nano update/changelog.txt
+  nano update/changelog.txt
 fi

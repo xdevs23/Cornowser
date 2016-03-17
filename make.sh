@@ -1,8 +1,5 @@
 #!/bin/bash
 
-if [ "$1" == "--gpw" ]; then ./configure.sh --gpw $2 $3
-else
-  source configure.sh
-fi
+if [ "$1" == "--gpw" ]; then ./configure.sh --gpw $2 $3; fi
 
 source buildReleaseApp.sh
