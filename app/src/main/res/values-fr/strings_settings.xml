@@ -11,6 +11,9 @@
     
     <string name="settings_browsing_adblock_title">AdBlock</string>
     <string name="settings_browsing_adblock_summary">Accéder aux paramètres pour le bloqueur de publicités</string>
+    
+    <string name="settings_browsing_lsession_title">Restaurer la précédente session</string>
+    <string name="settings_browsing_lsession_summary">Ouvrir tous les onglets de la dernière session au démarrage</string>
 
 
     <string name="settings_category_layout_title">Disposition</string>
@@ -37,6 +40,9 @@
     
     <string name="settings_misc_debug_title">Mode débogage</string>
     <string name="settings_misc_debug_summary">Activer cette fonction pour aider le développeur à corriger les problèmes</string>
+    
+    <string name="settings_misc_optout_clytics_title">Désactiver les Crashlytics</string>
+    <string name="settings_misc_optout_clytics_summary">Désactiver les rapports de plantage automatiques (redémarrage application requis)</string>
 
     <string name="settings_list_licenses_title">Licences Open Source</string>
     <string name="settings_list_licenses_summary">Librairies utilisées par cette application</string>
