@@ -517,15 +517,6 @@ public class CornBrowser extends XquidCompatActivity {
     }
 
     /**
-     * Set the text inside the omnibox (for old calls)
-     * @param url URL
-     */
-    @Deprecated
-    public static void applyOnlyInsideOmniText(String url) {
-        applyOnlyInsideOmniText();
-    }
-
-    /**
      * Set the text inside the omnibox
      */
     public static void applyOnlyInsideOmniText() {
@@ -874,12 +865,14 @@ public class CornBrowser extends XquidCompatActivity {
                     || intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty())
                 ) return;
         Logging.logd("URL information in intent found");
-        if(!intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()) {
+        if(! (intent.getStringExtra(URL_TO_LOAD_KEY) == null)
+                ||(intent.getStringExtra(URL_TO_LOAD_KEY).isEmpty()) ) {
             getIntent().putExtra(URL_TO_LOAD_KEY, intent.getStringExtra(URL_TO_LOAD_KEY));
             handleStartupWebLoad();
             return;
         }
-        if(!intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty()) {
+        if(! (intent.getStringExtra(BgLoadActivity.bgLoadKey) == null) ||
+                intent.getStringExtra(BgLoadActivity.bgLoadKey).isEmpty() ) {
             getIntent().putExtra(BgLoadActivity.bgLoadKey,
                     intent.getStringExtra(BgLoadActivity.bgLoadKey));
             isBgBoot = true;

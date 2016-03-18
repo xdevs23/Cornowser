@@ -1,5 +1,9 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
+ - Fix flashing screen by downgrading Crosswalk version to 19.48.495.0
+ - Fix one crash
+
+Version 1.0.5.6 & 1.0.5.5
  - Prevent users from spamming update button
  - Change update location for better compatibility
 

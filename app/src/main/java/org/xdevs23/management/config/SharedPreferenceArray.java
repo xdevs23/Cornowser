@@ -3,6 +3,8 @@ package org.xdevs23.management.config;
 public class SharedPreferenceArray {
 
     public static String getPreferenceString(String[] array) {
+        if(array == null)     return "";
+        if(array.length == 0) return "";
         StringBuilder sb = new StringBuilder();
         for ( String s : array)
             sb.append(s.replace(":", "::").replace("|", "||"))
