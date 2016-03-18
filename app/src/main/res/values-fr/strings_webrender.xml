@@ -23,4 +23,8 @@
     </string>
 
     <string name="adblock_hosts_downloading">Téléchargement et installation des fichiers hosts...</string>
+    
+    <string name="adblock_netbehavior_title">Mettre à jour en WiFi uniquement</string>
+    <string name="adblock_netbehavior_summary">Économiser vos données mobiles en mettant à jour le fichier hosts que lorsque le WiFI
+        est activé au démarrage.</string>
 </resources>
