@@ -75,6 +75,13 @@
     <string name="adblock_netbehavior_summary">Save your mobile data by only updating hosts file when
         WiFi is enabled at start-up</string>
 
+    <string name="adblock_wait_for_init_title">Wait for AdBlock</string>
+    <string name="adblock_wait_for_init_summary">Wait for AdBlock to update and initialize before
+        loading any website at start-up.</string>
+
+    <string name="adblock_whitelist_title">Whitelist</string>
+    <string name="adblock_whitelist_summary">Manage your whitelisted websites.</string>
+
     <!-- Clean data settings page -->
 
     <string name="cleandata_clean_cache_title">Clean cache</string>

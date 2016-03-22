@@ -73,6 +73,13 @@
     <string name="adblock_netbehavior_summary">Spare dein mobiles Datenvolumen, indem die Hosts-Dateien
         nur bei aktiviertem WLAN beim App-Start aktualisiert werden</string>
 
+    <string name="adblock_wait_for_init_title">Auf AdBlock warten</string>
+    <string name="adblock_wait_for_init_summary">Warte beim App-Start, bis der Werbeblocker aktualisiert
+        und initialisiert wurde, bevor jegliche Webseiten geladen werden.</string>
+
+    <string name="adblock_whitelist_title">Whitelist</string>
+    <string name="adblock_whitelist_summary">Verwalte deine zugelassenen Webseiten.</string>
+
     <!-- Clean data settings page -->
 
     <string name="cleandata_clean_cache_title">Cache bereinigen</string>

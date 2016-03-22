@@ -52,7 +52,7 @@
 
     <string name="settings_list_credits_spc_title">Remerciement spécial</string>
     <string name="settings_list_credits_spc_summary">Merci beaucoup à toutes ces personnes</string>
-    
+
     <!-- AdBlock section -->
 
     <string name="adblock_enable_title">Activer l\'AdBlock</string>

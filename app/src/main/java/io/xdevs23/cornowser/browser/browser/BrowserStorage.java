@@ -19,7 +19,8 @@ public class BrowserStorage {
             ;
 
     private String[]
-                lastSession
+                lastSession,
+                adBlockWhitelist
             ;
 
     private boolean
@@ -30,7 +31,8 @@ public class BrowserStorage {
                 adBlockEnabled,
                 saveLastSession,
                 crashlyticsOptOut,
-                adBlockNetBehavior
+                adBlockNetBehavior,
+                waitForAdBlock
             ;
 
     private RenderColorMode.ColorMode renderingColorMode;
@@ -284,9 +286,43 @@ public class BrowserStorage {
 
     // region Wait for AdBlock
 
+    public void setWaitForAdBlock(boolean waitFor) {
+        waitForAdBlock = waitFor;
+    }
+
+    public void saveWaitForAdBlock(boolean waitFor) {
+        setWaitForAdBlock(waitFor);
+        setPref(BPrefKeys.adBlockWaitForPref, waitFor);
+    }
+
+    public boolean isWaitForAdBlockEnabled() {
+        return waitForAdBlock;
+    }
+
     // endregion
 
     // region AdBlock whitelist
+
+    public void setAdBlockWhitelist(String[] whitelist) {
+        adBlockWhitelist = whitelist;
+    }
+
+    public String[] addDomainToAdBlockWhitelist(String domain) {
+        String[] newList = new String[adBlockWhitelist.length + 1];
+        System.arraycopy(adBlockWhitelist, 0, newList, 0, adBlockWhitelist.length);
+        newList[newList.length - 2] = domain;
+        return newList;
+    }
+
+    public void saveAdBlockWhitelist(String[] whitelist) {
+        setAdBlockWhitelist(whitelist);
+        setPref(BPrefKeys.adBlockWhitelstPref,
+                SharedPreferenceArray.getPreferenceString(whitelist));
+    }
+
+    public void saveAdBlockWhitelist(String newDomain) {
+        saveAdBlockWhitelist(addDomainToAdBlockWhitelist(newDomain));
+    }
 
     // endregion
 
@@ -372,7 +408,9 @@ public class BrowserStorage {
                 saveLastSessionPref = "pref_last_session",
                 lastSessionPref     = "saved_last_session",
                 crashltcOptOutPref  = "pref_crashlytics_optout",
-                adBlockNetBehavPref = "pref_adblock_net_behavior"
+                adBlockNetBehavPref = "pref_adblock_net_behavior",
+                adBlockWaitForPref  = "pref_adblock_wait_for_init",
+                adBlockWhitelstPref = "pref_adblock_whitelist"
                         ;
     }
 
