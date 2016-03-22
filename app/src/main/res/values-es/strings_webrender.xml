@@ -11,18 +11,5 @@
         \nQuieres continuar cargando esta página?
     </string>
 
-    <!-- AdBlock section -->
-
-    <string name="adblock_enable_title">Habilitar AdBlock</string>
-    <string name="adblock_disable_title">Desactivar AdBlock</string>
-    <string name="adblock_enable_summary">Para bloquear anuncios, habilite el AdBlock</string>
-
-    <string name="adblock_download_hosts_title">Descargar los archivos host</string>
-    <string name="adblock_download_hosts_summary">
-        Los últimos archivos host han sido descargados.
-        Esto se realiza de forma automática cada vez que se inicia el navegador con el AdBlock habilitado.
-    </string>
-
-    <string name="adblock_hosts_downloading">Descargando y procesando los archivos hosts...</string>
 
 </resources>

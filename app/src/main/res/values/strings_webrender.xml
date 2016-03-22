@@ -11,22 +11,5 @@
         \nDo you want to continue loading this web page?
     </string>
 
-    <!-- AdBlock section -->
-
-    <string name="adblock_enable_title">Enable AdBlock</string>
-    <string name="adblock_disable_title">Disable AdBlock</string>
-    <string name="adblock_enable_summary">To block advertisement, enable AdBlock</string>
-
-    <string name="adblock_download_hosts_title">Download host files</string>
-    <string name="adblock_download_hosts_summary">
-        Download the latest host files.
-        This is done automatically on every start-up if AdBlock is enabled.
-    </string>
-
-    <string name="adblock_hosts_downloading">Downloading and processing hosts files...</string>
-
-    <string name="adblock_netbehavior_title">Update only with WiFi</string>
-    <string name="adblock_netbehavior_summary">Save your mobile data by only updating hosts file when
-        WiFi is enabled at start-up</string>
 
 </resources>
