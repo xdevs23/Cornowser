@@ -280,6 +280,17 @@ public class BrowserStorage {
         return adBlockNetBehavior;
     }
 
+    // endregion
+
+    // region Wait for AdBlock
+
+    // endregion
+
+    // region AdBlock whitelist
+
+    // endregion
+
+
     //region General
     /* General methods */
 
