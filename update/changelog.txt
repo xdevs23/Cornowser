@@ -4,7 +4,8 @@ If you are using root, please wait a minute and start the app yourself if it doe
  - Temporarily change icon to remember on Belgium and show that we want PEACE!
  - Add feature: AdBlock whitelist
  - Add feature: Wait for AdBlock
- - Improved AdBlock alot! Now it is much faster! - Fix some crashes here and there
+ - Improved AdBlock alot! Now it is much faster!
+ - Fix some crashes here and there
  - Updated french translation (Thanks to Primokorn)
  - Bugfixes and improvements
  - Other minor changes
