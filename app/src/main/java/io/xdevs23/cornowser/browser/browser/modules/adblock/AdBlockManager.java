@@ -1,5 +1,7 @@
 package io.xdevs23.cornowser.browser.browser.modules.adblock;
 
+import android.os.Handler;
+
 import org.xdevs23.crypto.hashing.HashUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
@@ -7,6 +9,7 @@ import org.xdevs23.file.FileUtils;
 import org.xdevs23.general.StringManipulation;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.net.NetUtils;
+import org.xdevs23.threads.Sleeper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +35,10 @@ public class AdBlockManager {
     private static OnHostsUpdatedListener hostsUpdatedListener = defaultHostsUpdatedListener;
 
     private static boolean areHostsLoaded = false;
+
+    private static Handler handler = new Handler();
+
+    private static boolean isWhitelisted;
 
     private AdBlockManager() {
 
@@ -64,7 +71,6 @@ public class AdBlockManager {
             @Override
             public void run() {
                 downloadHosts();
-                loadHosts();
             }
         })).start();
     }
@@ -118,12 +124,20 @@ public class AdBlockManager {
 
         if (allowUpdate) {
             Logging.logd("AdBlock: Writing to file...");
-            FileUtils.writeFileString(adBlockFile, sb.toString()); // Write the merged host files to file
+            // Write the merged host files to one single file
+            FileUtils.writeFileString(adBlockFile, sb.toString());
         } else Logging.logd("AdBlock: File already up-to-date. No action is taken.");
 
         Logging.logd("AdBlock: Finished!");
-        hostsUpdatedListener.onUpdateFinished();
-        hostsUpdatedListener = defaultHostsUpdatedListener;
+        loadHosts();
+        Runnable onUpdateFinishedRunnable = new Runnable() {
+            @Override
+            public void run() {
+                hostsUpdatedListener.onUpdateFinished();
+                hostsUpdatedListener = defaultHostsUpdatedListener;
+            }
+        };
+        handler.post(onUpdateFinishedRunnable);
     }
 
     public static boolean isAdBlockedHost(String url) {

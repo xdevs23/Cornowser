@@ -25,6 +25,7 @@
 
     <string name="instr_add">Add</string>
     <string name="instr_remove">Remove</string>
+    <string name="instr_edit">Edit</string>
 
     <string name="instr_move">Move</string>
     <string name="instr_copy">Copy</string>
@@ -43,6 +44,14 @@
     <string name="instr_pause">Pause</string>
     <string name="instr_paused">Paused</string>
     <string name="instr_continue">Continue</string>
+
+    <string name="general_behavior">Behavior</string>
+    <string name="general_misc">Miscellaneous</string>
+    <string name="general_layout">Layout</string>
+    <string name="general_appearance">Appearance</string>
+    <string name="general_theme">Theme</string>
+    <string name="general_initializing">Initializing...</string>
+    <string name="general_initialize">Initialize</string>
 
     <!-- Options menu -->
     <string name="optmenu_share">Share</string>

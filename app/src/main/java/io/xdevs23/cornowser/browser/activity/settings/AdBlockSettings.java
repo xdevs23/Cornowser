@@ -114,6 +114,21 @@ public class AdBlockSettings extends XquidCompatActivity {
             });
         }
 
+        private void initAdBlockWaitForPref() {
+            final SwitchPreference pref = (SwitchPreference) findPreference("adblock_waitfor");
+
+            pref.setChecked(CornBrowser.getBrowserStorage().isWaitForAdBlockEnabled());
+
+            pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    CornBrowser.getBrowserStorage().saveWaitForAdBlock((boolean)newValue);
+                    pref.setChecked((boolean)newValue);
+                    return false;
+                }
+            });
+        }
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -123,6 +138,7 @@ public class AdBlockSettings extends XquidCompatActivity {
             initAdBlockEnable();
             initDownloadHostsPref();
             initAdBlockNetBehaviorPref();
+            initAdBlockWaitForPref();
         }
     }
 }

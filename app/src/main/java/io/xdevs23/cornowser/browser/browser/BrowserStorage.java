@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.management.config.SharedPreferenceArray;
 
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockConst;
@@ -69,6 +70,9 @@ public class BrowserStorage {
         setSaveBrowsingSession(getPref(BPrefKeys.saveLastSessionPref, false));
         setCrashlyticsOptedOut(getPref(BPrefKeys.crashltcOptOutPref, false));
         setAdBlockNetBehavior(getPref(BPrefKeys.adBlockNetBehavPref, AdBlockConst.NET_BEHAVIOR_WIFI));
+        setWaitForAdBlock(getPref(BPrefKeys.adBlockWaitForPref, false));
+        setAdBlockWhitelist(SharedPreferenceArray.getStringArray(
+                getPref(BPrefKeys.adBlockWhitelstPref, "")));
     }
 
     //endregion
@@ -308,20 +312,72 @@ public class BrowserStorage {
     }
 
     public String[] addDomainToAdBlockWhitelist(String domain) {
-        String[] newList = new String[adBlockWhitelist.length + 1];
-        System.arraycopy(adBlockWhitelist, 0, newList, 0, adBlockWhitelist.length);
-        newList[newList.length - 2] = domain;
+        Logging.logd("Add domain to adblock whitelist");
+        String[] newList = new String[adBlockWhitelist == null ? 1 : adBlockWhitelist.length + 1];
+        if(adBlockWhitelist != null && adBlockWhitelist.length >= 1){
+            System.arraycopy(adBlockWhitelist, 0, newList, 0, adBlockWhitelist.length);
+            newList[newList.length - 1] = domain;
+        } else newList[0] = domain;
         return newList;
     }
 
+
+    public String[] removeDomainFromAdBlockWhitelist(String domain) {
+        Logging.logd("Remove domain from adblock whitelist");
+        try {
+            Logging.logd("  Checking...");
+            String[] newList;
+            if(adBlockWhitelist.length == 1) {
+                Logging.logd("    => Erasing new list (only one domain was left)");
+                newList = null;
+            } else {
+                Logging.logd("    => Searching for domain");
+                newList = new String[adBlockWhitelist.length - 1];
+                int foundOffset = 0;
+                for (int i = 0; i < adBlockWhitelist.length; i++) {
+                    if (adBlockWhitelist[i].contains(domain)) {
+                        foundOffset = 1;
+                        Logging.logd("      -- Domain found");
+                    } else
+                        newList[i - foundOffset] = adBlockWhitelist[i];
+                }
+            }
+            return newList;
+        } catch(Exception ex) {
+            Logging.logd("Removal of domain " + domain + " failed. Printing stack trace.");
+            StackTraceParser.logStackTrace(ex);
+            return adBlockWhitelist;
+        }
+    }
+
     public void saveAdBlockWhitelist(String[] whitelist) {
-        setAdBlockWhitelist(whitelist);
-        setPref(BPrefKeys.adBlockWhitelstPref,
-                SharedPreferenceArray.getPreferenceString(whitelist));
+        Logging.logd("Saving adblock whitelist");
+        Logging.logd("  Checking...");
+        if(whitelist == null) {
+            Logging.logd("    => Erasing whitelist");
+            setPref(BPrefKeys.adBlockWhitelstPref, "");
+            setAdBlockWhitelist(null);
+        } else {
+            Logging.logd("    => Saving extended copy with length " + whitelist.length);
+            setAdBlockWhitelist(whitelist);
+            setPref(BPrefKeys.adBlockWhitelstPref,
+                    SharedPreferenceArray.getPreferenceString(whitelist));
+        }
     }
 
     public void saveAdBlockWhitelist(String newDomain) {
-        saveAdBlockWhitelist(addDomainToAdBlockWhitelist(newDomain));
+        saveAdBlockWhitelist(newDomain, true);
+    }
+
+    public void saveAdBlockWhitelist(String domain, boolean add) {
+        if(add) saveAdBlockWhitelist(addDomainToAdBlockWhitelist(domain));
+        else saveAdBlockWhitelist(removeDomainFromAdBlockWhitelist(domain));
+    }
+
+    public String[] getAdBlockWhitelist() {
+        Logging.logd("Adblock whitelist size: " +
+                (adBlockWhitelist == null ? "null" : adBlockWhitelist.length));
+        return adBlockWhitelist;
     }
 
     // endregion

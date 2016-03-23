@@ -50,7 +50,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentTop="true"
-                            android:background="@color/white_semi_more_transparent">
+                            tools:ignore="RelativeOverlap">
                             <EditText
                                 android:id="@+id/omnibox_input_bar"
                                 android:layout_width ="match_parent"
@@ -60,12 +60,25 @@
                                 android:imeOptions="actionGo"
                                 android:inputType="textUri"
                                 android:textCursorDrawable="@drawable/main_textcursordrawable"
-                                android:background="@null"
+                                android:background="@drawable/main_edittext_transparent_bg"
                                 android:theme="@style/Crunchy.BrowserInputBar"
                                 android:textColorHint="@color/dark_semi_transparent"
                                 android:hint="@string/omnibox_inputbar_hint"
                                 android:selectAllOnFocus="true"
-                                android:textStyle="normal" />
+                                android:textStyle="normal"
+                                android:padding="1dp" />
+
+                            <TextView
+                                android:id="@+id/omnibox_init_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-condensed"
+                                android:text="@string/adblock_waiting_for"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:layout_centerVertical="true"
+                                android:layout_margin="2dp"
+                                android:visibility="invisible" />
                         </RelativeLayout>
 
                         <!-- Omnibox controls -->
@@ -90,10 +103,12 @@
 
                             <io.xdevs23.cornowser.browser.browser.modules.tabs.TabSwitcherOpenButton
                                 android:id="@+id/omnibox_control_open_tabswitcher"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/omnibox_items_dimen"
+                                android:layout_height="@dimen/omnibox_items_dimen"
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="8dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentBottom="true"
                                 android:layout_toLeftOf="@id/omnibox_control_overflowmenu" />
 
                             <ImageButton

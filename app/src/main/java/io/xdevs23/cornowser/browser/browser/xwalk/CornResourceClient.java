@@ -27,6 +27,7 @@ import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockManager;
+import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockParser;
 
 /**
  * A cool "resource client" for our crunchy view
@@ -104,10 +105,6 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onLoadStarted(XWalkView view, String url) {
-        if(AdBlockManager.isAdBlockedHost(url)) {
-            Logging.logd("AdBlock: Blocked ad!");
-            return;
-        }
         super.onLoadStarted(view, url);
         allowTinting = true;
         CornBrowser.applyInsideOmniText();
@@ -135,8 +132,10 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
         try {
+            if(AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
+                    CornBrowser.getBrowserStorage().getAdBlockWhitelist()))
+                return super.shouldInterceptLoadRequest(view, url);
             if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
-                    && CrunchyWalkView.fromXWalkView(view).getUIClient().readyForBugfreeBrowsing
                     && AdBlockManager.isAdBlockedHost(url)) {
                 Logging.logd("AdBlock: Ad blocked");
                 return new WebResourceResponse("text/plain", "UTF-8",

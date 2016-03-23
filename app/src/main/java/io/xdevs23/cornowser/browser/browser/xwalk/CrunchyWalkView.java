@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;
@@ -37,9 +38,10 @@ public class CrunchyWalkView extends XWalkView {
 
     protected Bitmap favicon;
 
+    protected String currentUrl;
+
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
-
 
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
@@ -237,6 +239,20 @@ public class CrunchyWalkView extends XWalkView {
     @Override
     public Bitmap getFavicon() {
         return favicon;
+    }
+
+    public String getUrlAlt() {
+        return currentUrl;
+    }
+
+    public String getUrlDomain() {
+        String  u   = getUrl();
+        String  uwp = u.replaceAll("[^ ]*(://)", "");
+        String pu;
+        if(uwp.contains("/")) pu = uwp.split("/")[0];
+        else pu = uwp;
+        Logging.logd("Url domain is " + pu);
+        return pu;
     }
 
     /**

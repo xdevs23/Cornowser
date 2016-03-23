@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,12 @@ import org.xdevs23.android.app.XquidCompatActivity;
 import io.xdevs23.cornowser.browser.R;
 
 public class TastyOverflowMenu extends ImageButton {
+
+    public int
+        mainColor = Color.BLACK,
+        pressedColor = Color.BLACK;
+
+    private Context ccontext;
 
     public TastyOverflowMenu(Context context) {
         super(context);
@@ -41,6 +48,8 @@ public class TastyOverflowMenu extends ImageButton {
 
     public void init(Context context) {
         final Context fContext = context;
+        ccontext = context;
+        pressedColor = ContextCompat.getColor(fContext, R.color.dark_semi_more_transparent);
 
         int ah = (int)XquidCompatActivity.dp2px(context, 32);
         RelativeLayout.LayoutParams params =
@@ -67,13 +76,13 @@ public class TastyOverflowMenu extends ImageButton {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_HOVER_ENTER:
                     case MotionEvent.ACTION_DOWN:
-                        ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.dark_semi_more_transparent),
+                        ((ImageButton)v).setColorFilter(pressedColor,
                                 PorterDuff.Mode.MULTIPLY);
                         break;
                     case MotionEvent.ACTION_HOVER_EXIT:
                     case MotionEvent.ACTION_OUTSIDE:
                     case MotionEvent.ACTION_UP:
-                        ((ImageButton)v).setColorFilter(ContextCompat.getColor(fContext, R.color.black),
+                        ((ImageButton)v).setColorFilter(mainColor,
                                 PorterDuff.Mode.MULTIPLY);
                         break;
                     default: break;
@@ -81,6 +90,30 @@ public class TastyOverflowMenu extends ImageButton {
                 return false;
             }
         });
+    }
+
+    public void setMainColor(int color) {
+        mainColor = color;
+        setColorFilter(mainColor, PorterDuff.Mode.MULTIPLY);
+    }
+
+    public void setPressedColor(int color) {
+        pressedColor = color;
+    }
+
+    public void applyLightTheme() {
+        setPressedColor(ContextCompat.getColor(ccontext, R.color.white_semi_more_transparent));
+        setMainColor(Color.WHITE);
+    }
+
+    public void applyDarkTheme() {
+        setMainColor(Color.BLACK);
+        setPressedColor(ContextCompat.getColor(ccontext, R.color.dark_semi_more_transparent));
+    }
+
+    public void applyTheme(boolean theme) {
+        if(theme) applyLightTheme();
+        else applyDarkTheme();
     }
 
 }

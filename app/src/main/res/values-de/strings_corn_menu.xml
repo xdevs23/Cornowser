@@ -4,5 +4,8 @@
     <string name="cornmenu_item_updater">Updater</string>
     <string name="cornmenu_item_settings">Einstellungen</string>
     <string name="cornmenu_item_addhomesc">Zur Startseite hinzufügen</string>
+    <string name="cornmenu_item_share">@string/optmenu_share</string>
+    <string name="cornmenu_item_addtoadwl">Domain zur AdBlock-Whitelist hinzufügen</string>
+    <string name="cornmenu_item_rmfrmadwl">Domain von der AdBlock-Whitelist entfernen</string>
 
 </resources>

@@ -36,11 +36,14 @@ public final class AdBlockParser {
 
         String[] filteredList = filteredAdList.toArray(new String[0]);
         filteredAdList.clear();
-        Logging.logd("Parsing raw adblock list took " + (System.currentTimeMillis() - start) + "millisecs");
+        Logging.logd("Parsing raw adblock list took " + (System.currentTimeMillis() - start) + " ms");
         return filteredList;
     }
 
     public static boolean isHostListed(String host, String[] list) {
+        if(host == null || host.isEmpty()
+                || list == null || list.length < 1
+                || list[0].equals("[none]")) return false;
         for ( String s : list )
             if(host.indexOf(s) != -1) return true;
         return false;

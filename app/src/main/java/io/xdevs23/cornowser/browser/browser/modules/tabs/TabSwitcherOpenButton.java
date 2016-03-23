@@ -5,15 +5,19 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.ui.touch.PressHoverTouchListener;
+import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
@@ -21,8 +25,8 @@ import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 
 public class TabSwitcherOpenButton extends RelativeLayout {
 
-    private String tabCount = "0";
     private Context myContext;
+    private int pressedColor;
 
     public TabSwitcherOpenButton(Context context) {
         super(context);
@@ -49,6 +53,7 @@ public class TabSwitcherOpenButton extends RelativeLayout {
         if (myContext == null) myContext = context;
 
         if(CornBrowser.getContext() != null) {
+            pressedColor = ContextCompat.getColor(CornBrowser.getContext(), R.color.dark_semi_more_transparent);
             setGravity(Gravity.CENTER);
 
             ImageView img = new ImageView(getContext());
@@ -57,7 +62,6 @@ public class TabSwitcherOpenButton extends RelativeLayout {
 
             TextView t = new TextView(getContext());
             t.setTextSize(14f);
-            t.setText(tabCount);
             t.setGravity(Gravity.CENTER);
             t.setMinimumWidth(getWidth());
             t.setTextColor(Color.BLACK);
@@ -65,21 +69,38 @@ public class TabSwitcherOpenButton extends RelativeLayout {
 
             t.bringToFront();
 
+            setTabCount(0);
+
             setOnTouchListener(new PressHoverTouchListener(Color.TRANSPARENT,
-                    ColorUtil.getColor(R.color.dark_semi_transparent)));
+                    pressedColor));
         }
     }
 
     public void setTabCount(int count) {
-        tabCount = String.valueOf(count);
+        String tabCount = String.valueOf(count);
         TextView t = ((TextView)getChildAt(1));
+        ImageView img = ((ImageView)getChildAt(0));
         t.setText(tabCount);
-        t.setTranslationX( Math.round( (getWidth() / 2) - (t.getWidth() / 2) ) );
+        t.setTranslationX( Math.round( (img.getWidth() / 2) - (t.getWidth() / 2) ) );
     }
 
-    public void setIconColor(@ColorRes int color) {
-        ((ImageView)getChildAt(0)).setColorFilter(ColorUtil.getColor(color),
-                PorterDuff.Mode.MULTIPLY);
+    public void applyLightTheme() {
+        ((TextView) getChildAt(1)).setTextColor(Color.WHITE);
+        ((ImageView)getChildAt(0)).setImageResource(R.drawable.omnibox_tabswitch_icon_light);
+        pressedColor = ContextCompat.getColor(myContext, R.color.white_semi_more_transparent);
+        setOnTouchListener(new PressHoverTouchListener(Color.TRANSPARENT, pressedColor));
+    }
+
+    public void applyDarkTheme() {
+        ((TextView) getChildAt(1)).setTextColor(Color.BLACK);
+        ((ImageView)getChildAt(0)).setImageResource(R.drawable.omnibox_tabswitch_icon);
+        pressedColor = ContextCompat.getColor(myContext, R.color.dark_semi_more_transparent);
+        setOnTouchListener(new PressHoverTouchListener(Color.TRANSPARENT, pressedColor));
+    }
+
+    public void applyTheme(boolean theme) {
+        if(theme) applyLightTheme();
+        else applyDarkTheme();
     }
 
 }

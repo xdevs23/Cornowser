@@ -2,6 +2,7 @@ package io.xdevs23.cornowser.browser.browser.modules;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
@@ -21,6 +22,7 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class WebThemeHelper {
 
+    public static boolean isDark;
     private static int currentColor = 0;
 
     private enum AllowedWordColors {
@@ -84,6 +86,11 @@ public class WebThemeHelper {
                 1.6f,
                 new Handler()
         ).animate();
+
+        isDark = ColorUtil.isDarkBackground(color);
+        CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
+        CornBrowser.overflowMenuLayout.applyTheme(isDark);
+
         if(OmniboxControl.isTop()) BarColors.updateBarsColor(color, window);
         else BarColors.updateBarsColor(color, window, true, true, false);
     }

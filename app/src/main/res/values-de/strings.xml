@@ -8,6 +8,7 @@
 
     <!-- General stuff -->
     <string name="instr_add">Hinzufügen</string>
+    <string name="instr_edit">Bearbeiten</string>
     <string name="instr_continue">Fortfahren</string>
     <string name="instr_copy">Kopieren</string>
     <string name="instr_download">Herunterladen</string>
@@ -32,6 +33,14 @@
     <string name="instr_upload">Hochladen</string>
     <string name="instr_forward">Vorwärts</string>
     <string name="instr_backward">Zurück</string>
+
+    <string name="general_behavior">Verhalten</string>
+    <string name="general_misc">Sonstiges</string>
+    <string name="general_layout">Layout</string>
+    <string name="general_appearance">Aussehen</string>
+    <string name="general_theme">Design</string>
+    <string name="general_initializing">Initialisiere...</string>
+    <string name="general_initialize">Initialisieren</string>
 
     <!-- Options menu -->
     <string name="optmenu_share">Teilen</string>

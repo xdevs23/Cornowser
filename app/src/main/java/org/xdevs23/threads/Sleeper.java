@@ -15,4 +15,10 @@ public class Sleeper {
         } catch(InterruptedException e) { /* */ }
     }
 
+    public static void waitForRunnable(Runnable runnable) {
+        try {
+            runnable.wait();
+        } catch(InterruptedException e) { /* */ }
+    }
+
 }

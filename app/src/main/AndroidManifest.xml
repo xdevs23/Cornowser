@@ -17,12 +17,12 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/m_app_icon"
+        android:icon="@mipmap/m_app_icon_belgique"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/CoreMTRLTheme"
         android:uiOptions="none"
-        tools:ignore="HardcodedDebugMode">
+        tools:ignore="AllowBackup,HardcodedDebugMode">
 
         <activity
             android:name=".CornBrowser"

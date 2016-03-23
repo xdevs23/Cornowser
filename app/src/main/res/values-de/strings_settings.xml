@@ -80,6 +80,8 @@
     <string name="adblock_whitelist_title">Whitelist</string>
     <string name="adblock_whitelist_summary">Verwalte deine zugelassenen Webseiten.</string>
 
+    <string name="adblock_waiting_for">Warte auf AdBlock...</string>
+
     <!-- Clean data settings page -->
 
     <string name="cleandata_clean_cache_title">Cache bereinigen</string>
