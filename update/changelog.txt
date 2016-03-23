@@ -1,31 +1,10 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - Fix flashing screen by downgrading Crosswalk version to 19.48.495.0
- - Fix one crash
-
-Version 1.0.5.6 & 1.0.5.5
- - Prevent users from spamming update button
- - Change update location for better compatibility
-
-Version 1.0.5.4
- - Fix black screen issue on x86 devices
- - Fix: Display correct toast when no tabs removable
- - Fix a rare crash while loading a website for some users
- - Fixed background loading
- - Fixed weird CSS bug on some web pages
- - Fix: Omnibox going crazy sometimes when having multiple tabs open
- - Fix: Opening pages from shortcut while already running
- - Add Crashlytics to license dialog
- - Add feature: Disable/Enable Crashlytics crash reporting
- - Add feature: Restore last session (enable in settings)
- - Add feature: Long-click tab switcher icon to add tab
- - Add feature: Enable/Disable updating hosts only with wifi
- - Improved 3-dot menu
- - Improved intent handling
- - Improved omnibox animations and smoothness
- - Improved omnibox tinting (added some websites)
- - Improved AdBlock speed
- - Decreased lag while loading a web page
- - Update Chrome version number
- - Update Crosswalk version to 19.48.498.0
- - Many improvements and bug fixes
+ - User Interface / Design update
+ - Temporarily change icon to remember on Belgium and show that we want PEACE!
+ - Add feature: AdBlock whitelist
+ - Add feature: Wait for AdBlock
+ - Fix some crashes here and there
+ - Updated french translation (Thanks to Primokorn)
+ - Bugfixes and improvements
+ - Other minor changes
