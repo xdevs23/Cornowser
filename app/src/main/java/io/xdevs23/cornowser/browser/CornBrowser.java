@@ -671,16 +671,19 @@ public class CornBrowser extends XquidCompatActivity {
      */
     @Override
     public void openOptionsMenu() {
-        if(AdBlockParser.isHostListed(publicWebRender.getUrlDomain(),
-                getBrowserStorage().getAdBlockWhitelist())) {
-            optionsMenuItems[optMenuItems.ADD_DOMAIN_TO_ADBLOCK_WHITELIST] =
-                    getString(R.string.cornmenu_item_rmfrmadwl);
-            isAdWhitelisted = true;
-        } else {
-            optionsMenuItems[optMenuItems.ADD_DOMAIN_TO_ADBLOCK_WHITELIST] =
-                    getString(R.string.cornmenu_item_addtoadwl);
+        if(!publicWebRender.getUrlDomain().isEmpty()) {
+            if (AdBlockParser.isHostListed(publicWebRender.getUrlDomain(),
+                    getBrowserStorage().getAdBlockWhitelist())) {
+                optionsMenuItems[optMenuItems.ADD_DOMAIN_TO_ADBLOCK_WHITELIST] =
+                        getString(R.string.cornmenu_item_rmfrmadwl);
+                isAdWhitelisted = true;
+            } else {
+                optionsMenuItems[optMenuItems.ADD_DOMAIN_TO_ADBLOCK_WHITELIST] =
+                        getString(R.string.cornmenu_item_addtoadwl);
+                isAdWhitelisted = false;
+            }
+        } else
             isAdWhitelisted = false;
-        }
         optionsMenuDialog.show();
     }
 
