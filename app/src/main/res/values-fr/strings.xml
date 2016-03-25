@@ -23,6 +23,7 @@
 
     <string name="instr_add">Ajouter</string>
     <string name="instr_remove">Supprimer</string>
+    <string name="instr_edit">Modifier</string>
 
     <string name="instr_move">Déplacer</string>
     <string name="instr_copy">Copier</string>
@@ -41,6 +42,14 @@
     <string name="instr_pause">Pause</string>
     <string name="instr_paused">Mis en pause</string>
     <string name="instr_continue">Continuer</string>
+    
+    <string name="general_behavior">Comportement</string>
+    <string name="general_misc">Divers</string>
+    <string name="general_layout">Disposition</string>
+    <string name="general_appearance">Apparence</string>
+    <string name="general_theme">Thème</string>
+    <string name="general_initializing">Initialisation...</string>
+    <string name="general_initialize">Initialiser</string>
     
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Permission pour écrire sur le stockage nécessaire pour le téléchargement de fichiers. Merci de valider.</string>
