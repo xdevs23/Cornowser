@@ -4,4 +4,6 @@
     <string name="cornmenu_item_updater">Mise à jour</string>
     <string name="cornmenu_item_settings">Paramètres</string>
     <string name="cornmenu_item_addhomesc">Ajouter un raccourci à la page d\'accueil</string>
+    <string name="cornmenu_item_addtoadwl">Ajouter le domaine à la liste blanche AdBlock</string>
+    <string name="cornmenu_item_rmfrmadwl">Supprimer le domaine de la liste blanche AdBlock</string>
 </resources>
