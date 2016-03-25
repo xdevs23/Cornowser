@@ -247,6 +247,7 @@ public class CrunchyWalkView extends XWalkView {
 
     public String getUrlDomain() {
         String  u   = getUrl();
+        if(u == null || u.isEmpty()) return "";
         String  uwp = u.replaceAll("[^ ]*(://)", "");
         String pu;
         if(uwp.contains("/")) pu = uwp.split("/")[0];
