@@ -9,11 +9,9 @@ public class SharedPreferenceArray {
         if(array.length == 0) return "";
         StringBuilder sb = new StringBuilder();
         for ( String s : array) {
-            if(s == null) {
-                Logging.logd("Warning: something is wrong... a string is null?!");
-                throw new NullPointerException("You can't use nulled strings here.");
-            }
-            String aps = s;
+            String aps;
+            if(s == null) aps = "";
+            else aps = s;
             if(s.contains(":")) aps = s.replace(":", "::");
             if(s.contains("|")) aps = aps.replace("|", "||");
             sb.append(aps).append("|:|");
