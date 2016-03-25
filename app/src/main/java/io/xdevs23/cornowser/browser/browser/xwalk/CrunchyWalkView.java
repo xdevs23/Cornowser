@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;

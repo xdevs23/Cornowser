@@ -2,7 +2,6 @@ package io.xdevs23.cornowser.browser.browser.modules;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.annotation.ColorRes;

@@ -4,10 +4,7 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -15,13 +12,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.ui.touch.PressHoverTouchListener;
-import org.xdevs23.ui.utils.DpUtil;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
-import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 
 public class TabSwitcherOpenButton extends RelativeLayout {
 
