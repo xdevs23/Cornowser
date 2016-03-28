@@ -16,14 +16,6 @@ public class OmniboxAnimations {
             DEFAULT_ANIMATION_DURATION = 420
             ;
 
-    private static Handler handler = new Handler();
-    private static Runnable longPressRunnable = new Runnable() {
-        @Override
-        public void run() {
-            Logging.logd("Long press detected");
-        }
-    };
-
 
     public static boolean isBottom() {
         return OmniboxControl.isBottom();
@@ -110,14 +102,12 @@ public class OmniboxAnimations {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    handler.postDelayed(longPressRunnable, 1200);
                     CornBrowser.getTabSwitcher().hideSwitcher();
                     oh = CornBrowser.omnibox.getHeight();
                     if(-opos <= oh / 2) cy = (int)motionEvent.getRawY();
                     else cy = (int)motionEvent.getRawY() - opos;
                     break;
                 case MotionEvent.ACTION_UP:
-                    handler.removeCallbacks(longPressRunnable);
                     if(-opos > oh / 2) {
                         animateOmni( (isBottom() ? 0 : -oh) );
                         opos =       (isBottom() ? 0 : -oh)  ;
@@ -133,7 +123,6 @@ public class OmniboxAnimations {
                     if(opos < -oh) opos = -oh;
 
                     moveOmni(opos);
-                    handler.removeCallbacks(longPressRunnable);
                     break;
                 default: break;
             }
