@@ -75,6 +75,13 @@ public class WebThemeHelper {
         setWebThemeColor(Color.parseColor(color), omnibox, window);
     }
 
+    public static void handleBackgroundIntensity(int color) {
+        isDark = ColorUtil.isDarkBackground(color);
+        CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
+        CornBrowser.overflowMenuLayout.applyTheme(isDark);
+        CornBrowser.handleGoForwardControlVisibility();
+    }
+
     public static void setWebThemeColor(int color, RelativeLayout omnibox, Window window) {
         try {
             if (!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
@@ -89,10 +96,7 @@ public class WebThemeHelper {
                     new Handler()
             ).animate();
 
-            isDark = ColorUtil.isDarkBackground(color);
-            CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
-            CornBrowser.overflowMenuLayout.applyTheme(isDark);
-            CornBrowser.handleGoForwardControlVisibility();
+            handleBackgroundIntensity(color);
 
             if (OmniboxControl.isTop()) BarColors.updateBarsColor(color, window);
             else BarColors.updateBarsColor(color, window, true, true, false);
@@ -117,6 +121,7 @@ public class WebThemeHelper {
                 1.6f,
                 new Handler()
         ).animate();
+        handleBackgroundIntensity(currentColor);
         CornBrowser.resetBarColor();
     }
 
@@ -138,12 +143,6 @@ public class WebThemeHelper {
         } catch(Exception ex) {
             Logging.logd("Warning: Did not succeed while starting tinting. Skipping.");
         }
-    }
-
-    // Overload for old calls
-    @Deprecated
-    public static void tintNow(CrunchyWalkView view) {
-        tintNow();
     }
 
 }

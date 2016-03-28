@@ -127,25 +127,30 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
-        // This is to prevent lags in (youtube) videos
-        // Maybe indexOf is faster than contains, so we use that in
-        //noinspection IndexOfReplaceableByContains
-        if(url.indexOf("googlevideo.com/videoplayback") != -1 ||
-                (CrunchyWalkView.fromXWalkView(view).getUrlDomain().indexOf("youtube.") != -1
-                        && url.indexOf("googlesyndication") != -1)) {
-            try {
-                if (AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
-                        CornBrowser.getBrowserStorage().getAdBlockWhitelist()))
-                    return super.shouldInterceptLoadRequest(view, url);
-                if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
-                        && AdBlockManager.isAdBlockedHost(url)) {
-                    Logging.logd("AdBlock: Ad blocked");
-                    return new WebResourceResponse("text/plain", "UTF-8",
-                            new ByteArrayInputStream("".getBytes()));
+        try {
+            // This is to prevent lags in (youtube) videos
+            // Maybe indexOf is faster than contains, so we use that in
+            //noinspection IndexOfReplaceableByContains
+            if (url.indexOf("googlevideo.com/videoplayback") != -1 ||
+                    (CrunchyWalkView.fromXWalkView(view).getUrlDomainAlt().indexOf("youtube") != -1
+                            && url.indexOf("googlesyndication") != -1)) {
+                try {
+                    if (AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
+                            CornBrowser.getBrowserStorage().getAdBlockWhitelist()))
+                        return super.shouldInterceptLoadRequest(view, url);
+                    if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
+                            && AdBlockManager.isAdBlockedHost(url)) {
+                        Logging.logd("AdBlock: Ad blocked");
+                        return new WebResourceResponse("text/plain", "UTF-8",
+                                new ByteArrayInputStream("".getBytes()));
+                    }
+                } catch (Exception ex) {
+                    StackTraceParser.logStackTrace(ex);
                 }
-            } catch (Exception ex) {
-                StackTraceParser.logStackTrace(ex);
             }
+        } catch(RuntimeException ex) {
+            Logging.logd("XWALK: Seems that something was being executed on the wrong thread");
+            StackTraceParser.logStackTrace(ex);
         }
         return super.shouldInterceptLoadRequest(view, url);
     }

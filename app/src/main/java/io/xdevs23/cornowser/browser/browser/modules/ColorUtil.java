@@ -23,7 +23,7 @@ public class ColorUtil {
     public static boolean isDarkBackground(int color) {
         float hsv[] = new float[3];
         Color.colorToHSV(color, hsv);
-        return (hsv[2] <= 0.54f && hsv[1] <= 0.32);
+        return hsv[2] <= 0.56f || hsv[1] > 0.56f;
     }
 
     public static float[] colorToHSV(int color) {

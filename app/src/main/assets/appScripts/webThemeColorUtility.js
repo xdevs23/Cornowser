@@ -30,7 +30,7 @@ try {
         else if(cu.indexOf("play.google")       !== -1) webCol = "#60c416";
         else if(cu.indexOf("google")            !== -1) webCol = "#484848";
         else if(cu.indexOf("twitter")           !== -1) webCol = "#55acee";
-        else if(cu.indexOf("youtube")           !== -1) webCol = "#dd0804";
+        else if(cu.indexOf("youtube")           !== -1) webCol = "#e62117";
         else if(cu.indexOf("xda-developers")    !== -1) webCol = "#de7300";
         else if(cu.indexOf("yahoo")             !== -1) webCol = "#400090";
         else if(cu.indexOf("twitch")            !== -1) webCol = "#6441a5";

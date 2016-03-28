@@ -47,7 +47,7 @@ public class CornUIClient extends XWalkUIClient {
     public void onReceivedTitle(XWalkView view, String title) {
         Logging.logd("Web received title: " + title);
         super.onReceivedTitle(view, title);
-        WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(view));
+        WebThemeHelper.tintNow();
         CornBrowser.getTabSwitcher().getCurrentTab().setTitle(title);
     }
 
@@ -59,7 +59,7 @@ public class CornUIClient extends XWalkUIClient {
         final Runnable tintNowRunnable = new Runnable() {
             @Override
             public void run() {
-                WebThemeHelper.tintNow(CrunchyWalkView.fromXWalkView(fView));
+                WebThemeHelper.tintNow();
             }
         };
         Thread downIcon = new Thread(new Runnable() {

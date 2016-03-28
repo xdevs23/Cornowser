@@ -12,6 +12,7 @@ import org.xdevs23.annotation.DontUse;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
+import org.xdevs23.general.StringManipulation;
 import org.xdevs23.general.URLEncode;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
@@ -245,14 +246,11 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public String getUrlDomain() {
-        String  u   = getUrl();
-        if(u == null || u.isEmpty()) return "";
-        String  uwp = u.replaceAll("[^ ]*(://)", "");
-        String pu;
-        if(uwp.contains("/")) pu = uwp.split("/")[0];
-        else pu = uwp;
-        Logging.logd("Url domain is " + pu);
-        return pu;
+        return StringManipulation.getDomainFromUrl(getUrl());
+    }
+
+    public String getUrlDomainAlt() {
+        return StringManipulation.getDomainFromUrl(getUrlAlt());
     }
 
     /**
