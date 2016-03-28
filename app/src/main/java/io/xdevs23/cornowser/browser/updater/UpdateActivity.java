@@ -223,7 +223,6 @@ public class UpdateActivity extends XquidCompatActivity {
         currentVersionTv.setText(String.format(getString(R.string.updater_prefix_actual_version),
                 getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
 
-        if(!NetUtils.isInternetAvailable()) return;
         String latestVersionCodeString = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE);
 
         if(!latestVersionCodeString.isEmpty()) latestVersionCode = Integer.parseInt(
@@ -263,7 +262,6 @@ public class UpdateActivity extends XquidCompatActivity {
     }
 
     protected void initDwnStringsToViewsSec() {
-        if(!NetUtils.isInternetAvailable()) return;
         changelogTitle.setText(String.format(getString(R.string.updater_prefix_changelog_for),
                 latestVersionName));
 
