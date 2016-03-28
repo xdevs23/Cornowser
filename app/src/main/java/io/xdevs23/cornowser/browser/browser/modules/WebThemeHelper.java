@@ -18,7 +18,6 @@ import org.xdevs23.ui.utils.BarColors;
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
-import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class WebThemeHelper {
 
@@ -80,6 +79,11 @@ public class WebThemeHelper {
         CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
         CornBrowser.overflowMenuLayout.applyTheme(isDark);
         CornBrowser.handleGoForwardControlVisibility();
+        if (isDark) CornBrowser.browserInputBar.setTextColor(
+                ColorUtil.getColor(R.color.omnibox_default_foreground));
+        else CornBrowser.browserInputBar.setTextColor(
+                ColorUtil.getColor(R.color.omnibox_default_dark_foreground)
+        );
     }
 
     public static void setWebThemeColor(int color, RelativeLayout omnibox, Window window) {
@@ -100,12 +104,6 @@ public class WebThemeHelper {
 
             if (OmniboxControl.isTop()) BarColors.updateBarsColor(color, window);
             else BarColors.updateBarsColor(color, window, true, true, false);
-
-            if (isDark) CornBrowser.browserInputBar.setTextColor(
-                    ColorUtil.getColor(R.color.omnibox_default_foreground));
-            else CornBrowser.browserInputBar.setTextColor(
-                    ColorUtil.getColor(R.color.omnibox_default_dark_foreground)
-            );
         } catch(Exception ex) {
             Logging.logd("Failed setting web theme color. Stacktrace: " +
                     StackTraceParser.parse(ex));

@@ -3,7 +3,7 @@
     android:shape="rectangle"
     android:dither="true">
 
-    <solid android:color="@color/white_semi_more_transparent" />
+    <solid android:color="@color/white_semi_most_transparent" />
     <corners android:radius="2.4dip" />
 
 </shape>
