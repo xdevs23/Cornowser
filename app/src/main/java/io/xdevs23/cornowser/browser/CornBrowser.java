@@ -716,7 +716,6 @@ public class CornBrowser extends XquidCompatActivity {
             goForwardImgBtn.setVisibility(View.VISIBLE);
         } else {
             if(publicWebRender.canGoForward()) {
-                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
                 goForwardImgBtn.setBackgroundResource(WebThemeHelper.isDark ?
                     R.drawable.ic_arrow_forward_white_48dp : R.drawable.ic_arrow_forward_black_48dp);
                 goForwardImgBtn.setVisibility(View.VISIBLE);
