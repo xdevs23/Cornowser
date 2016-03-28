@@ -15,7 +15,7 @@ public final class AdBlockParser {
 
     public static boolean isPredefinedAdHost(String s) {
         for ( String str : AdBlockConst.PREDEFINED_HOSTS ) {
-            if(s.contains(str)) return true;
+            if(s.indexOf(str) != -1) return true;
         }
         return false;
     }
@@ -25,11 +25,11 @@ public final class AdBlockParser {
         ArrayList<String> filteredAdList = new ArrayList<String>();
 
         for ( String s : list ) {
-            if(! ( s.startsWith("#")
-                    || isPredefinedAdHost(s)
+            if(! ( s.length() < 3
+                    || s.startsWith("#")
                     || s.startsWith(" ")
-                    || s.length() < 3
                     || s.indexOf(" localhost") != -1
+                    || isPredefinedAdHost(s)
             )) filteredAdList.add(s.replace("\t", " ").replace("\r", "")
                     .replace("127.0.0.1 ", "").replace("0.0.0.0 ", ""));
         }

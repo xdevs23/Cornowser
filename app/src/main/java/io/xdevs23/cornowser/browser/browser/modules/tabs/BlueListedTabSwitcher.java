@@ -369,6 +369,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     public void onAnimationStart(Animator animation) {
                         mainView.bringToFront();
                         CornBrowser.getWebEngine().clearFocus();
+                        CornBrowser.getWebEngine().invalidate();
                     }
 
                     @Override
