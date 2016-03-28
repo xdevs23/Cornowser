@@ -146,36 +146,8 @@ public class CornBrowser extends XquidCompatActivity {
      */
     protected void bootstrap() {
         if(isBgBoot) moveTaskToBack(true);
-        if(isNormalStartUp()) {
-            if(!isBgBoot) checkMallowPermissions();
 
-            try {
-                XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW,
-                        (!System.getProperty("os.arch", "armv7a").toLowerCase().contains("arm")));
-                XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
-                XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
-                XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
-            } catch(AssertionFailedError ex) {
-                Logging.logd("Error while setting some XWalk preferences. Are you using x86?");
-            }
-
-            initAll();
-
-            if(!getBrowserStorage().isCrashlyticsOptedOut()) {
-                Logging.logd("Crashlytics is enabled.");
-                Fabric.with(Core.applicationCore, new Crashlytics());
-            } else Logging.logd("Crashlytics is disabled.");
-
-            isBootstrapped = true;
-        } else if(isNewIntent) {
-            handleStartupWebLoad();
-            fastReloadComponents();
-            return;
-        } else if(!isInitialized) {
-            initAll();
-            handleStartupWebLoad();
-            return;
-        }
+        if(!handleStartUp()) return;
 
         handleWaitForAdBlock();
 
@@ -186,6 +158,29 @@ public class CornBrowser extends XquidCompatActivity {
             AdBlockManager.initAdBlock();
 
         if(!isBgBoot) fastReloadComponents();
+    }
+
+    protected boolean handleStartUp() {
+        if(isNormalStartUp()) {
+            if(!isBgBoot) checkMallowPermissions();
+
+            applyXWalkPreferences();
+
+            initAll();
+
+            handleCrashlyticsActivation();
+
+            isBootstrapped = true;
+        } else if(isNewIntent) {
+            handleStartupWebLoad();
+            fastReloadComponents();
+            return false;
+        } else if(!isInitialized) {
+            initAll();
+            handleStartupWebLoad();
+            return false;
+        }
+        return true;
     }
 
     private boolean isNormalStartUp() {
@@ -224,6 +219,25 @@ public class CornBrowser extends XquidCompatActivity {
                 }
             });
         } else handleStartupWebLoad();
+    }
+
+    public void handleCrashlyticsActivation() {
+        if(!getBrowserStorage().isCrashlyticsOptedOut()) {
+            Logging.logd("Crashlytics is enabled.");
+            Fabric.with(Core.applicationCore, new Crashlytics());
+        } else Logging.logd("Crashlytics is disabled.");
+    }
+
+    public void applyXWalkPreferences() {
+        try {
+            XWalkPreferences.setValue(XWalkPreferences.ANIMATABLE_XWALK_VIEW,
+                    (!System.getProperty("os.arch", "armv7a").toLowerCase().contains("arm")));
+            XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS, true);
+            XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW, true);
+            XWalkPreferences.setValue(XWalkPreferences.ENABLE_THEME_COLOR, false);
+        } catch(AssertionFailedError ex) {
+            Logging.logd("Error while setting some XWalk preferences. Are you using x86?");
+        }
     }
 
     /**

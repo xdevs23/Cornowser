@@ -37,8 +37,6 @@ public class AdBlockManager {
 
     private static Handler handler = new Handler();
 
-    private static boolean isWhitelisted;
-
     private AdBlockManager() {
 
     }
@@ -159,8 +157,8 @@ public class AdBlockManager {
     }
 
 
-    public static interface OnHostsUpdatedListener {
-        public void onUpdateFinished();
+    public interface OnHostsUpdatedListener {
+        void onUpdateFinished();
     }
 
 }
