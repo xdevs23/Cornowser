@@ -27,6 +27,7 @@ import org.xdevs23.config.AppConfig;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
+import org.xdevs23.net.NetUtils;
 import org.xdevs23.root.utils.RootController;
 import org.xdevs23.ui.dialog.MessageDialog;
 import org.xdevs23.ui.dialog.templates.DismissDialogButton;
@@ -218,13 +219,16 @@ public class UpdateActivity extends XquidCompatActivity {
     }
 
     protected void downloadStrings() throws PackageManager.NameNotFoundException {
+
         currentVersionTv.setText(String.format(getString(R.string.updater_prefix_actual_version),
                 getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
 
+        if(!NetUtils.isInternetAvailable()) return;
+        String latestVersionCodeString = DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE);
 
-        latestVersionCode = Integer.parseInt(
-                DownloadUtils.downloadString(UpdaterStorage.URL_VERSION_CODE)
-        );
+        if(!latestVersionCodeString.isEmpty()) latestVersionCode = Integer.parseInt(
+                latestVersionCodeString
+        ); else Logging.logd("Version code was not downloaded correctly.");
 
         switch( Integer.parseInt(
                 String.valueOf(latestVersionCode)
@@ -259,6 +263,7 @@ public class UpdateActivity extends XquidCompatActivity {
     }
 
     protected void initDwnStringsToViewsSec() {
+        if(!NetUtils.isInternetAvailable()) return;
         changelogTitle.setText(String.format(getString(R.string.updater_prefix_changelog_for),
                 latestVersionName));
 
