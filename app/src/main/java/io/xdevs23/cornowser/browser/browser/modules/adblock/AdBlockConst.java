@@ -21,7 +21,9 @@ public final class AdBlockConst {
      */
     public static final String[] WHITELISTED_HOSTS = new String[] {
             "html5test.com",
-            "crashlytics.com"
+            "crashlytics.com",
+            ".bplaced.com",
+            "bplaced.net",
     };
 
     /**
