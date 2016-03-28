@@ -288,7 +288,10 @@ public class UpdateActivity extends XquidCompatActivity {
 
             updaterButton.setVisibility(View.INVISIBLE);
 
-            AppCompatCheckBox rootCheckBox = (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+            AppCompatCheckBox rootCheckBox =
+                    (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+
+            assert rootCheckBox != null;
 
             rootCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -298,6 +301,7 @@ public class UpdateActivity extends XquidCompatActivity {
             });
 
             try {
+
                 downloadStrings();
 
                 initDwnStringsToViews();
@@ -329,6 +333,7 @@ public class UpdateActivity extends XquidCompatActivity {
 
         try {
             BarColors.enableBarColoring(getWindow(), R.color.indigo_700);
+            assert getSupportActionBar() != null;
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         } catch(Exception ex) {/* */}
@@ -337,8 +342,10 @@ public class UpdateActivity extends XquidCompatActivity {
         staticContext = myContext;
 
         UpdateStatus.applyLanguages();
-		
-		
+
+        final AppCompatCheckBox rootCheckBox =
+                (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+        assert rootCheckBox != null;
 		if(RootController.isSuInstalled() && RootController.isBusyboxInstalled()) {
 
             if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
@@ -348,7 +355,7 @@ public class UpdateActivity extends XquidCompatActivity {
                         .setPositiveButton(getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface d, int id) {
-                                AppCompatCheckBox rootCheckBox = (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
+
                                 if (RootController.requestRoot()) {
                                     enableRoot = true;
                                     rootCheckBox.setChecked(true);
@@ -369,7 +376,7 @@ public class UpdateActivity extends XquidCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
 
-        }
+        } else rootCheckBox.setVisibility(View.INVISIBLE);
 
         init();
 	}
