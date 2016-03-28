@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- These colors are THEMEABLE -->
+
     <color name="colorPrimary">@color/grey_100</color>
     <color name="colorPrimaryDark">@color/grey_300</color>
     <color name="colorAccent">@color/blue_600</color>
 
     <color name="separator_semi_transparent">@color/dark_semi_min_transparent</color>
+
+    <!-- End of themeable colors -->
 
     <color name="white_unnoticeable_opaque">#FDFFFFFF</color>
     <color name="white_semi_min_transparent">#DFFFFFFF</color>

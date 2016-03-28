@@ -27,7 +27,7 @@
                 android:id="@+id/omnibox_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/omnibox_height"
-                android:background="@color/colorPrimary">
+                android:background="@color/omnibox_default_background">
 
                 <com.baoyz.widget.PullRefreshLayout
                     android:id="@+id/omnibox_refresh_ptr"
@@ -62,7 +62,8 @@
                                 android:textCursorDrawable="@drawable/main_textcursordrawable"
                                 android:background="@drawable/main_edittext_transparent_bg"
                                 android:theme="@style/Crunchy.BrowserInputBar"
-                                android:textColorHint="@color/dark_semi_transparent"
+                                android:textColorHint="@color/omnibox_default_secondary_foreground"
+                                android:textColor="@color/omnibox_default_foreground"
                                 android:hint="@string/omnibox_inputbar_hint"
                                 android:selectAllOnFocus="true"
                                 android:textStyle="normal"
@@ -74,7 +75,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-condensed"
                                 android:text="@string/adblock_waiting_for"
-                                android:textColor="@color/black"
+                                android:textColor="@color/omnibox_default_foreground"
                                 android:textSize="18sp"
                                 android:layout_centerVertical="true"
                                 android:layout_margin="2dp"

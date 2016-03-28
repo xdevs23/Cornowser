@@ -12,6 +12,7 @@ import org.michaelevans.colorart.library.ColorArt;
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.animation.ColorFader;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.ui.utils.BarColors;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -75,23 +76,36 @@ public class WebThemeHelper {
     }
 
     public static void setWebThemeColor(int color, RelativeLayout omnibox, Window window) {
-        if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
-        if(currentColor == 0) currentColor = ((ColorDrawable)omnibox.getBackground()).getColor();
-        ColorFader.createAnimation(
-                CornBrowser.omnibox.getBackground(),
-                color,
-                window.getContext(),
-                omnibox,
-                1.6f,
-                new Handler()
-        ).animate();
+        try {
+            if (!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
+            if (currentColor == 0)
+                currentColor = ((ColorDrawable) omnibox.getBackground()).getColor();
+            ColorFader.createAnimation(
+                    CornBrowser.omnibox.getBackground(),
+                    color,
+                    window.getContext(),
+                    omnibox,
+                    1.6f,
+                    new Handler()
+            ).animate();
 
-        isDark = ColorUtil.isDarkBackground(color);
-        CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
-        CornBrowser.overflowMenuLayout.applyTheme(isDark);
+            isDark = ColorUtil.isDarkBackground(color);
+            CornBrowser.openTabswitcherImgBtn.applyTheme(isDark);
+            CornBrowser.overflowMenuLayout.applyTheme(isDark);
+            CornBrowser.handleGoForwardControlVisibility();
 
-        if(OmniboxControl.isTop()) BarColors.updateBarsColor(color, window);
-        else BarColors.updateBarsColor(color, window, true, true, false);
+            if (OmniboxControl.isTop()) BarColors.updateBarsColor(color, window);
+            else BarColors.updateBarsColor(color, window, true, true, false);
+
+            if (isDark) CornBrowser.browserInputBar.setTextColor(
+                    ColorUtil.getColor(R.color.omnibox_default_foreground));
+            else CornBrowser.browserInputBar.setTextColor(
+                    ColorUtil.getColor(R.color.omnibox_default_dark_foreground)
+            );
+        } catch(Exception ex) {
+            Logging.logd("Failed setting web theme color. Stacktrace: " +
+                    StackTraceParser.parse(ex));
+        }
     }
 
     public static void resetWebThemeColor(RelativeLayout omnibox) {

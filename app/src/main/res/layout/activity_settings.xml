@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="@color/light_blue_700"
+        android:background="@color/settings_actionbar_background"
         android:title="@string/cornmenu_item_settings"
         app:title="@string/cornmenu_item_settings" />
 

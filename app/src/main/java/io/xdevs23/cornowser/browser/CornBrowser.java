@@ -799,11 +799,16 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public static void resetBarColor() {
         if (OmniboxControl.isTop()) {
-            BarColors.updateBarsColor(getStaticWindow(), R.color.colorPrimaryDark, false, false, true);
+            // Status bar
+            BarColors.updateBarsColor(getStaticWindow(), R.color.omnibox_statusbar_background,
+                    false, false, true);
+            // Navbar
             BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, true, false);
         } else {
-            BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, true, false);
-            BarColors.updateBarsColor(getStaticWindow(), R.color.black, false, false, true);
+            // Navbar
+            BarColors.updateBarsColor(getStaticWindow(), R.color.omnibox_statusbar_background, false, true, false);
+            // Status bar
+            BarColors.updateBarsColor(getStaticWindow(), R.color.omnibox_statusbar_background, false, false, true);
         }
     }
 

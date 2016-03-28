@@ -28,7 +28,7 @@ public class AdBlockSettings extends XquidCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        BarColors.enableBarColoring(getWindow(), R.color.red_900);
+        BarColors.enableBarColoring(getWindow(), R.color.adblock_statusbar_background);
 
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

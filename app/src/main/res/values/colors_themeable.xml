@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+     NEVER, really NEVER invert black and white for THEMES on CORNOWSER!!!!
+     That could have REALLY EXTREME UGLY and bugy results and is NOT recommended!
+
+     Please don't change material palette colors, only change the colors provided
+     in this file and the themeable colors in colors.xml
+     -->
+
+    <color name="settings_statusbar_background">@color/light_blue_900</color>
+    <color name="settings_actionbar_background">@color/light_blue_700</color>
+
+    <color name="updater_statusbar_background">@color/indigo_800</color>
+    <color name="updater_actionbar_background">@color/indigo_600</color>
+
+    <color name="adblock_statusbar_background">@color/red_900</color>
+    <color name="adblock_actionbar_background">@color/red_800</color>
+
+    <color name="omnibox_statusbar_background">@color/grey_950</color>
+    <color name="omnibox_default_background">@color/grey_900</color>
+    <color name="omnibox_default_foreground">@color/white</color>
+    <color name="omnibox_default_secondary_foreground">@color/white_semi_transparent</color>
+    <color name="omnibox_default_dark_foreground">@color/black</color>
+    <color name="omnibox_default_secondary_dark_foreground">@color/dark_semi_transparent</color>
+    <color name="omnibox_separator_normal">@color/dark_semi_more_transparent</color>
+    <color name="omnibox_separator_secure">@color/transGreen</color>
+
+    <color name="tabswitcher_bluelisted_background">@color/white_unnoticeable_opaque</color>
+    <color name="tabswitcher_bluelisted_foreground">@color/blue_900</color>
+
+</resources>

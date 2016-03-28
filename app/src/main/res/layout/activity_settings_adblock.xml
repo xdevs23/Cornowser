@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="@color/red_800"
+        android:background="@color/adblock_actionbar_background"
         android:title="@string/settings_browsing_adblock_title"
         app:title="@string/settings_browsing_adblock_title" />
 
