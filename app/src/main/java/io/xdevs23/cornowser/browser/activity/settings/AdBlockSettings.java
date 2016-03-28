@@ -9,6 +9,7 @@ import android.preference.SwitchPreference;
 import android.support.v7.widget.Toolbar;
 
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.debugutils.Logging;
 import org.xdevs23.ui.utils.BarColors;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -80,7 +81,9 @@ public class AdBlockSettings extends XquidCompatActivity {
             AdBlockManager.setOnHostsUpdatedListener(new AdBlockManager.OnHostsUpdatedListener() {
                 @Override
                 public void onUpdateFinished() {
-                    dialog.dismiss();
+                    try { dialog.dismiss(); } catch(IllegalArgumentException ex) {
+                        Logging.logd("AdBlock update dialog cannot be dismissed. Skipped.");
+                    }
                 }
             });
             dialog.show();
