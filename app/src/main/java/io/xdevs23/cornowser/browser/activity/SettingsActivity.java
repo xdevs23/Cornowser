@@ -37,6 +37,7 @@ public class SettingsActivity extends XquidCompatActivity {
         BarColors.enableBarColoring(getWindow(), R.color.light_blue_800);
 
         try {
+            assert getSupportActionBar() != null;
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         } catch(Exception ex) { /* */ }
