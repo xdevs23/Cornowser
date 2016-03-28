@@ -1,11 +1,17 @@
 If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
 
- - User Interface / Design update
- - Temporarily change icon to remember on Belgium and show that we want PEACE!
- - Add feature: AdBlock whitelist
- - Add feature: Wait for AdBlock
- - Improved AdBlock alot! Now it is much faster!
- - Fix some crashes here and there
- - Updated french translation (Thanks to Primokorn)
- - Bugfixes and improvements
- - Other minor changes
+ - Fix many crashes
+ - Fix bplaced websites being blocked
+ - Fix forward/stop button
+ - Fix YouTube/video playback lag
+ - Change omnibox background to dark
+ - Update french translations (thanks to Primokorn)
+ - Update Crosswalk version to 19.48.503.0 (flickering screen is now fixed)
+ - Improve omnibox tinting
+ - Improve AdBlock hosts parsing speed
+ - Improve general loading speed
+ - Improve updater
+ - Improve code quality to 100%
+ - Improve the 'Wait for AdBlock' feature
+ - Use SurfaceView instead of TextureView for all devices to improve smoothness
+ - Other minor bugfixes and improvements
