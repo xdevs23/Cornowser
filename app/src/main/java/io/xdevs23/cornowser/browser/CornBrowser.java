@@ -204,17 +204,22 @@ public class CornBrowser extends XquidCompatActivity {
             Logging.logd("Waiting for AdBlock is enabled. Blocking.");
             browserInputBar.clearFocus();
             final TextView fTextView = (TextView) findViewById(R.id.omnibox_init_view);
-            final RelativeLayout omniboxInputBarLayout = (RelativeLayout) findViewById(R.id.omnibox_input_bar_layout);
+            final RelativeLayout omniboxInputBarLayout =
+                    (RelativeLayout) findViewById(R.id.omnibox_input_bar_layout);
             assert fTextView != null;
             assert omniboxInputBarLayout != null;
             fTextView.setVisibility(View.VISIBLE);
             browserInputBar.setVisibility(View.INVISIBLE);
+            overflowMenuLayout.setVisibility(View.INVISIBLE);
+            openTabswitcherImgBtn.setVisibility(View.INVISIBLE);
             AdBlockManager.setOnHostsUpdatedListener(new AdBlockManager.OnHostsUpdatedListener() {
                 @Override
                 public void onUpdateFinished() {
                     Logging.logd("AdBlock init completed. Starting web load.");
                     omniboxInputBarLayout.removeView(fTextView);
                     browserInputBar.setVisibility(View.VISIBLE);
+                    overflowMenuLayout.setVisibility(View.VISIBLE);
+                    openTabswitcherImgBtn.setVisibility(View.VISIBLE);
                     handleStartupWebLoad();
                 }
             });
