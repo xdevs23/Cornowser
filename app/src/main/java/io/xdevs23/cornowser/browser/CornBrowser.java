@@ -950,13 +950,13 @@ public class CornBrowser extends XquidCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(browserInputBar != null && browserInputBar.hasFocus()) {
+        if(omnibox != null && browserInputBar != null) {
             browserInputBar.clearFocus();
             applyInsideOmniText();
             return;
         }
         Logging.logd("Back pressed, web render cannot go back. Exiting application.");
-        if(!publicWebRender.goBack()) endApplication();
+        if(publicWebRender != null && (!publicWebRender.goBack())) endApplication();
     }
 
     /**
