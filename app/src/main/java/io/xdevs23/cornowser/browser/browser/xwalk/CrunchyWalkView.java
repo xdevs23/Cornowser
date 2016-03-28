@@ -43,6 +43,8 @@ public class CrunchyWalkView extends XWalkView {
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
+    private int lastBgColor = 0;
+
     private void init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
 
@@ -184,6 +186,13 @@ public class CrunchyWalkView extends XWalkView {
         return this;
     }
 
+    @Override
+    public void setBackgroundColor(int color) {
+        if(lastBgColor != color) {
+            lastBgColor = color;
+            super.setBackgroundColor(lastBgColor);
+        }
+    }
     // Handle color modes
 
     public void drawWithColorMode() {
