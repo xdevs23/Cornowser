@@ -34,6 +34,7 @@ import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 
+@SuppressWarnings("deprecation")
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     private ScrollView mainView;
@@ -123,6 +124,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         super(context, rootView);
     }
 
+    @SuppressWarnings("unused")
     public BlueListedTabSwitcher(RelativeLayout rootView) {
         super(rootView);
     }
@@ -357,7 +359,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     }
 
     private void animateShowSwitcher() {
-        mainView.bringToFront();
+        for ( int i = 0; i < mainView.getChildCount(); i++ )
+            mainView.getChildAt(i).bringToFront();
         mainView.animate()
                 .setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
                 .translationY((OmniboxControl.isBottom() ? -CornBrowser.omnibox.getHeight() : 0))
@@ -365,6 +368,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         mainView.bringToFront();
+                        CornBrowser.getWebEngine().clearFocus();
                     }
 
                     @Override
@@ -447,6 +451,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         }
     }
 
+    @SuppressWarnings("unused")
     protected int getLayoutTabId(int index) {
         return ((TabCounterView)((XquidLinearLayout) tabsLayout.getChildAt(index))
                 .getChildAt(2)).getTabIndex();
