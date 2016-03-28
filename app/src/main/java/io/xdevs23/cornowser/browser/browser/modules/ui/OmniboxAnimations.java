@@ -1,12 +1,9 @@
 package io.xdevs23.cornowser.browser.browser.modules.ui;
 
 import android.animation.Animator;
-import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
-
-import org.xdevs23.debugutils.Logging;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 

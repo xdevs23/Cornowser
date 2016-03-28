@@ -1,7 +1,5 @@
 package org.xdevs23.management.config;
 
-import org.xdevs23.debugutils.Logging;
-
 public class SharedPreferenceArray {
 
     public static String getPreferenceString(String[] array) {
