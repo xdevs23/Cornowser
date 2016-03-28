@@ -57,8 +57,6 @@ public class CornResourceClient extends XWalkResourceClient {
                     ")"
     );
 
-    private boolean allowTinting = true;
-
     private boolean triedIntentLoad = false;
 
 
@@ -106,18 +104,16 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void onLoadStarted(XWalkView view, String url) {
         super.onLoadStarted(view, url);
-        allowTinting = true;
-        CornBrowser.applyInsideOmniText();
-        WebThemeHelper.tintNow();
-        CornBrowser.publicWebRender.drawWithColorMode();
+        if(CrunchyWalkView.fromXWalkView(view).currentProgress < 100) {
+            CornBrowser.applyInsideOmniText();
+            WebThemeHelper.tintNow();
+            CornBrowser.publicWebRender.drawWithColorMode();
+        }
     }
 
     @Override
     public void onLoadFinished(XWalkView view, String url) {
         Logging.logd("Web load finished " + url + " " + view.getUrl());
-        if(allowTinting)
-            WebThemeHelper.tintNow();
-        allowTinting = false;
         super.onLoadFinished(view, url);
         CornBrowser.applyInsideOmniText();
         currentWorkingUrl = view.getUrl();
@@ -131,18 +127,25 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public WebResourceResponse shouldInterceptLoadRequest(XWalkView view, String url) {
-        try {
-            if(AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
-                    CornBrowser.getBrowserStorage().getAdBlockWhitelist()))
-                return super.shouldInterceptLoadRequest(view, url);
-            if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
-                    && AdBlockManager.isAdBlockedHost(url)) {
-                Logging.logd("AdBlock: Ad blocked");
-                return new WebResourceResponse("text/plain", "UTF-8",
-                        new ByteArrayInputStream("".getBytes()));
+        // This is to prevent lags in (youtube) videos
+        // Maybe indexOf is faster than contains, so we use that in
+        //noinspection IndexOfReplaceableByContains
+        if(url.indexOf("googlevideo.com/videoplayback") != -1 ||
+                (CrunchyWalkView.fromXWalkView(view).getUrlDomain().indexOf("youtube.") != -1
+                        && url.indexOf("googlesyndication") != -1)) {
+            try {
+                if (AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
+                        CornBrowser.getBrowserStorage().getAdBlockWhitelist()))
+                    return super.shouldInterceptLoadRequest(view, url);
+                if (CornBrowser.getBrowserStorage().isAdBlockEnabled()
+                        && AdBlockManager.isAdBlockedHost(url)) {
+                    Logging.logd("AdBlock: Ad blocked");
+                    return new WebResourceResponse("text/plain", "UTF-8",
+                            new ByteArrayInputStream("".getBytes()));
+                }
+            } catch (Exception ex) {
+                StackTraceParser.logStackTrace(ex);
             }
-        } catch(Exception ex) {
-            StackTraceParser.logStackTrace(ex);
         }
         return super.shouldInterceptLoadRequest(view, url);
     }
