@@ -329,7 +329,7 @@ public class CornBrowser extends XquidCompatActivity {
     public void preInit() {
         mHandler = new Handler();
         initStaticFields();
-        BarColors.enableBarColoring(staticWindow, R.color.colorPrimaryDark);
+        BarColors.enableBarColoring(staticWindow, R.color.omnibox_statusbar_background);
         staticView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
