@@ -131,9 +131,9 @@ public class CornResourceClient extends XWalkResourceClient {
             // This is to prevent lags in (youtube) videos
             // Maybe indexOf is faster than contains, so we use that in
             //noinspection IndexOfReplaceableByContains
-            if (url.indexOf("googlevideo.com/videoplayback") != -1 ||
-                    (CrunchyWalkView.fromXWalkView(view).getUrlDomainAlt().indexOf("youtube") != -1
-                            && url.indexOf("googlesyndication") != -1)) {
+            if (url.indexOf("googlevideo.com/videoplayback") == -1 ||
+                    (CrunchyWalkView.fromXWalkView(view).getUrlDomainAlt().indexOf("youtube") == -1
+                            && url.indexOf("googlesyndication") == -1)) {
                 try {
                     if (AdBlockParser.isHostListed(CrunchyWalkView.fromXWalkView(view).getUrlAlt(),
                             CornBrowser.getBrowserStorage().getAdBlockWhitelist()))

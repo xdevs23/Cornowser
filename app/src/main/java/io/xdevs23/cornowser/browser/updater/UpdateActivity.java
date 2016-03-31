@@ -27,7 +27,6 @@ import org.xdevs23.config.AppConfig;
 import org.xdevs23.config.ConfigUtils;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.net.DownloadUtils;
-import org.xdevs23.net.NetUtils;
 import org.xdevs23.root.utils.RootController;
 import org.xdevs23.ui.dialog.MessageDialog;
 import org.xdevs23.ui.dialog.templates.DismissDialogButton;

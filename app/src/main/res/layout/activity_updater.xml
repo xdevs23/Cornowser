@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/zero_padding"
     android:windowContentOverlay="@null"
     android:windowNoTitle="true"
-    tools:context="io.github.UltimateBrowserProject.Activity.UpdateActivity" >
+    tools:context="io.xdevs23.cornowser.browser.updater.UpdateActivity" >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/updaterToolbar"
