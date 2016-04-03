@@ -1,3 +1,2 @@
-If you are using root, please wait a minute and start the app yourself if it doesn't automatically.
-
- - Fix AdBlock
+ - Fixed updating using root access (at least for most users)
+ - Updated Crosswalk version to 19.48.504.0
