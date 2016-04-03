@@ -1,2 +1,3 @@
  - Fixed updating using root access (at least for most users)
  - Updated Crosswalk version to 19.48.504.0
+ - Change icon back to normal
