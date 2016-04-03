@@ -14,7 +14,7 @@ if [ "$xwalkver" == 'auto' ]; then
   xwalkver=$(cat version.txt)
 fi
 
-if [ ! -e "crosswalk-$xwalkver.aar" ] || [ ! -e "crosswalk-$xwalkver-arm.aar" ]; then
+if [ ! -e "crosswalk-$xwalkver.aar" ] && [ ! -e "crosswalk-$xwalkver-arm.aar" ]; then
   echo -e "\e[1mDownloading Crosswalk $xwalkver\e[0m\n"
   wget https://download.01.org/crosswalk/releases/crosswalk/android/canary/$xwalkver/crosswalk-$xwalkver.aar
 else echo -e "\e[1;92mCrosswalk $xwalkver is available locally. Download skipped.\e[0m\n"

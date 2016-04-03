@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -163,7 +162,6 @@ public class UpdateActivity extends XquidCompatActivity {
             String endR = "";
             Logging.logd("Update path is " + updatedApk);
 			if(enableRoot) endR = RootController.runCommand(
-                    "su -c \"am force-stop io.xdevs23.cornowser.browser\" && " +
                             "su -c \"pm install -r " + updatedApk + "\" && " +
                             "su -c \"am start -n io.xdevs23.cornowser.browser/.CornBrowser\" && " +
                             "su -c \"am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity\" && exit");
