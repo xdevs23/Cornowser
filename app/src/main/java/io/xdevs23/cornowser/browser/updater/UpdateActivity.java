@@ -60,7 +60,7 @@ public class UpdateActivity extends XquidCompatActivity {
 
                     ;
 
-    private static int    latestVersionCode = 0;
+    private static int latestVersionCode = 0;
 
     private static TextView currentVersionTv, newVersionTv, changelogTitle, changelogTv;
     private static com.rey.material.widget.Button updaterButton;
@@ -164,7 +164,7 @@ public class UpdateActivity extends XquidCompatActivity {
             Logging.logd("Update path is " + updatedApk);
 			if(enableRoot) endR = RootController.runCommand(
                     "su -c \"am force-stop io.xdevs23.cornowser.browser\" && " +
-                            "su -c \"pm install -rdt " + updatedApk + "\" && " +
+                            "su -c \"pm install -r " + updatedApk + "\" && " +
                             "su -c \"am start -n io.xdevs23.cornowser.browser/.CornBrowser\" && " +
                             "su -c \"am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity\" && exit");
 			else startNRUpdateInstallation();
@@ -349,8 +349,6 @@ public class UpdateActivity extends XquidCompatActivity {
                 (AppCompatCheckBox) findViewById(R.id.updaterEnableRootChk);
         assert rootCheckBox != null;
 		if(RootController.isSuInstalled() && RootController.isBusyboxInstalled()) {
-
-            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                 AlertDialog.Builder adB = new AlertDialog.Builder(staticContext);
                 adB.setTitle(getString(R.string.rootutils_root_detect_title))
                         .setMessage(getString(R.string.rootutils_root_detect_message))
@@ -373,10 +371,6 @@ public class UpdateActivity extends XquidCompatActivity {
                         })
                         .setNegativeButton(getString(R.string.answer_no), new DismissDialogButton());
                 adB.create().show();
-            } else {
-                Toast.makeText(getApplicationContext(), getString(R.string.root_toast_info_lollihigh),
-                        Toast.LENGTH_LONG).show();
-            }
 
         } else rootCheckBox.setVisibility(View.INVISIBLE);
 

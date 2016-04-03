@@ -17,7 +17,7 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/m_app_icon_belgique"
+        android:icon="@mipmap/m_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/CoreMTRLTheme"
@@ -25,7 +25,7 @@
         tools:ignore="AllowBackup,HardcodedDebugMode">
 
         <activity
-            android:name=".CornBrowser"
+            android:name="io.xdevs23.cornowser.browser.CornBrowser"
             android:launchMode="singleTask"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode">
             <intent-filter>
@@ -59,7 +59,7 @@
         </activity>
 
         <activity
-            android:name=".updater.UpdateActivity"
+            android:name="io.xdevs23.cornowser.browser.updater.UpdateActivity"
             android:parentActivityName=".CornBrowser">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
