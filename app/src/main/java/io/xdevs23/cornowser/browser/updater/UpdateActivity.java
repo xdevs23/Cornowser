@@ -199,6 +199,7 @@ public class UpdateActivity extends XquidCompatActivity {
                 .replace("//", "/");
 
         updateBar = (ProgressView) findViewById(R.id.updateProgressBar);
+        assert updateBar != null;
         updateBar.setVisibility(View.VISIBLE);
 
         appversion = ConfigUtils.getVersionName(getApplicationContext());
