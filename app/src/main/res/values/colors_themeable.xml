@@ -9,7 +9,7 @@
      in this file and the themeable colors in colors.xml
      -->
 
-    <color name="settings_statusbar_background">@color/light_blue_900</color>
+    <color name="settings_statusbar_background">@color/light_blue_800</color>
     <color name="settings_actionbar_background">@color/light_blue_700</color>
 
     <color name="updater_statusbar_background">@color/indigo_800</color>
