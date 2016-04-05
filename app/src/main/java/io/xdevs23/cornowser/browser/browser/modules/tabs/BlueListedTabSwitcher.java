@@ -37,7 +37,7 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
 @SuppressWarnings("deprecation")
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
-    private ScrollView mainView;
+    public ScrollView mainView;
     private XquidLinearLayout tabsLayout;
 
     private Drawable bgBtn;
@@ -473,6 +473,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             t.setTitle(t.webView.getTitle());
             tabSwitchListener.onTabChanged(t, false);
         }
+    }
+
+    public static BlueListedTabSwitcher cast(BasicTabSwitcher switcher) {
+        return (BlueListedTabSwitcher)switcher;
     }
 
 }

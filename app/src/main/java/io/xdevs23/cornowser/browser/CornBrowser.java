@@ -401,6 +401,7 @@ public class CornBrowser extends XquidCompatActivity {
             tabSwitcher = new TabSwitcherWrapper(
                     new BlueListedTabSwitcher(getContext(), staticRootView)
                             .setTabStorage(new TabStorage()));
+            BlueListedTabSwitcher.cast(getTabSwitcher()).mainView.bringToFront();
         }
     }
 
