@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="@color/indigo_500"
+        android:background="@color/updater_actionbar_background"
         android:title="@string/updater_title"
         app:title="@string/cornmenu_item_updater" />
 

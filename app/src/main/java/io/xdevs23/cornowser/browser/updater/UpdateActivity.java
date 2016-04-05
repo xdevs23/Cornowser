@@ -333,7 +333,7 @@ public class UpdateActivity extends XquidCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            BarColors.enableBarColoring(getWindow(), R.color.indigo_700);
+            BarColors.enableBarColoring(getWindow(), R.color.updater_statusbar_background);
             assert getSupportActionBar() != null;
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
