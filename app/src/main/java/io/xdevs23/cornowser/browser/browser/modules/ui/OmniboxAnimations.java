@@ -13,6 +13,12 @@ public class OmniboxAnimations {
             DEFAULT_ANIMATION_DURATION = 420
             ;
 
+    public static int
+            oh   = 0,
+            cy   = 0,
+            ny   = 0,
+            opos = 0;
+
 
     public static boolean isBottom() {
         return OmniboxControl.isBottom();
@@ -50,6 +56,7 @@ public class OmniboxAnimations {
     public static void animateOmni(int posY) {
         float mov = (float) posY;
         if(mov > 0) CornBrowser.omnibox.bringToFront();
+        if(posY == 0 && isTop()) opos = 0; cy = 0; ny = 0;
         omniboxAnimate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0))
                 // This listener is to fix glitches
                 .setListener(new Animator.AnimatorListener() {
@@ -80,7 +87,7 @@ public class OmniboxAnimations {
 
     public static void resetOmni() {
         CornBrowser.omnibox.bringToFront();
-        omniboxAnimate().translationY(0);
+        animateOmni(0);
         if(isTop()) CornBrowser.publicWebRenderLayout.setTranslationY(getOmniHeight());
         else        CornBrowser.publicWebRenderLayout.setTranslationY(0);
     }
@@ -89,11 +96,7 @@ public class OmniboxAnimations {
 
     public static final View.OnTouchListener
             mainOnTouchListener = new View.OnTouchListener() {
-        int
-                oh   = 0,
-                cy   = 0,
-                ny   = 0,
-                opos = 0;
+
 
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
