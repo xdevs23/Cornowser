@@ -70,6 +70,15 @@
     <string name="adblock_netbehavior_title">Mettre à jour en WiFi uniquement</string>
     <string name="adblock_netbehavior_summary">Économiser vos données mobiles en mettant à jour le fichier hosts que lorsque le WiFI
         est activé au démarrage.</string>
+        
+    <string name="adblock_wait_for_init_title">Attendre AdBlock</string>
+    <string name="adblock_wait_for_init_summary">Attendre la mise à jour et le démarrage de AdBlock avant de
+        charger un site web au démarrage.</string>
+
+    <string name="adblock_whitelist_title">Liste blanche</string>
+    <string name="adblock_whitelist_summary">Gérer vos sites web en liste blanche.</string>
+
+    <string name="adblock_waiting_for">En attente de AdBlock...</string>
     
     <!-- Clean data settings page -->
 
