@@ -41,7 +41,8 @@ android {
         versionName "1.0.7.3"       // Version name
         multiDexEnabled true        // For the libs to work correctly
         renderscriptTargetApi 23    // This is for use of RenderScript
-        renderscriptSupportModeEnabled true
+        // Gradle refuses to build with this
+        //renderscriptSupportModeEnabled true
     }
 
     signingConfigs {
