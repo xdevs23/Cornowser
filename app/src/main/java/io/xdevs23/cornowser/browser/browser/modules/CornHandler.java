@@ -19,7 +19,9 @@ public class CornHandler {
     public enum CornRequests {
         loadWorkingUrl,
         setWebThemeColor,
-        startTemplateFilling
+        startTemplateFilling,
+        handleLongpressLink,
+        handleLongpressImage
     }
 
     public static void handleRequest(String req, Activity activity,
@@ -58,6 +60,20 @@ public class CornHandler {
                     view.evaluateJavascript(HandlerStorage.currentTemplateContent, null);
                     HandlerStorage.currentTemplateContent = "";
                     break;
+                case handleLongpressLink:
+                    if(reqParams.length >= 2)
+                    view.onLongPress(
+                            reqParams[1].replace("::", ":"),
+                            reqParams[0].replace("::", ":"),
+                            false);
+                    break;
+                case handleLongpressImage:
+                    if(reqParams.length >= 2)
+                    view.onLongPress(
+                            reqParams[0].replace("::", ":"),
+                            reqParams[1].replace("::", ":"),
+                            true);
+                    break;
                 default: break;
             }
         } catch(Exception ex) {
@@ -70,6 +86,7 @@ public class CornHandler {
         view.evaluateJavascript(req, null);
     }
 
+    @Deprecated
     public static void evalJSAlt(CrunchyWalkView view, String req) {
         view.load("javascript:" + req);
     }

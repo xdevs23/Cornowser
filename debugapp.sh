@@ -46,6 +46,6 @@ if [ CONTINUEXEC ]; then
   adb $ADBARGS shell pm install -rdtf /sdcard/CBCustom.apk
   adb $ADBARGS shell am start -n io.xdevs23.cornowser.browser/.CornBrowser
   if [ "$1" == "--grp" ]; then adb $ADBARGS logcat -v tag -s Cornowser | grep $2
-  else adb $ADBARGS logcat -v tag -s Cornowser:*
+  else adb $ADBARGS logcat -v tag -s Cornowser:* chromium:*
   fi
 fi

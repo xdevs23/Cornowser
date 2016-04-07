@@ -260,6 +260,9 @@ public class CornUIClient extends XWalkUIClient {
             CornBrowser.getWebEngine().bringToFront();
             CornBrowser.omnibox.bringToFront();
             CornBrowser.getWebEngine().refreshDrawableState();
+            CornHandler.sendRawJSRequest(CrunchyWalkView.fromXWalkView(view),
+                    AssetHelper.getAssetString("appScripts/longPressHandler.js",
+                            CornBrowser.getContext()));
         }
 
         Logging.logd("Page load stopped");

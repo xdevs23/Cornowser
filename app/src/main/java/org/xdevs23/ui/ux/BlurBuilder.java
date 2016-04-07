@@ -1,19 +1,23 @@
 package org.xdevs23.ui.ux;
 
-import android.content.Context;
+// import android.content.Context;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.view.View;
+
+/*
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
-import android.view.View;
+*/
 
 /**
  * This was originally taken from http://stackoverflow.com/a/21052060/4479004
  * Thanks!
  */
-public class BlurBuilder {
+public class BlurBuilder { /*
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 7.5f;
 
@@ -38,7 +42,7 @@ public class BlurBuilder {
         tmpOut.copyTo(outputBitmap);
 
         return outputBitmap;
-    }
+    } */
 
     private static Bitmap getScreenshot(View v) {
         Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);

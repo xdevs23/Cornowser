@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.annotation.DontUse;
@@ -240,9 +241,12 @@ public class CrunchyWalkView extends XWalkView {
                         getContext()));
     }
 
-    public void onLongPress(String url) {
+    public void onLongPress(String url, String title, boolean isImage) {
         // This is going to be handled later (maybe), but let this stay here first
         // TODO: Handle long press and show dialog
+        Toast.makeText(CornBrowser.getContext(), "Received on long press with url " +
+            url + " and title " + title + ". " + (isImage ? "Is an image" : "Is a link"),
+                Toast.LENGTH_LONG).show();
     }
 
     @Override

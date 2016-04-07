@@ -1,7 +1,6 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.xdevs23.general.ExtendedAndroidClass;
