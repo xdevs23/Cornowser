@@ -24,17 +24,30 @@ public class CornHandler {
         handleLongpressImage
     }
 
+    public static final String dblpntSplitter = "_|[[??!_!??]]|_";
+
     public static void handleRequest(String req, Activity activity,
                                      CrunchyWalkView view, String url,
                                      CornResourceClient resClient) {
 
         Logging.logd("Handling request " + req);
 
-        String internalReq = req.split("://")[1];
+        String internalReq = req.split("://", 2)[1];
+
+        Logging.logd("2 internal req " + internalReq);
+
+        internalReq = internalReq.replace("::", dblpntSplitter);
 
         String reqParts[] = internalReq.split(":");
 
+        internalReq = internalReq.replace(dblpntSplitter, "::");
+
+        for( int i = 0; i < reqParts.length; i++)
+            reqParts[i] = reqParts[i].replace(dblpntSplitter, "::");
+
         String mainReq = reqParts[0];
+
+        for ( String s : reqParts ) Logging.logd("Part: " + s);
 
         String reqParams[] = new String[reqParts.length - 1];
 

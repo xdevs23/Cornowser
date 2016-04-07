@@ -31,6 +31,7 @@ import com.crashlytics.android.Crashlytics;
 import junit.framework.AssertionFailedError;
 
 import org.xdevs23.android.app.XquidCompatActivity;
+import org.xdevs23.android.content.share.ShareUtil;
 import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
@@ -646,12 +647,8 @@ public class CornBrowser extends XquidCompatActivity {
                         startActivity(new Intent(getContext(), SettingsActivity.class));
                         break;
                     case optMenuItems.SHARE_PAGE:
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra
-                                (Intent.EXTRA_TEXT, publicWebRender.getUrl());
-                        startActivity(Intent.createChooser(shareIntent,
-                                getString(R.string.optmenu_share)));
+                        ShareUtil.shareText(getString(R.string.optmenu_share),
+                                publicWebRender.getUrl(), getActivity());
                         break;
                     case optMenuItems.ADD_HOME_SHCT:
                         final Intent shortcutIntent = new Intent(getActivity(), CornBrowser.class);

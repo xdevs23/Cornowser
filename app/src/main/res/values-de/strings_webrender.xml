@@ -11,4 +11,13 @@
         \nMöchtest du die Webseite weiterhin laden?
     </string>
 
+    <string name="webrender_longpress_dialog_open_newtab">In neuem Tab öffnen</string>
+    <string name="webrender_longpress_dialog_share_link">Link teilen</string>
+    <string name="webrender_longpress_dialog_share_image">Bild teilen</string>
+    <string name="webrender_longpress_dialog_copy_url">URL kopieren</string>
+    <string name="webrender_longpress_dialog_copy_text">Linktext kopieren</string>
+    <string name="webrender_longpress_dialog_save_image">Bild speichern</string>
+    <string name="webrender_longpress_dialog_link_dblpnt">Link: %s</string>
+    <string name="webrender_longpress_dialog_image_dblpnt">Bild: %s</string>
+
 </resources>

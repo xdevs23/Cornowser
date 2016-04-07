@@ -52,7 +52,7 @@ $('img').on('touchstart', function(event) {
     currentImageTitle = event.target.getAttribute("alt");
     if(typeof currentLinkUrl == 'undefined') currentLinkUrl = " ";
     if(typeof currentLinkTitle == 'undefined') currentLinkTitle = " ";
-    if(typeof currentImageTitle == 'undefined') currentImageTitle = " ";
+    if(typeof currentImageTitle == 'undefined' || currentImageTitle == "") currentImageTitle = " ";
 });
 
 $('img').on('touchend', function(event) {

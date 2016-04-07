@@ -11,5 +11,13 @@
         \nDo you want to continue loading this web page?
     </string>
 
+    <string name="webrender_longpress_dialog_open_newtab">Open in new tab</string>
+    <string name="webrender_longpress_dialog_share_link">Share link</string>
+    <string name="webrender_longpress_dialog_share_image">Share image</string>
+    <string name="webrender_longpress_dialog_copy_url">Copy URL</string>
+    <string name="webrender_longpress_dialog_copy_text">Copy link text</string>
+    <string name="webrender_longpress_dialog_save_image">Save image</string>
+    <string name="webrender_longpress_dialog_link_dblpnt">Link: %s</string>
+    <string name="webrender_longpress_dialog_image_dblpnt">Image: %s</string>
 
 </resources>
