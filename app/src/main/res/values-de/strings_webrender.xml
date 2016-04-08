@@ -20,4 +20,6 @@
     <string name="webrender_longpress_dialog_link_dblpnt">Link: %s</string>
     <string name="webrender_longpress_dialog_image_dblpnt">Bild: %s</string>
 
+    <string name="webrender_image_saved_message">Bild gespeichert</string>
+
 </resources>

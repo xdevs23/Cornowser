@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import org.xdevs23.android.content.ClipboardUtil;
 import org.xdevs23.android.content.res.AssetHelper;
@@ -273,6 +275,27 @@ public class CrunchyWalkView extends XWalkView {
         return nUrl;
     }
 
+    public String resolveRelativeUrlXFriendly(final String url) {
+        String nUrl = url;
+        if (url.startsWith("//"))
+            nUrl = getUrlAlt().substring(0, getUrlAlt().lastIndexOf("://") + 1) + url;
+        else if(url.startsWith("/"))
+            nUrl = getUrlDomainAlt() + url;
+        else {
+            Matcher urlRegExMatcher =
+                    CornResourceClient.urlRegEx.matcher(url);
+            Matcher urlSecRegExMatcher =
+                    CornResourceClient.urlSecRegEx.matcher(url);
+            if (urlRegExMatcher.matches()) nUrl = url;
+            else if (urlSecRegExMatcher.matches())
+                nUrl = "http://" + url;
+            else {
+                nUrl = getUrlAlt().substring(0, getUrlAlt().lastIndexOf("/")) + url;
+            }
+        }
+        return nUrl;
+    }
+
     private static final class LongPressDialogLinkItems {
         public static final int
                 openNewTab  = 0,
@@ -315,10 +338,12 @@ public class CrunchyWalkView extends XWalkView {
                                 public void onClick(DialogInterface dialog, int which) {
                                     switch(which) {
                                         case LongPressDialogLinkItems.openNewTab:
-                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url), title);
+                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
+                                                    title);
                                             break;
                                         case LongPressDialogLinkItems.copyUrl:
-                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url), getContextAlt());
+                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
+                                                    getContextAlt());
                                             break;
                                         case LongPressDialogLinkItems.copyText:
                                             ClipboardUtil.copyIntoClipboard(title, getContextAlt());
@@ -360,23 +385,48 @@ public class CrunchyWalkView extends XWalkView {
                                 public void onClick(DialogInterface dialog, int which) {
                                     switch(which) {
                                         case LongPressDialogImageItems.openNewTab:
-                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url), title);
+                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
+                                                    title);
                                             break;
                                         case LongPressDialogImageItems.copyUrl:
-                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url), getContextAlt());
+                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
+                                                    getContextAlt());
                                             break;
                                         case LongPressDialogImageItems.saveImage:
                                             try {
-                                                FileUtils.saveBitmapAsImage(
-                                                        BitmapFactory.decodeStream(DownloadUtils
-                                                                .getInputStreamForConnection
-                                                                        (resolveRelativeUrl(url))),
-                                                        Environment
-                                                                .getExternalStorageDirectory()
-                                                                .getAbsolutePath() + "Pictures/",
-                                                        title.replace(" ", "") + "_" +
-                                                                        System.currentTimeMillis()
-                                                );
+                                                final Handler handler = new Handler();
+                                                final Runnable tr = new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getContextAlt(),
+                                                                getContextAlt().getString(
+                                                                        R.string.webrender_image_saved_message
+                                                                ), Toast.LENGTH_LONG).show();
+                                                    }
+                                                };
+                                                Runnable r = new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            FileUtils.saveBitmapAsImage(
+                                                                    BitmapFactory.decodeStream(
+                                                                            DownloadUtils
+                                                                            .getInputStreamForConnection
+                                                                                (resolveRelativeUrlXFriendly(url))),
+                                                                    Environment
+                                                                            .getExternalStorageDirectory()
+                                                                            .getAbsolutePath() + "/Pictures/",
+                                                                    title.replace(" ", "") + "_" +
+                                                                            System.currentTimeMillis()
+                                                                    + ".jpg");
+                                                            handler.post(tr);
+                                                        } catch(Exception ex) {
+                                                            StackTraceParser.logStackTrace(ex);
+                                                        }
+                                                    }
+                                                };
+                                                Thread thread = new Thread(r);
+                                                thread.start();
                                             } catch(Exception ex) {
                                                 StackTraceParser.logStackTrace(ex);
                                             }

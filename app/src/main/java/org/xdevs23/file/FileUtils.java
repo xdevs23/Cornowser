@@ -147,6 +147,7 @@ public class FileUtils {
 
     public static String saveBitmapAsImage(Bitmap bitmapImage, String path, String filename) {
         File directory = new File(path);
+        directory.mkdirs();
         File mypath = new File(directory, filename);
 
         FileOutputStream fos = null;
