@@ -5,8 +5,6 @@
 ##  Gradle start up script for UN*X
 ##
 ##############################################################################
-##  Modified by xdevs23
-##############################################################################
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
@@ -17,11 +15,11 @@ APP_BASE_NAME=`basename "$0"`
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
 
-warn () {
+warn ( ) {
     echo "$*"
 }
 
-die () {
+die ( ) {
     echo
     echo "$*"
     echo
@@ -102,7 +100,7 @@ if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
     fi
 fi
 
-# For Darwin (Mac OS X), add options to specify how the application appears in the dock
+# For Darwin, add options to specify how the application appears in the dock
 if $darwin; then
     GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
 fi
