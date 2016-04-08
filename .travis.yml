@@ -31,4 +31,4 @@ before_install:
     - jdk_switcher use oraclejdk8
     - java -version
 install: bash crosswalk/xwalkinstaller.sh auto --nominify
-script: gradle clean assembleDebug
+script: ./gradlew clean assembleDebug
