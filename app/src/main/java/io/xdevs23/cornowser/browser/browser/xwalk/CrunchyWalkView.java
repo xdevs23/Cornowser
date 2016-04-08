@@ -254,7 +254,9 @@ public class CrunchyWalkView extends XWalkView {
 
     public String resolveRelativeUrl(final String url) {
         String nUrl = url;
-        if(url.startsWith("/"))
+        if (url.startsWith("//"))
+            nUrl = getUrl().substring(0, getUrl().lastIndexOf("://") + 1) + url;
+        else if(url.startsWith("/"))
             nUrl = getUrlDomain() + url;
         else {
             Matcher urlRegExMatcher =
