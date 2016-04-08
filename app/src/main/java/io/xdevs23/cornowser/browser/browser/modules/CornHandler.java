@@ -34,8 +34,6 @@ public class CornHandler {
 
         String internalReq = req.split("://", 2)[1];
 
-        Logging.logd("2 internal req " + internalReq);
-
         internalReq = internalReq.replace("::", dblpntSplitter);
 
         String reqParts[] = internalReq.split(":");
@@ -46,8 +44,6 @@ public class CornHandler {
             reqParts[i] = reqParts[i].replace(dblpntSplitter, "::");
 
         String mainReq = reqParts[0];
-
-        for ( String s : reqParts ) Logging.logd("Part: " + s);
 
         String reqParams[] = new String[reqParts.length - 1];
 
