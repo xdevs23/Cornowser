@@ -416,7 +416,9 @@ public class CrunchyWalkView extends XWalkView {
                                                                     Environment
                                                                             .getExternalStorageDirectory()
                                                                             .getAbsolutePath() + "/Pictures/",
-                                                                    title.replace(" ", "") + "_" +
+                                                                    title.replace(" ",
+                                                                            (title.length() <= 1) ?
+                                                                                    "IMG" : "") + "_" +
                                                                             System.currentTimeMillis()
                                                                     + ".jpg");
                                                             handler.post(tr);
