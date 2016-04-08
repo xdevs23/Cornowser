@@ -2,8 +2,6 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -12,7 +10,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import org.xdevs23.android.content.ClipboardUtil;
 import org.xdevs23.android.content.res.AssetHelper;
@@ -29,7 +26,6 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 
