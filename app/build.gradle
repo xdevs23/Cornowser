@@ -101,9 +101,9 @@ dependencies {
     compile 'org.apache.commons:commons-io:+'
 
     // AppCompat
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:cardview-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
 
     // Fabric.io Crashlytics
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
