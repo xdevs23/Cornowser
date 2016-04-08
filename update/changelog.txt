@@ -1,3 +1,7 @@
- - Fixed updating using root access (at least for most users)
- - Updated Crosswalk version to 19.48.504.0
- - Change icon back to normal
+ - New feature: long-press on links and images!!
+ - Little improvement on tab switcher
+ - Fix small omnibox glitch
+ - Fix status bar color in settings
+ - Update french translation (thanks to Primokorn)
+ - Update Android Support libraries
+ - Other minor changes
