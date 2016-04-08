@@ -54,6 +54,8 @@ public class CrunchyWalkView extends XWalkView {
 
     protected String currentUrl;
 
+    protected boolean isLongPressDialogAv = true;
+
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
@@ -292,6 +294,8 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public void onLongPress(final String url, final String title, final boolean isImage) {
+        if(!isLongPressDialogAv) return;
+        isLongPressDialogAv = false;
         AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity(),
                 R.style.AlertDialogBlueRipple);
         if(!isImage) {
@@ -332,6 +336,12 @@ public class CrunchyWalkView extends XWalkView {
                                     dialog.dismiss();
                                 }
                             })
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            isLongPressDialogAv = true;
+                        }
+                    })
                     .create().show();
         } else {
             final String[] longPressDialogImage = new String[] {
