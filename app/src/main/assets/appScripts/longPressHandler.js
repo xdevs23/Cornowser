@@ -41,7 +41,7 @@ $('a').on('touchend', function(event) {
 /* Handle long-press on images */
 
 onlongtouchimages = function() {
-    console.log("CornHandler://handleLongpressImage"
+    console.log("CornHandler://handleLongpressImage:"
         + currentLinkUrl.replace(":", "::") + ":" + currentImageTitle.replace(":", "::"));
 };
 
