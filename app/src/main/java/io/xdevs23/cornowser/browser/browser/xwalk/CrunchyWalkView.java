@@ -390,6 +390,12 @@ public class CrunchyWalkView extends XWalkView {
                                     dialog.dismiss();
                                 }
                             })
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            isLongPressDialogAv = true;
+                        }
+                    })
                     .create().show();
 
         }
