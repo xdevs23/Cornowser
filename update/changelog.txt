@@ -1,7 +1,4 @@
- - New feature: long-press on links and images!!
- - Little improvement on tab switcher
- - Fix small omnibox glitch
- - Fix status bar color in settings
- - Update french translation (thanks to Primokorn)
- - Update Android Support libraries
- - Other minor changes
+ - Improve AdBlock
+ - Code clean-up and optimization
+ - Update Crosswalk to 19.49.513.0 (new Chromium version)
+    => Higher html5test score :D
