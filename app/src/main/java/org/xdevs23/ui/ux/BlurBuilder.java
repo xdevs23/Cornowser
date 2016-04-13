@@ -44,7 +44,7 @@ public class BlurBuilder { /*
         return outputBitmap;
     } */
 
-    private static Bitmap getScreenshot(View v) {
+    public static Bitmap getScreenshot(View v) {
         Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         v.draw(c);
