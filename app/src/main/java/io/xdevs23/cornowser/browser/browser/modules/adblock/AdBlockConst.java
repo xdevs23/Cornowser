@@ -32,7 +32,9 @@ public final class AdBlockConst {
      */
     public static final String[] PREDEFINED_HOSTS = new String[] {
             // This blocks many ad hosts like doubleclick, mediafarm and more
-            "302br.net"
+            "302br.net",
+            ".ads.doubleclick.net",
+            ".ad.doubleclick.net"
     };
 
     public static final boolean

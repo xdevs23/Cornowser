@@ -141,10 +141,10 @@ public class AdBlockManager {
         if(!CornBrowser.getBrowserStorage().isAdBlockEnabled())             return false;
         if(!areHostsLoaded)                                                 return false;
         if(hosts == null || hosts.length <= 1)                              return false;
-        if(AdBlockParser.isHostListed(url, AdBlockConst.WHITELISTED_HOSTS)) return false;
-        if(AdBlockParser.isHostListed(url, AdBlockConst. PREDEFINED_HOSTS)) return true ;
         try {
-            return AdBlockParser.isHostListed(url, hosts);
+            return !AdBlockParser.isHostListed(url, AdBlockConst.WHITELISTED_HOSTS) &&
+                    (AdBlockParser.isHostListed(url, AdBlockConst.PREDEFINED_HOSTS) ||
+                            AdBlockParser.isHostListed(url, hosts));
         } catch(Exception ex) {
             Logging.logd("AdBlock: Exception thrown while checking");
             StackTraceParser.logStackTrace(ex);
