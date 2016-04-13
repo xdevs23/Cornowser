@@ -28,7 +28,6 @@ import org.xdevs23.ui.view.listview.XDListView;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
 
-import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
@@ -314,141 +313,144 @@ public class CrunchyWalkView extends XWalkView {
                         ;
     }
 
+    public void onLongPressImage(final String url, final String title, AlertDialog.Builder b) {
+        final String[] longPressDialogImage = new String[] {
+                getContextAlt().getString(R.string.webrender_longpress_dialog_open_newtab),
+                getContextAlt().getString(R.string.webrender_longpress_dialog_copy_url),
+                getContextAlt().getString(R.string.webrender_longpress_dialog_save_image)/*,
+                getContextAlt().getString(R.string.webrender_longpress_dialog_share_image)*/
+        };
+        b
+                .setTitle(String.format(
+                        getContextAlt().getString
+                                (R.string.webrender_longpress_dialog_image_dblpnt),
+                        title
+                ))
+                .setAdapter(XDListView.createLittle(getContextAlt(), longPressDialogImage),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch(which) {
+                                    case LongPressDialogImageItems.openNewTab:
+                                        CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
+                                                title);
+                                        break;
+                                    case LongPressDialogImageItems.copyUrl:
+                                        ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
+                                                getContextAlt());
+                                        break;
+                                    case LongPressDialogImageItems.saveImage:
+                                        try {
+                                            final Handler handler = new Handler();
+                                            final Runnable tr = new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(getContextAlt(),
+                                                            getContextAlt().getString(
+                                                                    R.string.webrender_image_saved_message
+                                                            ), Toast.LENGTH_LONG).show();
+                                                }
+                                            };
+                                            Runnable r = new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try {
+                                                        FileUtils.saveBitmapAsImage(
+                                                                BitmapFactory.decodeStream(
+                                                                        DownloadUtils
+                                                                                .getInputStreamForConnection
+                                                                                        (resolveRelativeUrlXFriendly(url))),
+                                                                Environment
+                                                                        .getExternalStorageDirectory()
+                                                                        .getAbsolutePath() + "/Pictures/",
+                                                                title.replace(" ",
+                                                                        (title.length() <= 1) ?
+                                                                                "IMG" : "") + "_" +
+                                                                        System.currentTimeMillis()
+                                                                        + ".jpg");
+                                                        handler.post(tr);
+                                                    } catch(Exception ex) {
+                                                        StackTraceParser.logStackTrace(ex);
+                                                    }
+                                                }
+                                            };
+                                            Thread thread = new Thread(r);
+                                            thread.start();
+                                        } catch(Exception ex) {
+                                            StackTraceParser.logStackTrace(ex);
+                                        }
+                                        break;
+                                    case LongPressDialogImageItems.shareImage:
+                                        break;
+                                    default: break;
+                                }
+                                dialog.dismiss();
+                            }
+                        })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        isLongPressDialogAv = true;
+                    }
+                })
+                .create().show();
+    }
+
+    public void onLongPressLink(final String url, final String title, AlertDialog.Builder b) {
+        final String[] longPressDialogText = new String[] {
+                getContextAlt().getString(R.string.webrender_longpress_dialog_open_newtab),
+                getContextAlt().getString(R.string.webrender_longpress_dialog_copy_url),
+                getContextAlt().getString(R.string.webrender_longpress_dialog_copy_text),
+                getContextAlt().getString(R.string.webrender_longpress_dialog_share_link)
+        };
+        b
+                .setTitle(
+                        String.format(getContextAlt().getString(
+                                        R.string.webrender_longpress_dialog_link_dblpnt
+                                ), title))
+                .setAdapter(XDListView.createLittle(getContextAlt(), longPressDialogText),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch(which) {
+                                    case LongPressDialogLinkItems.openNewTab:
+                                        CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
+                                                title);
+                                        break;
+                                    case LongPressDialogLinkItems.copyUrl:
+                                        ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
+                                                getContextAlt());
+                                        break;
+                                    case LongPressDialogLinkItems.copyText:
+                                        ClipboardUtil.copyIntoClipboard(title, getContextAlt());
+                                        break;
+                                    case LongPressDialogLinkItems.shareLink:
+                                        ShareUtil.shareText(
+                                                getContextAlt().getString(
+                                                        R.string.webrender_longpress_dialog_share_link),
+                                                resolveRelativeUrl(url), CornBrowser.getActivity());
+                                        break;
+                                    default: break;
+                                }
+                                dialog.dismiss();
+                            }
+                        })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        isLongPressDialogAv = true;
+                    }
+                })
+                .create().show();
+    }
+
     public void onLongPress(final String url, final String title, final boolean isImage) {
         if(!isLongPressDialogAv) return;
         isLongPressDialogAv = false;
         AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity(),
                 R.style.AlertDialogBlueRipple);
-        if(!isImage) {
-            final String[] longPressDialogText = new String[] {
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_open_newtab),
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_copy_url),
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_copy_text),
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_share_link)
-            };
-            b
-                    .setTitle(
-                            String.format(getContextAlt().getString
-                                    (
-                                            R.string.webrender_longpress_dialog_link_dblpnt
-                            ), title))
-                    .setAdapter(XDListView.createLittle(getContextAlt(), longPressDialogText),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch(which) {
-                                        case LongPressDialogLinkItems.openNewTab:
-                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
-                                                    title);
-                                            break;
-                                        case LongPressDialogLinkItems.copyUrl:
-                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
-                                                    getContextAlt());
-                                            break;
-                                        case LongPressDialogLinkItems.copyText:
-                                            ClipboardUtil.copyIntoClipboard(title, getContextAlt());
-                                            break;
-                                        case LongPressDialogLinkItems.shareLink:
-                                            ShareUtil.shareText(
-                                                    getContextAlt().getString(
-                                                            R.string.webrender_longpress_dialog_share_link),
-                                                    resolveRelativeUrl(url), CornBrowser.getActivity());
-                                            break;
-                                        default: break;
-                                    }
-                                    dialog.dismiss();
-                                }
-                            })
-                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            isLongPressDialogAv = true;
-                        }
-                    })
-                    .create().show();
-        } else {
-            final String[] longPressDialogImage = new String[] {
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_open_newtab),
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_copy_url),
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_save_image)/*,
-                    getContextAlt().getString(R.string.webrender_longpress_dialog_share_image)*/
-            };
-            b
-                    .setTitle(String.format(
-                            getContextAlt().getString
-                                    (R.string.webrender_longpress_dialog_image_dblpnt),
-                            title
-                    ))
-                    .setAdapter(XDListView.createLittle(getContextAlt(), longPressDialogImage),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch(which) {
-                                        case LongPressDialogImageItems.openNewTab:
-                                            CornBrowser.getTabSwitcher().addTab(resolveRelativeUrl(url),
-                                                    title);
-                                            break;
-                                        case LongPressDialogImageItems.copyUrl:
-                                            ClipboardUtil.copyIntoClipboard(resolveRelativeUrl(url),
-                                                    getContextAlt());
-                                            break;
-                                        case LongPressDialogImageItems.saveImage:
-                                            try {
-                                                final Handler handler = new Handler();
-                                                final Runnable tr = new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(getContextAlt(),
-                                                                getContextAlt().getString(
-                                                                        R.string.webrender_image_saved_message
-                                                                ), Toast.LENGTH_LONG).show();
-                                                    }
-                                                };
-                                                Runnable r = new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        try {
-                                                            FileUtils.saveBitmapAsImage(
-                                                                    BitmapFactory.decodeStream(
-                                                                            DownloadUtils
-                                                                            .getInputStreamForConnection
-                                                                                (resolveRelativeUrlXFriendly(url))),
-                                                                    Environment
-                                                                            .getExternalStorageDirectory()
-                                                                            .getAbsolutePath() + "/Pictures/",
-                                                                    title.replace(" ",
-                                                                            (title.length() <= 1) ?
-                                                                                    "IMG" : "") + "_" +
-                                                                            System.currentTimeMillis()
-                                                                    + ".jpg");
-                                                            handler.post(tr);
-                                                        } catch(Exception ex) {
-                                                            StackTraceParser.logStackTrace(ex);
-                                                        }
-                                                    }
-                                                };
-                                                Thread thread = new Thread(r);
-                                                thread.start();
-                                            } catch(Exception ex) {
-                                                StackTraceParser.logStackTrace(ex);
-                                            }
-                                            break;
-                                        case LongPressDialogImageItems.shareImage:
-                                            break;
-                                        default: break;
-                                    }
-                                    dialog.dismiss();
-                                }
-                            })
-                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            isLongPressDialogAv = true;
-                        }
-                    })
-                    .create().show();
-
-        }
+        if(isImage) onLongPressImage(url, title, b);
+        else        onLongPressLink (url, title, b);
     }
 
     @Override
@@ -470,24 +472,6 @@ public class CrunchyWalkView extends XWalkView {
 
     public Context getContextAlt() {
         return CornBrowser.getContext();
-    }
-
-    /**
-     * Get the private bridge
-     * @return Bridge
-     */
-    protected Object getBridge() {
-        Object bridge;
-        try {
-            Field field = getClass().getSuperclass().getDeclaredField("bridge");
-            field.setAccessible(true);
-            bridge = field.get(this);
-            field.setAccessible(false);
-        } catch(Exception ex) {
-            StackTraceParser.logStackTrace(ex);
-            bridge = null;
-        }
-        return bridge;
     }
 
 }

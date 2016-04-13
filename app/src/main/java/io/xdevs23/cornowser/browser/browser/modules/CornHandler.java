@@ -11,6 +11,8 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class CornHandler {
 
+    public static final String dblpntSplitter = "_|[[??!_!??]]|_";
+
     public static class HandlerStorage {
         public static String
                 currentTemplateContent = "";
@@ -23,8 +25,6 @@ public class CornHandler {
         handleLongpressLink,
         handleLongpressImage
     }
-
-    public static final String dblpntSplitter = "_|[[??!_!??]]|_";
 
     public static void handleRequest(String req, Activity activity,
                                      CrunchyWalkView view, String url,
