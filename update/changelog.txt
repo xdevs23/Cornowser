@@ -1,4 +1,8 @@
- - Improve AdBlock
- - Code clean-up and optimization
- - Update Crosswalk to 19.49.513.0 (new Chromium version)
-    => Higher html5test score :D
+ - Update Crosswalk to 20.49.515.0 (Chromium 50!!)
+    => Added pull to refresh directly into the web view
+    => Show download completed notification
+    => Faster
+    => Better security
+    => Better stability
+    => Better experience
+ - Other minor changes
