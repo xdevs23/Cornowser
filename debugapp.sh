@@ -11,7 +11,7 @@ if [ "$1" == "--adbArgs" ]; then
 fi
 
 if [ -z "$1" ]; then source buildDebugApp.sh --noX
-elif [ COMPILEAPP ]; then source buildDebugApp.sh --noX; fi
+elif [ COMPILEAPP == true ]; then source buildDebugApp.sh --noX; fi
 
 if [ "$1" == "-l" ]; then
   adb logcat -v tag -s Cornowser:*
