@@ -1,8 +1,1 @@
- - Update Crosswalk to 20.49.515.0 (Chromium 50!!)
-    => Added pull to refresh directly into the web view
-    => Show download completed notification
-    => Faster
-    => Better security
-    => Better stability
-    => Better experience
- - Other minor changes
+ - Fix press back to exit
