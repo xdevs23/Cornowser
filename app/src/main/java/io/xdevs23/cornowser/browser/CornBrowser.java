@@ -898,19 +898,23 @@ public class CornBrowser extends XquidCompatActivity {
     @Override
     protected void onDestroy() {
         Logging.logd("Destroying activity");
-        super.onDestroy();
-        if (publicWebRender != null) {
-            Logging.logd("Saving state and destroying webviews...");
-            String[] sessionArray = new String[getTabSwitcher().getTabStorage().getTabCount()];
-            Logging.logd("Session urls:" + sessionArray.length);
-            for (int i = 0; i < getTabSwitcher().getTabStorage().getTabCount(); i++) {
-                Logging.logd("Shutting down tab " + i);
-                if(getBrowserStorage().isLastSessionEnabled())
-                    sessionArray[i] = getTabSwitcher().getTabStorage().getTab(i).getUrl();
-                getTabSwitcher().getTabStorage().getTab(i).getWebView().onDestroy();
+        try {
+            if (publicWebRender != null) {
+                Logging.logd("Saving state and destroying webviews...");
+                String[] sessionArray = new String[getTabSwitcher().getTabStorage().getTabCount()];
+                Logging.logd("Session urls:" + sessionArray.length);
+                for (int i = 0; i < getTabSwitcher().getTabStorage().getTabCount(); i++) {
+                    Logging.logd("Shutting down tab " + i);
+                    if (getBrowserStorage().isLastSessionEnabled())
+                        sessionArray[i] = getTabSwitcher().getTabStorage().getTab(i).getUrl();
+                    getTabSwitcher().getTabStorage().getTab(i).getWebView().onDestroy();
+                }
+                getBrowserStorage().saveLastBrowsingSession(sessionArray);
             }
-            getBrowserStorage().saveLastBrowsingSession(sessionArray);
+        } catch(Exception ex) {
+            Logging.logd("Oops, seems that the tabs failed to save, skipping it though.");
         }
+        super.onDestroy();
     }
 
     @Override
@@ -954,7 +958,6 @@ public class CornBrowser extends XquidCompatActivity {
         if(omnibox != null && browserInputBar != null) {
             browserInputBar.clearFocus();
             applyInsideOmniText();
-            return;
         }
         Logging.logd("Back pressed, web render cannot go back. Exiting application.");
         if(publicWebRender != null && (!publicWebRender.goBack())) endApplication();
