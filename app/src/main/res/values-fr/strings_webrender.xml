@@ -9,5 +9,17 @@
 \n
         \nVoulez-vous continuer à charger cette page web ?
     </string>
+    
+    
+    <string name="webrender_longpress_dialog_open_newtab">Ouvrir dans un nouvel onglet</string>
+    <string name="webrender_longpress_dialog_share_link">Partager le lien</string>
+    <string name="webrender_longpress_dialog_share_image">Partager l\'image</string>
+    <string name="webrender_longpress_dialog_copy_url">Copier URL</string>
+    <string name="webrender_longpress_dialog_copy_text">Copier le texte du lien</string>
+    <string name="webrender_longpress_dialog_save_image">Enregistrer l\'image</string>
+    <string name="webrender_longpress_dialog_link_dblpnt">Lien : %s</string>
+    <string name="webrender_longpress_dialog_image_dblpnt">Image : %s</string>
+
+    <string name="webrender_image_saved_message">Image enregistrée</string>
 
 </resources>
