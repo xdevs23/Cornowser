@@ -21,7 +21,7 @@ Google Chrome Dev for Android achieves **525** points.
 According to these results **this browser is ready for HTML5**.
 
 ### Chrome Dev score:
-<img src="http://xdevs23.bplaced.com/upload/img/Chromedev_htscore.png" width="240" />
+<img src="http://xdevs23.bplaced.com/upload/img/ChromeDev_htscore_2_52.png" width="240" />
 
 ### Cornowser score:
 <img src="http://dl-1.va.us.xda-developers.com/3/7/3/5/1/7/7/scr-1077-bhtm5t.png?key=s4-wyskvI8HX32y1yipQlA&ts=1462011158" width="240" />
