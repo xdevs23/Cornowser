@@ -38,7 +38,7 @@ public class CornResourceClient extends XWalkResourceClient {
 
     public static Pattern urlRegEx = Pattern.compile(
             "(" +
-                    "(^(https|http|ftp|rtmp)://[^ ]*[.][^ ]*)|" +   // Protocols for addresses
+                    "^(https|http|ftp|rtmp)://[^ ]*|" +             // Protocols for addresses
                     "^(file:///).*|" +                              // Local files
                     "^(CornHandler://).*|" +                        // Handler
                     "^(javascript:).*" +                            // Javascript

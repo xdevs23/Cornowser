@@ -143,6 +143,9 @@ public class CrunchyWalkView extends XWalkView {
 
             nUrl = String.format(nUrl, URLEncode.encode(url));
         }
+        // Check for this error and automatically fix it if present
+        nUrl = ( nUrl.startsWith("http://http//") || nUrl.startsWith("http://https//") )
+            ? nUrl.replace("http//", "").replace("https//", "") : nUrl;
         super.load(nUrl, content);
     }
 
