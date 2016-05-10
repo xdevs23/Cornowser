@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_category_browsing_title">Przeglądanie</string>
+
+    <string name="settings_browsing_homepage_title">Strona startowa</string>
+    <string name="settings_browsing_homepage_summary">Ustaw stronę startową</string>
+
+    <string name="settings_browsing_searchengine_title">Wyszukiwarka</string>
+    <string name="settings_browsing_searchengine_summary">Ustaw wyszukiwarkę</string>
+
+    <string name="settings_browsing_adblock_title">AdBlock</string>
+    <string name="settings_browsing_adblock_summary">Ustawienia blokowania reklam</string>
+
+    <string name="settings_browsing_lsession_title">Przywrócić ostatnią sesję</string>
+    <string name="settings_browsing_lsession_summary">Otwórz wszystkie karty z poprzednio zamkniętej sesji</string>
+
+
+    <string name="settings_category_layout_title">Układ</string>
+
+    <string name="settings_layout_omni_pos_title">Pozycja Omniboxa</string>
+    <string name="settings_layout_omni_pos_sumary">Ustaw położenie paska adresu</string>
+
+    <string name="settings_layout_fullscreen_title">Pełny ekran</string>
+    <string name="settings_layout_fullscreen_summary">Włącz pełny ekran</string>
+
+
+    <string name="settings_category_appearance_title">Wygląd</string>
+
+    <string name="settings_appearance_webcolmode_title">Tryb koloru</string>
+    <string name="settings_appearance_webcolmode_summary">Ustaw tryb koloru</string>
+
+    <string name="settings_appearance_omnicoloring_title">Kolor Omniboxa</string>
+    <string name="settings_appearance_omnicoloring_summary">Ustaw czy kolor Omniboxa ma być współdzielony z paskiem stanu czy nie</string>
+
+
+    <string name="settings_category_misc_title">Różne</string>
+
+    <string name="settings_misc_clean_data_title">Wyczyść dane</string>
+    <string name="settings_misc_clean_data_summary">Użyj tego aby usunąć dane podręczne oraz inne</string>
+
+    <string name="settings_misc_debug_title">Tryb debugowania</string>
+    <string name="settings_misc_debug_summary">Włącz tę funkcję, aby pomóc programiście w naprawianiu błędów</string>
+
+    <string name="settings_misc_optout_clytics_title">Wyłącz raporty błędów</string>
+    <string name="settings_misc_optout_clytics_summary">Wyłącz automatyczne raporty o błędach
+        (Wymagane ponowne uruchomienie)</string>
+
+    <string name="settings_list_licenses_title">Licencje Open Source</string>
+    <string name="settings_list_licenses_summary">Przydatne biblioteki używane przez Cornowser</string>
+
+    <string name="settings_list_credits_tl_title">Tłumaczenia</string>
+    <string name="settings_list_credits_tl_summary">Podziękowania dla tłumaczy</string>
+
+    <string name="settings_list_credits_spc_title">Specjalne podziękowania</string>
+    <string name="settings_list_credits_spc_summary">Dziękujemy bardzo dla tych osób</string>
+
+
+    <!-- AdBlock section -->
+
+    <string name="adblock_enable_title">Włącz AdBlock</string>
+    <string name="adblock_disable_title">Wyłącz AdBlock</string>
+    <string name="adblock_enable_summary">Włącz, aby blokować reklamy</string>
+
+    <string name="adblock_download_hosts_title">Pobierz pliki host</string>
+    <string name="adblock_download_hosts_summary">
+        Pobierz ostatnie pliki host. 
+        Pliki pobierane są automatycznie przy każdym uruchomieniu kiedy AdBlock jest włączony.
+    </string>
+
+    <string name="adblock_hosts_downloading">Pobieranie i przetwarzanie plików host...</string>
+
+    <string name="adblock_netbehavior_title">Aktualizuj tylko przez WiFi</string>
+    <string name="adblock_netbehavior_summary">Zaoszczędź transfer danych aktualizując pliki host tylko gdy WiFi jest włączone</string>
+
+    <string name="adblock_wait_for_init_title">Czekaj na AdBlocka</string>
+    <string name="adblock_wait_for_init_summary">Czekaj na AdBlocka aż się zaktualizuje przy starcie, zanim wczyta stronę.</string>
+
+    <string name="adblock_whitelist_title">Biała lista</string>
+    <string name="adblock_whitelist_summary">Zarządzaj stronami na białej liście.</string>
+
+    <string name="adblock_waiting_for">Czekanie na AdBlocka...</string>
+
+    <!-- Clean data settings page -->
+
+    <string name="cleandata_clean_cache_title">Wyczyść dane podręczne</string>
+    <string name="cleandata_clean_cache_summary">Wyczyść dane podręczne stron internetowych</string>
+
+    <string name="cleandata_clean_cookies_title">Wyczyść ciasteczka</string>
+    <string name="cleandata_clean_cookies_summary">Usuń ciasteczka przechowywane przez strony internetowe</string>
+
+    <string name="cleandata_clean_all_nad_title">Wyczyść wszystko</string>
+    <string name="cleandata_clean_all_nad_summary">Wyczyść wszystkie dane stron internetowych oprócz ustawień aplikacji</string>
+
+    <string name="cleandata_clean_force_all_title">Usuń wszystko</string>
+    <string name="cleandata_clean_force_all_summary">Usuń wszystkie dane, uwzględniając ustawienia aplikacji jak i dane stron internetowych</string>
+
+    <string name="cleandata_clean_force_all_warn">
+        Zostaną usunięte wszystkie dane, uwzględniając dane podręczne, ciasteczka, ustawienia, hasła oraz dane autouzupełnienia!
+\n
+        \nJesteś pewien, że chcesz kontynuować?
+    </string>
+
+</resources>
