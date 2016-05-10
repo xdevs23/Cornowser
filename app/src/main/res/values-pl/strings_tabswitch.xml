@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tabswitch_blue_longpress_to_remove">Przytrzymaj, aby skasować kartę</string>
+
+    <string name="tabswitch_no_removable_tabs">Niekasowalne karty</string>
+
+</resources>
