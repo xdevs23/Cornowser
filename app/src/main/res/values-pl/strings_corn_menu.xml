@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="cornmenu_item_updater">Aktualizacja</string>
+    <string name="cornmenu_item_settings">Opcje</string>
+    <string name="cornmenu_item_addhomesc">Dodaj skrót do ekranu</string>
+    <string name="cornmenu_item_addtoadwl">Dodaj domenę do białej listy AdBlock</string>
+    <string name="cornmenu_item_rmfrmadwl">Usuń domenę z białej listy AdBlock</string>
+
+</resources>
