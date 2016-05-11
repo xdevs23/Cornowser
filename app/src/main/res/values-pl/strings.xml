@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Don't translate strings with 'translatable="false"' -->
+    <string name="app_name" translatable="false">Cornowser</string>
+    <string name="app_bg_name">Cornowser (Tło)</string>
+
+    <!-- General stuff -->
+
+    <string name="answer_cancel">Anuluj</string>
+    <string name="answer_ok">OK</string>
+
+    <string name="instr_next">Następny</string>
+    <string name="instr_next_go">Następny</string>
+    <string name="instr_prev">Poprzedni</string>
+    <string name="instr_forward">Kolejny</string>
+    <string name="instr_backward">Do tyłu</string>
+
+    <string name="instr_new">Nowy</string>
+
+    <string name="instr_goto">Idź do</string>
+
+    <string name="instr_opts">Opcje</string>
+
+    <string name="instr_add">Dodaj</string>
+    <string name="instr_remove">Usuń</string>
+    <string name="instr_edit">Edytuj</string>
+
+    <string name="instr_move">Przenieś</string>
+    <string name="instr_copy">Kopiuj</string>
+    <string name="instr_rename">Zmień nazwę</string>
+
+    <string name="instr_download">Pobierz</string>
+    <string name="instr_upload">Wyślij</string>
+
+    <string name="instr_progress">Postęp</string>
+    <string name="instr_s_percent">Procent</string>
+    <string name="instr_finished">Skończono</string>
+    <string name="instr_started">Zaczęto</string>
+    <string name="instr_start">Start</string>
+    <string name="instr_stopped">Zatrzymano</string>
+    <string name="instr_stop">Stop</string>
+    <string name="instr_pause">Pauza</string>
+    <string name="instr_paused">Wstrzymano</string>
+    <string name="instr_continue">Kontynuuj</string>
+
+    <string name="general_behavior">Zachowanie</string>
+    <string name="general_misc">Różne</string>
+    <string name="general_layout">Układ</string>
+    <string name="general_appearance">Wygląd</string>
+    <string name="general_theme">Motyw</string>
+    <string name="general_initializing">Inicjowanie...</string>
+    <string name="general_initialize">Inicjowanie</string>
+
+    <!-- Options menu -->
+    <string name="optmenu_share">Podziel się</string>
+
+    <!-- Permissions -->
+    <string name="permission_hint_write_storage">Aby pobrać plik, potrzebna jest zgoda na zapis w pamięci. Proszę zaakceptować.</string>
+
+</resources>
