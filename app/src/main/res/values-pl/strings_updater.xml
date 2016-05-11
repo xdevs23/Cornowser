@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- General -->
+    <string name="answer_yes">Tak</string>
+    <string name="answer_no">Nie</string>
+
+    <!-- Root -->
+    <string name="rootutils_root_detect_title">
+        Wykryto Roota
+    </string>
+    <string name="rootutils_root_detect_message">
+        Wykryliśmy, że Twoje urządzenie jest zrootowane.\n
+        Chcesz pozwolić tej aplikacji na uzyskanie uprawnień roota?
+        Jeśli pozwolisz, aplikacja będzie się aktualizowała szybciej i prościej.\n
+        Wybór opcjonalny. 
+    </string>
+    <string name="rootutils_root_access_failed_title">
+        Nie wykryto Roota
+    </string>
+    <string name="rootutils_root_access_failed">
+        Aplikacja nie może uzyskać uprawnień roota.\n
+        Upewnij się czy Twoje urządzenie jest poprawnie zrootowane oraz czy pozwolileś tej aplikacji na uprawiania roota.
+    </string>
+
+    <!-- Updater -->
+    <string name="updater_downloading">
+        Pobieranie
+    </string>
+    <string name="updater_loading">
+        Ładowanie
+    </string>
+    <string name="updater_updating">
+        Rozpoczynanie aktualizacji
+    </string>
+    <string name="updater_root_install_error">
+        Wystąpił błąd podczas automatycznej aktualizacji. \n
+        Rozpoczęcie ręcznej instalacji.
+    </string>
+    <string name="updater_button_update_now">
+        Aktualizacja
+    </string>
+    <string name="updater_awaiting_loading"><![CDATA[Loading...]]></string>
+    <string name="updater_prefix_actual_version">
+        Aktualna wersja: %s
+    </string>
+    <string name="updater_prefix_latest_version">
+        Ostatnia wersja: %s
+    </string>
+    <string name="updater_msg_latest_installed">
+        Posiadasz najnowszą wersję.
+    </string>
+    <string name="updater_msg_new_version">
+        Dostępna aktualizacja.\nTyp wersji: %s
+    </string>
+    <string name="updater_prefix_changelog_for">
+        Lista zmian dla %s
+    </string>
+    <string name="updater_mask_changelog_inner" formatted="false">
+        Wersja %s, wydana %s/%s/%s\n\n%s
+    </string>
+
+    <string name="update_available_title">
+        Dostępna aktualizacja
+    </string>
+    <string name="update_available_message">
+        Wersja %s jest już dostępna!\n
+        Chcesz teraz zaktualizować?
+    </string>
+
+    <string name="updater_title">
+        Aktualizator
+    </string>
+
+    <string name="root_enable_root_access">
+        Dostęp roota
+    </string>
+
+    <string name="root_toast_info_lollihigh">
+        Używasz Lollipopa lub nowszego. Procedura instalacji może nie działać prawidłowo.
+        Proszę nie używać dostępu roota jeśli doświadczasz jakichkolwiek błędów lub problemów.
+    </string>
+
+</resources>
