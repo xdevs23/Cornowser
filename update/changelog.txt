@@ -1,1 +1,4 @@
- - Fix press back to exit
+ - Fix some url resolving derps
+ - Update AppCompat
+ - Update french translation (thanks to Primokorn)
+ - Add polish translation (thanks to DanielPedyna)
