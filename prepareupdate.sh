@@ -2,6 +2,10 @@
 
 APPRELPATH="app/build/outputs/apk/app-release.apk"
 APPVER="$1-$2$3"
+APPVER1="$1"
+APPVER2="$2"
+APPVER3="$3"
+APPVER4="$4"
 
 if [ -z $1 ]; then echo "Usage: $0 vername vercode vertype"
 else
@@ -11,7 +15,7 @@ else
   # the update. This is useful if you plan to use
   # another server for the update files, which is
   # recommended now.
-  if [ -z "$CB_USE_CUSTOM_PPUPD" ]; then
+  if [ ! -z "$CB_USE_CUSTOM_PPUPD" ]; then
     source $CB_USE_CUSTOM_PPUPD
   else
     cp "$APPRELPATH" "update/Cornowser.apk"

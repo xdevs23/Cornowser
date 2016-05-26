@@ -1,1 +1,1 @@
-https://bitbucket.org/xdevs23/cbupdate/raw/Cornowser.apk
+https://raw.githubusercontent.com/xdevs23/android_packages_apps_CornowserPrebuilts/master/Cornowser.apk
