@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.updater;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,8 +39,6 @@ public class UpdateActivity extends XquidCompatActivity {
 
     public static ProgressView updateBar;
     public static TextView     updateStatus;
-	
-	private static String appversion;
 
     private static Context staticContext = null;
 	
@@ -50,8 +47,6 @@ public class UpdateActivity extends XquidCompatActivity {
 	private static String
             updateRoot = AppConfig.updateRoot,
 	        updaterDir = updateRoot,
-
-            readyToInstallUrl = "",
 
             updatedApk,
 
@@ -73,13 +68,15 @@ public class UpdateActivity extends XquidCompatActivity {
     private boolean mgo = false;
     private Context myContext = this;
 
+    private static boolean readyToInstall = false;
+
     private static void setStaticContext(Context context) {
         staticContext = context;
     }
 
-    public static void startUpdateImmediately(Activity activity, String url) {
+    public static void startUpdateImmediately(Activity activity) {
         activity.startActivity(new Intent(activity.getApplicationContext(), UpdateActivity.class));
-        readyToInstallUrl = url;
+        readyToInstall = true;
     }
 
     protected static void logt(String msg) {
@@ -132,8 +129,6 @@ public class UpdateActivity extends XquidCompatActivity {
 	
 		staticContext.startActivity(installSpIntent);
 	}
-
-
 
 	public static void startOverallInstallation(String url) {
 		File spexfile = new File(updatedApk);
@@ -202,7 +197,7 @@ public class UpdateActivity extends XquidCompatActivity {
         assert updateBar != null;
         updateBar.setVisibility(View.VISIBLE);
 
-        appversion = ConfigUtils.getVersionName(getApplicationContext());
+        String appversion = ConfigUtils.getVersionName(getApplicationContext());
 
         updateStatus = (TextView) findViewById(R.id.updateStatus);
     }
@@ -243,20 +238,23 @@ public class UpdateActivity extends XquidCompatActivity {
 
         if(latestVersionCode <= getPackageManager().getPackageInfo(getPackageName(), 0)
                 .versionCode) updateType = UpdateType.NONE;
+
+        UpdaterStorage.URL_APK = DownloadUtils.downloadString(UpdaterStorage.URL_LINK_UPDSERVER);
     }
 
     protected void initDwnStringsToViews() {
-        newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
+        String newVersionTvText = String.format(getString(R.string.updater_prefix_latest_version),
                 latestVersionName
-        ) + "\n" + getString(R.string.updater_msg_latest_installed));
+        ) + "\n" + getString(R.string.updater_msg_latest_installed);
 
         if(updateType != UpdateType.NONE) {
             updaterButton.setVisibility(View.VISIBLE);
-            newVersionTv.setText(String.format(getString(R.string.updater_prefix_latest_version),
+            newVersionTvText = String.format(getString(R.string.updater_prefix_latest_version),
                     latestVersionName
             ) + "\n" + String.format(getString(R.string.updater_msg_new_version),
-                    updateType.name().toLowerCase()));
+                    updateType.name().toLowerCase());
         }
+        newVersionTv.setText(newVersionTvText);
     }
 
     protected void initDwnStringsToViewsSec() {
@@ -281,7 +279,6 @@ public class UpdateActivity extends XquidCompatActivity {
         );
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     protected void init() {
         if(!webloaded) {
             initVars();
@@ -319,7 +316,7 @@ public class UpdateActivity extends XquidCompatActivity {
             });
 
             webloaded = true;
-            if(readyToInstallUrl.length() > 0) startOverallInstallation(readyToInstallUrl);
+            if(readyToInstall) startOverallInstallation(UpdaterStorage.URL_APK);
         }
     }
 
