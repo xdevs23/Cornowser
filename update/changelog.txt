@@ -1,4 +1,2 @@
- - Fix some url resolving derps
- - Update AppCompat
- - Update french translation (thanks to Primokorn)
- - Add polish translation (thanks to DanielPedyna)
+ - Use another update server (not gonna bloat github anymore)
+ - Improve Updater a little bit
