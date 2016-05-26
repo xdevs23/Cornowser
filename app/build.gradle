@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId "io.xdevs23.cornowser.browser"
-        minSdkVersion 152630
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 2016052630      // Use YYYYMMDDNN, year month day rev,
                                     // rev: 0X-2X,9X release, 3X-5X beta, 6X-7X alpha, 8X nightly
