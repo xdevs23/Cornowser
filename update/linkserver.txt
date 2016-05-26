@@ -1,1 +1,1 @@
-https://raw.githubusercontent.com/xdevs23/android_packages_apps_CornowserPrebuilts/master/Cornowser.apk
+https://raw.githubusercontent.com/xdevs23/android_packages_apps_CornowserPrebuilts/mainstream/Cornowser.apk
