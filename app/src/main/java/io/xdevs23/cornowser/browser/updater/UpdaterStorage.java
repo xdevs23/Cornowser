@@ -6,7 +6,7 @@ public class UpdaterStorage {
             URL_RAW_GITHUB_USERCONTENT      = "https://raw.githubusercontent.com",
             URL_RAW_GIT_REPO                = URL_RAW_GITHUB_USERCONTENT + "/xdevs23/Cornowser/master",
 
-            URL_LINK_UPDSERVER              = URL_RAW_GIT_REPO + "update/linkserver.txt",
+            URL_LINK_UPDSERVER              = URL_RAW_GIT_REPO + "/update/linkserver.txt",
 
             URL_VERSION_CODE                = URL_RAW_GIT_REPO + "/update/rel.txt",
             URL_VERSION_NAME                = URL_RAW_GIT_REPO + "/update/version.txt",
