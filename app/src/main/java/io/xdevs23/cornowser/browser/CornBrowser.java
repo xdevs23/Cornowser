@@ -1036,7 +1036,7 @@ public class CornBrowser extends XquidCompatActivity {
                     .setMessage(String.format(getContext().getString(R.string.update_available_message), newVersionAv))
                     .setPositiveButton(getContext().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            UpdateActivity.startUpdateImmediately(staticActivity, UpdaterStorage.URL_APK);
+                            UpdateActivity.startUpdateImmediately(staticActivity);
                         }
                     })
                     .setNegativeButton(getContext().getString(R.string.answer_no), new DialogInterface.OnClickListener() {
