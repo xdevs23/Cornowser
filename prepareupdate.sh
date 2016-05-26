@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APPRELPATH="app/build/outputs/apk/app-release.apk"
+APPVER="$1-$2$3"
 
 if [ -z $1 ]; then echo "Usage: $0 vername vercode vertype"
 else
@@ -11,7 +12,7 @@ else
   # another server for the update files, which is
   # recommended now.
   if [ -z "$CB_USE_CUSTOM_PPUPD" ]; then
-    bash $CB_USE_CUSTOM_PPUPD
+    source $CB_USE_CUSTOM_PPUPD
   else
     cp "$APPRELPATH" "update/Cornowser.apk"
     cp "$APPRELPATH" "versions/Cornowser-$1-$2$3.apk"
@@ -21,4 +22,7 @@ else
   echo -en $2>update/rel.txt
 
   nano update/changelog.txt
+  git add -A
+  git commit -m "update: $APPVER"
+  git push
 fi
