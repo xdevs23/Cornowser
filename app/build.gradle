@@ -113,7 +113,7 @@ dependencies {
 
     // Apache Crosswalk (Canary)
     // See https://goo.gl/xRSxNW for instructions or use the installer script in crosswalk/xwalkinstaller.sh
-    compile 'org.xwalk:xwalk_core_library_canary:20.49.515.0'
+    compile 'org.xwalk:xwalk_core_library_canary:20.50.533.0'
 
     // Material library
     compile 'com.github.rey5137:material:1.2.2.1-SNAPSHOT'
