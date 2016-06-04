@@ -27,6 +27,8 @@ import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.internal.XWalkAPI;
+import org.xwalk.core.internal.XWalkClient;
 
 import java.util.regex.Matcher;
 
@@ -43,7 +45,7 @@ public class CrunchyWalkView extends XWalkView {
 
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/51.0.2675.1 Mobile Safari/537.36";
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/53.0.2758.0 Mobile Safari/537.36";
 
     public int currentProgress = 0;
 
