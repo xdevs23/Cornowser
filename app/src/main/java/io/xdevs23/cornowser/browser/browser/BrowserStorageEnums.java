@@ -7,7 +7,8 @@ public final class BrowserStorageEnums {
         DuckDuckGo,
         Yahoo,
         Bing,
-        Ecosia
+        Ecosia,
+        Custom
     }
 
 }

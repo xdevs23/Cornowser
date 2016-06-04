@@ -16,7 +16,8 @@ public class BrowserStorage {
     //region Variable storage
 
     private String
-                userHomePage
+                userHomePage,
+                customSearchEngine
             ;
 
     private String[]
@@ -73,6 +74,7 @@ public class BrowserStorage {
         setWaitForAdBlock(getPref(BPrefKeys.adBlockWaitForPref, false));
         setAdBlockWhitelist(SharedPreferenceArray.getStringArray(
                 getPref(BPrefKeys.adBlockWhitelstPref, "")));
+        setCustomSearchEngine(getPref(BPrefKeys.customSearchEngPref, ""));
     }
 
     //endregion
@@ -95,15 +97,36 @@ public class BrowserStorage {
 
     //endregion
 
+    //region Custom search engine
+
+    public void setCustomSearchEngine(String engurl) {
+        this.customSearchEngine = engurl;
+    }
+
+    public void saveCustomSearchEngine(String engurl) {
+        setCustomSearchEngine(engurl);
+        setPref(BPrefKeys.customSearchEngPref, engurl);
+    }
+
+    public String getCustomSearchEngine() {
+        return customSearchEngine;
+    }
+
+    //endregion
+
     // region Search engine
 
     public void setSearchEngine(BrowserStorageEnums.SearchEngine searchEngine) {
         this.searchEngine = searchEngine;
+        if(searchEngine != BrowserStorageEnums.SearchEngine.Custom)
+            setCustomSearchEngine("");
     }
 
     public void saveSearchEngine(BrowserStorageEnums.SearchEngine searchEngine) {
         setSearchEngine(searchEngine);
         setPref(BPrefKeys.searchEngPref, searchEngine.name());
+        if(searchEngine != BrowserStorageEnums.SearchEngine.Custom)
+            saveCustomSearchEngine("");
     }
 
     public void saveSearchEngine(String engine) {
@@ -466,7 +489,8 @@ public class BrowserStorage {
                 crashltcOptOutPref  = "pref_crashlytics_optout",
                 adBlockNetBehavPref = "pref_adblock_net_behavior",
                 adBlockWaitForPref  = "pref_adblock_wait_for_init",
-                adBlockWhitelstPref = "pref_adblock_whitelist"
+                adBlockWhitelstPref = "pref_adblock_whitelist",
+                customSearchEngPref = "pref_custom_search_engine"
                         ;
     }
 

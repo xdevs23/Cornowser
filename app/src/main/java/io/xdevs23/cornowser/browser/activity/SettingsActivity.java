@@ -18,6 +18,7 @@ import org.xdevs23.ui.widget.EasyListView4;
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.activity.settings.AdBlockSettings;
+import io.xdevs23.cornowser.browser.browser.BrowserStorageEnums;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
@@ -103,9 +104,33 @@ public class SettingsActivity extends XquidCompatActivity {
             searchEnginePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if( ((String)newValue).equals(getString(R.string.general_custom)) ) {
+                        final EditTextDialog edialog = new EditTextDialog(
+                                getpContext(),
+                                activity,
+                                getString(R.string.settings_browsing_searchengine_title),
+                                CornBrowser.getBrowserStorage().getCustomSearchEngine(),
+                                getString(R.string.settings_browsing_searchengine_custom_desc)
+                        );
+                        edialog.setOnClickListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CornBrowser.getBrowserStorage().saveSearchEngine(
+                                        BrowserStorageEnums.SearchEngine.Custom
+                                );
+                                CornBrowser.getBrowserStorage().saveCustomSearchEngine(
+                                        edialog.getEnteredText()
+                                );
+                                searchEnginePref.setValue(
+                                        CornBrowser.getBrowserStorage().getSearchEngine().name());
+                                dialog.dismiss();
+                            }
+                        }).showDialog();
+                        return true;
+                    }
                     CornBrowser.getBrowserStorage().saveSearchEngine((String)newValue);
                     searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
-                    return false;
+                    return true;
                 }
             });
         }

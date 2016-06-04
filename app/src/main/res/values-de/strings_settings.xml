@@ -9,6 +9,12 @@
     <string name="settings_browsing_searchengine_title">Suchmaschine</string>
     <string name="settings_browsing_searchengine_summary">Lege deine bevorzugte Suchmaschine fest</string>
 
+    <string name="settings_browsing_searchengine_custom_desc" formatted="false">
+        Gebe hier deine benutzerdefinierte Suchmaschinen-URL ein.
+        Benutze %s dort, wo die Suchanfrage platziert werden soll.
+        Beispiel: http://www.example.com/search?q=%s&amp;abc=1
+    </string>
+
     <string name="settings_browsing_adblock_title">AdBlock</string>
     <string name="settings_browsing_adblock_summary">Öffne die Einstellungen für den Werbeblocker</string>
 

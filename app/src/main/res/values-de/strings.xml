@@ -42,6 +42,8 @@
     <string name="general_initializing">Initialisiere...</string>
     <string name="general_initialize">Initialisieren</string>
 
+    <string name="general_custom">Benutzerdefiniert</string>
+
     <!-- Options menu -->
     <string name="optmenu_share">Teilen</string>
 

@@ -53,6 +53,8 @@
     <string name="general_initializing">Initializing...</string>
     <string name="general_initialize">Initialize</string>
 
+    <string name="general_custom">Custom</string>
+
     <!-- Options menu -->
     <string name="optmenu_share">Share</string>
 

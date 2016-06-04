@@ -30,12 +30,13 @@
     </string-array>
 
     <!-- Search engine -->
-    <string-array name="settings_browsing_searchengine_entries" translatable="false">
+    <string-array name="settings_browsing_searchengine_entries">
         <item>Google</item>
         <item>DuckDuckGo</item>
         <item>Yahoo</item>
         <item>Bing</item>
         <item>Ecosia</item>
+        <item>@string/general_custom</item>
     </string-array>
 
 </resources>

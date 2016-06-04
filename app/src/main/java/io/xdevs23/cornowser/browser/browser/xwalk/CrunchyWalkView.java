@@ -138,6 +138,11 @@ public class CrunchyWalkView extends XWalkView {
                 case Ecosia:
                     nUrl = "https://ecosia.org/search?q=%s";
                     break;
+                case Custom:
+                    nUrl = CornBrowser.getBrowserStorage().getCustomSearchEngine();
+                    if(!(nUrl.startsWith("http://") || nUrl.startsWith("https://")))
+                        nUrl = "http://" + nUrl;
+                    break;
                 default: break;
             }
 

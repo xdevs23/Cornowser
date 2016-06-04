@@ -9,6 +9,12 @@
     <string name="settings_browsing_searchengine_title">Search engine</string>
     <string name="settings_browsing_searchengine_summary">Set your preferred search engine</string>
 
+    <string name="settings_browsing_searchengine_custom_desc" formatted="false">
+        Enter here your custom searche engine URL.
+        Use %s where the search query should be placed.
+        Example: http://www.example.com/search?q=%s&amp;abc=1
+    </string>
+
     <string name="settings_browsing_adblock_title">AdBlock</string>
     <string name="settings_browsing_adblock_summary">Access the settings for the ad blocker</string>
 
