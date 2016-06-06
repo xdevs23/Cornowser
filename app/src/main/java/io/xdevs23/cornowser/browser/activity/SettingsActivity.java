@@ -15,6 +15,9 @@ import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.widget.EasyListView4;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.activity.settings.AdBlockSettings;
@@ -25,7 +28,6 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 public class SettingsActivity extends XquidCompatActivity {
 
     protected static XquidCompatActivity thisActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +52,47 @@ public class SettingsActivity extends XquidCompatActivity {
     }
 
 
-    public static class SettingsPreferenceFragment extends PreferenceFragment {
+    public static class SettingsPreferenceFragment extends PreferenceFragment implements
+                                                        Preference.OnPreferenceChangeListener,
+                                                        Preference.OnPreferenceClickListener {
 
         private Context pContext;
         private XquidCompatActivity activity;
+
+        private static final String
+                KEY_USERHOMEPAGE            =   "settings_userhomepage",
+                KEY_SEARCH_ENGINE           =   "settings_search_engine",
+                KEY_GO_ADBLOCK              =   "settings_go_adblock",
+                KEY_LAST_SESSION            =   "settings_last_session",
+                KEY_OMNIBOX_POSITION        =   "settings_omnibox_pos",
+                KEY_FULLSCREEN              =   "settings_fullscreen",
+                KEY_WEB_COLORMODE           =   "settings_web_colormode",
+                KEY_OMNIBOX_COLORING        =   "settings_omni_coloring",
+                KEY_DIALOG_LICENSES         =   "settings_licenses",
+                KEY_DIALOG_TRANSLATIONS     =   "settings_credits_translation",
+                KEY_DIALOG_CREDITS_SPECIAL  =   "settings_credits_special",
+                KEY_DEBUG_MODE              =   "settings_debug_mode",
+                KEY_OPTOUT_CLYTICS          =   "settings_optout_clytics"
+                        ;
+
+        Preference
+                homePagePref,
+                adblockPref
+                        ;
+
+        SwitchPreference
+                lastSessionPref,
+                fullscreenPref,
+                omniColoringPref,
+                debugModePref,
+                optoutClyticsPref
+                        ;
+
+        ListPreference
+                searchEnginePref,
+                omniboxPosPref,
+                colorModePref
+                        ;
 
         public SettingsPreferenceFragment setContext(Context context, XquidCompatActivity activity) {
             this.pContext = context;
@@ -65,15 +104,89 @@ public class SettingsActivity extends XquidCompatActivity {
             return this.pContext;
         }
 
-        /* Init stuff */
+        private void initializePreferences(Preference... prefs) {
+            for ( Preference pref : prefs ) {
+                if ( pref instanceof SwitchPreference ||
+                        pref instanceof ListPreference) {
+                    pref.setOnPreferenceChangeListener(this);
+                } else {
+                    pref.setOnPreferenceClickListener(this);
+                }
+            }
+        }
 
-        // region Prefs: Browsing
+        public void initAboutDialogs() {
+            // License dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_licenses"),
+                    R.array.app_license_list,
+                    thisActivity);
 
-        public void initHomePagePref() {
-            Preference homePagePref = findPreference("settings_userhomepage");
-            homePagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
+            // Translation credits dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_translation"),
+                    R.array.credits_translation_list,
+                    thisActivity
+            );
+
+            // Special thanks dialog
+            EasyListView4.showDialogUsingPreference(
+                    findPreference("settings_credits_special"),
+                    R.array.credits_special_list,
+                    thisActivity
+            );
+        }
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.settings_preferences);
+
+            homePagePref    = findPreference(KEY_USERHOMEPAGE);
+            adblockPref     = findPreference(KEY_GO_ADBLOCK);
+
+            lastSessionPref     = (SwitchPreference) findPreference(KEY_LAST_SESSION);
+            fullscreenPref      = (SwitchPreference) findPreference(KEY_FULLSCREEN);
+            omniColoringPref    = (SwitchPreference) findPreference(KEY_OMNIBOX_COLORING);
+            debugModePref       = (SwitchPreference) findPreference(KEY_DEBUG_MODE);
+            optoutClyticsPref   = (SwitchPreference) findPreference(KEY_OPTOUT_CLYTICS);
+
+            searchEnginePref    = (ListPreference)   findPreference(KEY_SEARCH_ENGINE);
+            omniboxPosPref      = (ListPreference)   findPreference(KEY_OMNIBOX_POSITION);
+            colorModePref       = (ListPreference)   findPreference(KEY_WEB_COLORMODE);
+
+            initializePreferences(
+                    homePagePref, adblockPref,
+
+                    lastSessionPref, fullscreenPref, omniColoringPref,
+                    debugModePref, optoutClyticsPref,
+
+                    searchEnginePref, omniboxPosPref, colorModePref
+            );
+
+            initAboutDialogs();
+
+            updatePrefs();
+        }
+
+        private void updatePrefs() {
+            optoutClyticsPref   .setChecked(CornBrowser.getBrowserStorage().isCrashlyticsOptedOut());
+            debugModePref       .setChecked(CornBrowser.getBrowserStorage().getDebugMode());
+            omniColoringPref    .setChecked(CornBrowser.getBrowserStorage().getOmniColoringEnabled());
+            fullscreenPref      .setChecked(CornBrowser.getBrowserStorage().getIsFullscreenEnabled());
+            lastSessionPref     .setChecked(CornBrowser.getBrowserStorage().isLastSessionEnabled());
+            colorModePref       .setValueIndex(CornBrowser.getBrowserStorage().getColorMode().mode);
+            omniboxPosPref      .setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
+            searchEnginePref    .setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            String key = preference.getKey();
+            switch(key) {
+
+                case KEY_USERHOMEPAGE:
                     EditTextDialog dialog = new EditTextDialog(
                             getpContext(),
                             activity,
@@ -90,21 +203,10 @@ public class SettingsActivity extends XquidCompatActivity {
                             dialog.dismiss();
                         }
                     }).showDialog();
-                    return false;
-                }
-            });
-        }
+                    break;
 
-        public void initSearchEnginePref() {
-            final ListPreference searchEnginePref =
-                    (ListPreference) findPreference("settings_search_engine");
-
-            searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
-
-            searchEnginePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if( ((String)newValue).equals(getString(R.string.general_custom)) ) {
+                case KEY_SEARCH_ENGINE:
+                    if( newValue.equals(getString(R.string.general_custom)) ) {
                         final EditTextDialog edialog = new EditTextDialog(
                                 getpContext(),
                                 activity,
@@ -130,203 +232,61 @@ public class SettingsActivity extends XquidCompatActivity {
                     }
                     CornBrowser.getBrowserStorage().saveSearchEngine((String)newValue);
                     searchEnginePref.setValue(CornBrowser.getBrowserStorage().getSearchEngine().name());
-                    return true;
-                }
-            });
-        }
+                    break;
 
-        public void initAdBlockPref() {
-            Preference pref = findPreference("settings_go_adblock");
-            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
+                case KEY_GO_ADBLOCK:
                     startActivity(new Intent(pContext, AdBlockSettings.class));
-                    return false;
-                }
-            });
-        }
+                    break;
 
-        public void initSaveSessionPref() {
-            final SwitchPreference pref = (SwitchPreference) findPreference("settings_last_session");
-            pref.setChecked(CornBrowser.getBrowserStorage().isLastSessionEnabled());
-            pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveEnableSaveSession((boolean) newValue);
-                    pref.setChecked((boolean) newValue);
-                    return false;
-                }
-            });
-        }
+                case KEY_OMNIBOX_COLORING:
+                    CornBrowser.getBrowserStorage().saveOmniColoring((boolean)newValue);
+                    break;
 
-        // endregion
+                case KEY_OPTOUT_CLYTICS:
+                    CornBrowser.getBrowserStorage().saveCrashlyticsOptedOut((boolean)newValue);
+                    optoutClyticsPref.setChecked((boolean)newValue);
+                    break;
 
-        // region Prefs: Layout
+                case KEY_DEBUG_MODE:
+                    CornBrowser.getBrowserStorage().saveDebugMode((boolean)newValue);
+                    debugModePref.setChecked((boolean)newValue);
+                    break;
 
-        public void initOmniboxPosPref() {
-            // Omnibox position
-
-            final ListPreference omniPosPref =
-                    (ListPreference) findPreference("settings_omnibox_pos");
-
-            omniPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
-
-            omniPosPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveOmniboxPosition( Integer.parseInt((String)newValue) != 0 );
-                    omniPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
-                    return false;
-                }
-            });
-        }
-
-        public void initFullscreenPref() {
-            // Fullscreen
-
-            final SwitchPreference fullscreenPref =
-                    (SwitchPreference) findPreference("settings_fullscreen");
-
-            fullscreenPref.setChecked(CornBrowser.getBrowserStorage().getIsFullscreenEnabled());
-
-            fullscreenPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveEnableFullscreen((boolean)newValue);
-                    fullscreenPref.setChecked((boolean)newValue);
-                    return false;
-                }
-            });
-        }
-
-        // endregion
-
-        // region Prefs: Appearance
-
-        public void initColorModePref() {
-            // Color mode
-
-            final ListPreference colorModePref =
-                    (ListPreference) findPreference("settings_web_colormode");
-
-            colorModePref.setValueIndex(CornBrowser.getBrowserStorage().getColorMode().mode);
-
-            colorModePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                case KEY_WEB_COLORMODE:
                     CornBrowser.getBrowserStorage()
                             .saveColorMode(RenderColorMode
                                     .toColorMode(Integer.parseInt((String)newValue)));
                     colorModePref.setValueIndex(Integer.parseInt((String)newValue));
-                    return false;
-                }
-            });
+                    break;
+
+                case KEY_OMNIBOX_POSITION:
+                    CornBrowser.getBrowserStorage().saveOmniboxPosition( Integer.parseInt((String)newValue) != 0 );
+                    omniboxPosPref.setValueIndex(OmniboxAnimations.getOmniboxPositionInt());
+                    break;
+
+                case KEY_FULLSCREEN:
+                    CornBrowser.getBrowserStorage().saveEnableFullscreen((boolean)newValue);
+                    fullscreenPref.setChecked((boolean)newValue);
+                    break;
+
+                case KEY_LAST_SESSION:
+                    CornBrowser.getBrowserStorage().saveEnableSaveSession((boolean) newValue);
+                    lastSessionPref.setChecked((boolean) newValue);
+                    break;
+
+                default: break;
+            }
+            if(preference instanceof SwitchPreference)
+                ((SwitchPreference)preference).setChecked((boolean)newValue);
+            else if(preference instanceof ListPreference)
+                ((ListPreference)preference).setValue((String)newValue);
+            return true;
         }
-
-        /**
-         * Omnibox coloring
-         */
-        public void initOmniColoringPref() {
-
-            final SwitchPreference omniColorPref =
-                    (SwitchPreference) findPreference("settings_omni_coloring");
-
-            omniColorPref.setChecked(CornBrowser.getBrowserStorage().getOmniColoringEnabled());
-
-            omniColorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveOmniColoring((boolean)newValue);
-                    omniColorPref.setChecked((boolean)newValue);
-                    return false;
-                }
-            });
-        }
-
-        // endregion
-
-        // region Prefs: Misc
-
-        public void initAboutDialogs() {
-            // License dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_licenses"),
-                    R.array.app_license_list,
-                    thisActivity);
-
-            // Translation credits dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_credits_translation"),
-                    R.array.credits_translation_list,
-                    thisActivity
-            );
-
-            // Special thanks dialog
-            EasyListView4.showDialogUsingPreference(
-                    findPreference("settings_credits_special"),
-                    R.array.credits_special_list,
-                    thisActivity
-            );
-        }
-
-        public void initDebugModePref() {
-            final SwitchPreference debugModePref =
-                    (SwitchPreference) findPreference("settings_debug_mode");
-
-            debugModePref.setChecked(CornBrowser.getBrowserStorage().getDebugMode());
-
-            debugModePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveDebugMode((boolean)newValue);
-                    debugModePref.setChecked((boolean)newValue);
-                    return false;
-                }
-            });
-        }
-
-        public void initClyticsOptOutPref() {
-            final SwitchPreference pref =
-                    (SwitchPreference) findPreference("settings_optout_clytics");
-
-            pref.setChecked(CornBrowser.getBrowserStorage().isCrashlyticsOptedOut());
-
-            pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    CornBrowser.getBrowserStorage().saveCrashlyticsOptedOut((boolean)newValue);
-                    pref.setChecked((boolean)newValue);
-                    return false;
-                }
-            });
-        }
-
-        // endregion
 
         @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.settings_preferences);
-
-            // Browsing
-            initHomePagePref();
-            initSearchEnginePref();
-            initAdBlockPref();
-            initSaveSessionPref();
-
-            // Layout
-            initOmniboxPosPref();
-            initFullscreenPref();
-
-            // Appearance
-            initColorModePref();
-            initOmniColoringPref();
-
-            // Misc
-            initDebugModePref();
-            initClyticsOptOutPref();
-            initAboutDialogs();
+        public boolean onPreferenceClick(Preference preference) {
+            onPreferenceChange(preference, null);
+            return true;
         }
     }
 
