@@ -7,7 +7,7 @@ APPVER2="$2"
 APPVER3="$3"
 APPVER4="$4"
 
-if [ -z $1 ]; then echo "Usage: $0 vername vercode vertype"
+if [ -z $1 ]; then echo "Usage: source prepareupdate.sh vername vercode vertype"
 else
   if [ ! "$4" == "--updateOnly" ]; then source make.sh; fi
   # If CB_USE_CUSTOM_PPUPD is set, use a custom script
