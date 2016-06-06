@@ -3,8 +3,8 @@
  * Copyright (C) 2015-2016 Simao Gomes Viana
  *
  * Thanks a lot to my helpful team mate @Thunderbottom
- * Thanks a lot also to all translators and other contributors, as well as
- * the supporters and users of Cornowser.
+ * Thanks a lot to all translators and other contributors, as well as
+ * the supporters and users of Cornowser, too.
  * Thanks a lot to the authors and developers of the dependencies needed by
  * this application.
  * Thanks a lot to everyone who help us!

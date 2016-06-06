@@ -1,4 +1,3 @@
-
 var css = "body { -webkit-filter: none; }";
 
 var head = document.getElementsByTagName("head")[0];
@@ -12,5 +11,5 @@ if (style.styleSheet) {
     style.appendChild(document.createTextNode(css));
 }
 
-//injecting the css to the head
+// injecting the css to the head
 head.appendChild(style);

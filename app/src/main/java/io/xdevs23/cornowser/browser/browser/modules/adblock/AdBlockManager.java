@@ -49,7 +49,7 @@ public class AdBlockManager {
             if(CornBrowser.getBrowserStorage().getAdBlockNetBehavior()
                     || NetUtils.isWifiConnected(CornBrowser.getContext()))
                 downloadHostsAsync();
-            else Logging.logd("Not updating hosts, wifi is activated.");
+            else Logging.logd("Not updating hosts, wifi is not activated.");
         } catch(Exception ex) {
             StackTraceParser.logStackTrace(ex);
         }

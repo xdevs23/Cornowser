@@ -4,8 +4,7 @@ public class StringManipulation {
 
     public static String arrayToString(String[] array) {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < array.length; i++)
-            sb.append(array[i]).append("\n");
+        for (String anArray : array) sb.append(anArray).append("\n");
         return sb.toString();
     }
 
@@ -17,4 +16,5 @@ public class StringManipulation {
         else pu = uwp;
         return pu;
     }
+    
 }

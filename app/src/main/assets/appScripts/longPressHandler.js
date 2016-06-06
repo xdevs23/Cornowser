@@ -39,7 +39,7 @@ $("a").on("touchstart", function(event) {
 });
 
 $("a").on("touchend", function() {
-    // prevents short touches from firing the event
+    // Prevents short touches from firing the event
     if (timerforlinks)
         clearTimeout(timerforlinks);
 });
@@ -60,7 +60,7 @@ $("img").on("touchstart", function(event) {
 });
 
 $("img").on("touchend", function() {
-    // prevents short touches from firing the event
+    // Prevents short touches from firing the event
     if (timerforlinks)
         clearTimeout(timerforlinks);
 });

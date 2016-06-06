@@ -69,8 +69,7 @@ public class EasyListView4 extends XquidRelativeLayout {
         row3 = new String[wal];
         row4 = new String[wal];
 
-        int index = 0;
-        for ( int i = 0; i < wholeArray.length; i += 4 ) {
+        for ( int index, i = index = 0; i < wholeArray.length; i += 4, index++ ) {
             row1[index]     = wholeArray[i];
             row2[index]     = wholeArray[i+1];
             row3[index]     = wholeArray[i+2];

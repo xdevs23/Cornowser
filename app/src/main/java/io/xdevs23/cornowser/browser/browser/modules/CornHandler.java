@@ -38,8 +38,6 @@ public class CornHandler {
 
         String reqParts[] = internalReq.split(":");
 
-        internalReq = internalReq.replace(dblpntSplitter, "::");
-
         for( int i = 0; i < reqParts.length; i++)
             reqParts[i] = reqParts[i].replace(dblpntSplitter, "::");
 
@@ -96,11 +94,6 @@ public class CornHandler {
 
     public static void sendRawJSRequest(CrunchyWalkView view, String req) {
         view.evaluateJavascript(req, null);
-    }
-
-    @Deprecated
-    public static void evalJSAlt(CrunchyWalkView view, String req) {
-        view.load("javascript:" + req);
     }
 
 }

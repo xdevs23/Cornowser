@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,8 +19,9 @@ public class BgLoadActivity extends XquidCompatActivity {
             CornBrowser.isBgBoot = true;
             startActivity((new Intent(getApplicationContext(), CornBrowser.class))
                     .putExtra(bgLoadKey, getIntent().getDataString()));
-            finish();
         } catch(Exception ex) {
+            /* */
+        } finally {
             finish();
         }
     }

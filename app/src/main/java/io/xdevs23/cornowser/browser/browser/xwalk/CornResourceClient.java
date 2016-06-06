@@ -116,7 +116,6 @@ public class CornResourceClient extends XWalkResourceClient {
         Logging.logd("Web load finished " + url + " " + view.getUrl());
         super.onLoadFinished(view, url);
         CornBrowser.applyInsideOmniText();
-        currentWorkingUrl = view.getUrl();
         CornBrowser.publicWebRender.drawWithColorMode();
     }
 

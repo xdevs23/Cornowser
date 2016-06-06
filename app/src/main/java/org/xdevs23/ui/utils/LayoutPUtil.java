@@ -43,7 +43,6 @@ public class LayoutPUtil {
     public static int getWidth(ViewGroup.LayoutParams params) {
         return params.width;
     }
-
     public static int getHeight(ViewGroup.LayoutParams params) {
         return params.height;
     }

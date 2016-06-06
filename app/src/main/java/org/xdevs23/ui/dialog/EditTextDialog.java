@@ -134,11 +134,9 @@ public class EditTextDialog extends ExtendedAndroidClass {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         mEditText.clearFocus();
-                        InputMethodManager imm =
-                                (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-                        if(imm.isActive()) imm.toggleSoftInputFromWindow(mEditText.getWindowToken(),
-                                InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                        InputMethodManager imm = (InputMethodManager) getContext()
+                                .getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
                     }
                 })
                 .setView(dialogContent).create().show();

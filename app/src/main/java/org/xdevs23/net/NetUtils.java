@@ -18,8 +18,7 @@ public final class NetUtils {
     public static boolean isInternetAvailable() {
         try {
             HttpURLConnection urlc = (HttpURLConnection)
-                    (new URL("http://clients3.google.com/generate_204")
-                            .openConnection());
+                    (new URL("http://clients3.google.com/generate_204").openConnection());
             urlc.setRequestProperty("User-Agent", "Android");
             urlc.setRequestProperty("Connection", "close");
             urlc.setConnectTimeout(2400);

@@ -9,8 +9,7 @@ public class RenderColorMode {
                 DARK        = 1,
                 NEGATIVE    = 2,
                 INVERT      = 3,
-                GREYSCALE   = 4
-                        ;
+                GREYSCALE   = 4;
 
         public int mode = NORMAL;
 

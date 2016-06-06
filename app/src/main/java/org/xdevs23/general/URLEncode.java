@@ -4,11 +4,11 @@ import java.net.URLEncoder;
 
 public class URLEncode {
 
-    public static String encode(String s) {
+    public static String encode(String stringToEncode) {
         try {
-            return URLEncoder.encode(s, "utf-8");
+            return URLEncoder.encode(stringToEncode, "utf-8");
         } catch(Exception ex) {
-            return s;
+            return stringToEncode;
         }
     }
 

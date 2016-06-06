@@ -24,21 +24,6 @@ public class WebThemeHelper {
     public static boolean isDark;
     private static int currentColor = 0;
 
-    private enum AllowedWordColors {
-        black,
-        white,
-        red,
-        green,
-        blue,
-        cyan,
-        magenta,
-        yellow,
-        teal,
-        bluegrey,
-        bluegray
-    }
-
-
     private static int rCol(@ColorRes int colRes) {
         return ColorUtil.getColor(colRes);
     }
@@ -46,29 +31,26 @@ public class WebThemeHelper {
     public static void setWebThemeColor(String color, RelativeLayout omnibox, Window window) {
         if(!CornBrowser.getBrowserStorage().getOmniColoringEnabled()) return;
         if(!color.contains("#")) {
-            boolean isMatched = false;
-            for ( AllowedWordColors c : AllowedWordColors.values() )
-                if(color.equalsIgnoreCase(c.name().toLowerCase()))
-                    isMatched = true;
-            if(isMatched) {
-                int col = 0;
-                switch(AllowedWordColors.valueOf(color)) {
-                    case black:     col = Color.BLACK;              break;
-                    case white:     col = Color.WHITE;              break;
-                    case red:       col = rCol(R.color.red_700);    break;
-                    case green:     col = rCol(R.color.green_700);  break;
-                    case blue:      col = rCol(R.color.blue_700);   break;
-                    case cyan:      col = rCol(R.color.cyan_700);   break;
-                    case magenta:   col = rCol(R.color.pink_600);   break;
-                    case yellow:    col = rCol(R.color.yellow_800); break;
-                    case bluegray:
-                    case bluegrey:  col = rCol(R.color.blue_grey_700);  break;
-                    case teal:      col = rCol(R.color.teal_700);       break;
-                    default: break;
-                }
-                if(col != 0) setWebThemeColor(col, omnibox, window);
-                else resetWebThemeColorAlt(omnibox, window);
+            int col = 0;
+            switch(color.toLowerCase()) {
+                case "black":       col = Color.BLACK;                  break;
+                case "white":       col = Color.WHITE;                  break;
+                case "red":         col = rCol(R.color.red_700);        break;
+                case "green":       col = rCol(R.color.green_700);      break;
+                case "blue":        col = rCol(R.color.blue_700);       break;
+                case "cyan":        col = rCol(R.color.cyan_700);       break;
+                case "magenta":     col = rCol(R.color.pink_600);       break;
+                case "yellow":      col = rCol(R.color.yellow_800);     break;
+                case "purple":      col = rCol(R.color.purple_600);     break;
+                case "bluegray":
+                case "bluegrey":    col = rCol(R.color.blue_grey_700);  break;
+                case "teal":        col = rCol(R.color.teal_700);       break;
+                case "gray":
+                case "grey":        col = rCol(R.color.grey_600);       break;
+                default: break;
             }
+            if(col != 0) setWebThemeColor(col, omnibox, window);
+            else resetWebThemeColorAlt(omnibox, window);
             return;
         }
         setWebThemeColor(Color.parseColor(color), omnibox, window);

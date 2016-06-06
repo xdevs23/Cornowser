@@ -24,4 +24,5 @@ public class DrawableUtil {
         drawabler.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
         return drawabler;
     }
+
 }

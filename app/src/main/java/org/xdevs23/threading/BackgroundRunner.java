@@ -24,7 +24,7 @@ public class BackgroundRunner {
                 }
             }
         };
-        Thread thread = new Thread(wrap, "XD_" + BackgroundRunner.class.getSimpleName());
+        Thread thread = new Thread(wrap, "xd" + BackgroundRunner.class.getSimpleName());
         thread.start();
     }
 

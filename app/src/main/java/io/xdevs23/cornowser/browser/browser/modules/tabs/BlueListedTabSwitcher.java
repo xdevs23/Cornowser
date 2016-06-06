@@ -191,7 +191,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         tabsLayout = getNewChildLayout(1, 1, 1, 2);
 
-        footerLayout.setGravity(Gravity.RIGHT | Gravity.TOP);
+        footerLayout.setGravity(Gravity.END | Gravity.TOP);
 
         final int minWh  = DpUtil.dp2px(getContext(), 24);  // Dimensions of button (wxh)
         final int bpd    = DpUtil.dp2px(getContext(), 4);   // Button inner padding
@@ -379,12 +379,12 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
                     @Override
                     public void onAnimationCancel(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
 
                     @Override
                     public void onAnimationRepeat(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
                 })
                 .start();
@@ -413,7 +413,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
 
                     @Override
@@ -430,7 +430,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
                     @Override
                     public void onAnimationRepeat(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
                 }).start();
 

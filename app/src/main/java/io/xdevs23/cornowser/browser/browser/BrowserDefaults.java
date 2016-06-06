@@ -4,7 +4,6 @@ public final class BrowserDefaults {
 
     public static final String
             HOME_URL = "http://google.com"
-
             ;
 
 }

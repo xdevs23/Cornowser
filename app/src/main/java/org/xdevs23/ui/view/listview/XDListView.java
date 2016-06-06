@@ -11,15 +11,11 @@ import io.xdevs23.cornowser.browser.R;
 public class XDListView {
 	
 	public static ArrayAdapter<String> create(Context context, String[] content) {
-		int resource = R.layout.listview_activity;
-		
-		return new ArrayAdapter<String>(context, resource, content);
+		return new ArrayAdapter<String>(context, R.layout.listview_activity, content);
 	}
 
     public static ArrayAdapter<String> createLittle(Context context, String[] content) {
-        int resource = R.layout.listview_little;
-
-        return new ArrayAdapter<String>(context, resource, content);
+        return new ArrayAdapter<String>(context, R.layout.listview_little, content);
     }
 	
 }

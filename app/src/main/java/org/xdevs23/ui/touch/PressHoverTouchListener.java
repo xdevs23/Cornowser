@@ -55,7 +55,6 @@ public class PressHoverTouchListener implements View.OnTouchListener {
     public void setUpColor(int color) {
         this.upColor = color;
     }
-
     public void setDownColor(int color) {
         this.downColor = color;
     }

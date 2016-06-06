@@ -62,6 +62,4 @@ public class HashUtils {
         return hash(text, hashType, "utf-8", "");
     }
 
-
-
 }

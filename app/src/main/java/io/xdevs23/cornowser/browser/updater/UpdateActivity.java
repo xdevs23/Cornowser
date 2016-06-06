@@ -40,6 +40,13 @@ public class UpdateActivity extends XquidCompatActivity {
     public static ProgressView updateBar;
     public static TextView     updateStatus;
 
+    private static final String
+            mainAppActivity = ".CornBrowser",
+            updaterActivity = ".updater.UpdateActivity"
+                    ;
+
+    private static String packageName;
+
     private static Context staticContext = null;
 	
 	private static boolean enableRoot = false;
@@ -60,7 +67,6 @@ public class UpdateActivity extends XquidCompatActivity {
     private static com.rey.material.widget.Button updaterButton;
 
     private static UpdateType updateType;
-
 
     private boolean webloaded = false;
 
@@ -111,7 +117,6 @@ public class UpdateActivity extends XquidCompatActivity {
         NONE
     }
 
-
     private static void startNRUpdateInstallation() {
 		File newUpdate   = new File(updatedApk);
 		
@@ -158,8 +163,8 @@ public class UpdateActivity extends XquidCompatActivity {
             Logging.logd("Update path is " + updatedApk);
 			if(enableRoot) endR = RootController.runCommand(
                             "su -c \"pm install -r " + updatedApk + "\" && " +
-                            "su -c \"am start -n io.xdevs23.cornowser.browser/.CornBrowser\" && " +
-                            "su -c \"am start -n io.xdevs23.cornowser.browser/.updater.UpdateActivity\" && exit");
+                            "su -c \"am start -n " + packageName + "/" + mainAppActivity + "\" && " +
+                            "su -c \"am start -n " + packageName + "/" + updaterActivity + "\" && exit");
 			else startNRUpdateInstallation();
 
             if(endR.length() > 0 && endR.toLowerCase().contains("failed")) {
@@ -190,6 +195,8 @@ public class UpdateActivity extends XquidCompatActivity {
 	}
 
     protected void initVars() {
+        packageName = getApplicationContext().getPackageName();
+
         updatedApk = (Environment.getExternalStorageDirectory() + "/Cornowser/CBUpdate.apk")
                 .replace("//", "/");
 
@@ -262,7 +269,6 @@ public class UpdateActivity extends XquidCompatActivity {
                 latestVersionName));
 
         changelogTv.setText(
-
                 String.format(
 
                         getString(R.string.updater_mask_changelog_inner),
@@ -275,7 +281,6 @@ public class UpdateActivity extends XquidCompatActivity {
                         DownloadUtils.downloadString(UpdaterStorage.URL_CHANGELOG)
 
                 )
-
         );
     }
 
@@ -299,11 +304,8 @@ public class UpdateActivity extends XquidCompatActivity {
             });
 
             try {
-
                 downloadStrings();
-
                 initDwnStringsToViews();
-
             } catch(PackageManager.NameNotFoundException e) {/* */}
 
             initDwnStringsToViewsSec();

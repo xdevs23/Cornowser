@@ -3,7 +3,6 @@ package org.xdevs23.ui.dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
 
 import org.xdevs23.ui.dialog.templates.DismissDialogButton;
 
@@ -18,11 +17,8 @@ public class MessageDialog {
 		alertDialogBuilder
                 .setTitle   (title  )
 				.setMessage (message)
-				.setPositiveButton(context.getString(R.string.answer_ok), onClickListener);
-		
-		AppCompatDialog alertDialog = alertDialogBuilder.create();
-		
-		alertDialog.show();
+				.setPositiveButton(context.getString(R.string.answer_ok), onClickListener)
+                .create().show();
 	}
 	
 	public static void showDialog(String title, String message, Context context) {

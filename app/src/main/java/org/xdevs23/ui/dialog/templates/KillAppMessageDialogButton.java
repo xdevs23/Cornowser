@@ -2,6 +2,9 @@ package org.xdevs23.ui.dialog.templates;
 
 import android.content.DialogInterface;
 
+/**
+ * An OnClickListener to kill the application
+ */
 public class KillAppMessageDialogButton implements DialogInterface.OnClickListener {
 
 	@Override

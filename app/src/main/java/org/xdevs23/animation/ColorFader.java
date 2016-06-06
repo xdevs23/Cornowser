@@ -51,17 +51,11 @@ public class ColorFader extends ExtendedAndroidClass {
                 public void run() {
                     isAnimating = true;
                     int
-                            r,
-                            g,
-                            b,
+                            r, g, b,
 
-                            or,
-                            og,
-                            ob,
+                            or, og, ob,
 
-                            er,
-                            eg,
-                            eb;
+                            er, eg, eb;
 
                     or = Color.red(startColor);
                     og = Color.green(startColor);

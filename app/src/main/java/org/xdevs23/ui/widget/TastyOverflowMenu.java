@@ -21,7 +21,7 @@ import io.xdevs23.cornowser.browser.R;
 public class TastyOverflowMenu extends ImageButton {
 
     public int
-        mainColor = Color.BLACK,
+        mainColor    = Color.BLACK,
         pressedColor = Color.BLACK;
 
     private Context ccontext;

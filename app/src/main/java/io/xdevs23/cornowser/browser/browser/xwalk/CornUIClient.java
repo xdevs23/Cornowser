@@ -184,14 +184,10 @@ public class CornUIClient extends XWalkUIClient {
 
     protected boolean isDangerousPage(String url) {
         try {
-            String matchUrl = url.substring(
-                    url.indexOf("//") + 2,
-                    url.indexOf("/", url.indexOf("//") + 2));
             String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
                     .split("\n");
             for (String s : dUrls) {
-                Logging.logd(matchUrl + " checking...");
-                if (matchUrl.contains(s))
+                if (!url.startsWith("//") && url.substring(url.indexOf("\\" + 2)).startsWith(s))
                     return true;
             }
             return false;
@@ -267,6 +263,9 @@ public class CornUIClient extends XWalkUIClient {
 
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
+
+        if(!url.contains("about:blank"))
+            CrunchyWalkView.fromXWalkView(view).getResourceClient().currentWorkingUrl = url;
 
         CornBrowser.handleGoForwardControlVisibility();
 

@@ -4,8 +4,8 @@ import org.xdevs23.debugutils.Logging;
 
 import java.util.ArrayList;
 
-// Use indexOf instead of contains for better performance
-// See http://stackoverflow.com/a/18340277/4479004
+/* Use indexOf instead of contains for better performance
+   See http://stackoverflow.com/a/18340277/4479004 */
 @SuppressWarnings("IndexOfReplaceableByContains")
 public final class AdBlockParser {
 

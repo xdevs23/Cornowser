@@ -21,7 +21,7 @@ public class XquidCompatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Logging.logd only logs to logcat if debug mode is enabled
-        // Disable debug mode in any type of releases in the AppConfig class
+        // Disable debug mode when releasing the app
         Logging.logd("DEBUG ENABLED");
         Logging.logd(
                 "Using debug mode could (maybe) have impact on performance. " +

@@ -28,7 +28,7 @@ public class DownloadUtils {
 
     public static final int
             defaultBuf  =   8192,
-            oneKiloByte =   1024;
+            oneKibiByte =   1024;
 
     /**
      * Set the progress bar to control
@@ -141,78 +141,77 @@ public class DownloadUtils {
 		
 		@Override
 		protected String doInBackground(String... fDUrl) {
-			int count;
-			String doUrl = "[NOTHING]";
-		    try {
-		    	if(fDUrl == null) {
-		    		logt("fDUrl is null");
-		    	}
-		    	
-	    	  	logt("Converting url...");
-	    	  	
-	    	  	doUrl = fDUrl[0];
-	    	  	
-	    	  	logt("Connecting...");
+            int count;
+            String doUrl = "[NOTHING]";
+            try {
+                if(fDUrl == null) {
+                    logt("fDUrl is null");
+                    return "";
+                }
 
-	    	  	URL url = new URL(doUrl);
-	            URLConnection connection = url.openConnection();
-	            
-	            connection.connect();
-	            
-	            try {
-	            	lengthOfFile = Long.parseLong(connection.getHeaderField("Content-Length"));
-	            } catch(Exception ex) {
-	            	logt("Error getting content-length, using custom length");
-	            	lengthOfFile = Long.MAX_VALUE;
-	            }
-	            
-	            
-	            logt("Total bytes to download: " + String.valueOf(lengthOfFile));
-	            
-	            logt("Preparing download for " + doUrl);
-	            InputStream input = new BufferedInputStream(url.openStream(),
-	                    										defaultBuf);
-	            
-	
-	            logt("Making needed directories...");
-	            
-	            File dirFile = new File( fDUrl[1].substring(0, fDUrl[1].lastIndexOf('/')));
-	            dirFile.mkdirs();
-	            
-	            String newSaveU = fDUrl[1];
-				
-				logt("Downloading...");
-	
-	            OutputStream output = new FileOutputStream(newSaveU);
-	            
-	            byte data[] = new byte[oneKiloByte];
-	                        
-	            long total = 0;
-	
-	            while ( (  count = input.read(data)  ) != -1 ) {
-	                total += count;
-	
-	                publishProgress( String.valueOf(total) );
-	                output.write(data, 0, count);
-	            }
-	
-	
-	            output.flush();
-	
-	            output.close();
-	            input.close();
-	            
-	            logt("Download finished");
-		      } catch ( Exception e ) {
-		    	  logt("Error: " + e.getMessage());
-		      }
-			return "";
+                logt("Converting url...");
+
+                doUrl = fDUrl[0];
+
+                logt("Connecting...");
+
+                URL url = new URL(doUrl);
+                URLConnection connection = url.openConnection();
+
+                connection.connect();
+
+                try {
+                    lengthOfFile = Long.parseLong(connection.getHeaderField("Content-Length"));
+                } catch(Exception ex) {
+                    logt("Error getting content-length, using custom length");
+                    lengthOfFile = Long.MAX_VALUE;
+                }
+
+                logt("Total bytes to download: " + String.valueOf(lengthOfFile));
+
+                logt("Preparing download for " + doUrl);
+                InputStream input = new BufferedInputStream(url.openStream(),
+                                                                defaultBuf);
+
+
+                logt("Making directories...");
+
+                File dirFile = new File( fDUrl[1].substring(0, fDUrl[1].lastIndexOf('/')));
+                dirFile.mkdirs();
+
+                String newSaveU = fDUrl[1];
+
+                logt("Downloading...");
+
+                OutputStream output = new FileOutputStream(newSaveU);
+
+                byte data[] = new byte[oneKibiByte];
+
+                long total = 0;
+
+                while ( (  count = input.read(data)  ) != -1 ) {
+                    total += count;
+
+                    publishProgress( String.valueOf(total) );
+                    output.write(data, 0, count);
+                }
+
+                output.flush();
+
+                output.close();
+                input.close();
+
+                logt("Download finished");
+            } catch ( Exception e ) {
+              logt("Error: " + e.getMessage());
+            }
+            return "";
 		}
 		
 		@Override
 	    protected void onProgressUpdate(String... progress) {
 			long pr = Long.parseLong(progress[0]);
-			long pd = (long) (Math.round((double)( (   pr * 100  ) / lengthOfFile)));
+			long pd = Math.round((double)( (   pr * 100  ) / lengthOfFile));
 			
 			logt(String.valueOf((int)pd));
 			
@@ -226,9 +225,7 @@ public class DownloadUtils {
 	    	logt("Starting installation...");
 	    	UpdateActivity.startUpdateInstallation();
 	    	progressUpdateBar = null;
-	
 	    }
-		
 	}
 
 }

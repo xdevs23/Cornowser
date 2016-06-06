@@ -15,11 +15,11 @@ public class DpUtil {
     }
 
     public static int dp2px(Context context, int dp) {
-        return (int)dp2pxf(context, dp);
+        return (int) dp2pxf(context, dp);
     }
 
     public static double dp2pxd(Context context, double dp) {
-        return (double)XquidCompatActivity.dp2px(context, (float)dp);
+        return (double) XquidCompatActivity.dp2px(context, (float)dp);
     }
 
 }

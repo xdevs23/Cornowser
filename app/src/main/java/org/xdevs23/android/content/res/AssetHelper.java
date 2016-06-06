@@ -10,9 +10,9 @@ import java.io.IOException;
 
 public class AssetHelper {
 
-    public static String getAssetString(@RawRes String assetPath, @NonNull Context c) {
+    public static String getAssetString(@RawRes String assetPath, @NonNull Context context) {
         try {
-            return InputStreamUtils.readToString(c.getAssets().open(assetPath));
+            return InputStreamUtils.readToString(context.getAssets().open(assetPath));
         } catch(IOException ex) {
             return "";
         }

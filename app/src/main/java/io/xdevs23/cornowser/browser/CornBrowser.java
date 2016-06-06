@@ -147,7 +147,6 @@ public class CornBrowser extends XquidCompatActivity {
      */
     protected void bootstrap() {
         if(isBgBoot) moveTaskToBack(true);
-
         if(!handleStartUp()) return;
 
         handleWaitForAdBlock();
@@ -270,6 +269,7 @@ public class CornBrowser extends XquidCompatActivity {
      */
     protected void handleStartupWebLoad() {
         Logging.logd("Handling start-up load");
+
         if (getIntent().getData() != null && (!getIntent().getDataString().isEmpty())) {
             Logging.logd(" => Intent url load");
             getTabSwitcher().addTab(getIntent().getDataString());

@@ -48,7 +48,6 @@ public class ProgressBarView extends RelativeLayout {
         p.setMargins(0, 0, 0, 0);
 
         innerProgressBar.setLayoutParams(p);
-
         innerProgressBar.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_600));
 
         this.addView(innerProgressBar);
@@ -58,9 +57,7 @@ public class ProgressBarView extends RelativeLayout {
 
     public void setProgress(int progress) {
 
-        if (this.getVisibility() == INVISIBLE) {
-            makeVisible();
-        }
+        if (this.getVisibility() == INVISIBLE) makeVisible();
 
         if (hideOnFinish && progress == 100) { endProgress(); return; }
 
@@ -100,7 +97,7 @@ public class ProgressBarView extends RelativeLayout {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
 
                     @Override
@@ -110,12 +107,12 @@ public class ProgressBarView extends RelativeLayout {
 
                     @Override
                     public void onAnimationCancel(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
 
                     @Override
                     public void onAnimationRepeat(Animator animation) {
-                        // Not needed
+                        // Not necessary
                     }
                 });
 

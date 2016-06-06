@@ -15,10 +15,10 @@ public final class AppConfig {
 	public static final String
 			    appName = "Cornowser",
 			 mainDevUrl = "http://xdevs23.bplaced.com/",
-			 updateRoot = UpdaterStorage.URL_RAW_GIT_REPO  + "update/",
+			 updateRoot = UpdaterStorage.URL_RAW_GIT_REPO  + "/update/",
 			 debugTag   = appName        // Tag used in logcat
 	;
 
-    public static String dbgVer = beta; // Change to debug to use debug mode
+    public static String dbgVer = beta;  // Change to debug to use debug mode
 
 }

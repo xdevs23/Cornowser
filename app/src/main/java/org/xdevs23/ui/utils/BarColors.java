@@ -100,9 +100,9 @@ public class BarColors {
     public static void updateBarsColorWoCheck(int color, Window window, boolean applyDarken,
                                               boolean navbar, boolean statusbar) {
         if(statusbar)
-            setStatusBarColor    ((applyDarken ? getDarkerColor(color) : color), window);
+            setStatusBarColor    (applyDarken ? getDarkerColor(color) : color, window);
         if(navbar)
-            setNavigationBarColor((applyDarken ? getDarkerColor(color) : color), window);
+            setNavigationBarColor(applyDarken ? getDarkerColor(color) : color, window);
     }
 
     /**

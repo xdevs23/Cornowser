@@ -49,8 +49,9 @@ public class OmniboxAnimations {
         float mov = (float) posY;
         CornBrowser.omnibox.bringToFront();
         CornBrowser.omnibox.setTranslationY(mov);
-        CornBrowser.publicWebRenderLayout
-                .setTranslationY(mov + CornBrowser.omnibox.getHeight());
+        CornBrowser.publicWebRenderLayout.setTranslationY(
+                mov + CornBrowser.omnibox.getHeight()
+        );
     }
 
     public static void animateOmni(int posY) {

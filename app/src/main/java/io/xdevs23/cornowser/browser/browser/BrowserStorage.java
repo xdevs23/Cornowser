@@ -44,7 +44,6 @@ public class BrowserStorage {
     //endregion
 
     //region Class section
-    /* Class section */
 
     private Context myContext;
 

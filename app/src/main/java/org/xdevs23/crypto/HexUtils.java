@@ -9,7 +9,7 @@ public class HexUtils {
             int twohalfs = 0;
             do {
                 sb.append((0 <= halfbyte) && (halfbyte <= 9)
-                        ? (char)('0' + halfbyte)
+                        ? (char)('0' +  halfbyte)
                         : (char)('a' + (halfbyte - 10)));
                 halfbyte = b & 0x0F;
             } while (twohalfs++ < 1);

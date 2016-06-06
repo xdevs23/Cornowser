@@ -39,8 +39,4 @@ public abstract class LPView extends View {
 
     public abstract void init();
 
-    public Context getMyContext() {
-        return this.context;
-    }
-
 }

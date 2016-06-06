@@ -10,6 +10,7 @@ public class SharedPreferenceArray {
             String aps;
             if(s == null) aps = "";
             else aps = s;
+            assert s != null;
             if(s.contains(":")) aps = s.replace(":", "::");
             if(s.contains("|")) aps = aps.replace("|", "||");
             sb.append(aps).append("|:|");

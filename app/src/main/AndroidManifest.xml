@@ -67,14 +67,6 @@
         </activity>
 
         <activity
-            android:name=".activity.AboutActivity"
-            android:parentActivityName=".CornBrowser">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CornBrowser" />
-        </activity>
-
-        <activity
             android:name=".activity.SettingsActivity"
             android:parentActivityName=".CornBrowser">
             <meta-data

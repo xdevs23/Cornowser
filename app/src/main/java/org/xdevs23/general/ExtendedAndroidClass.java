@@ -6,7 +6,6 @@ public class ExtendedAndroidClass {
 
     private Context myContext;
 
-
     public ExtendedAndroidClass() {
         this.myContext = null;
     }

@@ -15,7 +15,6 @@ public class XquidLinearLayout extends LinearLayout {
     private int defStyleAttr    = 0;
     private int defStyleRes     = 0;
 
-
     public XquidLinearLayout(Context context) {
         super(context);
     }
@@ -52,10 +51,8 @@ public class XquidLinearLayout extends LinearLayout {
     }
 
     public void setVerticalOrientation(boolean isVertical) {
-        if(isVertical)
-            this.setOrientation(LinearLayout.VERTICAL);
-        else
-            this.setOrientation(LinearLayout.HORIZONTAL);
+        if(isVertical)  this.setOrientation(LinearLayout.VERTICAL);
+        else            this.setOrientation(LinearLayout.HORIZONTAL);
     }
 
 

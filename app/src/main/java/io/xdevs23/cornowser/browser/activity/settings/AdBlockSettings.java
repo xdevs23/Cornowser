@@ -144,4 +144,5 @@ public class AdBlockSettings extends XquidCompatActivity {
             initAdBlockWaitForPref();
         }
     }
+
 }

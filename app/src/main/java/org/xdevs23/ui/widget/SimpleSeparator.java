@@ -57,7 +57,6 @@ public class SimpleSeparator extends View {
         );
 
         setLayoutParams(p);
-
         setSeparatorTheme(SeparatorTheme.DARK);
     }
 

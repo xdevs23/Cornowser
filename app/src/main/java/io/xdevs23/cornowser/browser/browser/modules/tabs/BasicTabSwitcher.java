@@ -11,14 +11,10 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
 
     public SwitcherStatus switcherStatus = SwitcherStatus.HIDDEN;
 
-
     protected TabStorage tabStorage = new TabStorage();
-
     protected int currentTab = -1;
 
-
     private RelativeLayout rootView;
-
 
     public enum SwitcherStatus {
         VISIBLE,
@@ -34,9 +30,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     public BasicTabSwitcher(RelativeLayout rootView) {
         this(rootView.getContext(), rootView);
     }
-
-    public abstract void init();
-
 
     @Override
     public Tab getCurrentTab() {
@@ -140,5 +133,6 @@ public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements T
     }
 
     public abstract void updateAllTabs();
+    public abstract void init();
 
 }

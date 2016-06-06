@@ -38,7 +38,7 @@ try {
         else if(cu.indexOf("androidfilehost")   !== -1) webCol = "#222222";
         else if(cu.indexOf("codepen")           !== -1) webCol = "#1d1f20";
         else if(cu.indexOf("jsfiddle")          !== -1) webCol = "#323232";
-        else if(cu.indexOf("agar")              !== -1) webCol = "#428bca";
+        else if(cu.indexOf("agar") * cu.indexOf("diep") !== 1) webCol = "#428bca";
 
         else webCol = "default";
 
@@ -51,4 +51,3 @@ if(webCol === "") webCol = "default";
 
 
 console.log("CornHandler://setWebThemeColor:" + webCol);
-

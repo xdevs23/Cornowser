@@ -38,7 +38,6 @@ public final class AdBlockConst {
     };
 
     public static final boolean
-            NET_BEHAVIOR_ALL  = true,
             NET_BEHAVIOR_WIFI = false;
 
 }

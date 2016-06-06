@@ -11,5 +11,5 @@ if (style.styleSheet) {
     style.appendChild(document.createTextNode(css));
 }
 
-//injecting the css to the head
+// injecting the css to the head
 head.appendChild(style);

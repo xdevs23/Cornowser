@@ -27,8 +27,6 @@ import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
-import org.xwalk.core.internal.XWalkAPI;
-import org.xwalk.core.internal.XWalkClient;
 
 import java.util.regex.Matcher;
 
@@ -168,14 +166,6 @@ public class CrunchyWalkView extends XWalkView {
         reload(ignoreCache ? RELOAD_IGNORE_CACHE : RELOAD_NORMAL);
     }
 
-    public void evaluateJavascript(String script) {
-        evaluateJavascript(script, null);
-    }
-
-    public void loadContent(String content) {
-        load(null, content);
-    }
-
     public boolean canGoForward() {
         return getNavigationHistory().canGoForward();
     }
@@ -202,11 +192,6 @@ public class CrunchyWalkView extends XWalkView {
 
     public boolean goBack() {
         return goBack(1);
-    }
-
-    public CrunchyWalkView immediatelyLoadUrl(String url) {
-        load(url);
-        return this;
     }
 
     @Override
@@ -264,7 +249,7 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public String resolveRelativeUrl(final String url) {
-        String nUrl = url;
+        String nUrl;
         if (url.startsWith("//"))
             nUrl = getUrl().substring(0, getUrl().lastIndexOf("://") + 1) + url;
         else if(url.startsWith("/"))
@@ -285,7 +270,7 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public String resolveRelativeUrlXFriendly(final String url) {
-        String nUrl = url;
+        String nUrl;
         if (url.startsWith("//"))
             nUrl = getUrlAlt().substring(0, getUrlAlt().lastIndexOf("://") + 1) + url;
         else if(url.startsWith("/"))
@@ -324,6 +309,34 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public void onLongPressImage(final String url, final String title, AlertDialog.Builder b) {
+        final Handler handler = new Handler();
+        final Runnable tr = new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContextAlt(),
+                        getContextAlt().getString(
+                                R.string.webrender_image_saved_message
+                        ), Toast.LENGTH_LONG).show();
+            }
+        };
+        final Runnable saveImageRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FileUtils.saveBitmapAsImage(
+                            BitmapFactory.decodeStream(DownloadUtils.getInputStreamForConnection
+                                                    (resolveRelativeUrlXFriendly(url))),
+                            Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/Pictures/",
+                            title.replace(" ", (title.length() <= 1) ? "IMG" : "") + "_" +
+                                    System.currentTimeMillis() + ".jpg");
+                    handler.post(tr);
+                } catch(Exception ex) {
+                    StackTraceParser.logStackTrace(ex);
+                }
+            }
+        };
+
         final String[] longPressDialogImage = new String[] {
                 getContextAlt().getString(R.string.webrender_longpress_dialog_open_newtab),
                 getContextAlt().getString(R.string.webrender_longpress_dialog_copy_url),
@@ -351,40 +364,7 @@ public class CrunchyWalkView extends XWalkView {
                                         break;
                                     case LongPressDialogImageItems.saveImage:
                                         try {
-                                            final Handler handler = new Handler();
-                                            final Runnable tr = new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Toast.makeText(getContextAlt(),
-                                                            getContextAlt().getString(
-                                                                    R.string.webrender_image_saved_message
-                                                            ), Toast.LENGTH_LONG).show();
-                                                }
-                                            };
-                                            Runnable r = new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    try {
-                                                        FileUtils.saveBitmapAsImage(
-                                                                BitmapFactory.decodeStream(
-                                                                        DownloadUtils
-                                                                                .getInputStreamForConnection
-                                                                                        (resolveRelativeUrlXFriendly(url))),
-                                                                Environment
-                                                                        .getExternalStorageDirectory()
-                                                                        .getAbsolutePath() + "/Pictures/",
-                                                                title.replace(" ",
-                                                                        (title.length() <= 1) ?
-                                                                                "IMG" : "") + "_" +
-                                                                        System.currentTimeMillis()
-                                                                        + ".jpg");
-                                                        handler.post(tr);
-                                                    } catch(Exception ex) {
-                                                        StackTraceParser.logStackTrace(ex);
-                                                    }
-                                                }
-                                            };
-                                            Thread thread = new Thread(r);
+                                            Thread thread = new Thread(saveImageRunnable);
                                             thread.start();
                                         } catch(Exception ex) {
                                             StackTraceParser.logStackTrace(ex);

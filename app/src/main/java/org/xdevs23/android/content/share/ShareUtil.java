@@ -12,8 +12,7 @@ public class ShareUtil {
     public static void shareText(String title, String text, Activity activity) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra
-                (Intent.EXTRA_TEXT, text);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         activity.startActivity(Intent.createChooser(shareIntent, title));
     }
 

@@ -13,8 +13,6 @@ import org.xdevs23.ui.utils.DpUtil;
 public class XquidRelativeLayout extends RelativeLayout {
 
     private AttributeSet attrs;
-    private int defStyleAttr    = 0;
-    private int defStyleRes     = 0;
 
     public XquidRelativeLayout(Context context) {
         super(context);
@@ -28,27 +26,16 @@ public class XquidRelativeLayout extends RelativeLayout {
     public XquidRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.attrs = attrs;
-        this.defStyleAttr = defStyleAttr;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public XquidRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.attrs = attrs;
-        this.defStyleAttr = defStyleAttr;
-        this.defStyleRes = defStyleRes;
     }
 
     public AttributeSet getAttributeSet() {
         return attrs;
-    }
-
-    public int getDefStyleAttribute() {
-        return defStyleAttr;
-    }
-
-    public int getDefStyleResource() {
-        return defStyleRes;
     }
 
     public static void addRuleLP(int rule, RelativeLayout.LayoutParams... params) {

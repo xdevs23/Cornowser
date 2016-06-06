@@ -9,8 +9,7 @@ public class ConfigUtils {
 	public static String getVersionName(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), 0
-            ).versionName;
+                    context.getPackageName(), 0).versionName;
         } catch(Exception ex) {
             return "";
         }

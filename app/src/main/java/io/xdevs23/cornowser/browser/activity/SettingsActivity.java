@@ -15,9 +15,6 @@ import org.xdevs23.ui.dialog.EditTextDialog;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.widget.EasyListView4;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.activity.settings.AdBlockSettings;

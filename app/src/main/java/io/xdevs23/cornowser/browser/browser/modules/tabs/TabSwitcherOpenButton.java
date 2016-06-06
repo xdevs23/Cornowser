@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;

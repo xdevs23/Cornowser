@@ -16,8 +16,7 @@ public class ClipboardUtil {
 
     public static void copyIntoClipboard(String label, String content, Context context) {
         ClipboardManager clipboard =
-                (ClipboardManager) context
-                        .getSystemService(Context.CLIPBOARD_SERVICE);
+                (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(label, content);
         clipboard.setPrimaryClip(clip);
     }

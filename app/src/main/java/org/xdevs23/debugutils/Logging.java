@@ -36,11 +36,11 @@ public class Logging {
     }
 
     public static void logd(String msg) {
-        if(ConfigUtils.isDebuggable())logt(msg);
+        if(ConfigUtils.isDebuggable()) logt(msg);
     }
 
     public static void logd(Object obj) {
-        if(ConfigUtils.isDebuggable())logt(obj);
+        if(ConfigUtils.isDebuggable()) logt(obj);
     }
 
 }

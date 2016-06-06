@@ -2,22 +2,22 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 public interface TabSwitcherBase {
 
-    public abstract void switchTab(int tab);
-    public abstract void showTab(Tab tab);
+    void switchTab(int tab);
+    void showTab(Tab tab);
 
-    public abstract Tab getCurrentTab();
+    Tab getCurrentTab();
 
-    public abstract TabStorage getTabStorage();
+    TabStorage getTabStorage();
 
-    public abstract void addTab(Tab tab);
-    public abstract void addTab(String url);
-    public abstract void addTab(String url, String title);
+    void addTab(Tab tab);
+    void addTab(String url);
+    void addTab(String url, String title);
 
-    public abstract void removeTab(Tab tab);
-    public abstract void removeTab(String url);
-    public abstract void removeTab(int tabIndex);
+    void removeTab(Tab tab);
+    void removeTab(String url);
+    void removeTab(int tabIndex);
 
-    public abstract void showSwitcher();
-    public abstract void hideSwitcher();
+    void showSwitcher();
+    void hideSwitcher();
 
 }

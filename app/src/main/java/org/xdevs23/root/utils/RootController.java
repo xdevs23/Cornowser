@@ -16,8 +16,7 @@ import java.io.InputStream;
 public class RootController {
 	
 	public static final int RUN_COMMANDS_SAFE_MODE = 0;
-	
-	public static final String EXEC_DONE_RETURN    = "_::[EXEC_DONE]::";
+	public static final String EXEC_DONE_RETURN = "_::[EXEC_DONE]::";
 	
 	private static void d(String l) {
 		Logging.logd("[RootController] " + l);

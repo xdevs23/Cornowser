@@ -23,10 +23,10 @@ public class XquidXWalkActivity extends XWalkActivity {
         super.onCreate(savedInstanceState);
 
         // Logging.logd only logs to logcat if debug mode is enabled
-        // Disable debug mode in any type of releases in the AppConfig class
+        // Disable debug mode when releasing the app
         Logging.logd("DEBUG ENABLED");
         Logging.logd(
-                "Using debug mode could (maybe) have impact on performance. " +
+                        "Using debug mode could (maybe) have impact on performance. " +
                         "Please make sure that you use release mode when releasing a new " +
                         "version to get the best performance and avoid logcat spamming."
         );

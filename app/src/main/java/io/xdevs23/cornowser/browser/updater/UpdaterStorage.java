@@ -15,7 +15,7 @@ public class UpdaterStorage {
             ;
 
     public static String
-            URL_APK                         = ""
+            URL_APK
             ;
 
 }

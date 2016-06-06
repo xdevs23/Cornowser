@@ -108,7 +108,6 @@ public class HttpStatusCodeHelper {
 
         ;
 
-
         private int statusCode;
 
         HttpStatusCode(int statusCode) {
