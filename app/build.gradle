@@ -29,7 +29,7 @@ android {
         applicationId "io.xdevs23.cornowser.browser"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2016052633       // Use YYYYMMDDNN, year month day rev,
+        versionCode 2016060630       // Use YYYYMMDDNN, year month day rev,
                                      // rev: 0X-2X,9X release, 3X-5X beta, 6X-7X alpha, 8X nightly
                                      // Example: 2016010101 is second release on January 1, 2016
                                      //          2016010235 is sixth beta release on January 2, 2016
@@ -40,7 +40,7 @@ android {
                                      // If we had released an alpha/beta/nightly and then we want to
                                      // release a stable release on the same day we need to use 9X.
 
-        versionName "1.0.7.12"       // Version name
+        versionName "1.0.8.0"       // Version name
         multiDexEnabled true         // For the libs to work correctly
     }
 

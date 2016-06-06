@@ -1,2 +1,11 @@
- - Use another update server (not gonna bloat github anymore)
- - Improve Updater a little bit
+ - Add feature to set custom search engine
+ - Update Crosswalk version to 20.50.533.0
+   => Pull to refresh has been removed from the view :/
+      -> We still have the omnibox PTR feature :D
+   => Intent handling (finally)
+   => Bugfixes, improvements etc.
+ - Huge overall clean-up
+ - Fix polish translation
+ - Many improvements
+ - Bugfixes
+ - Other minor changes
