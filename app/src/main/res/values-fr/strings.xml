@@ -50,6 +50,8 @@
     <string name="general_theme">Thème</string>
     <string name="general_initializing">Initialisation...</string>
     <string name="general_initialize">Initialiser</string>
+
+    <string name="general_custom">Personnaliser</string>
     
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Permission pour écrire sur le stockage nécessaire pour le téléchargement de fichiers. Merci de valider.</string>
