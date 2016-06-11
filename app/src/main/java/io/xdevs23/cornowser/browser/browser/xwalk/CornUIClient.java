@@ -187,7 +187,7 @@ public class CornUIClient extends XWalkUIClient {
             String[] dUrls = AssetHelper.getAssetString("list/badPages.txt", CornBrowser.getContext())
                     .split("\n");
             for (String s : dUrls) {
-                if (!url.startsWith("//") && url.substring(url.indexOf("\\" + 2)).startsWith(s))
+                if (!url.startsWith("//") && url.contains(s))
                     return true;
             }
             return false;
