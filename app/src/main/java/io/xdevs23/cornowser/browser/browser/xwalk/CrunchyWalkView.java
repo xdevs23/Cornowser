@@ -110,12 +110,6 @@ public class CrunchyWalkView extends XWalkView {
     @Override
     public void load(String url, String content) {
         if(url == null) { super.load(null, content); return; }
-        if(getResourceClient().checkIntentableUrl(
-                (url.startsWith("intent") || url.startsWith("market"))
-                        &&   url.contains("//")
-                        && (!url.contains(":" )) ?
-                    url.replace("//", "://") : url)
-                ) return;
         Matcher urlRegExMatcher     = CornResourceClient.urlRegEx   .matcher(url);
         Matcher urlSecRegExMatcher  = CornResourceClient.urlSecRegEx.matcher(url);
         String nUrl = url;
