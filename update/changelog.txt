@@ -1,11 +1,5 @@
- - Add feature to set custom search engine
- - Update Crosswalk version to 20.50.533.0
-   => Pull to refresh has been removed from the view :/
-      -> We still have the omnibox PTR feature :D
-   => Intent handling (finally)
-   => Bugfixes, improvements etc.
- - Huge overall clean-up
- - Fix polish translation
- - Many improvements
- - Bugfixes
- - Other minor changes
+ - Remove custom intent handling as Crosswalk handles it internally
+ - Fix detection of dangerous websites
+ - Fix critical bug for showing credit dialogs in Settings
+ - Fix reload bug when the page load failed
+ - Update french translation (thanks to Primokorn)
