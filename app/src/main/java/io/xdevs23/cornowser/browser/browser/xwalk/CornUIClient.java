@@ -264,7 +264,7 @@ public class CornUIClient extends XWalkUIClient {
         Logging.logd("Page load stopped");
         super.onPageLoadStopped(view, url, status);
 
-        if(!url.contains("about:blank"))
+        if(!url.contains("about:blank") && !url.contains("data:text/html;charset=utf-8;base64,"))
             CrunchyWalkView.fromXWalkView(view).getResourceClient().currentWorkingUrl = url;
 
         CornBrowser.handleGoForwardControlVisibility();
