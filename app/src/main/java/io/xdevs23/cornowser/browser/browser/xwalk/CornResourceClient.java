@@ -1,12 +1,8 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceResponse;
-import android.widget.Toast;
 
 import org.xdevs23.android.content.res.AssetHelper;
 import org.xdevs23.debugutils.Logging;
