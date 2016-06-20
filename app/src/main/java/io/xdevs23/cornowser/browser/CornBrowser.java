@@ -135,6 +135,8 @@ public class CornBrowser extends XquidCompatActivity {
 
     private boolean isAdWhitelisted; // For options menu
 
+    private boolean isExitingByUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -953,6 +955,23 @@ public class CornBrowser extends XquidCompatActivity {
         bootstrap();
     }
 
+    public void endApplicationWithDelay() {
+        if(!isExitingByUser) {
+            Toast.makeText(getContext(), getString(R.string.end_app_delay_msg), Toast.LENGTH_SHORT)
+                    .show();
+            isExitingByUser = true;
+            Runnable timeoutRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    isExitingByUser = false;
+                }
+            };
+            mHandler.postDelayed(timeoutRunnable, 5000);
+        } else {
+            endApplication();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         if(omnibox != null && browserInputBar != null) {
@@ -960,7 +979,10 @@ public class CornBrowser extends XquidCompatActivity {
             applyInsideOmniText();
         }
         Logging.logd("Back pressed, web render cannot go back. Exiting application.");
-        if(publicWebRender != null && (!publicWebRender.goBack())) endApplication();
+        if (publicWebRender != null && (!publicWebRender.goBack())) {
+            if (getTabSwitcher().getTabStorage().getTabCount() <= 1) endApplicationWithDelay();
+            else getTabSwitcher().removeTab(getTabSwitcher().getCurrentTab());
+        }
     }
 
     /**

@@ -44,6 +44,8 @@
 
     <string name="general_custom">Benutzerdefiniert</string>
 
+    <string name="end_app_delay_msg">Zum Verlassen erneut zurück drücken</string>
+
     <!-- Options menu -->
     <string name="optmenu_share">Teilen</string>
 
