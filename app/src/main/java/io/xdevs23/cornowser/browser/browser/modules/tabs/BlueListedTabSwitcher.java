@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import org.xdevs23.android.widget.XquidLinearLayout;
 import org.xdevs23.debugutils.Logging;
+import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
 import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.widget.SimpleSeparator;
@@ -41,6 +42,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     private XquidLinearLayout tabsLayout;
 
     private Drawable bgBtn;
+
+    private int currentY = 0;
 
     private View.OnTouchListener addButtonOTL = new View.OnTouchListener() {
         @Override
@@ -361,33 +364,42 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     private void animateShowSwitcher() {
         for ( int i = 0; i < mainView.getChildCount(); i++ )
             mainView.getChildAt(i).bringToFront();
-        mainView.animate()
-                .setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
-                .translationY((OmniboxControl.isBottom() ? -CornBrowser.omnibox.getHeight() : 0))
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mainView.bringToFront();
-                        CornBrowser.getWebEngine().clearFocus();
-                        CornBrowser.getWebEngine().invalidate();
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mainView.bringToFront();
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        // Not necessary
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                        // Not necessary
-                    }
-                })
-                .start();
+        final int beginY  = (int)mainView.getTranslationY(),
+                  wantedY = (OmniboxControl.isBottom() ? -CornBrowser.omnibox.getHeight() : 0);
+        final Handler handler = new Handler();
+        final Runnable setTranslationR = new Runnable() {
+            @Override
+            public void run() {
+                mainView.setTranslationY(currentY);
+                mainView.invalidate();
+                mainView.bringToFront();
+            }
+        };
+        final Runnable onAnimationEnd = new Runnable() {
+            @Override
+            public void run() {
+                mainView.bringToFront();
+            }
+        };
+        Thread animatorThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                currentY = beginY;
+                int samewait =
+                        (int)((OmniboxAnimations.DEFAULT_ANIMATION_DURATION / (double)beginY + 0.5d)
+                                * 100000);
+                if(samewait < 1) samewait = (beginY >= 600 ? 6 : 3);
+                Logging.logd("Samewait is " + samewait);
+                for( int y = currentY; currentY > wantedY; y--) {
+                    currentY = y;
+                    handler.post(setTranslationR);
+                    Sleeper.sleep(0, samewait);
+                }
+                handler.postDelayed(onAnimationEnd, 1);
+            }
+        });
+        mainView.bringToFront();
+        animatorThread.start();
     }
 
     @Override
