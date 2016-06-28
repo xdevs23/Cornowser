@@ -1,4 +1,6 @@
-var css = "body {-webkit-filter: invert(100%);";
+var css = "body { -webkit-filter: invert(100%);  background-color: black; }" +
+            ".srp { background: #000000 }" // This one is for google background
+            ;
 
 var head = document.getElementsByTagName("head")[0];
 

@@ -22,4 +22,8 @@
 
     <string name="webrender_image_saved_message">Bild gespeichert</string>
 
+    <string name="webrender_colormode_reset_reload">
+        Lade die Seite neu, um sicher zu gehen dass der Inhalt ordnungsgemäß dargestellt wird
+    </string>
+
 </resources>

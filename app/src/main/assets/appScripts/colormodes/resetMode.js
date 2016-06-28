@@ -1,5 +1,4 @@
 var css = "body { -webkit-filter: none; }";
-
 var head = document.getElementsByTagName("head")[0];
 
 var style = document.createElement("style");

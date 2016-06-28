@@ -9,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import org.xdevs23.android.app.XquidCompatActivity;
 import org.xdevs23.ui.dialog.EditTextDialog;
@@ -250,6 +251,11 @@ public class SettingsActivity extends XquidCompatActivity {
                     break;
 
                 case KEY_WEB_COLORMODE:
+                    // Check color mode
+                    if(Integer.parseInt((String)newValue) == 0 ||
+                            Integer.parseInt((String)newValue) >= 3)
+                        Toast.makeText(getpContext(), getString(R.string.webrender_colormode_reset_reload),
+                                    Toast.LENGTH_LONG).show();
                     CornBrowser.getBrowserStorage()
                             .saveColorMode(RenderColorMode
                                     .toColorMode(Integer.parseInt((String)newValue)));
