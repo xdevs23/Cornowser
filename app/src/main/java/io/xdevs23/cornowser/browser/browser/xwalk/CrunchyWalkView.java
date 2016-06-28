@@ -41,6 +41,7 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
  */
 public class CrunchyWalkView extends XWalkView {
 
+    public static final String HTTP_PREFIX = "http://";
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
                     "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/53.0.2782.1 Mobile Safari/537.36";
@@ -114,7 +115,7 @@ public class CrunchyWalkView extends XWalkView {
         Matcher urlSecRegExMatcher  = CornResourceClient.urlSecRegEx.matcher(url);
         String nUrl = url;
         if(urlRegExMatcher.matches()) nUrl = url;
-        else if(urlSecRegExMatcher.matches()) nUrl = "http://" + url;
+        else if(urlSecRegExMatcher.matches()) nUrl = HTTP_PREFIX + url;
         else {
             switch(CornBrowser.getBrowserStorage().getSearchEngine()) {
                 case Google:
@@ -134,8 +135,8 @@ public class CrunchyWalkView extends XWalkView {
                     break;
                 case Custom:
                     nUrl = CornBrowser.getBrowserStorage().getCustomSearchEngine();
-                    if(!(nUrl.startsWith("http://") || nUrl.startsWith("https://")))
-                        nUrl = "http://" + nUrl;
+                    if(!(nUrl.startsWith(HTTP_PREFIX) || nUrl.startsWith("https://")))
+                        nUrl = HTTP_PREFIX + nUrl;
                     break;
                 default: break;
             }
@@ -255,7 +256,7 @@ public class CrunchyWalkView extends XWalkView {
                     CornResourceClient.urlSecRegEx.matcher(url);
             if (urlRegExMatcher.matches()) nUrl = url;
             else if (urlSecRegExMatcher.matches())
-                nUrl = "http://" + url;
+                nUrl = HTTP_PREFIX + url;
             else {
                 nUrl = getUrl().substring(0, getUrl().lastIndexOf("/")) + url;
             }
@@ -276,7 +277,7 @@ public class CrunchyWalkView extends XWalkView {
                     CornResourceClient.urlSecRegEx.matcher(url);
             if (urlRegExMatcher.matches()) nUrl = url;
             else if (urlSecRegExMatcher.matches())
-                nUrl = "http://" + url;
+                nUrl = HTTP_PREFIX + url;
             else {
                 nUrl = getUrlAlt().substring(0, getUrlAlt().lastIndexOf("/")) + url;
             }

@@ -66,19 +66,16 @@ public class SettingsActivity extends XquidCompatActivity {
                 KEY_FULLSCREEN              =   "settings_fullscreen",
                 KEY_WEB_COLORMODE           =   "settings_web_colormode",
                 KEY_OMNIBOX_COLORING        =   "settings_omni_coloring",
-                KEY_DIALOG_LICENSES         =   "settings_licenses",
-                KEY_DIALOG_TRANSLATIONS     =   "settings_credits_translation",
-                KEY_DIALOG_CREDITS_SPECIAL  =   "settings_credits_special",
                 KEY_DEBUG_MODE              =   "settings_debug_mode",
                 KEY_OPTOUT_CLYTICS          =   "settings_optout_clytics"
                         ;
 
-        Preference
+        private Preference
                 homePagePref,
                 adblockPref
                         ;
 
-        SwitchPreference
+        private SwitchPreference
                 lastSessionPref,
                 fullscreenPref,
                 omniColoringPref,
@@ -86,7 +83,7 @@ public class SettingsActivity extends XquidCompatActivity {
                 optoutClyticsPref
                         ;
 
-        ListPreference
+        private ListPreference
                 searchEnginePref,
                 omniboxPosPref,
                 colorModePref
