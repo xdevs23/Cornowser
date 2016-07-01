@@ -40,7 +40,7 @@ android {
                                      // If we had released an alpha/beta/nightly and then we want to
                                      // release a stable release on the same day we need to use 9X.
 
-        versionName "1.0.8.2"       // Version name
+        versionName "1.0.8.2"        // Version name
         multiDexEnabled true         // For the libs to work correctly
     }
 
