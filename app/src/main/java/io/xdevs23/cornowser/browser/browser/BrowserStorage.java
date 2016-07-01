@@ -8,12 +8,18 @@ import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.management.config.SharedPreferenceArray;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockConst;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
 public class BrowserStorage {
 
     //region Variable storage
+
+    private ArrayList<String> values = new ArrayList<>();
+    private ArrayList<String> keys   = new ArrayList<>();
 
     private String
                 userHomePage,
@@ -56,6 +62,7 @@ public class BrowserStorage {
 
     public void init() {
         mSharedPreferences = getContext().getSharedPreferences("userprefs", 0);
+        loadSettings();
         setUserHomePage(getPref(BPrefKeys.userHomePage, BrowserDefaults.HOME_URL));
         setOmniboxPosition(getPref(BPrefKeys.omniboxPos, false));
         setEnableFullscreen(getPref(BPrefKeys.fullscreenPref, false));
@@ -78,6 +85,70 @@ public class BrowserStorage {
 
     //endregion
 
+    //region general settings
+
+    /**
+     * This is the new method of loading settings.
+     * We will be using this general method instead of the static method where we had to declare the
+     * methods for each and every setting. Here we have full control of what we want to save and can save
+     * anything from anywhere without having to make appropriate functions for it first.
+     */
+    public void loadSettings() {
+        // Load values
+        for ( Object obj : mSharedPreferences.getAll().values())
+            values.add(obj.toString());
+        // Load keys
+        for ( String s : mSharedPreferences.getAll().keySet())
+            keys.add(s);
+    }
+
+    public String getString(String key, String defaultValue) {
+        for ( String s : keys )
+            if (s.equals(key)) return values.get(keys.indexOf(s));
+        return defaultValue;
+    }
+
+    public boolean getBool(String key, boolean defaultValue) {
+        for ( String s : keys )
+            if (s.equals(key)) return Boolean.parseBoolean(values.get(keys.indexOf(s)));
+        return defaultValue;
+    }
+
+    public int getInt(String key, int defaultValue) {
+        for ( String s : keys )
+            if (s.equals(key)) return Integer.parseInt(values.get(keys.indexOf(s)));
+        return defaultValue;
+    }
+
+    public void putInt(String key, int value) {
+        setPref(key, value);
+        for ( String s : keys )
+            if (s.equals(key)) { values.set(keys.indexOf(s), String.valueOf(value)); return; }
+        values.add(String.valueOf(value));
+        keys.add(key);
+    }
+
+    public void putString(String key, String value) {
+        setPref(key, value);
+        for ( String s : keys )
+            if (s.equals(key)) { values.set(keys.indexOf(s), value); return; }
+        values.add(value);
+        keys.add(key);
+    }
+
+    public void putBool(String key, boolean value) {
+        setPref(key, value);
+        for ( String s : keys )
+            if (s.equals(key)) { values.set(keys.indexOf(s), String.valueOf(value)); return; }
+        values.add(String.valueOf(value));
+        keys.add(key);
+    }
+
+    //endregion
+
+    /* Note: The methods below are deprecated, but still working.
+             We keep them for now, maybe they will be reworked later.
+     */
 
     //region User homepage
 
@@ -489,7 +560,10 @@ public class BrowserStorage {
                 adBlockNetBehavPref = "pref_adblock_net_behavior",
                 adBlockWaitForPref  = "pref_adblock_wait_for_init",
                 adBlockWhitelstPref = "pref_adblock_whitelist",
-                customSearchEngPref = "pref_custom_search_engine"
+                customSearchEngPref = "pref_custom_search_engine",
+
+                bookmarksPref       = "pref_bookmarks",
+                historyPref         = "pref_history"
                         ;
     }
 
