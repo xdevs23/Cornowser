@@ -80,4 +80,8 @@
         <item name="android:colorBackground">@color/white</item>
     </style>
 
+    <style name="CoreMTRLTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="CoreMTRLTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>

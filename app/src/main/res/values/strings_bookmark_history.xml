@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bkmhis_bookmarks_title">Bookmarks</string>
+    <string name="bkmhis_history_title">History</string>
+
+    <string name="bkmhis_delete_all">Delete all</string>
+
+    <string name="bkmhis_view_bkmhis">Bookmarks &amp; History</string>
+    <string name="bkmhis_add_to_bkm">Add as bookmark</string>
+</resources>

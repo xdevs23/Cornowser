@@ -35,6 +35,7 @@ import org.xdevs23.android.content.share.ShareUtil;
 import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
+import org.xdevs23.management.config.SPConfigEntry;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.rey.material.widget.ProgressView;
 import org.xdevs23.threads.Sleeper;
@@ -46,6 +47,7 @@ import org.xwalk.core.XWalkPreferences;
 
 import io.fabric.sdk.android.Fabric;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
+import io.xdevs23.cornowser.browser.activity.BookmarkHistoryActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
@@ -376,6 +378,9 @@ public class CornBrowser extends XquidCompatActivity {
      */
     public void init() {
         Logging.logd("Initializing...");
+        // Initialize external/other stuff before getting started
+        ExternalInit.initExternal(getContext());
+        // Initialize all our stuff
         initOptionsMenu();
         initOmnibox();
         initWebXWalkEngine();
@@ -622,7 +627,9 @@ public class CornBrowser extends XquidCompatActivity {
                 SETTINGS                        = 1,
                 SHARE_PAGE                      = 2,
                 ADD_HOME_SHCT                   = 3,
-                ADD_DOMAIN_TO_ADBLOCK_WHITELIST = 4
+                ADD_DOMAIN_TO_ADBLOCK_WHITELIST = 4,
+                ADD_TO_BOOKMARKS                = 5,
+                VIEW_BOOKMARKS_HISTORY          = 6
                         ;
     }
 
@@ -635,7 +642,9 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_settings),
                 getString(R.string.optmenu_share),
                 getString(R.string.cornmenu_item_addhomesc),
-                getString(R.string.cornmenu_item_addtoadwl)
+                getString(R.string.cornmenu_item_addtoadwl),
+                getString(R.string.bkmhis_add_to_bkm),
+                getString(R.string.bkmhis_view_bkmhis)
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
         builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems), new DialogInterface.OnClickListener() {
@@ -672,6 +681,17 @@ public class CornBrowser extends XquidCompatActivity {
                         getBrowserStorage().saveAdBlockWhitelist(
                                 publicWebRender.getUrlDomain(), !isAdWhitelisted
                         );
+                        break;
+                    case optMenuItems.ADD_TO_BOOKMARKS:
+                        SPConfigEntry bookmarks = new SPConfigEntry(
+                                getBrowserStorage().getString(BrowserStorage.BPrefKeys.bookmarksPref, "")
+                        );
+                        bookmarks.putValue(getWebEngine().getUrl(), getWebEngine().getTitle());
+                        getBrowserStorage().putString(BrowserStorage.BPrefKeys.bookmarksPref,
+                                bookmarks.toString());
+                        break;
+                    case optMenuItems.VIEW_BOOKMARKS_HISTORY:
+                        startActivity(new Intent(getContext(), BookmarkHistoryActivity.class));
                         break;
                     default:
                         break;

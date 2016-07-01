@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bkmhis_tab_titles">
+        <item>@string/bkmhis_bookmarks_title</item>
+        <item>@string/bkmhis_history_title</item>
+    </string-array>
+
+</resources>

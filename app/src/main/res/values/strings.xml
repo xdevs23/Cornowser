@@ -62,5 +62,8 @@
 
     <!-- Permissions -->
     <string name="permission_hint_write_storage">Permission to write to storage needed for downloading files. Please accept.</string>
+    <string name="title_activity_bookmark_history">BookmarkHistoryActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>
