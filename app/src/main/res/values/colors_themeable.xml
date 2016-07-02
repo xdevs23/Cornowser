@@ -20,6 +20,7 @@
 
     <color name="bkmhis_statusbar_background">@color/blue_800</color>
     <color name="bkmhis_actionbar_background">@color/blue_600</color>
+    <color name="bkmhis_tabindicator">@color/white</color>
 
     <color name="omnibox_statusbar_background">@color/grey_950</color>
     <color name="omnibox_default_background">@color/grey_900</color>

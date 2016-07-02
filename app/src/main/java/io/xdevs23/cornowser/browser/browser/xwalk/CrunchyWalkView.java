@@ -23,7 +23,9 @@ import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.file.FileUtils;
 import org.xdevs23.general.StringManipulation;
 import org.xdevs23.general.URLEncode;
+import org.xdevs23.management.config.SPConfigEntry;
 import org.xdevs23.net.DownloadUtils;
+import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.view.listview.XDListView;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
@@ -32,6 +34,7 @@ import java.util.regex.Matcher;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
+import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
@@ -50,12 +53,16 @@ public class CrunchyWalkView extends XWalkView {
 
     protected Bitmap favicon;
 
-    protected String currentUrl;
+    protected String currentUrl, currentTitle;
 
     protected boolean isLongPressDialogAv = true;
 
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
+
+    private boolean isHistoryBeingWritten = false;
+
+    private SPConfigEntry browsingHistory;
 
     private int lastBgColor = 0;
 
@@ -78,6 +85,9 @@ public class CrunchyWalkView extends XWalkView {
         setUserAgentString(userAgent);
 
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
+
+        browsingHistory = new SPConfigEntry(CornBrowser.getBrowserStorage()
+                .getString(BrowserStorage.BPrefKeys.historyPref, ""));
 
         drawWithColorMode();
 
@@ -438,6 +448,27 @@ public class CrunchyWalkView extends XWalkView {
         else        onLongPressLink (url, title, b);
     }
 
+    public void registerNavigation() {
+        Thread historyUpdateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(isHistoryBeingWritten)
+                    Sleeper.sleep(10);
+                updateIsHistoryBeingUpdated(true);
+                browsingHistory.putValue(getUrlAlt(), getTitleAlt());
+                CornBrowser.getBrowserStorage()
+                        .putString(BrowserStorage.BPrefKeys.historyPref,
+                                browsingHistory.getRotated().toString());
+                updateIsHistoryBeingUpdated(false);
+            }
+        });
+        historyUpdateThread.start();
+    }
+
+    private synchronized void updateIsHistoryBeingUpdated(boolean condition) {
+        isHistoryBeingWritten = condition;
+    }
+
     @Override
     public Bitmap getFavicon() {
         return favicon;
@@ -445,6 +476,10 @@ public class CrunchyWalkView extends XWalkView {
 
     public String getUrlAlt() {
         return currentUrl;
+    }
+
+    public String getTitleAlt() {
+        return currentTitle;
     }
 
     public String getUrlDomain() {

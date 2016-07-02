@@ -87,7 +87,7 @@
 
         <activity
             android:name=".activity.BookmarkHistoryActivity"
-            android:label="@string/title_activity_bookmark_history"
+            android:label="@string/bkmhis_view_bkmhis"
             android:parentActivityName=".CornBrowser"
             android:theme="@style/CoreMTRLTheme">
             <meta-data

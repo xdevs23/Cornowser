@@ -7,4 +7,6 @@
 
     <string name="bkmhis_view_bkmhis">Bookmarks &amp; History</string>
     <string name="bkmhis_add_to_bkm">Add as bookmark</string>
+
+    <string name="bkmhis_longpress_delete">Long press an item to delete it</string>
 </resources>

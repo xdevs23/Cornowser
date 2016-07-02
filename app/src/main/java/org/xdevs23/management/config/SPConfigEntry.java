@@ -52,6 +52,32 @@ public class SPConfigEntry {
             if (keys.get(i).equals(key)) { keys.remove(i); values.remove(i); }
     }
 
+    public void rotate() {
+        String[] tmpKeys   =   keys.toArray(new String[  keys.size()]);
+        String[] tmpValues = values.toArray(new String[values.size()]);
+
+        createNew();
+
+        for ( int i = tmpKeys.length - 1; i >= 0; i-- ) {
+            keys  .add(tmpKeys  [i]);
+            values.add(tmpValues[i]);
+        }
+    }
+
+    public SPConfigEntry getRotated() {
+        String[] tmpKeys   =   keys.toArray(new String[  keys.size()]);
+        String[] tmpValues = values.toArray(new String[values.size()]);
+
+        SPConfigEntry newConfig = new SPConfigEntry();
+
+        for ( int i = tmpKeys.length - 1; i >= 0; i-- ) {
+            newConfig.  keys.add(tmpKeys  [i]);
+            newConfig.values.add(tmpValues[i]);
+        }
+
+        return newConfig;
+    }
+
     @Override
     public String toString() {
         String[] everything = new String[keys.size()*2];

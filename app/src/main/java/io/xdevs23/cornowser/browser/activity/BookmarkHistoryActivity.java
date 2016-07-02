@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import org.apache.http.params.CoreConnectionPNames;
 import org.xdevs23.management.config.SPConfigEntry;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.view.listview.XDListView;
@@ -80,6 +81,28 @@ public class BookmarkHistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        switch(id) {
+            case R.id.bkmhis_action_delete_all:
+                if (mViewPager.getCurrentItem() == 0) {
+                    ((BookmarkFragment)fragments[0]).bookmarks.createNew();
+                    CornBrowser.getBrowserStorage().putString(
+                            BrowserStorage.BPrefKeys.bookmarksPref,
+                            ((BookmarkFragment)fragments[0]).bookmarks.toString()
+                    );
+                    ((BookmarkFragment)fragments[0]).updateAdapter();
+                } else {
+                    ((HistoryFragment)fragments[1]).history.createNew();
+                    CornBrowser.getBrowserStorage().putString(
+                            BrowserStorage.BPrefKeys.historyPref,
+                            ((HistoryFragment)fragments[1]).history.toString()
+                    );
+                    ((HistoryFragment)fragments[1]).updateAdapter();
+                }
+                mSectionsPagerAdapter.notifyDataSetChanged();
+                break;
+            default: break;
+        }
 
         return super.onOptionsItemSelected(item);
     }

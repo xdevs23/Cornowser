@@ -245,6 +245,8 @@ public class CornUIClient extends XWalkUIClient {
     @Override
     public void onPageLoadStopped(XWalkView view, String url, LoadStatus status) {
         CrunchyWalkView.fromXWalkView(view).currentUrl = url;
+        CrunchyWalkView.fromXWalkView(view).currentTitle = view.getTitle();
+        CrunchyWalkView.fromXWalkView(view).registerNavigation();
         if( (status == LoadStatus.CANCELLED || status == LoadStatus.FAILED)
                 && (!readyForBugfreeBrowsing) && (!url.isEmpty()) )
             view.load(url, null);
