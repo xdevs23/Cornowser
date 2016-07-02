@@ -49,7 +49,7 @@ public class SPConfigEntry {
 
     public void removeValue(String key) {
         for ( int i = 0; i < keys.size(); i++ )
-            if (keys.get(i).equals(key)) values.remove(i);
+            if (keys.get(i).equals(key)) { keys.remove(i); values.remove(i); }
     }
 
     @Override
