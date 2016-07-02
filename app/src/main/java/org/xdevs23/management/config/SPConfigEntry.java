@@ -58,9 +58,7 @@ public class SPConfigEntry {
         // everything[2] = keys[1]
         // everything[3] = values[1]
         for ( int i = 0; i < keys  .size(); i++ ) {
-            Logging.logd("Adding everything[" + i * 2 + "] with value " + keys.get(i) + ", that is index " + i);
             everything[i * 2]     =   keys.get(i);
-            Logging.logd("Adding everything[" + (i * 2 + 1) + "] with value " + values.get(i) + ", that is index " + i);
             everything[i * 2 + 1] = values.get(i);
         }
 
