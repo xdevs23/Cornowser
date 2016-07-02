@@ -1,7 +1,5 @@
 package org.xdevs23.management.config;
 
-import org.xdevs23.debugutils.Logging;
-
 import java.util.ArrayList;
 
 public class SPConfigEntry {
@@ -67,8 +65,8 @@ public class SPConfigEntry {
         for ( String s : everything )
             finalRawString.append(s).append(";;");
 
-        return finalRawString
-                .substring(0, finalRawString.length() - 2); // This is to remove the leading ;;
+        return (finalRawString.toString().isEmpty() ? "" : finalRawString
+                .substring(0, finalRawString.length() - 2)); // This is to remove the leading ;;
     }
 
 }
