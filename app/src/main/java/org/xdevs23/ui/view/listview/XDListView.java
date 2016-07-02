@@ -2,6 +2,7 @@ package org.xdevs23.ui.view.listview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,10 @@ public class XDListView {
             holder.TextView2 = (TextView) mainView.getChildAt(1);
             holder.TextView1.setText(getItem(position));
             holder.TextView2.setText(getItem(allLength / 2 + position));
+            holder.TextView1.setSingleLine();
+            holder.TextView1.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+            holder.TextView2.setSingleLine();
+            holder.TextView2.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             convertView = mainView;
             return convertView;
         }
