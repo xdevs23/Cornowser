@@ -47,6 +47,11 @@ public class SPConfigEntry {
         keys    .add(key);
     }
 
+    public void removeValue(String key) {
+        for ( int i = 0; i < keys.size(); i++ )
+            if (keys.get(i).equals(key)) values.remove(i);
+    }
+
     @Override
     public String toString() {
         String[] everything = new String[keys.size()*2];
