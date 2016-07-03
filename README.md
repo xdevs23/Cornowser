@@ -11,7 +11,7 @@ Powered by the [Crosswalk rendering engine](http://crosswalk-project.org), basin
 
 Also visit our [XDA thread](http://forum.xda-developers.com/android/apps-games/app-cornowser-t3287890)!
 
-[xdevs23](http://github.com/xdevs23) does the main work on this project, [Thunderbottom](http://github.com/Thunderbottom) helps and supports me. We also have some translators for our app. Please visit our [Wiki](https://github.com/xdevs23/Cornowser/wiki) to get more information.
+I, [xdevs23](http://github.com/xdevs23), do the main work on this project, [Thunderbottom](http://github.com/Thunderbottom) helps and supports me. We also have some translators for our app. Please visit our [Wiki](https://github.com/xdevs23/Cornowser/wiki) to get more information.
 
 
 <hr />
@@ -41,7 +41,7 @@ Do whatever you want with it, but don't forget to mention me and don't change th
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 Simao Gomes Viana
+Copyright (c) 2015-2016 Simao Gomes Viana
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
