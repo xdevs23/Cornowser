@@ -62,6 +62,8 @@ public class CrunchyWalkView extends XWalkView {
 
     private boolean isHistoryBeingWritten = false;
 
+    private Thread historyUpdateThread;
+
     private SPConfigEntry browsingHistory;
 
     private int lastBgColor = 0;
@@ -449,7 +451,7 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public void registerNavigation() {
-        Thread historyUpdateThread = new Thread(new Runnable() {
+        historyUpdateThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(isHistoryBeingWritten)
@@ -463,6 +465,17 @@ public class CrunchyWalkView extends XWalkView {
             }
         });
         historyUpdateThread.start();
+    }
+
+    public void eraseHistory() {
+        try {
+            // Try to wait for the thread to finish
+            if (historyUpdateThread != null && historyUpdateThread.isAlive())
+                historyUpdateThread.join();
+        } catch(Exception ex) {
+            // Ignore
+        }
+        browsingHistory.createNew();
     }
 
     private synchronized void updateIsHistoryBeingUpdated(boolean condition) {

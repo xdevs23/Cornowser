@@ -98,6 +98,7 @@ public class BookmarkHistoryActivity extends AppCompatActivity {
                             ((HistoryFragment)fragments[1]).history.toString()
                     );
                     ((HistoryFragment)fragments[1]).updateAdapter();
+                    CornBrowser.getWebEngine().eraseHistory();
                 }
                 mSectionsPagerAdapter.notifyDataSetChanged();
                 break;
