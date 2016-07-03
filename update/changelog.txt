@@ -1,6 +1,1 @@
- - Finally fix fade in animation for tab switcher!
- - Update to API 24 (Android N, app still compatible with 4.0.3+)
- - Update Crosswalk to 21.51.542.0
- - Update user agent
- - Improve negative & dark mode (e.g. fix google search white bg)
- - Other minor changes
+ - New feature: Bookmarks & History
