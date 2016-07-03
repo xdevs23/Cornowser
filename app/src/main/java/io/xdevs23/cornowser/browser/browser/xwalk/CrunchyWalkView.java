@@ -455,10 +455,10 @@ public class CrunchyWalkView extends XWalkView {
                 while(isHistoryBeingWritten)
                     Sleeper.sleep(10);
                 updateIsHistoryBeingUpdated(true);
-                browsingHistory.putValue(getUrlAlt(), getTitleAlt());
+                browsingHistory.putValue(getUrlAlt(), getTitleAlt(), true, false);
                 CornBrowser.getBrowserStorage()
                         .putString(BrowserStorage.BPrefKeys.historyPref,
-                                browsingHistory.getRotated().toString());
+                                browsingHistory.toString());
                 updateIsHistoryBeingUpdated(false);
             }
         });
