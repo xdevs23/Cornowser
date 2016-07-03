@@ -40,11 +40,25 @@ public class SPConfigEntry {
         return "";
     }
 
+    public void putValue(String key, String value, boolean atBeginning, boolean overwrite) {
+        if(!overwrite)
+            for (int i = 0; i < keys.size(); i++)
+                if (keys.get(i).equals(key)) { values.set(i, value); return; }
+        if(!atBeginning) {
+            values.add(value);
+            keys  .add(key);
+        } else {
+            values.add(0, value);
+            keys  .add(0, key);
+        }
+    }
+
     public void putValue(String key, String value) {
-        for ( int i = 0; i < keys.size(); i++ )
-            if (keys.get(i).equals(key)) { values.set(i, value); return; }
-        values  .add(value);
-        keys    .add(key);
+        putValue(key, value, false, true);
+    }
+
+    public void putValue(String key, String value, boolean atBeginning) {
+        putValue(key, value, atBeginning, true);
     }
 
     public void removeValue(String key) {
