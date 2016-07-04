@@ -1,1 +1,1 @@
- - New feature: Bookmarks & History
+ - Add german language for Bookmarks & History feature
