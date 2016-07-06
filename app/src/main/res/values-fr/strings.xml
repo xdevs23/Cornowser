@@ -50,7 +50,7 @@
     <string name="general_theme">Thème</string>
     <string name="general_initializing">Initialisation...</string>
     <string name="general_initialize">Initialiser</string>
-
+<string name="end_app_delay_msg">Appuyez de nouveau sur Retour pour quitter</string>
     <string name="general_custom">Personnaliser</string>
     
     <!-- Permissions -->
@@ -58,5 +58,5 @@
 
     <!-- Options menu -->
     <string name="optmenu_share">Partager</string>
-
+<string name="action_settings">Paramètres</string>
 </resources>
