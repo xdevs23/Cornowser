@@ -21,5 +21,6 @@
     <string name="webrender_longpress_dialog_image_dblpnt">Image : %s</string>
 
     <string name="webrender_image_saved_message">Image enregistrée</string>
+<string name="webrender_colormode_reset_reload"> Actualisez la page pour vous assurez que le contenu est correctement chargé </string>
 
 </resources>
