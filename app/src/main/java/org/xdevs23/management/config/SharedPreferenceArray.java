@@ -8,9 +8,8 @@ public class SharedPreferenceArray {
         StringBuilder sb = new StringBuilder();
         for ( String s : array) {
             String aps;
-            if(s == null) aps = "";
+            if(s == null) return "";
             else aps = s;
-            assert s != null;
             if(s.contains(":")) aps = s.replace(":", "::");
             if(s.contains("|")) aps = aps.replace("|", "||");
             sb.append(aps).append("|:|");
