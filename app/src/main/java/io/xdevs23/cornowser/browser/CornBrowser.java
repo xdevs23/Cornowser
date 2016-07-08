@@ -908,12 +908,16 @@ public class CornBrowser extends XquidCompatActivity {
     protected void onResume() {
         Logging.logd("Activity resumed.");
         super.onResume();
+        if (publicWebRender == null ||
+                (tabSwitcher == null || (tabSwitcher.getTabSwitcher() == null ||
+                tabSwitcher.getTabSwitcher().getTabStorage().getTabCount() <= 0)))
+            init();
         if(this.getWindow().isActive() && isBgBoot) {
             isBgBoot = false;
             if( (!checkUpdate.isAlive()) && (!alreadyCheckedUpdate) )
                 checkUpdate.start();
             fastReloadComponents();
-        } else onResumeWebRender();
+        } else if(publicWebRender != null) onResumeWebRender();
         reloadComponents();
     }
 
