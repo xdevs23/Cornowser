@@ -299,6 +299,11 @@ public class CornBrowser extends XquidCompatActivity {
             for (String s : getBrowserStorage().getLastBrowsingSession()) {
                 getTabSwitcher().addTab(s);
             }
+            if(getBrowserStorage().getLastBrowsingSession().length == 0) {
+                Logging.logd("    No tabs to restore.");
+                getTabSwitcher().addTab(browserStorage.getUserHomePage(), "");
+                return;
+            }
             getTabSwitcher().switchTab(0);
             getTabSwitcher().fixWebResumation();
             Logging.logd("    Restored!");
