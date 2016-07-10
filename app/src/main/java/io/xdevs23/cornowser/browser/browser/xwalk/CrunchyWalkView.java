@@ -86,8 +86,10 @@ public class CrunchyWalkView extends XWalkView {
         Logging.logd("      Configuring settings");
         setUserAgentString(userAgent);
 
+        Logging.logd("      Registering onTouchListener");
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
 
+        Logging.logd("      Loading history");
         browsingHistory = new SPConfigEntry(CornBrowser.getBrowserStorage()
                 .getString(BrowserStorage.BPrefKeys.historyPref, ""));
 
