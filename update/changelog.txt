@@ -1,1 +1,2 @@
- - Add german language for Bookmarks & History feature
+ - Fix bugs and crashes
+ - Update Crosswalk to 21.51.546.0
