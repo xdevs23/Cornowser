@@ -47,7 +47,10 @@
     <string name="settings_misc_clean_data_summary">Verwende diese Funktion um Daten zu bereinigen</string>
 
     <string name="settings_misc_debug_title">Debug-Modus</string>
-    <string name="settings_misc_debug_summary">Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)</string>
+    <string name="settings_misc_debug_summary">
+        Aktiviere Ausgabe in Logcat. (Gut, wenn du es uns zeigen willst)
+        Funktioniert nicht mit Google Play-Versionen von Cornowser.
+    </string>
 
     <string name="settings_misc_optout_clytics_title">Crashlytics deaktivieren</string>
     <string name="settings_misc_optout_clytics_summary">Automatische Absturzberichte ablehnen
