@@ -4,6 +4,6 @@ echo "Configuring..."
 source configure.sh
 
 echo "Building..."
-./gradlew clean build connectedCheck assembleRelease clean build
+./gradlew clean assembleIndirectRelease clean build
 
 echo "Build finished!"

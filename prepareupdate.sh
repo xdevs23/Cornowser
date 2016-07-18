@@ -1,6 +1,7 @@
 #!/bin/bash
 
-APPRELPATH="app/build/outputs/apk/app-release.apk"
+APPRELPATHORIG="app/build/outputs/apk/app-release.apk"
+APPRELPATH="app/build/outputs/apk/app-indirect-release.apk"
 APPVER="$1-$2$3"
 APPVER1="$1"
 APPVER2="$2"
@@ -21,6 +22,8 @@ else
     cp "$APPRELPATH" "update/Cornowser.apk"
     cp "$APPRELPATH" "versions/Cornowser-$1-$2$3.apk"
   fi
+
+  mv $APPRELPATH $APPRELPATHORIG
 
   echo -en $1>update/version.txt
   echo -en $2>update/rel.txt
