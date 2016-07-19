@@ -4,6 +4,6 @@ echo "Configuring..."
 source configure.sh $1
 
 echo "Starting build..."
-./gradlew clean assembleIndirectAppDebug build
+./gradlew clean assembleAppDebug build
 
 echo "Build finished"

@@ -1,6 +1,6 @@
 #/bin/sh
 
-DBGAPKPATH="app/build/outputs/apk/app-indirect-appdebug.apk"
+DBGAPKPATH="app/build/outputs/apk/app-appdebug.apk"
 ADBARGS=""
 CONTINUEXEC=true
 COMPILEAPP=false
