@@ -229,7 +229,6 @@ public class UpdateActivity extends XquidCompatActivity {
                 latestVersionCodeString
         ); else Logging.logd("Version code was not downloaded correctly.");
 
-        
         switch( Integer.parseInt(
                 String.valueOf(latestVersionCode)
                         .substring(8, 9)

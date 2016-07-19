@@ -194,17 +194,8 @@ public class CornBrowser extends XquidCompatActivity {
                 && (!isNewIntent));
     }
 
-    private boolean isShowingUpdateAllowed() {
-        try {
-            return (getPackageManager().getPackageInfo(getPackageName(), 0).versionCode < 100000);
-        } catch(Exception ex) {
-            return true;
-        }
-    }
-
     private boolean isUpdateCheckAllowed() {
-        return (((!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent)))
-                && isShowingUpdateAllowed();
+        return ((!isBgBoot) && (!checkUpdate.isAlive()) || (!isNewIntent));
     }
 
     public void handleWaitForAdBlock() {
@@ -666,13 +657,7 @@ public class CornBrowser extends XquidCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case optMenuItems.UPDATER:
-                        if(isShowingUpdateAllowed()) {
-                            startActivity(new Intent(getContext(), UpdateActivity.class));
-                            break;
-                        }
-                        Toast.makeText
-                                (getContext(), getString(R.string.play_no_updater), Toast.LENGTH_LONG)
-                                .show();
+                        startActivity(new Intent(getContext(), UpdateActivity.class));
                         break;
                     case optMenuItems.SETTINGS:
                         startActivity(new Intent(getContext(), SettingsActivity.class));

@@ -83,8 +83,4 @@
         Please don\'t use root if you experience any issues or problems.
     </string>
 
-    <string name="play_no_updater">
-        Google Play versions can\'t use the integrated updater of Cornowser
-    </string>
-
 </resources>
