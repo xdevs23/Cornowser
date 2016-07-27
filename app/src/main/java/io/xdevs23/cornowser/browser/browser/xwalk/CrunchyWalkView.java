@@ -180,7 +180,11 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public boolean canGoBack() {
-        return getNavigationHistory().canGoBack();
+        try {
+            return getNavigationHistory().canGoBack();
+        } catch(NullPointerException ex) {
+            return false;
+        }
     }
 
     public void goForward(int steps) {
