@@ -26,4 +26,15 @@
         Lade die Seite neu, um sicher zu gehen dass der Inhalt ordnungsgemäß dargestellt wird
     </string>
 
+
+    <string name="webrender_ssl_error_title">SSL-Fehler</string>
+    <string name="webrender_ssl_error_message">
+        Das SSL-Zertifikat dieser Webseite wurde nicht als sicher erkannt, ist ungültig oder ein anderer
+        Fehler ist während der Prüfung aufgetreten. Es wird nicht empfohlen persönliche oder sensitive
+        Informationen an unsichere Webseiten zu senden. Möchtest du die Webseite trotzdem weiterhin laden?
+        Beachte, dass wenn du jetzt fortfährst, jeglicher weiterer SSL-Fehler auf derselben Webseite für
+        diese Sitzung ignoriert wird.
+    </string>
+
+
 </resources>

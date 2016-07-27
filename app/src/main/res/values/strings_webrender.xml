@@ -26,4 +26,12 @@
         Reload the page to make sure that the content is displayed correctly
     </string>
 
+    <string name="webrender_ssl_error_title">SSL Error</string>
+    <string name="webrender_ssl_error_message">
+        The SSL certificate of this website could not be verified, is invalid or another error
+        occurred while handling SSL. It is not recommended submitting personal and sensitive information
+        to insecure websites. Do you want to continue loading this web page? Note that if you continue now,
+        any SSL error that occurs on the same website will be ignored for this session.
+    </string>
+
 </resources>

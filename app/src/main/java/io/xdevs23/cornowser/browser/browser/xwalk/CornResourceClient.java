@@ -235,7 +235,8 @@ public class CornResourceClient extends XWalkResourceClient {
 
     @Override
     public void onReceivedSslError(XWalkView view, ValueCallback<Boolean> callback, SslError error) {
-        super.onReceivedSslError(view, callback, error);
+        CrunchyWalkView.fromXWalkView(view).getUIClient()
+                .onSslError(CrunchyWalkView.fromXWalkView(view), callback, error);
     }
 
     @Override

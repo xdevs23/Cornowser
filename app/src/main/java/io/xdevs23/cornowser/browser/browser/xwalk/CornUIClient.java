@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.xwalk;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.http.SslError;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -33,7 +34,7 @@ import io.xdevs23.cornowser.browser.browser.modules.tabs.Tab;
  */
 public class CornUIClient extends XWalkUIClient {
 
-    public boolean skipDCheck = false;
+    public boolean skipDCheck = false, skipSslCheck = false;
 
     // This is for controlling errors on start-up loading
     public boolean readyForBugfreeBrowsing = false;
@@ -240,6 +241,40 @@ public class CornUIClient extends XWalkUIClient {
             return;
         }
         CornBrowser.handleGoForwardControlVisibility();
+    }
+
+    public void onSslError(CrunchyWalkView view, ValueCallback<Boolean> callback, SslError error) {
+        Logging.logd("Blocking load: SSL Failure");
+        view.stopLoading();
+        final ValueCallback<Boolean> fCallback = callback;
+        final CrunchyWalkView fView = view;
+        final String fUrl = error.getUrl();
+        Logging.logd("Blocked URL: " + fUrl);
+        AlertDialog.Builder b = new AlertDialog.Builder(CornBrowser.getActivity());
+        b
+                .setTitle(CornBrowser.getContext().getString(R.string.webrender_ssl_error_title))
+                .setMessage(CornBrowser.getContext().getString(R.string.webrender_ssl_error_message))
+                .setPositiveButton(CornBrowser.getContext().getString(R.string.answer_yes),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Logging.logd("User decided to continue loading");
+                                fCallback.onReceiveValue(true);
+                                fView.load(fUrl);
+                                dialog.dismiss();
+                            }
+                        })
+                .setNegativeButton(CornBrowser.getContext().getString(R.string.answer_no),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Logging.logd("User decided not to continue loading");
+                                fCallback.onReceiveValue(false);
+                                dialog.dismiss();
+                            }
+                        })
+                .create().show();
+        CornBrowser.initOmniboxPosition();
     }
 
     @Override
