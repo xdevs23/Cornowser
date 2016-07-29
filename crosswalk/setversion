@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo -n "$@">version.txt
+echo "Version $(cat version.txt) set."
