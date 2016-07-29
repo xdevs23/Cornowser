@@ -8,7 +8,6 @@ import org.xdevs23.debugutils.Logging;
 import org.xdevs23.debugutils.StackTraceParser;
 import org.xdevs23.management.config.SharedPreferenceArray;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import io.xdevs23.cornowser.browser.browser.modules.adblock.AdBlockConst;
