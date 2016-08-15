@@ -15,16 +15,17 @@ I, [xdevs23](http://github.com/xdevs23), do the main work on this project, [Thun
 
 
 <hr />
-This browser achieves **524** out of **555** points in the [Beta HTML5Test](http://beta.html5test.com).
-Google Chrome Dev for Android achieves **525** points.
+This browser achieves **486** out of **555** points in the [Beta HTML5Test](http://beta.html5test.com).
+**Note:** due to changes in the Beta HTML5 Test, all scores are now lower. Please don't consider the updated screenshots as a worse score than before.
+Google Chrome for Android achieves **488** points.
 
 According to these results **this browser is ready for HTML5**.
 
-### Chrome Dev score:
-<img src="http://xdevs23.bplaced.com/upload/img/ChromeDev_htscore_2_52.png" width="240" />
+### Chrome score:
+<img src="https://github.com/xdevs23/Cornowser/raw/screenshots/chrome52html5test.png" width="240" />
 
 ### Cornowser score:
-<img src="http://dl-1.va.us.xda-developers.com/3/7/3/5/1/7/7/scr-1077-bhtm5t.png?key=s4-wyskvI8HX32y1yipQlA&ts=1462011158" width="240" />
+<img src="https://github.com/xdevs23/Cornowser/raw/screenshots/cornowser1094html5test.png" width="240" />
 
 ## Screenshots
 
