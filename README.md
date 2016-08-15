@@ -26,7 +26,7 @@ According to these results **this browser is ready for HTML5**.
 ### Cornowser score:
 <img src="http://dl-1.va.us.xda-developers.com/3/7/3/5/1/7/7/scr-1077-bhtm5t.png?key=s4-wyskvI8HX32y1yipQlA&ts=1462011158" width="240" />
 
-## Screenhots
+## Screenshots
 
 See [our XDA thread with screenshots](http://forum.xda-developers.com/devdb/project/?id=13347#screenshots).
 
