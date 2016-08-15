@@ -22,8 +22,6 @@ public class CornHandler {
         loadWorkingUrl,
         setWebThemeColor,
         startTemplateFilling,
-        handleLongpressLink,
-        handleLongpressImage
     }
 
     public static void handleRequest(String req, Activity activity,
