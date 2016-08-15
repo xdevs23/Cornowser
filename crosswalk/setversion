@@ -1,4 +1,7 @@
 #!/bin/bash
 
+# Check if we are in the correct directory
+[ "${PWD##*/}" != "crosswalk" ] && cd crosswalk
+
 echo -n "$@">version.txt
 echo "Version $(cat version.txt) set."
