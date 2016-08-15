@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.Toast;
 
 import org.xdevs23.android.content.ClipboardUtil;
@@ -27,6 +28,7 @@ import org.xdevs23.management.config.SPConfigEntry;
 import org.xdevs23.net.DownloadUtils;
 import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.view.listview.XDListView;
+import org.xwalk.core.XWalkHitTestResult;
 import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkView;
 
@@ -88,6 +90,26 @@ public class CrunchyWalkView extends XWalkView {
 
         Logging.logd("      Registering onTouchListener");
         setOnTouchListener(OmniboxAnimations.mainOnTouchListener);
+        // Thanks to chuan.liu (XWALK-7233) for the awesome example
+        setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                XWalkHitTestResult result = ((CrunchyWalkView) v).getHitTestResult();
+                XWalkHitTestResult.type resultType = result.getType();
+                if(result.getExtra() == null) return false;
+                switch (resultType) {
+                    case IMAGE_TYPE:
+                        onLongPress(result.getExtra(), result.getExtra(), true);
+                        break;
+                    case PHONE_TYPE:
+                        break;
+                    default:
+                        onLongPress(result.getExtra(), result.getExtra(), false);
+                        break;
+                }
+                return true;
+            }
+        });
 
         Logging.logd("      Loading history");
         browsingHistory = new SPConfigEntry(CornBrowser.getBrowserStorage()

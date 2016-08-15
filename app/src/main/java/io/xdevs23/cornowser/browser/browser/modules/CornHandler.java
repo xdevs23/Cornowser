@@ -67,23 +67,6 @@ public class CornHandler {
                     view.evaluateJavascript(HandlerStorage.currentTemplateContent, null);
                     HandlerStorage.currentTemplateContent = "";
                     break;
-                case handleLongpressLink:
-                    if(reqParams.length >= 2)
-                        view.onLongPress(
-                                reqParams[1].replace("::", ":"),
-                                reqParams[0].replace("::", ":"),
-                                false);
-                    break;
-                case handleLongpressImage:
-                    if(reqParams.length >= 1) {
-                        if(reqParams[1] == null || reqParams[1].isEmpty())
-                            reqParams[1] = " ";
-                        view.onLongPress(
-                                reqParams[0].replace("::", ":"),
-                                reqParams[1].replace("::", ":"),
-                                true);
-                    }
-                    break;
                 default: break;
             }
         } catch(Exception ex) {
