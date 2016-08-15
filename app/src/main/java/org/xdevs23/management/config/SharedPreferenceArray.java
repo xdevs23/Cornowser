@@ -19,7 +19,8 @@ public class SharedPreferenceArray {
     }
 
     public static String[] getStringArray(String preferenceString) {
-        if(preferenceString.isEmpty()) return null;
+        if(preferenceString == null || preferenceString.isEmpty())
+            return new String[] {""};
         String[] array = preferenceString.split("([|][:][|])");
         for ( int i = 0; i < array.length; i++ ) {
             String aps = array[i];
