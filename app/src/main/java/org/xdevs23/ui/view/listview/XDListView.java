@@ -67,8 +67,7 @@ public class XDListView {
             holder.TextView1.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             holder.TextView2.setSingleLine();
             holder.TextView2.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            convertView = mainView;
-            return convertView;
+            return mainView;
         }
     }
 	
