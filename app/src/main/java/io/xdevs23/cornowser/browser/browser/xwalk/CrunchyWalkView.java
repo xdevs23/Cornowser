@@ -1,6 +1,5 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,9 +46,18 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 public class CrunchyWalkView extends XWalkView {
 
     public static final String HTTP_PREFIX = "http://";
-    public static String userAgent =
+    public static String
+            chromeVer = "Chrome/54.0.2830.1",
+            webKitVer = "537.36",
+            kernelVer = System.getenv("os.version"),
+            userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/54.0.2830.1 Mobile Safari/537.36";
+                    "AppleWebKit/" + webKitVer + " (KHTML, like Gecko) Cornowser/%s " + chromeVer +
+                    " Mobile Safari/" + webKitVer,
+            desktopAgent = "Mozilla/5.0 (Linux; "
+                    + (kernelVer == null || kernelVer.isEmpty() ? "Generic"
+                    :  kernelVer) + ") AppleWebKit/537.36 (KHTML, like Gecko) " + chromeVer +
+                    " Safari/" + webKitVer;
 
     public int currentProgress = 0;
 

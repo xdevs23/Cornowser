@@ -7,5 +7,8 @@
     <string name="cornmenu_item_share">@string/optmenu_share</string>
     <string name="cornmenu_item_addtoadwl">Add domain to AdBlock whitelist</string>
     <string name="cornmenu_item_rmfrmadwl">Remove domain from AdBlock whitelist</string>
+    <!-- %s is either Enable or Disable. Please keep the %s, and add the translations for
+         Enable and Disable in strings.xml for your language -->
+    <string name="cornmenu_item_desktopview">%s desktop mode</string>
 
 </resources>

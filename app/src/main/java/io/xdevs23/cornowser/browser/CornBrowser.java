@@ -46,6 +46,7 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 import org.xwalk.core.XWalkPreferences;
 
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.services.events.EnabledEventsStrategy;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.BookmarkHistoryActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
@@ -634,7 +635,8 @@ public class CornBrowser extends XquidCompatActivity {
                 ADD_HOME_SHCT                   = 3,
                 ADD_DOMAIN_TO_ADBLOCK_WHITELIST = 4,
                 ADD_TO_BOOKMARKS                = 5,
-                VIEW_BOOKMARKS_HISTORY          = 6
+                VIEW_BOOKMARKS_HISTORY          = 6,
+                ENABLE_DESKTOP_MODE             = 7
                         ;
     }
 
@@ -649,8 +651,12 @@ public class CornBrowser extends XquidCompatActivity {
                 getString(R.string.cornmenu_item_addhomesc),
                 getString(R.string.cornmenu_item_addtoadwl),
                 getString(R.string.bkmhis_add_to_bkm),
-                getString(R.string.bkmhis_view_bkmhis)
+                getString(R.string.bkmhis_view_bkmhis),
+                getString(R.string.cornmenu_item_desktopview)
         };
+        optionsMenuItems[optMenuItems.ENABLE_DESKTOP_MODE] =
+                String.format(getString(R.string.cornmenu_item_desktopview),
+                        getString(R.string.general_enable));
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogBlueRipple);
         builder.setAdapter(XDListView.createLittle(getContext(), optionsMenuItems), new DialogInterface.OnClickListener() {
             @Override
@@ -698,9 +704,21 @@ public class CornBrowser extends XquidCompatActivity {
                     case optMenuItems.VIEW_BOOKMARKS_HISTORY:
                         startActivity(new Intent(getContext(), BookmarkHistoryActivity.class));
                         break;
+                    case optMenuItems.ENABLE_DESKTOP_MODE:
+                        getWebEngine().setUserAgentString(
+                                getWebEngine().getUserAgentString().contains("Mobile Safari") ?
+                                CrunchyWalkView.desktopAgent : CrunchyWalkView.userAgent
+                        );
+                        getWebEngine().reload(true);
+                        break;
                     default:
                         break;
                 }
+                optionsMenuItems[optMenuItems.ENABLE_DESKTOP_MODE] =
+                        String.format(getString(R.string.cornmenu_item_desktopview),
+                                getString(
+                                        getWebEngine().getUserAgentString().contains("Mobile Safari")
+                                                ? R.string.general_enable : R.string.general_disable));
                 dialog.dismiss();
             }
         });

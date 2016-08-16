@@ -52,6 +52,8 @@
     <string name="general_theme">Theme</string>
     <string name="general_initializing">Initializing...</string>
     <string name="general_initialize">Initialize</string>
+    <string name="general_enable">Enable</string>
+    <string name="general_disable">Disable</string>
 
     <string name="end_app_delay_msg">Press back again to exit</string>
 
