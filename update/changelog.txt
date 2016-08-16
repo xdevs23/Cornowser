@@ -1,2 +1,6 @@
- - Fix crashes
- - Add SSL error handler (shows an AlertDialog with a warning)
+ - New long-press handling, dropped old implementation (Now it works fine!)
+ - New feature: desktop mode
+ - Update appcompat/support libraries
+ - Update Crosswalk to 22.52.558.0
+ - Fix rare crashes
+ - Other minor changes and improvements
