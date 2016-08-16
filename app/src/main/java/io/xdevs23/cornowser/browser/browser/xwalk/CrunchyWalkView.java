@@ -49,7 +49,7 @@ public class CrunchyWalkView extends XWalkView {
     public static final String HTTP_PREFIX = "http://";
     public static String userAgent =
             "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL + ") " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/53.0.2782.1 Mobile Safari/537.36";
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Cornowser/%s Chrome/54.0.2830.1 Mobile Safari/537.36";
 
     public int currentProgress = 0;
 
