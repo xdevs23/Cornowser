@@ -46,7 +46,6 @@ import org.xdevs23.ui.widget.TastyOverflowMenu;
 import org.xwalk.core.XWalkPreferences;
 
 import io.fabric.sdk.android.Fabric;
-import io.fabric.sdk.android.services.events.EnabledEventsStrategy;
 import io.xdevs23.cornowser.browser.activity.BgLoadActivity;
 import io.xdevs23.cornowser.browser.activity.BookmarkHistoryActivity;
 import io.xdevs23.cornowser.browser.activity.SettingsActivity;
