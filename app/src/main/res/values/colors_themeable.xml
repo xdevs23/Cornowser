@@ -3,7 +3,7 @@
 
     <!--
      NEVER, really NEVER invert black and white for THEMES on CORNOWSER!!!!
-     That could have REALLY EXTREME UGLY and bugy results and is NOT recommended!
+     That could have REALLY EXTREME UGLY and unexpected results and is NOT recommended!
 
      Please don't change material palette colors, only change the colors provided
      in this file and the themeable colors in colors.xml
