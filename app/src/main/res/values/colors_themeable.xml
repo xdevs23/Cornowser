@@ -18,7 +18,7 @@
     <color name="adblock_statusbar_background">@color/red_900</color>
     <color name="adblock_actionbar_background">@color/red_800</color>
 
-    <color name="bkmhis_statusbar_background">@color/blue_800</color>
+    <color name="bkmhis_statusbar_background">@color/blue_700</color>
     <color name="bkmhis_actionbar_background">@color/blue_600</color>
     <color name="bkmhis_tabindicator">@color/white</color>
 
