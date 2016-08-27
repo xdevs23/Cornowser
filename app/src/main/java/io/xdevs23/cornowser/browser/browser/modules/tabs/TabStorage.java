@@ -45,7 +45,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
      */
     protected void recycleTab(Tab tab) {
         tab.webView.stopLoading();
-        tab.webView = null;
+        tab.webView.onDestroy();
     }
 
     @Override
