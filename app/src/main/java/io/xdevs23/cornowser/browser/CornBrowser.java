@@ -884,6 +884,12 @@ public class CornBrowser extends XquidCompatActivity {
      * Resume the web rendering engine after being paused (or reload)
      */
     protected void onResumeWebRender() {
+        if(publicWebRender == null ||
+                publicWebRender.getResourceClient() == null ||
+                publicWebRender.getUIClient() == null) {
+            bootstrap();
+            return;
+        }
         if (publicWebRender != null) {
 
             publicWebRender.resumeTimers();

@@ -53,8 +53,11 @@ public class CornResourceClient extends XWalkResourceClient {
                     ")"
     );
 
+    private CrunchyWalkView mWebView;
+
     public CornResourceClient(XWalkView view) {
         super(view);
+        mWebView = CrunchyWalkView.fromXWalkView(view);
     }
 
     @Override
@@ -247,6 +250,12 @@ public class CornResourceClient extends XWalkResourceClient {
     @Override
     public void doUpdateVisitedHistory(XWalkView view, String url, boolean isReload) {
         super.doUpdateVisitedHistory(view, url, isReload);
+    }
+
+    public void destroy() {
+        // Set the REFERENCE of the mWebView variable to null
+        mWebView = null;
+        currentWorkingUrl = null;
     }
 
 }

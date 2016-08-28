@@ -313,4 +313,8 @@ public class CornUIClient extends XWalkUIClient {
         CrunchyWalkView.fromXWalkView(view).currentProgress = 100;
     }
 
+    public void destroy() {
+        readyForBugfreeBrowsing = false;
+    }
+
 }

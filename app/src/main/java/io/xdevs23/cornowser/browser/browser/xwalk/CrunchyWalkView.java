@@ -1,5 +1,6 @@
 package io.xdevs23.cornowser.browser.browser.xwalk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 /**
  * A delicious and crunchy XWalkView with awesome features
  */
+@SuppressLint("ViewConstructor") // We won't be doing this anyways
 public class CrunchyWalkView extends XWalkView {
 
     public static final String HTTP_PREFIX = "http://";
@@ -65,12 +67,15 @@ public class CrunchyWalkView extends XWalkView {
 
     protected String currentUrl, currentTitle;
 
-    protected boolean isLongPressDialogAv = true;
+    protected boolean
+            isLongPressDialogAv = true,
+            isIncognito         = false;
 
     private CornResourceClient resourceClient;
     private CornUIClient       uiClient;
 
-    private boolean isHistoryBeingWritten = false;
+    private boolean
+            isHistoryBeingWritten   = false;
 
     private Thread historyUpdateThread;
 
@@ -78,7 +83,7 @@ public class CrunchyWalkView extends XWalkView {
 
     private int lastBgColor = 0;
 
-    private void init() {
+    private CrunchyWalkView init() {
         Logging.logd("    Initializing our crunchy XWalkView :P");
 
         Logging.logd("      User agent");
@@ -119,25 +124,64 @@ public class CrunchyWalkView extends XWalkView {
             }
         });
 
-        Logging.logd("      Loading history");
-        browsingHistory = new SPConfigEntry(CornBrowser.getBrowserStorage()
-                .getString(BrowserStorage.BPrefKeys.historyPref, ""));
+        if(!isIncognito) {
+            Logging.logd("      Loading history");
+            browsingHistory = new SPConfigEntry(CornBrowser.getBrowserStorage()
+                    .getString(BrowserStorage.BPrefKeys.historyPref, ""));
+        }
 
         drawWithColorMode();
 
         Logging.logd("      Done!");
+        return this;
     }
 
-    /* Don't use this! */
-    @DontUse
-    public CrunchyWalkView(Context context) {
-        super(context);
-        init();
-    }
-
-    public CrunchyWalkView(Context context, Activity activity) {
+    private CrunchyWalkView(Context context, Activity activity) {
         super(context, activity);
-        init();
+    }
+
+    public static CrunchyWalkView newInstance(Activity activity, boolean isIncognito) {
+        return (new CrunchyWalkView(activity.getApplicationContext(), activity))
+                .setIncognito(isIncognito)
+                .init();
+    }
+
+    private CrunchyWalkView setIncognito(boolean enable) {
+        isIncognito = enable;
+        return this;
+    }
+
+    @Override
+    public void onDestroy() {
+        stopLoading();
+
+        // Wait & shut down threads
+        try {
+            isHistoryBeingWritten = false;
+            historyUpdateThread.join();
+            historyUpdateThread = null;
+        } catch(Exception ex) {
+            Logging.logd("[CrunchyWalkView] Could not shut down all threads properly.");
+        }
+
+        // Shut down webview
+        pauseTimers();
+        onHide();
+
+        // Clear caches for visited history
+        for ( int i = 0; i < getNavigationHistory().size(); i++ )
+            clearCacheForSingleFile(getNavigationHistory().getItemAt(i).getUrl());
+
+        // Clear the history
+        getNavigationHistory().clear();
+
+        getResourceClient().destroy();
+        getUIClient().destroy();
+
+        resourceClient = null;
+        uiClient = null;
+
+        super.onDestroy();
     }
 
     public CornResourceClient getResourceClient() {
@@ -487,6 +531,7 @@ public class CrunchyWalkView extends XWalkView {
     }
 
     public void registerNavigation() {
+        if(isIncognito) return;
         historyUpdateThread = new Thread(new Runnable() {
             @Override
             public void run() {

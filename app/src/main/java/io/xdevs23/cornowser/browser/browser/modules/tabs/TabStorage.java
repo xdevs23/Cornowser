@@ -4,6 +4,7 @@ import org.xdevs23.general.ExtendedAndroidClass;
 
 import java.util.ArrayList;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
@@ -13,7 +14,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
     @Override
     public Tab addTab() {
         Tab tab = new Tab();
-        tab.webView = new CrunchyWalkView(getContext());
+        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false);
         tabList.add(tab);
         return tab;
     }
@@ -21,7 +22,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
     @Override
     public Tab addTab(String url) {
         Tab tab = new Tab(url);
-        tab.webView = new CrunchyWalkView(getContext());
+        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false);
         tab.webView.load(url);
         tabList.add(tab);
         return tab;

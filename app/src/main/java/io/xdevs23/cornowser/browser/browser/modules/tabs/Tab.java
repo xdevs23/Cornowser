@@ -3,6 +3,7 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 import android.app.Activity;
 import android.content.Context;
 
+import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class Tab {
@@ -36,7 +37,7 @@ public class Tab {
     }
 
     public Tab initWithWebRender(Context context, Activity activity) {
-        return setWebRender(new CrunchyWalkView(context, activity));
+        return setWebRender(CrunchyWalkView.newInstance(CornBrowser.getActivity(), false));
     }
 
     public Tab setWebRender(CrunchyWalkView view) {

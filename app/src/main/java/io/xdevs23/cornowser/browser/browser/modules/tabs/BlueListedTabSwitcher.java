@@ -2,11 +2,14 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.ContextMenu;
@@ -14,6 +17,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xdevs23.android.widget.XquidLinearLayout;
+import org.xdevs23.android.widget.XquidRelativeLayout;
 import org.xdevs23.debugutils.Logging;
 import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.touch.BluePressOnTouchListener;
@@ -34,41 +39,16 @@ import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
+import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 @SuppressWarnings("deprecation")
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
-    public ScrollView mainView;
+    public XquidRelativeLayout mainView;
+    protected ScrollView scrollView;
     private XquidLinearLayout tabsLayout;
 
-    private Drawable bgBtn;
-
     private int currentY = 0;
-
-    private View.OnTouchListener addButtonOTL = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch(event.getAction()) {
-                case MotionEvent.ACTION_HOVER_ENTER:
-                case MotionEvent.ACTION_DOWN:
-                    bgBtn.setColorFilter(ColorUtil.getColor(R.color.blue_400),
-                            PorterDuff.Mode.MULTIPLY);
-                    break;
-                case MotionEvent.ACTION_HOVER_EXIT:
-                case MotionEvent.ACTION_UP:
-                    bgBtn.setColorFilter(mainColor,
-                            PorterDuff.Mode.MULTIPLY);
-                    break;
-                default: break;
-            }
-            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-                v.setBackgroundDrawable(bgBtn);
-            else
-                v.setBackground(bgBtn);
-
-            return false;
-        }
-    };
 
     private int mainColor;
 
@@ -194,33 +174,25 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         tabsLayout = getNewChildLayout(1, 1, 1, 2);
 
-        footerLayout.setGravity(Gravity.END | Gravity.TOP);
+        footerLayout.setGravity(Gravity.END | Gravity.BOTTOM);
 
-        final int minWh  = DpUtil.dp2px(getContext(), 24);  // Dimensions of button (wxh)
-        final int bpd    = DpUtil.dp2px(getContext(), 4);   // Button inner padding
-        final int minWhP = minWh - bpd;
+        final FloatingActionButton button = new FloatingActionButton(CornBrowser.getActivity());
+        button.setCompatElevation(12f);
+        button.setImageResource(R.drawable.main_cross_plus_icon);
+        //noinspection all
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && false) {
+            ColorStateList csl = ColorStateList.valueOf(mainColor);
+            RippleDrawable d = new RippleDrawable(csl, null, null);
 
-        RelativeLayout button = new RelativeLayout(getContext());
-        button.setBackgroundColor(mainColor);
-        button.setMinimumWidth(minWh);
-        button.setMinimumHeight(minWh);
+            ColorStateList otherCsl =
+                    ColorStateList.valueOf(ColorUtil.getColor(R.color.white_semi_transparent));
+            d.setColor(otherCsl);
 
-        bgBtn = ContextCompat.getDrawable(getContext(), R.drawable.main_circle_bg);
-        bgBtn.setColorFilter(mainColor, PorterDuff.Mode.MULTIPLY);
+            button.setBackground(d);
+        } else { // Dirty fix
+            button.setRippleColor(ColorUtil.getColor(R.color.white_semi_transparent));
+        }
 
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-            button.setBackgroundDrawable(bgBtn);
-        else
-            button.setBackground(bgBtn);
-
-        ImageView img = new ImageView(getContext());
-        img.setImageResource(R.drawable.main_cross_plus_icon);
-        img.setMinimumWidth(minWhP);
-        img.setMinimumHeight(minWhP);
-
-        button.addView(img);
-
-        button.setOnTouchListener(addButtonOTL);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +200,14 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             }
         });
 
-        button.setPadding(bpd, bpd, bpd, bpd);
+        XquidRelativeLayout.LayoutParams fbtnlp = new XquidRelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        fbtnlp.addRule(XquidRelativeLayout.ALIGN_PARENT_BOTTOM);
+        fbtnlp.addRule(XquidRelativeLayout.ALIGN_PARENT_RIGHT);
+        fbtnlp.setMarginsDp(0, 0, 12, 12, getContext());
+        mainView.addView(button, fbtnlp);
 
         TextView infLpTv = new TextView(getContext());
         infLpTv.setText(getContext().getString(R.string.tabswitch_blue_longpress_to_remove));
@@ -236,14 +215,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         infLpTv.setGravity(Gravity.CENTER_VERTICAL);
 
         footerLayout.addView(infLpTv);
-        footerLayout.addView(button);
 
         switcherLayout.addView(footerLayout);
         switcherLayout.addView(tabsLayout);
 
         mainLayout.addView(switcherLayout);
 
-        mainView.addView(mainLayout);
+        scrollView.addView(mainLayout);
     }
 
     @Override
@@ -251,7 +229,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         mainColor       = ColorUtil.getColor(R.color.blue_800);
         int mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
 
-        mainView = new ScrollView(getContext());
+        mainView = new XquidRelativeLayout(getContext());
+        scrollView = new ScrollView(getContext());
+        XquidRelativeLayout.LayoutParams lp = new XquidRelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        mainView.addView(scrollView, lp);
 
         mainView.setBackgroundColor(mainBgColor);
 

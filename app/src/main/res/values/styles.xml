@@ -12,11 +12,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <!-- Core material theme without actionbar -->
     <style name="CoreMTRLTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/blue_700</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 
