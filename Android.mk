@@ -1,54 +1,60 @@
-# AOSP Android Makefile to build Cornowser
- 
+# Gradle Build Script for Gradle Projects
+# To be used in Android Platform Source
+# Modified for Cornowser
 # 
-# Copyright (C) 2016 Simao Gomes Viana (xdevs23)
-#
-# This file is licensed under the MIT License
-# Visit the git repository on http://github.com/xdevs23/Cornowser
-# to learn more.
+# Copyright (C) 2016 Simao Gomes Viana
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
 
-#
-# WARNING: This file hasn't been finished yet.
-# It only contains some set of necessary stuff.
-# If you can, please complete the file and make a pull request
-# THANKS!!
+# 
+# To build this, use make <YourApp> or mmm packages/apps/<YourApp>
+# Note: You must export ANDROID_HOME as your Android SDK directory
+# Don't forget to install the necessary build tools etc. in order to build this.
+# 
 
 LOCAL_PATH := $(call my-dir)
-# Might or might not be necessary
+
 include $(CLEAR_VARS)
 
-# Might or might not be necessary
+LOCAL_MODULE := CornowserGradle
 LOCAL_MODULE_TAGS := optional
+LOCAL_INSTALL_APK := $(OUT)/system/app/Cornowser/Cornowser.apk
+LOCAL_OUTPUT_APK  := $(LOCAL_PATH)/app/build/outputs/apk/app-release-unsigned.apk
+LOCAL_PATH_ := $(LOCAL_PATH)
 
-# Please symlink $(LOCAL_PATH)/app/src/main/AndroidManifest.xml
-# to $(LOCAL_PATH)/AndroidManifest.xml before building!
-LOCAL_SRC_FILES := $(call all-java-files-under, app/src/main/)
+# Build with gradle
+$(LOCAL_OUTPUT_APK):
+	@echo "Building Cornowser..."
+	@echo "Entering directory $(LOCAL_PATH_)"
+	cd $(LOCAL_PATH_); \
+	./gradlew clean; \
+        crosswalk/xwalkinstaller.sh; \
+	./gradlew clean build assembleRelease
 
-LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, app/src/main/res) \
-    $(TOP)/frameworks/support/v7/cardview/res \
-    $(TOP)/frameworks/support/v7/appcompat/res \
+# Add rule
+all_modules: $(LOCAL_OUTPUT_APK)
+.PHONY: $(LOCAL_OUTPUT_APK)
 
-LOCAL_STATIC_JAVA_LIBRARIES := \
-    android-support-v8-renderscript \
-    android-support-v7-cardview \
-    android-common \
-    android-support-v4
-
-# Clone https://github.com/xdevs23/CommonsIO
-LOCAL_PREBUILT_JAVA_LIBRARIES := \
-    $(TOP)/external/apache-commons-io/commons-io-2.4.jar
-
-# Do we need --auto-add-overlay?
-LOCAL_AAPT_FLAGS := \
-    --auto-add-overlay \
-    --extra-packages android.support.v7.cardview
-
-LOCAL_PACKAGE_NAME := Cornowser
-LOCAL_OVERRIDES_PACKAGES := Browser
-
-# I don't know if we need these:
-include $(BUILD_PACKAGE)
-
+# Sign and install the apk
 include $(CLEAR_VARS)
 
-include $(BUILD_MULTI_PREBUILT)
+LOCAL_INSTALL_APK := $(OUT)/system/app/Cornowser/Cornowser.apk
+LOCAL_OUTPUT_APK  := app/build/outputs/apk/app-release-unsigned.apk
+LOCAL_MODULE := Cornowser
+LOCAL_SRC_FILES := $(LOCAL_OUTPUT_APK)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_CERTIFICATE := platform
+
+include $(BUILD_PREBUILT)
