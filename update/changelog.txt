@@ -1,6 +1,9 @@
- - New long-press handling, dropped old implementation (Now it works fine!)
- - New feature: desktop mode
+ - New feature: incognito mode
+ - Use lighter color for status bar in Bookmarks & History
+ - Fix some omnibox bugs/glitches (especially bottom omnibox)
  - Update appcompat/support libraries
- - Update Crosswalk to 22.52.558.0
- - Fix rare crashes
- - Other minor changes and improvements
+ - Update Crosswalk to 23.52.566.0
+ - Update user agent to match Chrome 55
+ - Improve tab recycling
+ - Improve tab switcher
+ - Other minor changes & improvements
