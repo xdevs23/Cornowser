@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 import org.xdevs23.general.ExtendedAndroidClass;
 
 import io.xdevs23.cornowser.browser.CornBrowser;
-import io.xdevs23.cornowser.browser.R;
 
 public abstract class BasicTabSwitcher extends ExtendedAndroidClass implements TabSwitcherBase {
 

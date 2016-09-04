@@ -5,8 +5,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 
-import org.xdevs23.debugutils.Logging;
-
 import io.xdevs23.cornowser.browser.CornBrowser;
 
 public class OmniboxAnimations {

@@ -2,25 +2,16 @@ package io.xdevs23.cornowser.browser.browser.modules.tabs;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -41,7 +32,6 @@ import io.xdevs23.cornowser.browser.browser.modules.ColorUtil;
 import io.xdevs23.cornowser.browser.browser.modules.WebThemeHelper;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxControl;
-import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 @SuppressWarnings("deprecation")
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
