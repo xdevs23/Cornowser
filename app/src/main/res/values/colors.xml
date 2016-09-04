@@ -12,16 +12,18 @@
     <!-- End of themeable colors -->
 
     <color name="white_unnoticeable_opaque">#FDFFFFFF</color>
-    <color name="white_semi_min_transparent">#DFFFFFFF</color>
+    <color name="white_semi_min_transparent">#F2FFFFFF</color>
     <color name="white_semi_less_transparent">#C4FFFFFF</color>
     <color name="white_semi_transparent">#8AFFFFFF</color>
     <color name="white_semi_more_transparent">#56FFFFFF</color>
     <color name="white_semi_most_transparent">#32FFFFFF</color>
+    <color name="white_almost_unnoticeable_transparent">#1EFFFFFF</color>
     <color name="white_unnoticeable_transparent">#01FFFFFF</color>
 
     <color name="dark_unnoticeable_opaque">#FD000000</color>
     <color name="dark_semi_min_transparent">#DF000000</color>
     <color name="dark_semi_less_transparent">#C4000000</color>
+    <color name="dark_semi_bitless_transparent">#B0000000</color>
     <color name="dark_semi_transparent">#8A000000</color>
     <color name="dark_semi_more_transparent">#56000000</color>
     <color name="dark_semi_most_transparent">#32000000</color>

@@ -287,6 +287,11 @@ public class CornUIClient extends XWalkUIClient {
             view.load(url, null);
         else {
             readyForBugfreeBrowsing = true;
+            if(CrunchyWalkView.fromXWalkView(view).tab != null) {
+                CrunchyWalkView.fromXWalkView(view).tab.isNew = false;
+                // Null reference to tab cuz don't need it anymore there
+                CrunchyWalkView.fromXWalkView(view).tab = null;
+            }
             CornBrowser.getWebEngine().resumeTimers();
             CornBrowser.getWebEngine().onShow();
             CornBrowser.publicWebRenderLayout.bringToFront();

@@ -4,6 +4,7 @@ public interface TabSwitcherBase {
 
     void switchTab(int tab);
     void showTab(Tab tab);
+    void showTab(Tab tab, boolean isNew);
 
     Tab getCurrentTab();
 

@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -44,13 +46,19 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 @SuppressWarnings("deprecation")
 public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
-    public XquidRelativeLayout mainView;
+    public XquidRelativeLayout mainView, fabLayout;
     protected ScrollView scrollView;
     private XquidLinearLayout tabsLayout;
 
     private int currentY = 0;
 
-    private int mainColor;
+    private int mainColor, darkColor;
+
+    private boolean isNewTabExpanded = false;
+    private View.OnClickListener fabButtonListener;
+    private LinearLayout mainFabL, normalTabBtnL, incognitoBtnL;
+    private FloatingActionButton mainFab, normalTabBtn, incognitoBtn;
+    private TextView incognitoLb;
 
     private TabSwitchListener tabSwitchListener = new TabSwitchListener() {
         private void updateStuff() {
@@ -140,9 +148,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         return getNewChildLayout(0, 0, 0, 0, v);
     }
 
-    private TextView getNewItemText() {
+    private TextView getNewItemText(Tab tab) {
         TextView t = new TextView(getContext());
-        t.setTextColor(mainColor);
+        t.setTextColor(tab.isIncognito ? darkColor : mainColor);
         XquidLinearLayout.LayoutParams p = new XquidLinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -176,29 +184,256 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         footerLayout.setGravity(Gravity.END | Gravity.BOTTOM);
 
-        final FloatingActionButton button = new FloatingActionButton(CornBrowser.getActivity());
-        button.setCompatElevation(12f);
+        fabLayout = new XquidRelativeLayout(getContext());
+        final XquidRelativeLayout.LayoutParams fllp = new XquidRelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        fllp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        fllp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        fllp.setMarginsDp(0, 0, 10, 10, getContext());
+
+        final LinearLayout.LayoutParams mflp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        mflp.gravity = Gravity.END;
+
+        final LinearLayout.LayoutParams cvlp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        cvlp.gravity = Gravity.CENTER_VERTICAL;
+        cvlp.rightMargin = DpUtil.dp2px(getContext(), 4);
+
+        AppCompatActivity ca = (AppCompatActivity)CornBrowser.getActivity();
+
+        int rc = ColorUtil.getColor(R.color.white_semi_transparent);
+        final FloatingActionButton button = new FloatingActionButton(ca);
+        mainFab = button;
+        button.setBackgroundColor(ColorUtil.getColor(R.color.blue_600));
+        button.setRippleColor(rc);
+        button.setCompatElevation(8f);
+        //button.setSize(FloatingActionButton.SIZE_NORMAL);
         button.setImageResource(R.drawable.main_cross_plus_icon);
-        //noinspection all
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && false) {
-            ColorStateList csl = ColorStateList.valueOf(mainColor);
-            RippleDrawable d = new RippleDrawable(csl, null, null);
 
-            ColorStateList otherCsl =
-                    ColorStateList.valueOf(ColorUtil.getColor(R.color.white_semi_transparent));
-            d.setColor(otherCsl);
+        mainFabL = new LinearLayout(getContext());
+        mainFabL.setGravity(Gravity.END);
+        mainFabL.addView(mainFab, mflp);
 
-            button.setBackground(d);
-        } else { // Dirty fix
-            button.setRippleColor(ColorUtil.getColor(R.color.white_semi_transparent));
-        }
-
-        button.setOnClickListener(new View.OnClickListener() {
+        normalTabBtn = new FloatingActionButton(ca);
+        normalTabBtn.setBackgroundColor(ColorUtil.getColor(R.color.blue_700));
+        normalTabBtn.setRippleColor(rc);
+        normalTabBtn.setCompatElevation(6f);
+        //normalTabBtn.setSize(FloatingActionButton.SIZE_MINI);
+        normalTabBtn.setImageResource(R.drawable.main_cross_plus_icon);
+        normalTabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 addTab(new Tab(CornBrowser.getBrowserStorage().getUserHomePage()));
             }
         });
+
+        normalTabBtnL = new LinearLayout(getContext());
+        final TextView normalTabLb = new TextView(getContext());
+        normalTabLb.setText(getContext().getString(R.string.tabswitch_new_tab));
+        normalTabLb.setTextColor(ColorUtil.getColor(R.color.white));
+        normalTabLb.setBackgroundResource(R.drawable.fab_label_bg);
+        normalTabLb.setTextSize(18);
+        normalTabLb.setSingleLine();
+        normalTabLb.setTypeface(null, Typeface.BOLD);
+        normalTabLb.setGravity(Gravity.CENTER_VERTICAL);
+        normalTabBtnL.setOrientation(LinearLayout.HORIZONTAL);
+        normalTabBtnL.setDividerPadding(DpUtil.dp2px(getContext(), 4));
+        normalTabBtnL.setGravity(Gravity.END);
+        normalTabBtnL.addView(normalTabLb, cvlp);
+        normalTabBtnL.addView(normalTabBtn);
+
+        incognitoBtn = new FloatingActionButton(ca);
+        incognitoBtn.setBackgroundColor(ColorUtil.getColor(R.color.blue_700));
+        incognitoBtn.setRippleColor(rc);
+        incognitoBtn.setCompatElevation(4f);
+        //incognitoBtn.setSize(FloatingActionButton.SIZE_MINI);
+        incognitoBtn.setImageResource(R.drawable.main_cross_plus_icon);
+        incognitoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTab(new Tab(true));
+            }
+        });
+
+        incognitoBtnL = new LinearLayout(getContext());
+        incognitoLb = new TextView(getContext());
+        incognitoLb.setText(getContext().getString(R.string.tabswitch_new_incognito_tab));
+        incognitoLb.setTextColor(ColorUtil.getColor(R.color.white));
+        incognitoLb.setBackgroundResource(R.drawable.fab_label_bg);
+        incognitoLb.setTextSize(18);
+        incognitoLb.setSingleLine();
+        incognitoLb.setTypeface(null, Typeface.BOLD);
+        incognitoLb.setGravity(Gravity.CENTER_VERTICAL);
+        incognitoBtnL.setOrientation(LinearLayout.HORIZONTAL);
+        incognitoBtnL.setDividerPadding(DpUtil.dp2px(getContext(), 4));
+        incognitoBtnL.setGravity(Gravity.END);
+        incognitoBtnL.addView(incognitoLb, cvlp);
+        incognitoBtnL.addView(incognitoBtn, mflp);
+
+        fabLayout.addView(mainFabL, fllp);
+        fabLayout.addView(normalTabBtnL, fllp);
+        fabLayout.addView(incognitoBtnL, fllp);
+
+        normalTabBtnL.bringToFront();
+        mainFabL.bringToFront();
+
+        incognitoBtnL.setVisibility(View.INVISIBLE);
+        normalTabBtnL.setVisibility(View.INVISIBLE);
+
+        final int goodFabMargin = DpUtil.dp2px(getContext(), 4);
+
+        fabButtonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                Logging.logd("Tab switcher fab clicked!");
+                if(!isNewTabExpanded) {
+                    fabLayout.getLayoutParams().height =
+                            incognitoBtn.getHeight() +
+                                    normalTabBtn.getHeight() +
+                                    button.getHeight()
+                                    + goodFabMargin * 5;
+                    incognitoLb.setAlpha(0f);
+                    normalTabLb.setAlpha(0f);
+                    incognitoBtnL.setVisibility(View.VISIBLE);
+                    normalTabBtnL.setVisibility(View.VISIBLE);
+                    final int nby = -(normalTabBtn.getHeight() + goodFabMargin);
+                    normalTabBtnL.animate()
+                            .setDuration(320)
+                            .translationY(nby)
+                            .start();
+                    final int iby = -(incognitoBtn.getHeight() + goodFabMargin +
+                            normalTabBtn.getHeight() + goodFabMargin);
+                    incognitoBtnL.animate()
+                            .setDuration(320)
+                            .translationY(iby)
+                            .start();
+                    normalTabLb.animate()
+                            .setStartDelay(10)
+                            .setDuration(100)
+                            .alpha(1f)
+                            .start();
+                    incognitoLb.animate()
+                            .setStartDelay(10)
+                            .setDuration(100)
+                            .alpha(1f)
+                            .start();
+                    mainFab.animate()
+                            .setDuration(322)
+                            .rotationBy(45)
+                            .setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+                                    incognitoBtnL.invalidate();
+                                    normalTabBtnL.invalidate();
+                                    mainFabL.invalidate();
+                                    normalTabBtnL.bringToFront();
+                                    mainFabL.bringToFront();
+                                    incognitoBtnL.setTranslationY(0);
+                                    normalTabBtnL.setTranslationY(0);
+                                    mainFab.setRotation(0);
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    normalTabBtnL.setTranslationY(nby);
+                                    incognitoBtnL.setTranslationY(iby);
+                                    mainFab.setRotation(45);
+                                    normalTabBtnL.invalidate();
+                                    incognitoBtnL.invalidate();
+                                    mainFabL.invalidate();
+                                    normalTabBtnL.bringToFront();
+                                    mainFabL.bringToFront();
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+                                    onClick(view);
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+                                    // Not needed
+                                }
+                            })
+                            .start();
+                    isNewTabExpanded = true;
+                } else {
+                    incognitoLb.setAlpha(1f);
+                    normalTabLb.setAlpha(1f);
+                    incognitoBtnL.animate()
+                            .setDuration(320)
+                            .translationY(0)
+                            .start();
+                    normalTabBtnL.animate()
+                            .setDuration(320)
+                            .translationY(0)
+                            .start();
+                    normalTabLb.animate()
+                            .setStartDelay(160)
+                            .setDuration(140)
+                            .alpha(0f)
+                            .start();
+                    incognitoLb.animate()
+                            .setStartDelay(160)
+                            .setDuration(140)
+                            .alpha(0f)
+                            .start();
+                    mainFab.animate()
+                            .setDuration(320)
+                            .rotationBy(-45)
+                            .setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+                                    normalTabBtnL.clearFocus();
+                                    normalTabBtnL.refreshDrawableState();
+                                    incognitoBtnL.clearFocus();
+                                    incognitoBtnL.refreshDrawableState();
+                                    normalTabBtnL.invalidate();
+                                    incognitoBtnL.invalidate();
+                                    mainFabL.invalidate();
+                                    normalTabBtnL.bringToFront();
+                                    mainFabL.bringToFront();
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    incognitoBtnL.setVisibility(View.GONE);
+                                    normalTabBtnL.setVisibility(View.GONE);
+                                    normalTabBtnL.invalidate();
+                                    incognitoBtnL.invalidate();
+                                    mainFabL.invalidate();
+                                    normalTabBtnL.bringToFront();
+                                    mainFabL.bringToFront();
+                                    fabLayout.getLayoutParams().height = button.getHeight()
+                                            + DpUtil.dp2px(getContext(), 8);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+                                    // Not needed
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+                                    // Not needed
+                                }
+                            })
+                            .start();
+                    isNewTabExpanded = false;
+                }
+
+            }
+        };
 
         XquidRelativeLayout.LayoutParams fbtnlp = new XquidRelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -206,8 +441,10 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         );
         fbtnlp.addRule(XquidRelativeLayout.ALIGN_PARENT_BOTTOM);
         fbtnlp.addRule(XquidRelativeLayout.ALIGN_PARENT_RIGHT);
-        fbtnlp.setMarginsDp(0, 0, 12, 12, getContext());
-        mainView.addView(button, fbtnlp);
+        fbtnlp.setMarginsDp(0, 0, 0, 0, getContext());
+        mainView.addView(fabLayout, fbtnlp);
+
+        fabLayout.bringToFront();
 
         TextView infLpTv = new TextView(getContext());
         infLpTv.setText(getContext().getString(R.string.tabswitch_blue_longpress_to_remove));
@@ -227,7 +464,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     @Override
     public void init() {
         mainColor       = ColorUtil.getColor(R.color.blue_800);
-        int mainBgColor = ColorUtil.getColor(R.color.white_unnoticeable_opaque);
+        darkColor       = ColorUtil.getColor(R.color.dark_semi_bitless_transparent);
+        int mainBgColor = ColorUtil.getColor(R.color.white_semi_min_transparent);
 
         mainView = new XquidRelativeLayout(getContext());
         scrollView = new ScrollView(getContext());
@@ -253,8 +491,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
     }
 
     @Override
-    public void showTab(Tab tab) {
+    public void showTab(Tab tab, boolean isNew) {
         Logging.logd("Showing tab " + tab.tabId);
+        super.showTab(tab);
         CornBrowser.publicWebRenderLayout.removeAllViews();
         CornBrowser.publicWebRenderLayout.addView(tab.webView);
         CornBrowser.publicWebRender = tab.webView;
@@ -263,8 +502,13 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
         setLayoutTabId(currentTab, tab.tabId);
 
-        CornBrowser.applyInsideOmniText();
-        tabSwitchListener.onTabSwitched(tab);
+        CornBrowser.applyOnlyInsideOmniText();
+        if(!isNew) tabSwitchListener.onTabSwitched(tab);
+    }
+
+    @Override
+    public void showTab(Tab tab) {
+        showTab(tab, tab.isNew);
     }
 
     @Override
@@ -274,12 +518,16 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         XquidLinearLayout l = new XquidLinearLayout(getContext());
         l.setVerticalOrientation(true);
 
-        TextView titleView = getNewItemText();
-        titleView.setText(tab.getTitle());
+        TextView titleView = getNewItemText(tab);
+        titleView.setText(tab.getTitle().isEmpty() ?
+                (tab.isIncognito ? getContext().getString(R.string.tabswitch_new_incognito_tab)
+                                 : getContext().getString(R.string.tabswitch_new_tab))
+                : tab.getTitle());
+        Logging.logd("titleView text set to " + titleView.getText());
         titleView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         titleView.setSingleLine(true);
 
-        TextView urlView = getNewItemText();
+        TextView urlView = getNewItemText(tab);
         urlView.setText(tab.getUrl());
         urlView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         urlView.setSingleLine(true);
@@ -290,7 +538,8 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         l.addView(titleView);
         l.addView(urlView);
         l.addView(counterView);
-        l.addView(new SimpleSeparator(getContext()).setSeparatorColor(mainColor));
+        l.addView(new SimpleSeparator(getContext()).setSeparatorColor(
+                tab.isIncognito ? darkColor : mainColor));
 
         l.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,7 +569,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         });
 
         tabsLayout.addView(l);
-        showTab(getCurrentTab());
+        showTab(getCurrentTab(), true);
         tabSwitchListener.onTabAdded(tab);
     }
 
@@ -363,6 +612,9 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
             @Override
             public void run() {
                 mainView.bringToFront();
+                fabLayout.invalidate();
+                fabLayout.bringToFront();
+                mainFab.setOnClickListener(fabButtonListener);
             }
         };
         Thread animatorThread = new Thread(new Runnable() {
@@ -384,6 +636,49 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         });
         mainView.bringToFront();
         animatorThread.start();
+        fabLayout.getLayoutParams().width =
+                incognitoBtnL.getWidth() + incognitoLb.getWidth() + 2;
+        mainFab.animate()
+                .setDuration(1)
+                .rotationBy(0)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        normalTabBtnL.clearFocus();
+                        normalTabBtnL.refreshDrawableState();
+                        incognitoBtnL.clearFocus();
+                        incognitoBtnL.refreshDrawableState();
+                        normalTabBtnL.invalidate();
+                        incognitoBtnL.invalidate();
+                        mainFabL.invalidate();
+                        normalTabBtnL.bringToFront();
+                        mainFabL.bringToFront();
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        incognitoBtnL.setVisibility(View.GONE);
+                        normalTabBtnL.setVisibility(View.GONE);
+                        normalTabBtnL.invalidate();
+                        incognitoBtnL.invalidate();
+                        mainFabL.invalidate();
+                        normalTabBtnL.bringToFront();
+                        mainFabL.bringToFront();
+                        fabLayout.getLayoutParams().height = mainFabL.getHeight()
+                                + DpUtil.dp2px(getContext(), 8);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                        // Not needed
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+                        // Not needed
+                    }
+                })
+                .start();
     }
 
     @Override
@@ -465,6 +760,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
 
     public void updateAllTabs() {
         for ( Tab t : tabStorage.getTabList() ) {
+            if(t.isNew) continue;
             t.setUrl(t.webView.getUrl());
             t.setTitle(t.webView.getTitle());
             tabSwitchListener.onTabChanged(t, false);

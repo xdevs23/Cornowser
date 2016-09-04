@@ -38,6 +38,7 @@ import io.xdevs23.cornowser.browser.CornBrowser;
 import io.xdevs23.cornowser.browser.R;
 import io.xdevs23.cornowser.browser.browser.BrowserStorage;
 import io.xdevs23.cornowser.browser.browser.modules.CornHandler;
+import io.xdevs23.cornowser.browser.browser.modules.tabs.Tab;
 import io.xdevs23.cornowser.browser.browser.modules.ui.OmniboxAnimations;
 import io.xdevs23.cornowser.browser.browser.modules.ui.RenderColorMode;
 
@@ -66,6 +67,8 @@ public class CrunchyWalkView extends XWalkView {
     protected Bitmap favicon;
 
     protected String currentUrl, currentTitle;
+
+    protected Tab tab;
 
     protected boolean
             isLongPressDialogAv = true,
@@ -140,10 +143,16 @@ public class CrunchyWalkView extends XWalkView {
         super(context, activity);
     }
 
-    public static CrunchyWalkView newInstance(Activity activity, boolean isIncognito) {
+    public static CrunchyWalkView newInstance(Activity activity, boolean isIncognito, Tab tab) {
         return (new CrunchyWalkView(activity.getApplicationContext(), activity))
                 .setIncognito(isIncognito)
+                .setTab(tab)
                 .init();
+    }
+
+    private CrunchyWalkView setTab(Tab tab) {
+        this.tab = tab;
+        return this;
     }
 
     private CrunchyWalkView setIncognito(boolean enable) {

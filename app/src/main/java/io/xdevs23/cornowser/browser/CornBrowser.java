@@ -580,21 +580,35 @@ public class CornBrowser extends XquidCompatActivity {
         OmniboxAnimations.resetOmni();
     }
 
+    private static void detectSeparatorColor() {
+        try {
+            if (getWebEngine().getUrl().startsWith("https://")) {
+                getActivity().findViewById(R.id.omnibox_separator)
+                        .setBackgroundColor(ColorUtil.getColor(R.color.transGreen));
+            } else getActivity().findViewById(R.id.omnibox_separator)
+                    .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
+        } catch(Exception ex) {
+            getActivity().findViewById(R.id.omnibox_separator)
+                    .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
+        }
+    }
+
     /**
      * Set the text inside the omnibox
      */
     public static void applyOnlyInsideOmniText() {
+        if(getTabSwitcher().getCurrentTab().isNew) {
+            browserInputBar.setText("");
+            detectSeparatorColor();
+            return;
+        }
         try {
             String eurl = getWebEngine().getUrl();
             eurl = eurl.replaceFirst("^([^ ]*)://", "");
             if(eurl.substring(eurl.length() - 2, eurl.length() - 1).equals("/"))
                 eurl = eurl.substring(0, eurl.length() - 2);
             browserInputBar.setText(eurl);
-            if(getWebEngine().getUrl().startsWith("https://")) {
-                getActivity().findViewById(R.id.omnibox_separator)
-                        .setBackgroundColor(ColorUtil.getColor(R.color.transGreen));
-            } else getActivity().findViewById(R.id.omnibox_separator)
-                    .setBackgroundColor(ColorUtil.getColor(R.color.dark_semi_more_transparent));
+            detectSeparatorColor();
         } catch(Exception ex) {
             Logging.logd("Warning: Didn't succeed while applying inside omni text.");
         }

@@ -8,8 +8,10 @@ import io.xdevs23.cornowser.browser.browser.xwalk.CrunchyWalkView;
 
 public class Tab {
 
+    public boolean isNew = true;
     protected String tabUrl, tabTitle;
     protected CrunchyWalkView webView;
+    protected boolean isIncognito = false;
 
     public int tabId = 0;
 
@@ -32,12 +34,22 @@ public class Tab {
         this.tabId = tabId;
     }
 
+    public Tab(boolean incognito) {
+        this(incognito, "");
+    }
+
+    public Tab(boolean incognito, String url) {
+        this(url);
+        isIncognito = incognito;
+    }
+
     public Tab(TabStorage tabStorage, int tab) {
         this(tabStorage.getTab(tab).tabUrl, tabStorage.getTab(tab).tabTitle);
     }
 
     public Tab initWithWebRender(Context context, Activity activity) {
-        return setWebRender(CrunchyWalkView.newInstance(CornBrowser.getActivity(), false));
+        return setWebRender(
+                        CrunchyWalkView.newInstance(CornBrowser.getActivity(), isIncognito, this));
     }
 
     public Tab setWebRender(CrunchyWalkView view) {

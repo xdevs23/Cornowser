@@ -14,7 +14,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
     @Override
     public Tab addTab() {
         Tab tab = new Tab();
-        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false);
+        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false, tab);
         tabList.add(tab);
         return tab;
     }
@@ -22,7 +22,7 @@ public class TabStorage extends ExtendedAndroidClass implements TabStorageBase {
     @Override
     public Tab addTab(String url) {
         Tab tab = new Tab(url);
-        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false);
+        tab.webView = CrunchyWalkView.newInstance(CornBrowser.getActivity(), false, tab);
         tab.webView.load(url);
         tabList.add(tab);
         return tab;
