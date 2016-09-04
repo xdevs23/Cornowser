@@ -49,7 +49,7 @@ public class CrunchyWalkView extends XWalkView {
 
     public static final String HTTP_PREFIX = "http://";
     public static String
-            chromeVer = "Chrome/54.0.2830.1",
+            chromeVer = "Chrome/55.0.2849.1",
             webKitVer = "537.36",
             kernelVer = System.getenv("os.version"),
             userAgent =
