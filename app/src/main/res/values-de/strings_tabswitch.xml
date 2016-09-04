@@ -5,7 +5,7 @@
 
     <string name="tabswitch_no_removable_tabs">Keine entfernbaren Tabs</string>
 
-    <string name="tabswitch_new_tab">New tab</string>
-    <string name="tabswitch_new_incognito_tab">New incognito tab</string>
+    <string name="tabswitch_new_tab">Neuer tab</string>
+    <string name="tabswitch_new_incognito_tab">Neuer Incognito-Tab</string>
 
 </resources>
