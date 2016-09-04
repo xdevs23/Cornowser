@@ -305,6 +305,8 @@ public class CornUIClient extends XWalkUIClient {
 
         if(!url.contains("about:blank") && !url.contains("data:text/html;charset=utf-8;base64,"))
             CrunchyWalkView.fromXWalkView(view).getResourceClient().currentWorkingUrl = url;
+        else
+            CornBrowser.browserInputBar.setText("");
 
         CornBrowser.handleGoForwardControlVisibility();
 

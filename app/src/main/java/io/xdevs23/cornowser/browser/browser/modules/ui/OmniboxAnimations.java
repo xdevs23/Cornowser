@@ -5,6 +5,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 
+import org.xdevs23.debugutils.Logging;
+
 import io.xdevs23.cornowser.browser.CornBrowser;
 
 public class OmniboxAnimations {
@@ -58,7 +60,7 @@ public class OmniboxAnimations {
         float mov = (float) posY;
         if(mov > 0) CornBrowser.omnibox.bringToFront();
         if(posY == 0 && isTop()) opos = 0; cy = 0; ny = 0;
-        omniboxAnimate().translationY(mov + (isBottom() ? CornBrowser.omnibox.getHeight() : 0))
+        omniboxAnimate().translationY(mov + (isBottom() ? getOmniHeight() : 0))
                 // This listener is to fix glitches
                 .setListener(new Animator.AnimatorListener() {
             @Override
@@ -88,9 +90,7 @@ public class OmniboxAnimations {
 
     public static void resetOmni() {
         CornBrowser.omnibox.bringToFront();
-        animateOmni(0);
-        if(isTop()) CornBrowser.publicWebRenderLayout.setTranslationY(getOmniHeight());
-        else        CornBrowser.publicWebRenderLayout.setTranslationY(0);
+        animateOmni(isBottom() ? -getOmniHeight() : 0);
     }
 
     // Main listener for controlling omnibox show/hide animations

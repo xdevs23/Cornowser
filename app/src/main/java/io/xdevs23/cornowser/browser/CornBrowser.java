@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -42,6 +43,7 @@ import org.xdevs23.threads.Sleeper;
 import org.xdevs23.ui.utils.BarColors;
 import org.xdevs23.ui.utils.DpUtil;
 import org.xdevs23.ui.view.listview.XDListView;
+import org.xdevs23.ui.widget.SimpleSeparator;
 import org.xdevs23.ui.widget.TastyOverflowMenu;
 import org.xwalk.core.XWalkPreferences;
 
@@ -544,6 +546,25 @@ public class CornBrowser extends XquidCompatActivity {
         getActivity().findViewById(R.id.omnibox_layout_inner)
                 .setRotation(OmniboxControl.isBottom() ? 180f : 0);
 
+        SimpleSeparator omnisep =
+                (SimpleSeparator)getActivity().findViewById(R.id.omnibox_separator);
+        RelativeLayout.LayoutParams seplp = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                DpUtil.dp2px(getContext(), 1)
+        );
+        seplp.addRule(OmniboxAnimations.isTop() ? RelativeLayout.ALIGN_PARENT_BOTTOM
+                                                : RelativeLayout.ALIGN_PARENT_TOP);
+        omnisep.setLayoutParams(seplp);
+
+        RelativeLayout.LayoutParams prlp = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                DpUtil.dp2px(getContext(), 4)
+        );
+        prlp.addRule(OmniboxAnimations.isTop() ? RelativeLayout.ALIGN_PARENT_BOTTOM
+                : RelativeLayout.ALIGN_PARENT_TOP);
+
+        getWebProgressBar().setLayoutParams(prlp);
+
         omnibox.bringToFront();
         omniboxTinyItemsLayout.bringToFront();
         omniboxControls.bringToFront();
@@ -909,6 +930,7 @@ public class CornBrowser extends XquidCompatActivity {
             publicWebRender.resumeTimers();
             publicWebRender.onShow();
 
+            resetBarColor();
             WebThemeHelper.tintNow();
 
             if(!browserStorage.getOmniColoringEnabled())
