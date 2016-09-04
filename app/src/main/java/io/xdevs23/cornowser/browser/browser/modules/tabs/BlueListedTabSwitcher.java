@@ -699,6 +699,7 @@ public class BlueListedTabSwitcher extends BasicTabSwitcher {
         if(switcherStatus == SwitcherStatus.HIDDEN) return;
         super.hideSwitcher();
         Logging.logd("Hiding tab switcher");
+        if(isNewTabExpanded) mainFab.performClick();
         mainView.animate().setDuration(OmniboxAnimations.DEFAULT_ANIMATION_DURATION)
                 .translationY(mainView.getHeight())
                 .setListener(new Animator.AnimatorListener() {
