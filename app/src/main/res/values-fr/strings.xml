@@ -59,4 +59,10 @@
     <!-- Options menu -->
     <string name="optmenu_share">Partager</string>
 <string name="action_settings">Paramètres</string>
+
+    <string name="general_enable">Activer</string>
+    <string name="general_disable">Désactiver</string>
+
+    <string name="title_activity_bookmark_history">BookmarkHistoryActivity</string>
+    <string name="section_format">Hello World de la section: %1$d</string>
 </resources>
