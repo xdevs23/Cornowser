@@ -26,8 +26,8 @@
     <string name="webrender_ssl_error_title">Erreur SSL</string>
     <string name="webrender_ssl_error_message">
         Le certificat SSL de ce site web ne peut pas être vérifié, est invalide ou autre raison est parvenue 
-        lors du contrôle SSL. Il n'est pas recommandé de transmettre des informations personnelles et sensibles vers 
-        des sites non sécurisés. Souhaitez-vous poursuivre le chargement de cette page web ? Notez que si vous continuez, 
+        lors du contrôle SSL. Il n\'est pas recommandé de transmettre des informations personnelles et sensibles vers 
+        des sites non sécurisés. Souhaitez-vous poursuivre le chargement de cette page web? Notez que si vous continuez, 
         toute erreur SSL apparaissant sur ce même site sera ignorée le temps de cette session. 
     </string>
 
