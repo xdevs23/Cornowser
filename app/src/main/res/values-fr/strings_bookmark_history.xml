@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bkmhis_bookmarks_title">Favoris</string>
+    <string name="bkmhis_history_title">Historique</string>
+
+    <string name="bkmhis_delete_all">Tout supprimer</string>
+
+    <string name="bkmhis_view_bkmhis">Favoris &amp; Historique</string>
+    <string name="bkmhis_add_to_bkm">Ajouter comme favori</string>
+
+    <string name="bkmhis_longpress_delete">Appui long sur un élément pour le supprimer</string>
+</resources>
