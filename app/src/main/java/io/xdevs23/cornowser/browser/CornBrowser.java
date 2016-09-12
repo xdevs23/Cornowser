@@ -618,11 +618,9 @@ public class CornBrowser extends XquidCompatActivity {
      * Set the text inside the omnibox
      */
     public static void applyOnlyInsideOmniText() {
-        if(getTabSwitcher().getCurrentTab().isNew) {
+        if(getTabSwitcher().getCurrentTab().isNew)
             browserInputBar.setText("");
-            detectSeparatorColor();
-            return;
-        }
+
         try {
             String eurl = getWebEngine().getUrl();
             eurl = eurl.replaceFirst("^([^ ]*)://", "");
