@@ -6,7 +6,8 @@ CONTINUEXEC=true
 COMPILEAPP=false
 
 if [ "$1" == "--adbArgs" ]; then
-  ADBARGS="$2 $3 $4 $5 $6"
+  ADBARGS="$@"
+  ADBARGS="${ADBARGS/$1//}"
   COMPILEAPP=true
 fi
 
