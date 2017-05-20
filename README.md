@@ -6,6 +6,8 @@ The modern premium web browser for Android. This project is still in development
 
 <hr />
 
+**Important:** The Crosswalk project has been discontinued a while ago. Since it is practically dead and I don't have time for continuing development on this browser as of now, this project is (at least temporarily) discontinued.
+
 Cornowser is intended to be **fast**, **modern** and **inituitive**.
 Powered by the [Crosswalk rendering engine](http://crosswalk-project.org), basing on Chromium, this browser is as powerful and modern, as you get it from latest Chromium releases.
 
