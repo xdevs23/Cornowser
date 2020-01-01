@@ -39,30 +39,22 @@ See [our XDA thread with screenshots](http://forum.xda-developers.com/devdb/proj
 
 ##### MIT License
 
-Don't forget to mention me and don't change the license, everything else is described in the license. You can basically do whatever you want but there are some limitations. <img src="http://emojipedia-us.s3.amazonaws.com/cache/a3/22/a32265bb1e91b1f642f53fc4f4edb5cc.png" width="24" />
-
-Any version of Cornowser and full source until including the **git tag** <code>MIT</code> is licensed under the MIT license, any newer version and all sources are licensed under the MIT-SGV license. Exceptions may apply (external libraries etc. which have another license).
+Do whatever you want with it, but don't forget to mention me and don't change the license. <img src="http://emojipedia-us.s3.amazonaws.com/cache/a3/22/a32265bb1e91b1f642f53fc4f4edb5cc.png" width="24" />
 
 ```
-The MIT License by Simao Gomes Viana (MIT-SGV)
+The MIT License (MIT)
 
 Copyright (c) 2015-2016 Simao Gomes Viana
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute and to permit persons to whom
-the Software is furnished to do so, subject to the following conditions:
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software or in a separate file called
-LICENSE.
-
-Any distribution or modification of this software (that is accessible/available
-publicly) by anyone else than the original copyright holder must be fully
-available and up-to-date as open source.
-Exceptions apply when the original copyright holder explicitly permits the usage,
-modification, redistribution and/or any kind of distribution as a closed-source product.
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
