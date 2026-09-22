@@ -1,3 +1,5 @@
+
+
 # <img src="https://raw.githubusercontent.com/xdevs23/Cornowser/master/img/icons/icon_m_downsized.png" width="48" /><sup>Cornowser</sup>
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e26b6905697d4fdfb2a00d6db25decd3)](https://www.codacy.com/app/xdevs23/Cornowser?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xdevs23/Cornowser&amp;utm_campaign=Badge_Grade)
 [![Travis CI Badge](https://travis-ci.org/xdevs23/Cornowser.svg)](https://travis-ci.org/)<br />
@@ -8,7 +10,7 @@ The modern premium web browser for Android. This project is still in development
 
 **Important:** The Crosswalk project has been discontinued a while ago. Since it is practically dead and I don't have time for continuing development on this browser as of now, this project is (at least temporarily) discontinued.
 
-Cornowser is intended to be **fast**, **modern** and **inituitive**.
+Cornowser is intended to be **fast**, **modern** and **intuitive**.
 Powered by the [Crosswalk rendering engine](http://crosswalk-project.org), basing on Chromium, this browser is as powerful and modern, as you get it from latest Chromium releases.
 
 Also visit our [XDA thread](http://forum.xda-developers.com/android/apps-games/app-cornowser-t3287890)!
